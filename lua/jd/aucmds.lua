@@ -1,0 +1,80 @@
+local au = vim.api.nvim_create_autocmd
+local gr = vim.api.nvim_create_augroup
+
+local core = gr("core", { clear = true })
+local auto_updates = gr("auto_updates", { clear = true })
+local term = gr("term", { clear = true })
+
+
+-- Automatically deletes all trailing whitespace on save
+au('BufWritePre', {
+    command = [[%s/\s\+$//e]],
+    group = core,
+})
+
+-- resize panes when host window is resized
+au('VimResized', {
+    command = [[wincmd =]],
+    group = core,
+})
+
+-- " Disables automatic commenting on newline - Commentary
+au({'BufEnter','BufRead'}, {
+    callback = function()
+        vim.opt.formatoptions = vim.opt.formatoptions
+            + 'c' -- In general, I like it when comments respect textwidth
+            - 'o' -- O and o, don't continue comments
+            + 'r' -- But do continue when pressing enter.
+    end,
+    group = core,
+})
+
+au('BufWritePost', {
+    pattern = 'plugins.lua',
+    callback = function()
+		require 'jd.plugins'
+        require('packer').status()
+	end,
+    group = core,
+})
+
+au('TextYankPost', {
+    callback = function()
+        vim.highlight.on_yank {higroup="Yank", on_visual=false}
+    end,
+    group = core,
+})
+
+
+
+-- Auto updates
+local autoupdate = function(pattern, command)
+    au('BufWritePost', {
+        pattern = pattern,
+        command = command,
+        group = auto_updates,
+    })
+end
+
+autoupdate(vim.env.HOME..'/.config/shell/folders',                                     [[!shortcuts]])
+autoupdate(vim.env.HOME..'/Documents/customfiles/st-jd/config.def.h',                  [[!make && sudo make install]])
+autoupdate(vim.env.HOME..'/Documents/customfiles/dwm-jd/dwm.c',                        [[!make && sudo make install]])
+autoupdate(vim.env.HOME..'/Documents/customfiles/slstatus/config.h',                   [[!make && sudo make install && killall slstatus; setsid slstatus >/dev/null 2>&1 &]])
+autoupdate(vim.env.HOME..'/Documents/customfiles/xournalpp-shortcuts/plugin/main.lua', [[!cp -r ~/Documents/customfiles/xournalpp-shortcuts/plugin ~/.config/xournalpp/plugins]])
+autoupdate('*Xresources/*',                                                            [[!xrdb $XRESOURCES && pkill -USR1 st]])
+autoupdate('*sxhkdrc',                                                                 [[!pkill -USR1 sxhkd]])
+autoupdate('*dunstrc',                                                                 [[!killall dunst; setsid dunst >/dev/null 2>&1 &]])
+autoupdate('*praktikum/*plot.gnu,                                                      *optika/*plot.gnu', [[!gnuplot plot.gnu > loggg.txt]])
+autoupdate('fonts.conf',                                                               [[!fc-cache]])
+
+
+
+au('TermOpen', {
+    pattern = 'term://*',
+    command = [[setfiletype term]],
+    group = term,
+})
+au('TermOpen', {
+    command = [[startinsert | nnoremap <buffer> <A-x> <CMD>bd!<CR>]],
+    group = term,
+})

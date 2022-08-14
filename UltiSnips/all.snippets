@@ -1,0 +1,50 @@
+# snippet "^(#!)?(shebang)?" "shebang" r
+# #!/usr/bin/env ${1:sh}
+# endsnippet
+
+snippet #! "shebang" b
+#!/usr/bin/env ${1:sh}
+endsnippet
+
+snippet modsh "Vim modeline for sh" b
+# vim:ft=${1:sh}:
+endsnippet
+
+global !p
+def modeline(snip):
+	# Create anonymous snippet body
+	# ft = vim.current.buffer.options['ft'] or "filetype"
+	ft = vim.eval('&ft') or "filetype"
+	anon_snippet_body = vim.eval('printf(&cms," vim:ft=${1:' + ft + '}: ")')
+
+	# Expand anonymous snippet
+	snip.expand_anon(anon_snippet_body)
+endglobal
+
+# Must call in post_jump or similiar context, not in snippet body
+post_jump "modeline(snip)"
+snippet modeline "Vim modeline" b
+$0
+endsnippet
+
+
+## PythonX provides some usefull helper funcitons
+# global !p
+# import px.snippets
+# endglobal
+#
+# snippet pr "print debug" bw
+# `!p
+# prefix = t[1] + ": %q\\n' "
+# prefix = "{}:{}: {}".format(
+#     os.path.basename(px.buffer.get().name),
+#     str(px.cursor.get()[0]),
+#     prefix
+# )
+# `printf 'XXXXXX `!p snip.rv=prefix`$1 >&2
+# endsnippet
+#
+# post_jump "px.snippets.expand(snip)"
+# snippet pd "Description" b
+# pr$1 >${2:/tmp/debug}
+# endsnippet
