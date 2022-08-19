@@ -297,7 +297,8 @@ end
 function M.oldfiles()
 	require("telescope").extensions.frecency.frecency {
 		cwd = "~/",
-		sorter = require'telescope.config'.values.file_sorter()
+		sorter = require'telescope.config'.values.file_sorter(),
+		-- sorter = require "telescope.sorters".fuzzy_with_index_bias(),
 	}
 end
 

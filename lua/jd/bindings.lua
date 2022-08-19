@@ -5,14 +5,14 @@ vim.g.maplocalleader  = ' '
 nmap {
 	'<Leader><Leader>P',
 	function()
-		require 'jd.plugins'
+		R 'jd.plugins'
         require('packer').status()
 	end
 }
 nmap {
 	'<A-P>',
 	function()
-		require 'jd.plugins'
+		R 'jd.plugins'
         require('packer').sync()
 	end,
 }
@@ -49,10 +49,6 @@ imap {'<C-j>', '<C-n>', {remap=true}}
 imap {'<C-k>', '<C-p>', {remap=true}}
 cmap {'<C-j>', '<C-n>', {remap=true}}
 cmap {'<C-k>', '<C-p>', {remap=true}}
-
--- Surround.vim
-nmap {'s', 'ys', {remap=true}}
-xmap {'s', 'S', {remap=true}}
 
 map {'H', 'g^'}
 map {'L', 'g$'}
@@ -101,24 +97,23 @@ imap {'<C-h>', '<c-g>u<Esc>[s1z=`]a<c-g>u', {silent=true}}
 
 -- Replace all is aliased to S
 nmap { 'S', ':%s/' }
-nmap { '<A-S>', ':StartupTime<CR>' }
 
 -- Change perms -> Compile document -> Open document
-nmap { '+x', ':!chmod +x "<c-r>%"<CR>' }
-nmap { '<A-W>', ':w! <bar> split <bar> terminal compiler "<c-r>%"<CR>' }
-nmap { '<leader>W', ':w! <bar> !compiler "<c-r>%"<CR>' }
-nmap { '<leader><leader>v', ':!opout <c-r>%<CR><CR>' }
+nmap { '+x', '<CMD>!chmod +x "%:p"<CR>' }
+nmap { '<A-W>', '<CMD>w! <bar> split <bar> terminal compiler "%:p"<CR>' }
+nmap { '<leader>W', '<CMD>w! <bar> !compiler "%:p"<CR>' }
+nmap { '<leader><leader>v', '<CMD>!opout "%:p"<CR><CR>' }
 
 -- SudoWrite
-nmap { '<leader>sw', ':SudoWrite<CR>' }
+nmap { '<leader>sw', '<CMD>SudoWrite<CR>' }
 
 -- Executor
-nmap { '<leader>x', ':call Executor()<CR>' }
-vmap { '<leader>x', [[:<C-w>exe join(getline("'<","'>"),'<Bar>')<CR>]] }
+nmap { '<leader>x', '<CMD>call Executor()<CR>' }
+vmap { '<leader>x', [[<CMD><C-w>exe join(getline("'<","'>"),'<Bar>')<CR>]] }
 -- Save&Exec
-nmap { '<leader><leader>x', ':call SaveandExec()<CR>' }
-nmap { '<leader>X',         ':call SaveandExec()<CR>' }
+nmap { '<leader><leader>x', '<CMD>call SaveandExec()<CR>' }
+nmap { '<leader>X',         '<CMD>call SaveandExec()<CR>' }
 
 -- Toggle hlsearch
-nmap { '<A-CR>', ':let v:hlsearch=!v:hlsearch<CR>', {silent=true} }
+nmap { '<A-CR>', '<CMD>let v:hlsearch=!v:hlsearch<CR>', {silent=true} }
 tmap { '<A-CR>', '<C-\\><C-n><Cmd>let v:hlsearch=!v:hlsearch<CR>a', {silent=true} }

@@ -43,7 +43,6 @@ opt.spelllang     = 'sk,en_us'
 opt.signcolumn    = 'yes'
 opt.mouse         = 'a'
 opt.pumheight     = 25
-opt.pumblend      = 5
 opt.lazyredraw    = true
 opt.timeoutlen    = 500
 opt.updatetime    = 5		-- instant lazy-load of packages
@@ -86,8 +85,9 @@ opt.shortmess:append "cI"
 -- set_cursorline("WinEnter", true)
 -- set_cursorline("FileType", false, "TelescopePrompt")
 
-if vim.env.TERM == 'st-256color' then
-	vim.opt.termguicolors = true
+if vim.env.DISPLAY then
+	opt.termguicolors = true
+    opt.pumblend      = 5
 end
 
 vim.cmd "colorscheme noice"

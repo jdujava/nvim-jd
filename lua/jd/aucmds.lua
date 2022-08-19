@@ -32,8 +32,8 @@ au({'BufEnter','BufRead'}, {
 au('BufWritePost', {
     pattern = 'plugins.lua',
     callback = function()
-		require 'jd.plugins'
-        require('packer').status()
+		R 'jd.plugins'
+        require('packer').sync()
 	end,
     group = core,
 })

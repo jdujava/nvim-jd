@@ -52,21 +52,8 @@ local custom_attach = function(client)
 end
 
 local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
+updated_capabilities = require('cmp_nvim_lsp').update_capabilities(updated_capabilities)
 updated_capabilities = vim.tbl_extend('keep', updated_capabilities or {}, nvim_status.capabilities or {})
-updated_capabilities.textDocument.completion.completionItem.snippetSupport = true
-updated_capabilities.textDocument.completion.completionItem.preselectSupport = true
-updated_capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
-updated_capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
-updated_capabilities.textDocument.completion.completionItem.deprecatedSupport = true
-updated_capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
-updated_capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
-updated_capabilities.textDocument.completion.completionItem.resolveSupport = {
-	properties = {
-		"documentation",
-		"detail",
-		"additionalTextEdits",
-	},
-}
 
 -- local servers = {'vimls', 'clangd', 'texlab', 'bashls', 'sumneko_lua'}
 local servers = {
@@ -145,22 +132,6 @@ require('nlua.lsp.nvim').setup(lspconfig, {
 		"tmap", "xmap", "omap"
 	},
 })
-
--- local sumneko_root_path = "/home/jonas/.cache/nvim/nlua/sumneko_lua/lua-language-server"
--- local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
---
--- local luadev = require("lua-dev").setup({
--- 	-- add any options here, or leave empty to use the default settings
--- 	lspconfig = {
--- 		on_init = custom_init,
--- 		on_attach = custom_attach,
--- 		capabilities = updated_capabilities,
---
--- 		cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
--- 	},
--- })
---
--- lspconfig['sumneko_lua'].setup(luadev)
 
 -- ## was sometimes needed
 -- vim.cmd [[LspStart]]
