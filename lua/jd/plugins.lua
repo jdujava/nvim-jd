@@ -116,13 +116,7 @@ return require('packer').startup {function(use)
 	-- use {'tpope/vim-commentary', event = 'CursorHold', config=[[require'jd.plugins.vim-commentary']]} -- comments
 	use {'numToStr/Comment.nvim', event = 'CursorHold', config=[[require'jd.plugins.comment']]} -- comments
 	use {'tpope/vim-unimpaired', event = 'CursorHold'} -- mappings with [ and ]
-	use {'tpope/vim-repeat', event = 'CursorHold'}
-	use {'tpope/vim-surround', event = 'CursorHold',
-        config = function()
-            nmap {'s', 'ys', {remap=true}}
-            xmap {'s', 'S', {remap=true}}
-        end
-    } -- new commands to vim for generic brackets
+    use {'kylechui/nvim-surround', event = 'CursorHold', config=[[require'jd.plugins.surround']]}
 
 	use {'lewis6991/gitsigns.nvim', config=[[require'jd.plugins.gitsigns']], after = 'plenary.nvim'}
 	-- }}} Misc --
