@@ -29,9 +29,9 @@ return require('packer').startup {function(use)
 	use {'honza/vim-snippets', after = 'ultisnips'}
 	-- use {'reconquest/vim-pythonx', after = 'ultisnips'}
 	-- }}} Snippets --
-	-- Latex {{{ --
-	-- use {'lervag/vimtex', config=[[require'jd.plugins.vimtex']], ft = 'tex'}
-	use {'lervag/vimtex', config=[[require'jd.plugins.vimtex']]} -- reverse search works now
+	-- Latex {{{ -- reverse search works now
+	use {'lervag/vimtex', config=[[require'jd.plugins.vimtex']], event = 'CursorHold', cmd = 'VimtexInverseSearch'}
+	-- use {'lervag/vimtex', config=[[require'jd.plugins.vimtex']], opt=true}
 	-- }}} Latex
 	-- Nvim-cmp {{{ --
 	use {"hrsh7th/nvim-cmp", after = "cmp-nvim-lsp", config = [[require'jd.plugins.cmp']]}
