@@ -39,8 +39,8 @@ require('telescope').setup{
 			'--column',
 			'--smart-case'
 		},
-		prompt_prefix = "❯ ",
-		selection_caret = "❯ ",
+		prompt_prefix = "🔭 ",
+		selection_caret = "> ",
 
 		sorting_strategy = "ascending",
 		layout_config = {
@@ -58,11 +58,14 @@ require('telescope').setup{
 				preview_height = 0.5,
 			},
 		},
-		file_ignore_patterns = {
-			".zwc",
-		},
+		-- file_ignore_patterns = {
+		-- 	".zwc",
+		-- },
 		border = {},
 		borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+        prompt_title = '';
+        results_title = '';
+        preview_title = '';
 		color_devicons = true,
 		use_less = true,
 		path_display = {},
@@ -75,6 +78,7 @@ require('telescope').setup{
 			i = {
 				["<Esc>"] = actions.close,
 				["<C-y>"] = set_prompt_to_entry_value,
+				["<C-l>"] = actions.select_default,
 				["?"] = actions_layout.toggle_preview,
 			},
 		}
@@ -97,18 +101,15 @@ require('telescope').setup{
 			}
 		},
 		find_files = {
-			find_command = {
-				"fd", "--type", "f",
-				-- "--hidden",
-				"--follow",
-				"--strip-cwd-prefix",
-				"--ignore-file", "/home/jonas/.config/ripgrep/ignore",
-				"--ignore-file", "/home/jonas/.config/ripgrep/nvim-ignore",
-			}
-			-- theme = "dropdown",
-			-- layout_config = {
-			-- 	height=0.3,
-			-- }
+            find_command = {
+                "fd", "--type", "f",
+                -- "--base-directory", "/home/jonas",
+                "--hidden",
+                "--follow",
+                "--strip-cwd-prefix",
+                "--ignore-file", "/home/jonas/.config/fd/ignore",
+                "--ignore-file", "/home/jonas/.config/fd/nvim-ignore",
+            },
 		}
 	},
 	extensions = {
@@ -140,6 +141,31 @@ require('telescope').setup{
 	},
 }
 
+vim.api.nvim_set_hl(0, 'TelescopeSelectionCaret', { fg = '#ff87d7', bg = '#3e4452'} )
+-- local TelescopePrompt = {
+--     TelescopePromptNormal = {
+--         bg = '#2d3149',
+--     },
+--     TelescopePromptBorder = {
+--         bg = '#2d3149',
+--     },
+--     TelescopePromptTitle = {
+--         fg = '#2d3149',
+--         bg = '#2d3149',
+--     },
+--     TelescopePreviewTitle = {
+--         fg = '#1F2335',
+--         bg = '#1F2335',
+--     },
+--     TelescopeResultsTitle = {
+--         fg = '#1F2335',
+--         bg = '#1F2335',
+--     },
+-- }
+-- for hl, col in pairs(TelescopePrompt) do
+--     vim.api.nvim_set_hl(0, hl, col)
+-- end
+
 require("telescope").load_extension "ultisnips"
 -- pcall(require("telescope").load_extension, "fzf")
 require("telescope").load_extension "fzf"
@@ -150,29 +176,8 @@ local M = {}
 
 function M.edit_neovim()
 	require("telescope.builtin").find_files {
-		shorten_path = false,
 		cwd = "~/.config/nvim/",
 		prompt_title = "~ neovim dotfiles ~",
-		hidden = true,
-
-		layout_strategy = "horizontal",
-		layout_config = {
-			preview_width = 0.50,
-		},
-	}
-end
-
-function M.find_nvim_source()
-	require("telescope.builtin").find_files {
-		prompt_title = "~ nvim ~",
-		shorten_path = false,
-		cwd = "~/build/neovim/",
-
-		layout_strategy = "horizontal",
-		layout_config = {
-			-- width = 0.25,
-			preview_width = 0.35,
-		},
 	}
 end
 
@@ -231,7 +236,7 @@ function M.git_files()
 	end
 
 	local opts = themes.get_dropdown {
-		winblend = 5,
+		-- winblend = 5,
 		previewer = false,
 		shorten_path = false,
 
@@ -253,16 +258,6 @@ function M.buffer_git_files()
 		previewer = false,
 		shorten_path = false,
 	})
-end
-
-function M.lsp_code_actions()
-	local opts = themes.get_dropdown {
-		border = true,
-		previewer = false,
-		shorten_path = false,
-	}
-
-	require("telescope.builtin").lsp_code_actions(opts)
 end
 
 function M.live_grep()
@@ -369,15 +364,6 @@ end
 function M.search_all_files()
 	require("telescope.builtin").find_files {
 		cwd = "~",
-		find_command = {
-			"fd", "--type", "f",
-			-- "--base-directory", "/home/jonas",
-			"--hidden",
-			"--follow",
-			"--strip-cwd-prefix",
-			"--ignore-file", "/home/jonas/.config/ripgrep/ignore",
-			"--ignore-file", "/home/jonas/.config/ripgrep/nvim-ignore",
-		},
 		-- previewer = false,
 	}
 end

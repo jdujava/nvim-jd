@@ -1,9 +1,9 @@
 local au = vim.api.nvim_create_autocmd
 local gr = vim.api.nvim_create_augroup
 
-local core = gr("core", { clear = true })
-local auto_updates = gr("auto_updates", { clear = true })
-local term = gr("term", { clear = true })
+local core = gr("core", {})
+local auto_updates = gr("auto_updates", {})
+local term = gr("term", {})
 
 
 -- Automatically deletes all trailing whitespace on save
@@ -32,9 +32,9 @@ au({'BufEnter','BufRead'}, {
 au('BufWritePost', {
     pattern = 'plugins.lua',
     callback = function()
-		R 'jd.plugins'
+        R 'jd.plugins'
         require('packer').sync()
-	end,
+    end,
     group = core,
 })
 

@@ -45,13 +45,14 @@ opt.mouse         = 'a'
 opt.pumheight     = 25
 opt.lazyredraw    = true
 opt.timeoutlen    = 500
-opt.updatetime    = 5		-- instant lazy-load of packages
+opt.updatetime    = 5       -- instant lazy-load of packages
 opt.backup        = true
 opt.writebackup   = true
 opt.undofile      = true
 opt.swapfile      = true
 opt.undolevels    = 2000
 opt.backupdir     = (vim.env.XDG_STATE_HOME or vim.env.HOME.."/.local/state").."/nvim/backup"
+opt.list          = true
 opt.listchars     = [[tab:▶·,trail:_,extends:»,precedes:«,nbsp:·]]
 opt.fillchars     = [[vert:│,fold:·]]
 opt.shortmess:append "cI"

@@ -4,7 +4,7 @@
 
 vim.filetype.add({
 	extension = {
-		gnu = "gnuplot",
+		-- gnu = "gnuplot",
 		snippets = "snippets",
 	},
 	-- filename = {

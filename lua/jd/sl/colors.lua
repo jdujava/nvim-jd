@@ -41,13 +41,9 @@ end
 c.setStatusHi()
 
 -- set highlights on colorscheme change
-c.groupid = vim.api.nvim_create_augroup("StatusLine", {clear=true})
-vim.api.nvim_create_autocmd(
-	"ColorScheme",
-	{
-		callback=c.setStatusHi,
-		group=c.groupid
-	}
-)
+vim.api.nvim_create_autocmd("ColorScheme", {
+    callback=c.setStatusHi,
+    group=vim.api.nvim_create_augroup("StatusLine", {})
+})
 
 return c

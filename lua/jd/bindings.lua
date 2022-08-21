@@ -96,7 +96,7 @@ map  {'<Leader><Leader>s', '<Cmd>setlocal spell!<CR>', {silent=true}}
 imap {'<C-h>', '<c-g>u<Esc>[s1z=`]a<c-g>u', {silent=true}}
 
 -- Replace all is aliased to S
-nmap { 'S', ':%s/' }
+nmap { '<leader>S', ':%s/' }
 
 -- Change perms -> Compile document -> Open document
 nmap { '+x', '<CMD>!chmod +x "%:p"<CR>' }
