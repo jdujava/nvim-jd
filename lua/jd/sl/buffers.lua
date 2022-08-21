@@ -1,13 +1,14 @@
-local b = {}
+local B = {}
 
 local api = vim.api
-local icons   = require('jd.sl.devicon')
+local icons   = require('jd.sl.devicon').deviconTable
 local builder = require('jd.sl.builder')
 
-b.active_bufs = {}
+B.buffers = {}
 local ignore = {
-	["nofile"] = true,
-	["quickfix"] = true,
+    ["nofile"] = true,
+    ["quickfix"] = true,
+    ["prompt"] = true,
 }
 
 local getBufLabel = function(n)
@@ -15,7 +16,7 @@ local getBufLabel = function(n)
 	if filename == '' then
 		filename = "[No name]"
 	end
-	filename = icons.deviconTable[filename]..' '..filename
+	filename = icons[filename]..' '..filename
 	if vim.bo[n].readonly then
 		filename = filename.."[]"
 	end
@@ -26,33 +27,31 @@ local getBufLabel = function(n)
 end
 
 function BufferLine()
-	b.active_bufs = {}
-	local bufferline = ''
-	local buf_list = api.nvim_list_bufs()
-	local current_buf = api.nvim_get_current_buf()
-	for _, val in pairs(buf_list) do
-		if api.nvim_buf_is_loaded(val) and
-			api.nvim_buf_is_valid(val) and not ignore[vim.bo[val].buftype] then
-			table.insert(b.active_bufs, val)
-			local bufHi = "SlBufferLine"..(val == current_buf and "Sel" or "")
-			bufferline = bufferline..builder.item(bufHi,getBufLabel(val))
-		end
-	end
-	return bufferline
+    local current_buf = api.nvim_get_current_buf()
+    B.buffers = api.nvim_list_bufs()           -- get all buffers
+    B.buffers = vim.tbl_filter(function(b)     -- filter out only valid ones
+        return api.nvim_buf_is_loaded(b) and not ignore[vim.bo[b].buftype]
+    end, B.buffers)
+
+    local bufferline = ''
+    for _, b in pairs(B.buffers) do
+        local bufHi = "SlBufferLine"..(b == current_buf and "Sel" or "")
+        bufferline = bufferline..builder.item(bufHi,getBufLabel(b))
+    end
+    return bufferline
 end
 
 -- Buffer jumping
-function b.jumpBuf(buf)
-	if #b.active_bufs > 0 then
-		vim.cmd("b!"..b.active_bufs[math.min(#b.active_bufs,buf)])
-	else
-		vim.cmd [[echoerr "Err[BufferLine]: no buffers"]]
-	end
+function B.jumpBuf(buf)
+    if #B.buffers == 0 then
+        return print "Err[BufferLine]: no buffers"
+    end
+    api.nvim_set_current_buf(B.buffers[math.min(#B.buffers,buf)])
 end
 
 for i=1,9 do
-	map {'<A-'..i..'>', function() require'jd.sl.buffers'.jumpBuf(i) end, {silent = true}}
+    map {'<A-'..i..'>', function() require'jd.sl.buffers'.jumpBuf(i) end}
 end
 
 
-return b
+return B

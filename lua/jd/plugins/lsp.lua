@@ -3,13 +3,6 @@ if not has_lsp then
   return
 end
 local lspconfig_util = require "lspconfig.util"
-
-local has_status, nvim_status = pcall(require, 'lsp-status')
-if has_status then
-	local status = require('jd.sl.lsp_status')
-	status.activate() -- Turn on status.
-end
-
 local map_tele = require "jd.telescope.mappings"
 
 local custom_init = function(client)
@@ -17,11 +10,7 @@ local custom_init = function(client)
   client.config.flags.allow_incremental_sync = true
 end
 
-local custom_attach = function(client)
-	if has_status then
-		nvim_status.on_attach(client)
-	end
-
+local custom_attach = function()
 	local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
 	if filetype ~= 'tex' and filetype ~= 'lua' then
 		nmap { 'K', vim.lsp.buf.hover, {silent=true, buffer=0}}
@@ -53,7 +42,6 @@ end
 
 local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
 updated_capabilities = require('cmp_nvim_lsp').update_capabilities(updated_capabilities)
-updated_capabilities = vim.tbl_extend('keep', updated_capabilities or {}, nvim_status.capabilities or {})
 
 -- local servers = {'vimls', 'clangd', 'texlab', 'bashls', 'sumneko_lua'}
 local servers = {
