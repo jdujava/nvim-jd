@@ -12,21 +12,21 @@ local ignore = {
 }
 
 local function getBufLabel(n)
-	local filename = vim.fn.fnamemodify(api.nvim_buf_get_name(n), ":t")
-	if filename == '' then
-		filename = "[No name]"
-	end
+    local filename = vim.fn.fnamemodify(api.nvim_buf_get_name(n), ":t")
+    if filename == '' then
+        filename = "[No name]"
+    end
     if has_icons then
         local icon = icons.get_icon(filename, nil, {default = true})
         filename = icon..' '..filename
     end
-	if vim.bo[n].readonly then
-		filename = filename.."[]"
-	end
-	if vim.bo[n].modified then
-		filename = filename.."[+]"
-	end
-	return filename
+    if vim.bo[n].readonly then
+        filename = filename.."[]"
+    end
+    if vim.bo[n].modified then
+        filename = filename.."[+]"
+    end
+    return filename
 end
 
 function BufferLine()

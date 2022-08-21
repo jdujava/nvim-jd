@@ -11,33 +11,34 @@ local custom_init = function(client)
 end
 
 local custom_attach = function()
-	local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
-	if filetype ~= 'tex' and filetype ~= 'lua' then
-		nmap { 'K', vim.lsp.buf.hover, {silent=true, buffer=0}}
-	end
+    local buf_opts = {silent=true, buffer=0}
+    local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
+    if filetype ~= 'tex' and filetype ~= 'lua' then
+        nmap { 'K', vim.lsp.buf.hover, buf_opts}
+    end
 
-	nmap { '[e',         vim.diagnostic.goto_prev,                           {silent=true, buffer=0}}
-	nmap { ']e',         vim.diagnostic.goto_next,                           {silent=true, buffer=0}}
-	nmap { '<leader>vD', function() vim.diagnostic.open_float(0,{scope="line"}) end,        {silent=true, buffer=0}}
-	imap { '<c-s>',      vim.lsp.buf.signature_help,                         {silent=true, buffer=0}}
-	nmap { 'gD',         vim.lsp.buf.declaration,                            {silent=true, buffer=0}}
-	nmap { 'gT',         vim.lsp.buf.type_definition,                        {silent=true, buffer=0}}
-	nmap { '<leader>vd', vim.lsp.buf.definition,                             {silent=true, buffer=0}}
-	nmap { '<leader>vs', vim.lsp.buf.signature_help,                         {silent=true, buffer=0}}
-	nmap { 'gR',         vim.lsp.buf.rename,                                 {silent=true, buffer=0}}
-	nmap { 'gH',         vim.lsp.buf.hover,                                  {silent=true, buffer=0}}
-	nmap { 'gF',         vim.lsp.buf.formatting,                             {silent=true, buffer=0}}
-	nmap { 'gA',         vim.lsp.buf.code_action,                            {silent=true, buffer=0}}
-	nmap { '<leader>vS', require'lspconfig'["_root"].commands["LspStop"][1], {silent=true, buffer=0}}
-	nmap { '<leader>vI', require'lspconfig'["_root"].commands["LspInfo"][1], {silent=true, buffer=0}}
+    nmap { '[e',         vim.diagnostic.goto_prev,                                   buf_opts}
+    nmap { ']e',         vim.diagnostic.goto_next,                                   buf_opts}
+    nmap { '<leader>vD', function() vim.diagnostic.open_float(0,{scope="line"}) end, buf_opts}
+    imap { '<c-s>',      vim.lsp.buf.signature_help,                                 buf_opts}
+    nmap { 'gD',         vim.lsp.buf.declaration,                                    buf_opts}
+    nmap { 'gT',         vim.lsp.buf.type_definition,                                buf_opts}
+    nmap { '<leader>vd', vim.lsp.buf.definition,                                     buf_opts}
+    nmap { '<leader>vs', vim.lsp.buf.signature_help,                                 buf_opts}
+    nmap { 'gR',         vim.lsp.buf.rename,                                         buf_opts}
+    nmap { 'gH',         vim.lsp.buf.hover,                                          buf_opts}
+    nmap { 'gF',         function() vim.lsp.buf.format { async = true } end,         buf_opts}
+    nmap { 'gA',         vim.lsp.buf.code_action,                                    buf_opts}
+    nmap { '<leader>vS', require'lspconfig'["_root"].commands["LspStop"][1],         buf_opts}
+    nmap { '<leader>vI', require'lspconfig'["_root"].commands["LspInfo"][1],         buf_opts}
 
-	map_tele("gr",         "lsp_references",                nil,                        true)
-	map_tele("gd",		   "lsp_definitions",				nil,						true)
-	map_tele("gI",         "lsp_implementations",           nil,                        true)
-	map_tele("<leader>wd", "lsp_document_symbols",          { ignore_filename = true }, true)
-	map_tele("<leader>ww", "lsp_dynamic_workspace_symbols", { ignore_filename = true }, true)
+    map_tele("gr",         "lsp_references",                nil,                        true)
+    map_tele("gd",         "lsp_definitions",               nil,                        true)
+    map_tele("gI",         "lsp_implementations",           nil,                        true)
+    map_tele("<leader>wd", "lsp_document_symbols",          { ignore_filename = true }, true)
+    map_tele("<leader>ww", "lsp_dynamic_workspace_symbols", { ignore_filename = true }, true)
 
-	vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
+    vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
 end
 
 local updated_capabilities = vim.lsp.protocol.make_client_capabilities()

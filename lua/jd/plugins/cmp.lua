@@ -1,5 +1,4 @@
 local present, cmp = pcall(require, "cmp")
-
 if not present then
 	return
 end
@@ -48,12 +47,10 @@ cmp.setup {
 	},
 	window = {
 		completion = cmp.config.window.bordered({
-			border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
 			winhighlight = 'Normal:CmpBorderedWindow_Normal,FloatBorder:CmpBorderedWindow_FloatBorder,CursorLine:CmpBorderedWindow_CursorLine,Search:None'
 		}),
 		documentation = cmp.config.window.bordered({
-			border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
-			winhighlight = 'Normal:CmpBorderedWindow_Normal,FloatBorder:CmpBorderedWindow_FloatBorder,CursorLine:CmpBorderedWindow_CursorLine,Search:None'
+			winhighlight = 'Normal:CmpBorderedWindow_Normal,FloatBorder:CmpBorderedWindow_FloatBorder,Search:None'
 		}),
 	},
 	mapping = cmp.mapping.preset.insert({

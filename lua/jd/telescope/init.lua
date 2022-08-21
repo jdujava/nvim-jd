@@ -2,7 +2,7 @@ if not pcall(require, "telescope") then
 	return
 end
 
-SHOULD_RELOAD_TELESCOPE = false
+SHOULD_RELOAD_TELESCOPE = true
 
 local reloader = function()
 	if SHOULD_RELOAD_TELESCOPE then
@@ -41,6 +41,8 @@ require('telescope').setup{
 		},
 		prompt_prefix = "🔭 ",
 		selection_caret = "> ",
+        entry_prefix = "  ",
+        multi_icon = ">",
 
 		sorting_strategy = "ascending",
 		layout_config = {
@@ -61,13 +63,9 @@ require('telescope').setup{
 		-- file_ignore_patterns = {
 		-- 	".zwc",
 		-- },
-		border = {},
+		border = true,
 		borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
-        prompt_title = '';
-        results_title = '';
-        preview_title = '';
 		color_devicons = true,
-		use_less = true,
 		path_display = {},
 		set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
 		file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
@@ -110,6 +108,9 @@ require('telescope').setup{
                 "--ignore-file", "/home/jonas/.config/fd/ignore",
                 "--ignore-file", "/home/jonas/.config/fd/nvim-ignore",
             },
+            -- prompt_title = '',
+            -- results_title = '',
+            -- preview_title = '',
 		}
 	},
 	extensions = {
@@ -141,7 +142,9 @@ require('telescope').setup{
 	},
 }
 
-vim.api.nvim_set_hl(0, 'TelescopeSelectionCaret', { fg = '#ff87d7', bg = '#3e4452'} )
+vim.api.nvim_set_hl(0, 'TelescopeSelectionCaret', {fg = '#ff87d7', bg = '#252525'} )
+-- vim.api.nvim_set_hl(0, 'TelescopeMultiIcon', {fg = '#ff97e7'} )
+vim.api.nvim_set_hl(0, 'TelescopeSelection', {bg = '#252525', bold = true} )
 -- local TelescopePrompt = {
 --     TelescopePromptNormal = {
 --         bg = '#2d3149',
@@ -198,13 +201,11 @@ end
 function M.edit_config()
 	require('telescope').extensions.frecency.frecency {
 		default_text=":conf:",
-		sorter = require'telescope.config'.values.file_sorter()
 	}
 end
 function M.edit_custom()
 	require('telescope').extensions.frecency.frecency {
 		default_text=":cus:",
-		sorter = require'telescope.config'.values.file_sorter()
 	}
 end
 
@@ -292,8 +293,8 @@ end
 function M.oldfiles()
 	require("telescope").extensions.frecency.frecency {
 		cwd = "~/",
-		sorter = require'telescope.config'.values.file_sorter(),
-		-- sorter = require "telescope.sorters".fuzzy_with_index_bias(),
+		-- sorter = require'telescope.config'.values.file_sorter(),
+		sorter = require "telescope.sorters".fuzzy_with_index_bias(),
 	}
 end
 

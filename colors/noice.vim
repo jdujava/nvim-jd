@@ -31,7 +31,7 @@ hi  Type             guifg=#9cdcfe ctermfg=153  guibg=NONE    ctermbg=NONE gui=N
 hi  StorageClass     guifg=#9cdcfe ctermfg=153  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
 hi  Structure        guifg=#dcdcaa ctermfg=187  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
 hi  Typedef          guifg=#dcdcaa ctermfg=187  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
-hi  Special          guifg=#569cd6 ctermfg=74   guibg=NONE    ctermbg=NONE gui=italic       cterm=italic
+hi  Special          guifg=#569cd6 ctermfg=74   guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
 hi  SpecialComment   guifg=#5c6370 ctermfg=241  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
 hi  Error            guifg=#f44747 ctermfg=203  guibg=NONE    ctermbg=NONE gui=bold,reverse cterm=bold,reverse
 hi  Todo             guifg=#c586c0 ctermfg=175  guibg=NONE    ctermbg=NONE gui=bold,italic  cterm=bold,italic
@@ -225,7 +225,8 @@ hi CmpItemAbbrDeprecated gui=underline
 " hi link CmpItemKind TSComment
 " hi CmpItemMenu guifg='#ff0000'
 highlight! CmpBorderedWindow_Normal guibg=#202020
-highlight! CmpBorderedWindow_CursorLine guibg=#323232
+" highlight! CmpBorderedWindow_CursorLine guibg=#323232
+highlight! CmpBorderedWindow_CursorLine guibg=#252525 gui=bold
 highlight! CmpBorderedWindow_FloatBorder guibg=#1e1e1e
 
 highlight! CmpItemKindDefault guibg=NONE guifg=#569cd6
