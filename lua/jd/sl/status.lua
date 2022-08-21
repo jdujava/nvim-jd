@@ -9,7 +9,7 @@ local get_directory = function(width)
     return dir
 end
 
-local get_git_status = function()
+local function get_git_status()
   -- use fallback because it doesn't set this variable on the initial `BufEnter`
   local s = vim.b.gitsigns_status_dict or {head = '', added = 0, changed = 0, removed = 0}
   if s.head == '' then
@@ -18,22 +18,22 @@ local get_git_status = function()
   return string.format(' +%s ~%s -%s |  %s ', s.added, s.changed, s.removed, s.head)
 end
 
-StatusLine = function()
+function StatusLine()
 	local width = vim.opt.columns:get() - (vim.opt.spell:get() and 10 or 0)
 	local statusline = ""
 
-	-- Component: Mode
-	local mode = vim.api.nvim_get_mode().mode
-	statusline = statusline..builder.item(modes[mode][2],modes[mode][1])
+    -- Component: Mode
+    local mode = vim.api.nvim_get_mode().mode
+    statusline = statusline..builder(modes[mode][2],modes[mode][1])
 
     -- Component: Spell
-	if vim.o.spell then
-		statusline = statusline..builder.item("SlFiletype","Spell")
-	end
+    if vim.o.spell then
+        statusline = statusline..builder("SlFiletype","Spell")
+    end
 
     -- Component: Working Directory
     local dir = get_directory(width)
-    statusline = statusline..builder.item("SlDirectory",dir)
+    statusline = statusline..builder("SlDirectory",dir)
 
 	-- Component: Git status
 	local git_status = get_git_status()
@@ -44,9 +44,9 @@ StatusLine = function()
 	-- Alignment to right
 	statusline = statusline.."%="
 
-	-- Component: FileType
-	local filetype = vim.bo.filetype ~= '' and vim.bo.filetype or "none"
-	statusline = statusline..builder.item("SlFiletype",filetype)
+    -- Component: FileType
+    local filetype = vim.bo.filetype ~= '' and vim.bo.filetype or "none"
+    statusline = statusline..builder("SlFiletype",filetype)
 
 	-- Component: row and col
 	local allsize = string.len(vim.api.nvim_buf_line_count(0)) -- digits of all rows

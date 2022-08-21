@@ -59,7 +59,12 @@ return require('packer').startup {function(use)
 	use {'nvim-lua/plenary.nvim', config=[[require'jd.plugins.plenary']], event = 'CursorHold' }
 	-- use {'nvim-lua/plenary.nvim', config=[[require'jd.plugins.plenary']]}
 
-	use {'kyazdani42/nvim-web-devicons', event = 'CursorHold'}
+    -- use {'kyazdani42/nvim-web-devicons', config=function()
+    --     require("nvim-web-devicons").set_default_icon('', '#8b929f')
+    -- end, event = 'CursorHold'}
+    use {'kyazdani42/nvim-web-devicons', config=function()
+        require("nvim-web-devicons").set_default_icon('', '#8b929f')
+    end}
 	use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make', after = 'plenary.nvim'}
 	use {'fhill2/telescope-ultisnips.nvim', after = 'telescope-fzf-native.nvim'}
 	use {"tami5/sqlite.lua", after = 'telescope-ultisnips.nvim'}

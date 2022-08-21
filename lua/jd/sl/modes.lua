@@ -8,8 +8,8 @@ local modes = {
     ['S']  = {'S·Line',    'SlSLine'},
     [''] = {'S·Block',   'SlSBlock'},
     ['i']  = {'INSERT',    'SlInsert'},
-    ['ic'] = {'INSERT',    'SlInsertCompletion'},
-    ['ix'] = {'INSERT',    'SlInsertCompletion'},
+    ['ic'] = {'INSERT·c',  'SlInsertCompletion'},
+    ['ix'] = {'INSERT·x',  'SlInsertCompletion'},
     ['R']  = {'Replace',   'SlReplace'},
     ['Rv'] = {'V·Replace', 'SlVirtualReplace'},
     ['c']  = {'COMMAND',   'SlCommand'},
@@ -19,7 +19,7 @@ local modes = {
 
 return setmetatable(modes, {
     __index = function(_, k)
-        print("Err[BufferLine]: fallback from '"..k.."' to 'n' mode")
+        vim.notify("[BufferLine]: Fallback from '"..k.."' to 'n' mode.", vim.log.levels.WARN)
         return {'NORMAL', 'SlNormal'} -- default value
     end
 })
