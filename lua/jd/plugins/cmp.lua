@@ -66,27 +66,28 @@ cmp.setup {
 			},
 			{ "i", "c" }
 		),
-        ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-        ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+        -- ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+        -- ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+        ["<C-p>"] = cmp.mapping(function()
+            return cmp.select_prev_item() or cmp.complete()
+        end, { "i", "c" }),
+        ["<C-n>"] = cmp.mapping(function()
+            return cmp.select_next_item() or cmp.complete()
+        end, { "i", "c" }),
 		-- ['<C-e>'] = cmp.mapping({
 		-- 	i = cmp.mapping.abort(),
 		-- 	c = cmp.mapping.abort(),
 		-- 	-- c = cmp.mapping.close(),
 		-- }),
-        ["<C-Space>"] = cmp.mapping(
-			function()
-				if cmp.visible() then
-					if vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
-						return vim.fn["UltiSnips#ExpandSnippet"]()
-					end
-
-					cmp.select_next_item()
-				else
-					cmp.complete()
-				end
-			end,
-			{ "i", "s", "c" }
-		),
+        ["<C-Space>"] = cmp.mapping(function()
+            if cmp.visible() then
+                if vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
+                    return vim.fn["UltiSnips#ExpandSnippet"]()
+                end
+                return cmp.select_next_item()
+            end
+            cmp.complete()
+        end, { "i", "s", "c" }),
 	}),
 	sources = cmp.config.sources({
 		-- { name = 'treesitter' },
