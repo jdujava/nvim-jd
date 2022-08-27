@@ -130,3 +130,23 @@ cmp.setup.cmdline(':', {
 })
 
 -- vim.cmd[[autocmd FileType firenvim lua require('cmp').setup.buffer { enabled = false }]]
+
+local CmpHighlights = {
+    CmpGhostText = { fg = '#767676', bg = 'NONE' },
+    CmpItemAbbr = { link = 'CmpGhostText' },
+    CmpItemAbbrMatch = { fg = '#dbe2ef', bg = 'NONE' },
+    CmpItemAbbrDeprecated = { underline = true },
+    CmpBorderedWindow_Normal = { bg = '#202020' },
+    CmpBorderedWindow_CursorLine = { bg = '#252525', bold = true },
+    CmpBorderedWindow_FloatBorder = { bg = '#1e1e1e' },
+
+    CmpItemKind = { bg = 'NONE', fg = '#569cd6' },
+    CmpItemKindDefault = { bg = 'NONE', fg = '#569cd6' },
+    CmpItemKindFunction = { bg = 'NONE', fg = '#C586C0' },
+    CmpItemKindMethod = { bg = 'NONE', fg = '#C586C0' },
+    CmpItemKindVariable = { bg = 'NONE', fg = '#9CDCFE' },
+    CmpItemKindKeyword = { bg = 'NONE', fg = '#D4D4D4' },
+}
+for hl, col in pairs(CmpHighlights) do
+    vim.api.nvim_set_hl(0, hl, col)
+end

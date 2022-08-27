@@ -59,10 +59,11 @@ hi  LineNr           guifg=#64636d ctermfg=240  guibg=NONE    ctermbg=NONE gui=b
 hi  LineNrAbove      guifg=#4b5263 ctermfg=240  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
 hi  LineNrBelow      guifg=#4b5263 ctermfg=240  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
 hi  NonText          guifg=#3b4048 ctermfg=238  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
-hi  Pmenu            guifg=#abb2bf ctermfg=249  guibg=#202020 ctermbg=236  gui=NONE         cterm=NONE
-hi  PmenuSel         guifg=#dbd2df ctermfg=234  guibg=#323232 ctermbg=74   gui=NONE         cterm=NONE
-hi  PmenuSbar        guifg=#dbd2df ctermfg=NONE guibg=#202020 ctermbg=238  gui=NONE         cterm=NONE
+hi  Pmenu            guifg=#abb2bf ctermfg=249  guibg=#262626 ctermbg=236  gui=NONE         cterm=NONE
+hi  PmenuSel         guifg=#dbd2df ctermfg=234  guibg=#323232 ctermbg=74   gui=bold         cterm=bold
+hi  PmenuSbar        guifg=#dbd2df ctermfg=NONE guibg=#262626 ctermbg=238  gui=NONE         cterm=NONE
 hi  PmenuThumb       guifg=NONE    ctermfg=NONE guibg=#abb2bf ctermbg=249  gui=NONE         cterm=NONE
+hi  FloatBorder                                 guibg=#262626
 hi  Question         guifg=#c586c0 ctermfg=175  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
 hi  QuickFixLine     guifg=#1e1e1e ctermfg=234  guibg=#dcdcaa ctermbg=187  gui=NONE         cterm=NONE
 hi  Search           guifg=none    ctermfg=234  guibg=#343434 ctermbg=187  gui=underline    cterm=underline
@@ -208,58 +209,4 @@ sign define DiagnosticSignHint  text=󰛩 texthl=DiagnosticHint  linehl= numhl=
     " INFO = "",
     " HINT = "",
 
-hi QuickScopePrimary   guifg='#5fffff' gui=underline,bold ctermfg=81    cterm=underline
-hi QuickScopeSecondary guifg='#afff5f' gui=underline,bold ctermfg=155   cterm=underline
-hi Floaterm            guibg=NONE
-" hi FloatermBorder      guibg=#202020   guifg=#252525
-hi link FloatermBorder Normal
 hi Yank                guifg=none      ctermfg=234        guibg=#343434 ctermbg=187 gui=NONE cterm=NONE
-
-" Completition - cmp.nvim
-hi CmpGhostText guifg=#767676 ctermfg=65   guibg=NONE    ctermbg=NONE
-hi link CmpItemAbbr CmpGhostText
-" hi  CmpItemAbbr            guifg=#abb2bf ctermfg=249  guibg=#282c34 ctermbg=236  gui=italic		cterm=NONE
-hi  CmpItemAbbrMatch           guifg=#dbe2ef ctermfg=249  guibg=NONE    ctermbg=234  gui=NONE         cterm=NONE
-hi CmpItemAbbrDeprecated gui=underline
-" hi CmpItemAbbrDeprecated guifg='#ff0000'
-" hi link CmpItemKind TSComment
-" hi CmpItemMenu guifg='#ff0000'
-highlight! CmpBorderedWindow_Normal guibg=#202020
-" highlight! CmpBorderedWindow_CursorLine guibg=#323232
-highlight! CmpBorderedWindow_CursorLine guibg=#252525 gui=bold
-highlight! CmpBorderedWindow_FloatBorder guibg=#1e1e1e
-
-highlight! CmpItemKindDefault guibg=NONE guifg=#569cd6
-highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0
-highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0
-highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE
-highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
-highlight! CmpItemKind guibg=NONE guifg=#569cd6
-
-
-" hi texCmd ctermfg=1
-" hi texArg ctermfg=140
-" hi texOpt ctermfg=140
-
-" hi texCmdParts ctermfg=140
-" hi texPartArgTitle ctermfg=140
-" hi texCmdTitle ctermfg=140
-" hi texCmdAuthor ctermfg=140
-" hi texTitleArg ctermfg=140
-" hi texAuthorArg ctermfg=140
-" hi texFootnoteArg ctermfg=140
-
-" environments
-" hi texCmdEnv ctermfg=12
-hi texEnvArgName ctermfg=4
-" hi texEnvOpt ctermfg=140
-
-" hi texMathZone ctermfg=12
-" hi texMathDelim ctermfg=12
-" hi texMathDelimZone ctermfg=12
-" hi texMathCmd ctermfg=12
-" hi texMathCmdEnv ctermfg=12
-" hi texMathCmdEnvArgName ctermfg=4
-" hi texCmdMathText ctermfg=140
-" hi! link texCmdMathEnv  texMathCmdEnv
-hi texMathEnvArgName ctermfg=4

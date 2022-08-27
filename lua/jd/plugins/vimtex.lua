@@ -23,3 +23,29 @@ vim.g.vimtex_fold_bib_enabled = 1
 vim.g.vimtex_syntax_enabled = 1
 vim.opt.conceallevel=2
 
+-- " hi texCmd ctermfg=1
+-- " hi texArg ctermfg=140
+-- " hi texOpt ctermfg=140
+--
+-- " hi texCmdParts ctermfg=140
+-- " hi texPartArgTitle ctermfg=140
+-- " hi texCmdTitle ctermfg=140
+-- " hi texCmdAuthor ctermfg=140
+-- " hi texTitleArg ctermfg=140
+-- " hi texAuthorArg ctermfg=140
+-- " hi texFootnoteArg ctermfg=140
+--
+-- " environments
+-- " hi texCmdEnv ctermfg=12
+-- " hi texEnvArgName ctermfg=4
+-- " hi texEnvOpt ctermfg=140
+--
+-- " hi texMathZone ctermfg=12
+-- " hi texMathDelim ctermfg=12
+-- " hi texMathDelimZone ctermfg=12
+-- " hi texMathCmd ctermfg=12
+-- " hi texMathCmdEnv ctermfg=12
+-- " hi texMathCmdEnvArgName ctermfg=4
+-- " hi texCmdMathText ctermfg=140
+-- " hi! link texCmdMathEnv  texMathCmdEnv
+-- " hi texMathEnvArgName ctermfg=4

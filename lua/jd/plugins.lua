@@ -47,6 +47,8 @@ return require('packer').startup {function(use)
 	use {'tjdevries/nlua.nvim', after = "cmp-nvim-lsp"}
 	use {'neovim/nvim-lspconfig', config=[[require'jd.plugins.lsp']], after = 'nlua.nvim'}
 	-- }}} LSP --
+
+    use {'j-hui/fidget.nvim', config = [[require'jd.plugins.fidget']], after = 'nvim-lspconfig'}
 	-- Treesitter {{{ --
 	use {'nvim-treesitter/nvim-treesitter', run=':TSUpdate', event = 'CursorHold', config=[[require'jd.plugins.treesitter']]} -- better highlight
 	use {'nvim-treesitter/playground', after = 'nvim-treesitter'}
@@ -70,13 +72,13 @@ return require('packer').startup {function(use)
 	use {"tami5/sqlite.lua", after = 'telescope-ultisnips.nvim'}
 	use {"nvim-telescope/telescope-frecency.nvim", after = 'sqlite.lua'}
 	use {'nvim-telescope/telescope-ui-select.nvim', after = 'telescope-frecency.nvim'}
-	use {'nvim-telescope/telescope.nvim',
+	use {'nvim-telescope/telescope.nvim', after = 'telescope-ui-select.nvim',
 		config = function()
 			require'jd.telescope'
 			require'jd.telescope.mappings'
 		end,
-		after = 'telescope-ui-select.nvim',
 	}
+    use {'rcarriga/nvim-notify', config=[[require'jd.plugins.notify']], after = 'telescope.nvim' }
 	-- }}} Telescope --
 	-- Misc {{{ --
 
@@ -104,11 +106,17 @@ return require('packer').startup {function(use)
 			nmap { '<leader>A', '^vio<C-V>$A', {remap=true}}
 		end
 	}
-    use {'tweekmonster/startuptime.vim', event = 'CursorHold',
+    -- use {'tweekmonster/startuptime.vim', event = 'CursorHold',
+    --     config = function()
+    --         nmap { '<A-S>', ':StartupTime<CR>' }
+    --     end
+    -- }
+    use {'dstein64/vim-startuptime', event = 'CursorHold',
         config = function()
-            nmap { '<A-S>', ':StartupTime<CR>' }
+            nmap { '<A-S>', ':StartupTime --tries 10<CR>' }
         end
     }
+
 
 	use {'norcalli/nvim-colorizer.lua', branch = 'color-editor', event = 'CursorHold',
 		config = function()
@@ -116,19 +124,19 @@ return require('packer').startup {function(use)
 			nmap { '<Leader><Leader>C', require'colorizer'.color_picker_on_cursor }
 		end
 	} -- high-performance color highlighter for Neovim
-	use {'unblevable/quick-scope', setup = [[vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}]], event = 'CursorHold'}
-	use {'junegunn/vim-easy-align', event = 'CursorHold', config=[[require'jd.plugins.vim-easy-align']]} -- use easy-align, instead of tabular
-	-- use {'tpope/vim-commentary', event = 'CursorHold', config=[[require'jd.plugins.vim-commentary']]} -- comments
-	use {'numToStr/Comment.nvim', event = 'CursorHold', config=[[require'jd.plugins.comment']]} -- comments
+    use {'phaazon/hop.nvim', config = [[require'jd.plugins.hop']], event = 'CursorHold'}
+	use {'junegunn/vim-easy-align', config=[[require'jd.plugins.vim-easy-align']], event = 'CursorHold'} -- use easy-align, instead of tabular
 	use {'tpope/vim-unimpaired', event = 'CursorHold'} -- mappings with [ and ]
-    use {'kylechui/nvim-surround', event = 'CursorHold', config=[[require'jd.plugins.surround']]}
+	use {'tpope/vim-scriptease', event = 'CursorHold'} -- mappings with [ and ]
 
+	use {'numToStr/Comment.nvim', config=[[require'jd.plugins.Comment']], event = 'CursorHold'} -- comments
+    use {'kylechui/nvim-surround', config=[[require'jd.plugins.surround']], event = 'CursorHold'}
 	use {'lewis6991/gitsigns.nvim', config=[[require'jd.plugins.gitsigns']], after = 'plenary.nvim'}
 	-- }}} Misc --
-    -- Random {{{ --
-	-- use {'vigoux/ltex-ls.nvim', config=[[require'jd.plugins.ltex-ls']], after = 'nvim-lspconfig'}
-    -- use {'vigoux/LanguageTool.nvim' } -- old, "ltex-ls" is newer
-    -- use {'anufrievroman/vim-angry-reviewer', event = 'CursorHold' }
-    -- }}} Random --
 
-end}
+end,
+config = {
+    display = {
+        prompt_border = 'rounded', -- Border style of prompt popups.
+    },
+}}
