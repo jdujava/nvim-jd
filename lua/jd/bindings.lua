@@ -2,20 +2,21 @@ vim.g.mapleader       = ' '
 vim.g.maplocalleader  = ' '
 
 -- Packer
-nmap {
-	'<Leader><Leader>P',
-	function()
-		R 'jd.plugins'
-        require('packer').status()
-	end
-}
-nmap {
-	'<A-P>',
-	function()
-		R 'jd.plugins'
-        require('packer').sync()
-	end,
-}
+nmap {'<Leader><Leader>P', function()
+    R 'jd.plugins'
+    require('packer').status()
+end }
+nmap {'<A-P>', function()
+    R 'jd.plugins'
+    require('packer').sync()
+end }
+
+-- open link in browser/pdf-viewer
+map {'<A-~>', function()
+    local link = vim.fn.expand('<cWORD>'):gsub('^%[(.*)%]$', '%1')
+    -- vim.notify {link}
+    vim.fn.jobstart({'xdg-open', link}, {detach = true})
+end }
 
 -- Alt maps
 for _,i in ipairs{'h','j','k','l'} do
@@ -67,10 +68,6 @@ xmap {'<',       '<gv',                 {silent=true}}
 xmap {'>',       '>gv',                 {silent=true}}
 xmap {'<Space>', 'I<Space><ESC>gv',     {silent=true}}
 
--- Swap words
-nmap { "gw", [[mw"_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`w:noh<CR>]] }
-
-
 -- Swap implementations of ` and ' jump to markers
 nmap { "'", "`" }
 nmap { "`", "'" }
@@ -82,14 +79,32 @@ omap { "p", "i(" }
 omap { "[", "i[", {nowait=true}}
 omap { "b", "i{" }
 
-nmap { 'q:', '<nop>' }
-nmap { 'q/', '<nop>' }
-nmap { 'q?', '<nop>' }
-nmap { '<C-z>', '<nop>' }
+map { 'q:', '<nop>' }
+map { 'q/', '<nop>' }
+map { 'q?', '<nop>' }
+map { '<C-z>', '<nop>' }
 
--- -- Fixed I/A for visual
-xmap {'I', [[mode() ==# 'v' ? "\<C-v>I" : mode() ==# 'V' ? "\<C-v>^o^I" : "I"]], {expr=true}}
-xmap {'A', [[mode() ==# 'v' ? "\<C-v>A" : mode() ==# 'V' ? "\<C-v>Oo$A" : "A"]], {expr=true}}
+-- Fixed I/A for visual
+xmap {'I', function()
+    local mode = vim.api.nvim_get_mode().mode
+    if mode == 'v' then
+        return "<C-v>I"
+    elseif mode == 'V' then
+        return "<C-v>^o^I"
+    else
+        return "I"
+    end
+end, {expr=true}}
+xmap {'A', function()
+    local mode = vim.api.nvim_get_mode().mode
+    if mode == 'v' then
+        return "<C-v>A"
+    elseif mode == 'V' then
+        return "<C-v>Oo$A"
+    else
+        return "A"
+    end
+end, {expr=true}}
 
 -- Spell-check
 map  {'<Leader><Leader>s', '<Cmd>setlocal spell!<CR>', {silent=true}}

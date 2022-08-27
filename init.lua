@@ -4,7 +4,7 @@ require 'jd.cmds'
 require 'jd.bindings'
 require 'jd.aucmds'
 require 'jd.abbr'
-require 'jd.filetype'
+-- require 'jd.filetype' -- everything works out of the box..
 
 -- statusline + bufferline
 require 'jd.sl'

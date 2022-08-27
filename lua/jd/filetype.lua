@@ -5,12 +5,12 @@
 vim.filetype.add({
 	extension = {
 		-- gnu = "gnuplot",
-		snippets = "snippets",
+		-- snippets = "snippets",
 	},
 	-- filename = {
 	-- 	[".foorc"] = "foorc",
 	-- },
 	pattern = {
-		["neomutt-.*"] = "mail",
+		-- ["neomutt-.*"] = "mail",
 	},
 })
