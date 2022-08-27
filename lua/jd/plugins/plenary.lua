@@ -1,8 +1,3 @@
-function _G.P(v)
-	print(vim.inspect(v))
-	return v
-end
-
 if pcall(require, "plenary") then
 	RELOAD = require("plenary.reload").reload_module
 

@@ -77,7 +77,7 @@ require('telescope').setup{
 				["<Esc>"] = actions.close,
 				["<C-y>"] = set_prompt_to_entry_value,
 				["<C-l>"] = actions.select_default,
-				["?"] = actions_layout.toggle_preview,
+				["<A-/>"] = actions_layout.toggle_preview,
 			},
 		}
 	},
@@ -89,12 +89,12 @@ require('telescope').setup{
 			previewer = false,
 			mappings = {
 				i = {
-					["<c-d>"] = require("telescope.actions").delete_buffer,
+					["<c-d>"] = actions.delete_buffer,
 					-- Right hand side can also be the name of the action as a string
 					-- ["<c-d>"] = "delete_buffer",
 				},
 				n = {
-					["<c-d>"] = require("telescope.actions").delete_buffer,
+					["<c-d>"] = actions.delete_buffer,
 				}
 			}
 		},
@@ -134,7 +134,7 @@ require('telescope').setup{
 			}
 		},
 		["ui-select"] = {
-			require("telescope.themes").get_dropdown {
+			themes.get_dropdown {
 				-- even more opts
 			}
 		}
@@ -142,9 +142,9 @@ require('telescope').setup{
 	},
 }
 
-vim.api.nvim_set_hl(0, 'TelescopeSelectionCaret', {fg = '#ff87d7', bg = '#252525'} )
+vim.api.nvim_set_hl(0, 'TelescopeSelectionCaret', {fg = '#ff87d7', bg = '#262626'} )
 -- vim.api.nvim_set_hl(0, 'TelescopeMultiIcon', {fg = '#ff97e7'} )
-vim.api.nvim_set_hl(0, 'TelescopeSelection', {bg = '#252525', bold = true} )
+vim.api.nvim_set_hl(0, 'TelescopeSelection', {bg = '#262626', bold = true} )
 -- local TelescopePrompt = {
 --     TelescopePromptNormal = {
 --         bg = '#2d3149',
@@ -175,43 +175,22 @@ require("telescope").load_extension "fzf"
 require("telescope").load_extension "frecency"
 require("telescope").load_extension "ui-select"
 
+require("telescope").load_extension "messages"
+
 local M = {}
 
 function M.edit_neovim()
 	require("telescope.builtin").find_files {
 		cwd = "~/.config/nvim/",
-		prompt_title = "~ neovim dotfiles ~",
+		prompt_title = "Neovim Dotfiles",
 	}
 end
 
 function M.edit_zsh()
 	require("telescope.builtin").find_files {
-		shorten_path = false,
 		cwd = "~/.config/zsh/",
-		prompt_title = "~ zsh dotfiles ~",
-		hidden = true,
-
-		layout_strategy = "horizontal",
-		layout_config = {
-			preview_width = 0.50,
-		},
+		prompt_title = "Zsh Dotfiles",
 	}
-end
-
-function M.edit_config()
-	require('telescope').extensions.frecency.frecency {
-		default_text=":conf:",
-	}
-end
-function M.edit_custom()
-	require('telescope').extensions.frecency.frecency {
-		default_text=":cus:",
-	}
-end
-
-function M.fd()
-	local opts = themes.get_ivy { hidden = true }
-	require("telescope.builtin").fd(opts)
 end
 
 function M.builtin()
@@ -225,69 +204,11 @@ function M.builtin()
 	require("telescope.builtin").builtin(opts)
 end
 
-function M.git_files()
-	local path = vim.fn.expand "%:h"
-	if path == "" then
-		path = nil
-	end
-
-	local width = 0.25
-	if string.find(path, "sourcegraph.*sourcegraph", 1, false) then
-		width = 0.5
-	end
-
-	local opts = themes.get_dropdown {
-		-- winblend = 5,
-		previewer = false,
-		shorten_path = false,
-
-		cwd = path,
-
-		layout_config = {
-			width = width,
-		},
-	}
-
-	require("telescope.builtin").git_files(opts)
-end
-
-function M.buffer_git_files()
-	require("telescope.builtin").git_files(themes.get_dropdown {
-		cwd = vim.fn.expand "%:p:h",
-		winblend = 10,
-		border = true,
-		previewer = false,
-		shorten_path = false,
-	})
-end
-
 function M.live_grep()
 	require("telescope.builtin").live_grep {
 		-- shorten_path = true,
 		-- previewer = true,
-		-- fzf_separator = "|>",
 	}
-end
-
-function M.grep_prompt()
-	require("telescope.builtin").grep_string {
-		path_display = { "shorten" },
-		search = vim.fn.input "Grep String > ",
-	}
-end
-
-function M.grep_last_search(opts)
-	opts = opts or {}
-
-	-- \<getreg\>\C
-	-- -> Subs out the search things
-	local register = vim.fn.getreg("/"):gsub("\\<", ""):gsub("\\>", ""):gsub("\\C", "")
-
-	opts.path_display = { "shorten" }
-	opts.word_match = "-w"
-	opts.search = register
-
-	require("telescope.builtin").grep_string(opts)
 end
 
 function M.oldfiles()
@@ -356,10 +277,19 @@ function M.ultisnips()
 	-- require("telescope").extensions.ultisnips.ultisnips{}
 end
 
+function M.messages()
+    local opts = {
+        sorting_strategy = "descending",
+        layout_config = {
+            prompt_position = "bottom",
+        }
+    }
+    require("telescope").extensions.messages.messages(opts)
+    -- require("telescope").extensions.ultisnips.ultisnips{}
+end
+
 function M.help_tags()
-	require("telescope.builtin").help_tags {
-		show_version = true,
-	}
+	require("telescope.builtin").help_tags {}
 end
 
 function M.search_all_files()
@@ -369,59 +299,8 @@ function M.search_all_files()
 	}
 end
 
-function M.git_status()
-	local opts = themes.get_dropdown {
-		winblend = 10,
-		border = true,
-		previewer = false,
-		shorten_path = false,
-	}
-
-	-- Can change the git icons using this.
-	-- opts.git_icons = {
-	-- 	changed = "M"
-	-- }
-
-	require("telescope.builtin").git_status(opts)
-end
-
-function M.git_commits()
-	require("telescope.builtin").git_commits {
-		winblend = 5,
-	}
-end
-
-function M.search_only_certain_files()
-	require("telescope.builtin").find_files {
-		find_command = {
-			"rg",
-			"--files",
-			"--type",
-			vim.fn.input "Type: ",
-		},
-	}
-end
-
-function M.lsp_references()
-	require("telescope.builtin").lsp_references {
-		layout_strategy = "vertical",
-		layout_config = {
-			prompt_position = "top",
-		},
-		sorting_strategy = "ascending",
-		ignore_filename = false,
-	}
-end
-
-function M.lsp_implementations()
-	require("telescope.builtin").lsp_implementations {
-		layout_strategy = "vertical",
-		layout_config = {
-			prompt_position = "top",
-		},
-		sorting_strategy = "ascending",
-		ignore_filename = false,
-	}
+function M.notify()
+    require('telescope').extensions.notify.notify {}
 end
 
 return setmetatable({}, {

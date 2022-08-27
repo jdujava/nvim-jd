@@ -50,6 +50,7 @@ return require('packer').startup {function(use)
     use {'neovim/nvim-lspconfig', config = [[require'jd.plugins.lsp']], after = 'mason-lspconfig.nvim'}
 
     use {'j-hui/fidget.nvim', config = [[require'jd.plugins.fidget']], after = 'nvim-lspconfig'}
+    -- }}} LSP --
 	-- Treesitter {{{ --
 	use {'nvim-treesitter/nvim-treesitter', run=':TSUpdate', config=[[require'jd.plugins.treesitter']], event = 'CursorHold'} -- better highlight
 	use {'nvim-treesitter/playground', after = 'nvim-treesitter'}
@@ -70,7 +71,8 @@ return require('packer').startup {function(use)
     end}
 	use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make', after = 'plenary.nvim'}
 	use {'fhill2/telescope-ultisnips.nvim', after = 'telescope-fzf-native.nvim'}
-	use {"tami5/sqlite.lua", after = 'telescope-ultisnips.nvim'}
+	use {'~/.config/nvim/bundle/telescope-messages.nvim', after = 'telescope-ultisnips.nvim'}
+	use {"tami5/sqlite.lua", after = 'telescope-messages.nvim'}
 	use {"nvim-telescope/telescope-frecency.nvim", after = 'sqlite.lua'}
 	use {'nvim-telescope/telescope-ui-select.nvim', after = 'telescope-frecency.nvim'}
 	use {'nvim-telescope/telescope.nvim', after = 'telescope-ui-select.nvim',
