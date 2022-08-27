@@ -2,7 +2,6 @@ local has_lsp, lspconfig = pcall(require, "lspconfig")
 if not has_lsp then
   return
 end
-local lspconfig_util = require "lspconfig.util"
 local map_tele = require "jd.telescope.mappings"
 
 local custom_init = function(client)
@@ -12,25 +11,19 @@ end
 
 local custom_attach = function()
     local buf_opts = {silent=true, buffer=0}
-    local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
-    if filetype ~= 'tex' and filetype ~= 'lua' then
-        nmap { 'K', vim.lsp.buf.hover, buf_opts}
-    end
-
     nmap { '[e',         vim.diagnostic.goto_prev,                                   buf_opts}
     nmap { ']e',         vim.diagnostic.goto_next,                                   buf_opts}
     nmap { '<leader>vD', function() vim.diagnostic.open_float(0,{scope="line"}) end, buf_opts}
     imap { '<c-s>',      vim.lsp.buf.signature_help,                                 buf_opts}
+    nmap { '<leader>vs', vim.lsp.buf.signature_help,                                 buf_opts}
+    nmap { '<leader>vd', vim.lsp.buf.definition,                                     buf_opts}
     nmap { 'gD',         vim.lsp.buf.declaration,                                    buf_opts}
     nmap { 'gT',         vim.lsp.buf.type_definition,                                buf_opts}
-    nmap { '<leader>vd', vim.lsp.buf.definition,                                     buf_opts}
-    nmap { '<leader>vs', vim.lsp.buf.signature_help,                                 buf_opts}
     nmap { 'gR',         vim.lsp.buf.rename,                                         buf_opts}
     nmap { 'gH',         vim.lsp.buf.hover,                                          buf_opts}
+    nmap { 'K',          vim.lsp.buf.hover,                                          buf_opts}
     nmap { 'gF',         function() vim.lsp.buf.format { async = true } end,         buf_opts}
     nmap { 'gA',         vim.lsp.buf.code_action,                                    buf_opts}
-    nmap { '<leader>vS', require'lspconfig'["_root"].commands["LspStop"][1],         buf_opts}
-    nmap { '<leader>vI', require'lspconfig'["_root"].commands["LspInfo"][1],         buf_opts}
 
     map_tele("gr",         "lsp_references",                nil,                        true)
     map_tele("gd",         "lsp_definitions",               nil,                        true)
@@ -39,88 +32,177 @@ local custom_attach = function()
     map_tele("<leader>ww", "lsp_dynamic_workspace_symbols", { ignore_filename = true }, true)
 
     vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+    if vim.bo.filetype == 'lua' or vim.bo.filetype == 'vim' then
+        nmap { 'K', function()
+            local original_iskeyword = vim.bo.iskeyword
+
+            vim.bo.iskeyword = vim.bo.iskeyword .. ',.'
+            local word = vim.fn.expand("<cword>")
+
+            vim.bo.iskeyword = original_iskeyword
+
+            -- TODO: This is kind of a lame hack... since you could rename `vim.api` -> `a` or similar
+            if string.find(word, 'vim.api') then
+                local _, finish = string.find(word, 'vim.api.')
+                local api_function = string.sub(word, finish + 1)
+
+                vim.cmd(string.format('help %s', api_function))
+                return
+            elseif string.find(word, 'vim.fn') then
+                local _, finish = string.find(word, 'vim.fn.')
+                local api_function = string.sub(word, finish + 1) .. '()'
+
+                vim.cmd(string.format('help %s', api_function))
+                return
+            else
+                -- TODO: This should be exact match only. Not sure how to do that with `:help`
+                -- TODO: Let users determine how magical they want the help finding to be
+                local ok = pcall(vim.cmd, string.format('help %s', word))
+
+                if not ok then
+                    local split_word = vim.split(word, '.', true)
+                    ok = pcall(vim.cmd, string.format('help %s', split_word[#split_word]))
+                end
+
+                if not ok then
+                    vim.lsp.buf.hover()
+                end
+            end
+        end, buf_opts}
+    end
+
+    if vim.bo.filetype == 'tex' then
+        nmap { 'K', '<CMD>VimtexDocPackage<CR>', buf_opts}
+        nmap { 'gK', vim.lsp.buf.hover, buf_opts}
+    end
 end
 
 local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
 updated_capabilities = require('cmp_nvim_lsp').update_capabilities(updated_capabilities)
 
--- local servers = {'vimls', 'clangd', 'texlab', 'bashls', 'sumneko_lua'}
-local servers = {
-	vimls = false,
-	texlab = true,
-	-- ltex = true,
-	bashls = true,
-	clangd = {
-		cmd = {
-			"clangd",
-			"--background-index",
-			"--suggest-missing-includes",
-			"--clang-tidy",
-			"--header-insertion=iwyu",
-		},
-	},
-}
-
 local setup_server = function(server, config)
-	if not config then
-		return
-	end
+    config = vim.tbl_deep_extend("force", {
+        on_init = custom_init,
+        on_attach = custom_attach,
+        capabilities = updated_capabilities,
+        -- flags = {
+        --     debounce_text_changes = 50,
+        -- },
+    }, config)
 
-	if type(config) ~= "table" then
-		config = {}
-	end
-
-	config = vim.tbl_deep_extend("force", {
-		on_init = custom_init,
-		on_attach = custom_attach,
-		capabilities = updated_capabilities,
-		flags = {
-			debounce_text_changes = 50,
-		},
-	}, config)
-
-	lspconfig[server].setup(config)
+    lspconfig[server].setup(config)
 end
 
-for server, config in pairs(servers) do
-	setup_server(server, config)
+local function get_lua_runtime()
+    local result = {};
+    for _, path in pairs(vim.api.nvim_list_runtime_paths()) do
+        local lua_path = path .. "/lua/";
+        if vim.fn.isdirectory(lua_path) then
+            result[lua_path] = true
+        end
+    end
+
+    -- This loads the `lua` files from nvim into the runtime.
+    result[vim.fn.expand("$VIMRUNTIME/lua")] = true
+
+    return result;
 end
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-	vim.lsp.diagnostic.on_publish_diagnostics, {
-		-- Enable underline, use default values
-		underline = true,
-		-- Enable virtual text, override spacing to 4
-		virtual_text = {
-			spacing = 4,
-			prefix = '',
-		},
-		-- Enable a feature
-		update_in_insert = true,
-	}
-)
+require("mason-lspconfig").setup_handlers({
+    -- The first entry (without a key) will be the default handler
+    -- and will be called for each installed server that doesn't have
+    -- a dedicated handler.
+    function (server_name) -- default handler (optional)
+        setup_server(server_name, {})
+    end,
+    -- Next, you can provide targeted overrides for specific servers.
+    ["ltex"] = function () end, -- disable for now
+    -- ["texlab"] = function () end,
+    -- ["bashls"] = function () end,
+    ["clangd"] = function ()
+        setup_server("clangd", {
+            cmd = {
+                "clangd",
+                "--background-index",
+                "--suggest-missing-includes",
+                "--clang-tidy",
+                "--header-insertion=iwyu",
+            },
+        })
+    end,
+    ["sumneko_lua"] = function ()
+        setup_server("sumneko_lua", {
+            settings = {
+                Lua = {
+                    runtime = {
+                        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                        version = 'LuaJIT',
+                    },
+                    diagnostics = {
+                        enable = true,
+                        disable = { "trailing-space" },
+                        -- Get the language server to recognize the `vim` global
+                        globals = {
+                            "vim", "c", "Group", "g", "s",
+                            "map", "imap", "vmap", "nmap", "cmap", "tmap", "xmap", "omap",
+                        },
+                    },
+                    workspace = {
+                        -- Make the server aware of Neovim runtime files
+                        -- library = vim.api.nvim_get_runtime_file("", true),
+                        library = get_lua_runtime(),
+                        maxPreload = 10000,
+                        preloadFileSize = 10000,
+                    },
+                    -- Do not send telemetry data containing a randomized but unique identifier
+                    telemetry = {
+                        enable = false,
+                    },
+                },
+            },
+        })
+    end,
 
-require('nlua.lsp.nvim').setup(lspconfig, {
-	on_init = custom_init,
-	on_attach = custom_attach,
-	capabilities = updated_capabilities,
-
-	root_dir = function(fname)
-		if string.find(vim.fn.fnamemodify(fname, ":p"), ".config/nvim/") then
-			return vim.fn.expand "~/.config/nvim/"
-		end
-
-		-- ~/git/config_manager/xdg_config/nvim/...
-		return lspconfig_util.find_git_ancestor(fname) or lspconfig_util.path.dirname(fname)
-	end,
-
-	-- Include globals you want to tell the LSP are real :)
-	globals = {
-		-- Colorbuddy
-		"Color", "c", "Group", "g", "s", "map", "imap", "vmap", "nmap", "cmap",
-		"tmap", "xmap", "omap"
-	},
 })
 
--- ## was sometimes needed
--- vim.cmd [[LspStart]]
+-- Diagnostics
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        -- Enable underline, use default values
+        underline = true,
+        -- Enable virtual text, override spacing to 4
+        virtual_text = {
+            spacing = 4,
+            prefix = '',
+        },
+        -- Enable a feature
+        update_in_insert = true,
+    }
+)
+
+vim.api.nvim_set_hl(0, "DiagnosticError", {fg="#f44747", bg="NONE"})
+vim.api.nvim_set_hl(0, "DiagnosticWarn",  {fg="#ff8800", bg="NONE"})
+vim.api.nvim_set_hl(0, "DiagnosticInfo",  {fg="#ffcc66", bg="NONE"})
+vim.api.nvim_set_hl(0, "DiagnosticHint",  {fg="#9cdcfe", bg="NONE"})
+vim.fn.sign_define("DiagnosticSignError", {text = "󰜺", texthl = "DiagnosticError"}) --  ERROR = "",
+vim.fn.sign_define("DiagnosticSignWarn",  {text = "󱈸", texthl = "DiagnosticWarn"})  --  WARN = "",
+vim.fn.sign_define("DiagnosticSignInfo",  {text = "󰋽", texthl = "DiagnosticInfo"})  --  INFO = "",
+vim.fn.sign_define("DiagnosticSignHint",  {text = "󰛩", texthl = "DiagnosticHint"})  --  HINT = "",
+
+require('lspconfig.ui.windows').default_options.border = 'rounded'
+vim.api.nvim_set_hl(0, "LspInfoBorder",  {link = 'FloatBorder'})
+
+-- Jump directly to the first available definition every time.
+vim.lsp.handlers["textDocument/definition"] = function(_, result)
+    if not result or vim.tbl_isempty(result) then
+        vim.notify("Could not find definition.", vim.log.levels.WARN, {title = "LSP"})
+        return
+    end
+
+    if vim.tbl_islist(result) then
+        vim.lsp.util.jump_to_location(result[1], "utf-8")
+    else
+        vim.lsp.util.jump_to_location(result, "utf-8")
+    end
+end

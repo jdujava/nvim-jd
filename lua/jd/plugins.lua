@@ -43,18 +43,19 @@ return require('packer').startup {function(use)
 	use {"hrsh7th/cmp-path", after = "nvim-cmp"}
 	use {"hrsh7th/cmp-emoji", after = "nvim-cmp"}
 	-- }}} Nvim-cmp --
-	-- LSP {{{ --
-	use {'tjdevries/nlua.nvim', after = "cmp-nvim-lsp"}
-	use {'neovim/nvim-lspconfig', config=[[require'jd.plugins.lsp']], after = 'nlua.nvim'}
-	-- }}} LSP --
+    -- LSP {{{ --
+    use {'williamboman/mason.nvim', config = [[require'jd.plugins.mason']], after = 'cmp-nvim-lsp'}
+    use {'williamboman/mason-lspconfig.nvim', config = function() require('mason-lspconfig').setup() end, after = 'mason.nvim'}
+    -- use {'tjdevries/nlua.nvim', after = "mason-lspconfig.nvim"}
+    use {'neovim/nvim-lspconfig', config = [[require'jd.plugins.lsp']], after = 'mason-lspconfig.nvim'}
 
     use {'j-hui/fidget.nvim', config = [[require'jd.plugins.fidget']], after = 'nvim-lspconfig'}
 	-- Treesitter {{{ --
-	use {'nvim-treesitter/nvim-treesitter', run=':TSUpdate', event = 'CursorHold', config=[[require'jd.plugins.treesitter']]} -- better highlight
+	use {'nvim-treesitter/nvim-treesitter', run=':TSUpdate', config=[[require'jd.plugins.treesitter']], event = 'CursorHold'} -- better highlight
 	use {'nvim-treesitter/playground', after = 'nvim-treesitter'}
 	use {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'}
 	-- use {'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter'}
-	use {'~/.config/nvim/bundle/nvim-treesitter-refactor', after = 'nvim-treesitter'}
+	-- use {'~/.config/nvim/bundle/nvim-treesitter-refactor', after = 'nvim-treesitter'}
 	-- }}} Treesitter --
 	-- Telescope {{{ --
 	-- use 'norcalli/nvim_utils' -- neovim lua utils

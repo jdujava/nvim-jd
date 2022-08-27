@@ -6,7 +6,7 @@ end
 
 tsconf.setup {
 	ensure_installed = "all", -- one of "all", or a list of languages
-	ignore_install = { "phpdoc" },
+	-- ignore_install = { "phpdoc" },
 	highlight = {
 		enable = true, -- false will disable the whole extension
 		disable = { "tex", "latex", "help" },  -- list of language that will be disabled

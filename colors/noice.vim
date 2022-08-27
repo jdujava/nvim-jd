@@ -195,18 +195,4 @@ hi diffOldFile     guifg=#d16969 ctermfg=167  guibg=NONE    ctermbg=NONE gui=NON
 hi debugPc         guifg=NONE    ctermfg=NONE guibg=#4ec9b0 ctermbg=79   gui=NONE         cterm=NONE
 hi debugBreakpoint guifg=#d16969 ctermfg=167  guibg=NONE    ctermbg=NONE gui=reverse      cterm=reverse
 
-" hi LspDiagnosticsUnderlineHint guifg=#729cb3 ctermfg=73 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
-hi DiagnosticError guifg=#f44747 ctermfg=203 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
-hi DiagnosticWarn  guifg=#ff8800 ctermfg=208 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
-hi DiagnosticInfo  guifg=#ffcc66 ctermfg=221 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
-hi DiagnosticHint  guifg=#9cdcfe ctermfg=75  guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
-sign define DiagnosticSignError text=󰜺 texthl=DiagnosticError linehl= numhl=
-sign define DiagnosticSignWarn  text=󱈸 texthl=DiagnosticWarn  linehl= numhl=
-sign define DiagnosticSignInfo  text=󰋽 texthl=DiagnosticInfo  linehl= numhl=
-sign define DiagnosticSignHint  text=󰛩 texthl=DiagnosticHint  linehl= numhl=
-    " ERROR = "",
-    " WARN = "",
-    " INFO = "",
-    " HINT = "",
-
 hi Yank                guifg=none      ctermfg=234        guibg=#343434 ctermbg=187 gui=NONE cterm=NONE
