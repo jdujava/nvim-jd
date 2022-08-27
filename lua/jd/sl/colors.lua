@@ -44,10 +44,4 @@ end
 -- set highlights on first run
 c.setStatusHi()
 
--- set highlights on colorscheme change
-vim.api.nvim_create_autocmd("ColorScheme", {
-    callback=c.setStatusHi,
-    group=vim.api.nvim_create_augroup("StatusLine", {})
-})
-
 return c

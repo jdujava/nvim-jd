@@ -47,7 +47,7 @@ end
 -- Buffer jumping
 function B.jumpBuf(buf)
     if #B.buffers == 0 then
-        return print "Err[BufferLine]: no buffers"
+        return vim.notify("No buffers.", vim.log.levels.WARN, {title = "BufferLine"})
     end
     api.nvim_set_current_buf(B.buffers[math.min(#B.buffers,buf)])
 end
