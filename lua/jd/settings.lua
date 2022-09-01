@@ -1,55 +1,53 @@
-local opt = vim.opt
+vim.o.autochdir      = true
+-- vim.o.cmdheight      = 0       -- no cmd bar, still experimental
+vim.o.showmode       = false
+vim.o.showmatch      = true
+vim.o.number         = true
+vim.o.relativenumber = true
+vim.o.scrolloff      = 10
 
-opt.autochdir      = true
--- opt.cmdheight   = 0       -- no cmd bar, still experimental
-opt.showmode       = false
-opt.showmatch      = true
-opt.number         = true
-opt.relativenumber = true
-opt.scrolloff      = 10
+vim.o.tabstop     = 4
+vim.o.shiftwidth  = 4
+vim.o.softtabstop = 4
+vim.o.expandtab   = true
+vim.o.cindent     = true
+vim.o.breakindent = true
+vim.o.showbreak   = '> '
+vim.o.linebreak   = true
 
-opt.tabstop     = 4
-opt.shiftwidth  = 4
-opt.softtabstop = 4
-opt.expandtab   = true
-opt.cindent     = true
-opt.breakindent = true
-opt.showbreak   = '> '
-opt.linebreak   = true
+vim.o.ignorecase    = true
+vim.o.smartcase     = true
+vim.o.foldmethod    = 'marker'
+-- vim.o.foldmarker    = '{{{,}}}'
+-- vim.o.foldmethod = 'expr'
+-- vim.o.foldexpr   = 'nvim_treesitter#foldexpr()'
 
-opt.ignorecase    = true
-opt.smartcase     = true
-opt.foldmethod    = 'marker'
--- opt.foldmarker    = '{{{,}}}'
--- opt.foldmethod = 'expr'
--- opt.foldexpr   = 'nvim_treesitter#foldexpr()'
+vim.o.jumpoptions   = 'view'
+vim.o.inccommand    = 'split'
+vim.o.virtualedit   = 'block'
+vim.o.splitbelow    = true
+vim.o.splitright    = true
+vim.o.clipboard     = 'unnamedplus'
+vim.o.spelllang     = 'sk,en_us'
+vim.o.signcolumn    = 'yes'
+vim.o.mouse         = 'a'
+vim.o.pumheight     = 25
+vim.o.lazyredraw    = true
+vim.o.timeoutlen    = 500
+vim.o.updatetime    = 5       -- instant lazy-load of packages
+vim.o.backup        = true
+vim.o.undofile      = true
+vim.o.undolevels    = 2000
+vim.o.backupdir     = (vim.env.XDG_STATE_HOME or vim.env.HOME.."/.local/state").."/nvim/backup"
+vim.o.shada         = [[!,'100,<50,s10,/100,:100,h]]
+vim.o.list          = true
+-- vim.o.listchars     = [[tab:▶·,trail:_,extends:»,precedes:«,nbsp:·,eol:↲]]
+vim.o.listchars     = [[tab:> ,trail:_,extends:»,precedes:«,nbsp:·]]
+vim.o.fillchars     = [[vert:│,fold:·]]
+vim.opt.shortmess:append "cI"
 
-opt.jumpoptions   = 'view'
-opt.inccommand    = 'split'
-opt.virtualedit   = 'block'
-opt.splitbelow    = true
-opt.splitright    = true
-opt.clipboard     = 'unnamedplus'
-opt.spelllang     = 'sk,en_us'
-opt.signcolumn    = 'yes'
-opt.mouse         = 'a'
-opt.pumheight     = 25
-opt.lazyredraw    = true
-opt.timeoutlen    = 500
-opt.updatetime    = 5       -- instant lazy-load of packages
-opt.backup        = true
-opt.undofile      = true
-opt.undolevels    = 2000
-opt.backupdir     = (vim.env.XDG_STATE_HOME or vim.env.HOME.."/.local/state").."/nvim/backup"
-opt.shada         = [[!,'100,<50,s10,/100,:100,h]]
-opt.list          = true
--- opt.listchars     = [[tab:▶·,trail:_,extends:»,precedes:«,nbsp:·,eol:↲]]
-opt.listchars     = [[tab:▶·,trail:_,extends:»,precedes:«,nbsp:·]]
-opt.fillchars     = [[vert:│,fold:·]]
-opt.shortmess:append "cI"
-
--- opt.formatoptions:remove {"c", "r", "o"}
--- opt.formatoptions = opt.formatoptions
+-- vim.o.formatoptions:remove {"c", "r", "o"}
+-- vim.o.formatoptions = opt.formatoptions
 --   - "a" -- Auto formatting is BAD.
 --   - "t" -- Don't auto format my code. I got linters for that.
 --   + "c" -- In general, I like it when comments respect textwidth
@@ -61,8 +59,8 @@ opt.shortmess:append "cI"
 --   - "2" -- I'm not in gradeschool anymore
 
 if vim.env.DISPLAY then
-    opt.termguicolors = true
-    opt.pumblend      = 5
+    vim.o.termguicolors = true
+    vim.o.pumblend      = 5
 end
 
 vim.cmd [[colorscheme noice]]

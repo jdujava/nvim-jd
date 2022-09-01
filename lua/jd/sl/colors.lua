@@ -41,7 +41,4 @@ function c.setStatusHi()
     c.MakeHi(modes['t'][2],     red,    black, true,  1,  15)
 end
 
--- set highlights on first run
-c.setStatusHi()
-
 return c

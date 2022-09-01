@@ -1,9 +1,9 @@
 local au = vim.api.nvim_create_autocmd
 local gr = vim.api.nvim_create_augroup
 
-local core = gr("core", {})
+local core         = gr("core", {})
 local auto_updates = gr("auto_updates", {})
-local term = gr("term", {})
+local term         = gr("term", {})
 
 
 -- Automatically deletes all trailing whitespace on save
@@ -56,16 +56,16 @@ local autoupdate = function(pattern, command)
     })
 end
 
-autoupdate(vim.env.HOME..'/.config/shell/folders',                                     [[!shortcuts]])
-autoupdate(vim.env.HOME..'/Documents/customfiles/st-jd/config.def.h',                  [[!make && sudo make install]])
-autoupdate(vim.env.HOME..'/Documents/customfiles/dwm-jd/dwm.c',                        [[!make && sudo make install]])
-autoupdate(vim.env.HOME..'/Documents/customfiles/slstatus/config.h',                   [[!make && sudo make install && killall slstatus; setsid slstatus >/dev/null 2>&1 &]])
-autoupdate(vim.env.HOME..'/Documents/customfiles/xournalpp-shortcuts/plugin/main.lua', [[!cp -r ~/Documents/customfiles/xournalpp-shortcuts/plugin ~/.config/xournalpp/plugins]])
-autoupdate('*Xresources/*',                                                            [[!xrdb $XRESOURCES && pkill -USR1 st]])
-autoupdate('*sxhkdrc',                                                                 [[!pkill -USR1 sxhkd]])
-autoupdate('*dunstrc',                                                                 [[!killall dunst; setsid dunst >/dev/null 2>&1 &]])
-autoupdate('*praktikum/*plot.gnu,                                                      *optika/*plot.gnu', [[!gnuplot plot.gnu > loggg.txt]])
-autoupdate('fonts.conf',                                                               [[!fc-cache]])
+autoupdate('*/shell/folders',                             [[!shortcuts]])
+autoupdate('*/st-jd/config.def.h',                        [[!make && sudo make install]])
+autoupdate('*/dwm-jd/dwm.c',                              [[!make && sudo make install]])
+autoupdate('*/slstatus/config.h',                         [[!make && sudo make install && killall slstatus; setsid slstatus >/dev/null 2>&1 &]])
+autoupdate('*/xournalpp-shortcuts/plugin/main.lua',       [[!cp -r ~/Documents/customfiles/xournalpp-shortcuts/plugin ~/.config/xournalpp/plugins]])
+autoupdate('*Xresources/*',                               [[!xrdb $XRESOURCES && pkill -USR1 st]])
+autoupdate('sxhkdrc',                                     [[!pkill -USR1 sxhkd]])
+autoupdate('dunstrc',                                     [[!killall dunst; setsid dunst >/dev/null 2>&1 &]])
+autoupdate({'*praktikum/*plot.gnu', '*optika/*plot.gnu'}, [[!gnuplot plot.gnu > loggg.txt]])
+autoupdate('fonts.conf',                                  [[!fc-cache]])
 
 
 

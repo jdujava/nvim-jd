@@ -41,10 +41,10 @@ tmap {'<A-Esc>',   '<C-\\><C-n>' }
 nmap {'<leader>t', ':split | call nvim_win_set_height(0, 12)<CR>:terminal<CR>' }
 
 -- resizing with arrow keys
-nmap {'<S-Up>',    ':resize +2<CR>' }
-nmap {'<S-Down>',  ':resize -2<CR>' }
-nmap {'<S-Left>',  ':vert resize +2<CR>' }
-nmap {'<S-Right>', ':vert resize -2<CR>' }
+nmap {'<C-Up>',    ':resize +2<CR>' }
+nmap {'<C-Down>',  ':resize -2<CR>' }
+nmap {'<C-Left>',  ':vert resize +2<CR>' }
+nmap {'<C-Right>', ':vert resize -2<CR>' }
 
 imap {'<C-j>', '<C-n>', {remap=true}}
 imap {'<C-k>', '<C-p>', {remap=true}}

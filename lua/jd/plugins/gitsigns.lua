@@ -39,11 +39,11 @@ require('gitsigns').setup {
     enable = false
   },
   on_attach = function(bufnr)
-	  local gs = package.loaded['gitsigns']
+      local gs = package.loaded.gitsigns
 
-	  -- Navigation
-	  nmap {']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true, buffer=bufnr}}
-	  nmap {'[c', "&diff ? ']c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true, buffer=bufnr}}
+      -- Navigation
+      nmap {']c', gs.next_hunk, {buffer=bufnr}}
+      nmap {'[c', gs.prev_hunk, {buffer=bufnr}}
 
 	  -- Actions
 	  map  { '<leader>hs', ':Gitsigns stage_hunk<CR>'}

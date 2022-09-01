@@ -8,18 +8,19 @@ require 'jd.abbr'
 -- statusline + bufferline
 require 'jd.sl'
 
-imap {'wq', '<ESC>:wq<CR>'}
-imap {'qw', '<ESC>:wq<CR>'}
-imap {'<CR>', '<ESC>:wq<CR>'}
-map {'wq', ':wq<CR>'}
-map {'qw', ':wq<CR>'}
-map {'<CR>', ':wq<CR>'}
+imap {'wq',   '<CMD>wq<CR>'}
+imap {'qw',   '<CMD>wq<CR>'}
+imap {'<CR>', '<CMD>wq<CR>'}
+map  {'wq',   '<CMD>wq<CR>'}
+map  {'qw',   '<CMD>wq<CR>'}
+map  {'<CR>', '<CMD>wq<CR>'}
 
-vim.defer_fn(
-  function()
-	vim.cmd [[normal i$$]]
-	vim.cmd [[startinsert]]
-  end,
-  100
-)
+-- autostart editing as "$|$", where | is position of cursor
+vim.api.nvim_buf_set_lines(0, 0, 1, 0, {"$$"})
+vim.api.nvim_win_set_cursor(0, {1,1})
+vim.api.nvim_create_autocmd('CursorHold', {
+    once = true,
+    command = 'startinsert',
+    group = vim.api.nvim_create_augroup('QuickTex', {}),
+})
 

@@ -21,9 +21,9 @@ if vim.g.started_by_firenvim then
 	nmap { 'wq', ':wq<CR>' }
 	nmap { 'qw', ':wq<CR>' }
 	nmap { '<PageUp>', ':set lines=20 columns=100<CR>' }
-	vim.opt.laststatus = 0
-	vim.opt.showtabline = 0
-	vim.opt.signcolumn = 'no'
-	vim.opt.relativenumber = false
-	vim.opt.guifont = "SauceCodePro Nerd Font Mono:h12"
+	vim.o.laststatus = 0
+	vim.o.showtabline = 0
+	vim.o.signcolumn = 'no'
+	vim.o.relativenumber = false
+	vim.o.guifont = "SauceCodePro Nerd Font Mono:h12"
 end

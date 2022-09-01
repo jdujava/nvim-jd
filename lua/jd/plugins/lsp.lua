@@ -103,6 +103,14 @@ local function get_lua_runtime()
         end
     end
 
+    -- for _, path in pairs(vim.api.nvim_get_runtime_file("", true)) do
+    --     -- local lua_path = path .. "/lua/";
+    --     local lua_path = path;
+    --     if vim.fn.isdirectory(lua_path) then
+    --         result[lua_path] = true
+    --     end
+    -- end
+
     -- This loads the `lua` files from nvim into the runtime.
     result[vim.fn.expand("$VIMRUNTIME/lua")] = true
 
@@ -125,7 +133,6 @@ require("mason-lspconfig").setup_handlers({
             cmd = {
                 "clangd",
                 "--background-index",
-                "--suggest-missing-includes",
                 "--clang-tidy",
                 "--header-insertion=iwyu",
             },

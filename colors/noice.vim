@@ -67,6 +67,7 @@ hi  FloatBorder                                 guibg=#262626
 hi  Question         guifg=#c586c0 ctermfg=175  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
 hi  QuickFixLine     guifg=#1e1e1e ctermfg=234  guibg=#dcdcaa ctermbg=187  gui=NONE         cterm=NONE
 hi  Search           guifg=none    ctermfg=234  guibg=#343434 ctermbg=187  gui=underline    cterm=underline
+hi  CurSearch        guifg=none    ctermfg=234  guibg=#343434 ctermbg=187  gui=underline    cterm=underline
 hi  SpecialKey       guifg=#3b4048 ctermfg=238  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
 hi  SpellBad         guifg=#f44747 ctermfg=203  guibg=NONE    ctermbg=NONE gui=underline    cterm=underline
 hi  SpellCap         guifg=#d7ba7d ctermfg=180  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE

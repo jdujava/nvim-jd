@@ -12,20 +12,16 @@ local ignore = {
 }
 
 local function getBufLabel(n)
-    local filename = vim.fn.fnamemodify(api.nvim_buf_get_name(n), ":t")
+    local filename = vim.fn.fnamemodify(api.nvim_buf_get_name(n), ':t')
     if filename == '' then
-        filename = "[No name]"
+        filename = '[No name]'
     end
     if has_icons then
         local icon = icons.get_icon(filename, nil, {default = true})
         filename = icon..' '..filename
     end
-    if vim.bo[n].readonly then
-        filename = filename.."[]"
-    end
-    if vim.bo[n].modified then
-        filename = filename.."[+]"
-    end
+    filename = filename..(vim.bo[n].readonly and '[]' or '')
+    filename = filename..(vim.bo[n].modified and '[+]' or '')
     return filename
 end
 
@@ -38,16 +34,18 @@ function BufferLine()
 
     local bufferline = ''
     for _, b in pairs(B.buffers) do
-        local bufHi = "SlBufferLine"..(b == current_buf and "Sel" or "")
+        local bufHi = 'SlBufferLine'..(b == current_buf and 'Sel' or '')
         bufferline = bufferline..builder(bufHi,getBufLabel(b))
     end
+
+    -- bufferline = bufferline.."%= lol"
     return bufferline
 end
 
 -- Buffer jumping
 function B.jumpBuf(buf)
     if #B.buffers == 0 then
-        return vim.notify("No buffers.", vim.log.levels.WARN, {title = "BufferLine"})
+        return vim.notify('No buffers.', vim.log.levels.WARN, {title = "BufferLine"})
     end
     api.nvim_set_current_buf(B.buffers[math.min(#B.buffers,buf)])
 end

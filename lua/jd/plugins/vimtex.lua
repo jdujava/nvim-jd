@@ -21,7 +21,7 @@ vim.g.vimtex_quickfix_mode=0
 vim.g.vimtex_fold_enabled = 1
 vim.g.vimtex_fold_bib_enabled = 1
 vim.g.vimtex_syntax_enabled = 1
-vim.opt.conceallevel=2
+vim.o.conceallevel = 2
 
 -- " hi texCmd ctermfg=1
 -- " hi texArg ctermfg=140
