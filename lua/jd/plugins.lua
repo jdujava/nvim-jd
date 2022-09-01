@@ -54,8 +54,8 @@ return require('packer').startup {function(use)
     -- Treesitter {{{ --
     use {'nvim-treesitter/nvim-treesitter', run=':TSUpdate', config=[[require'jd.plugins.treesitter']], event = 'CursorHold'} -- better highlight
     use {'nvim-treesitter/playground', after = 'nvim-treesitter'}
-    use {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'}
-    use {'nvim-treesitter/nvim-treesitter-context', config=[[require'jd.plugins.treesitter-context']], after = 'nvim-treesitter-textobjects' }
+    use {'nvim-treesitter/nvim-treesitter-context', config=[[require'jd.plugins.treesitter-context']], after = 'nvim-treesitter' }
+    -- use {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'}
     -- use {'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter'}
     -- use {'~/.config/nvim/bundle/nvim-treesitter-refactor', after = 'nvim-treesitter'}
 
