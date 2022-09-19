@@ -60,7 +60,6 @@ return require('packer').startup {function(use)
     use {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'}
     -- use {'nvim-treesitter/nvim-treesitter-textobjects', opt = true}
     -- use {'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter'}
-    -- use {'~/.config/nvim/bundle/nvim-treesitter-refactor', after = 'nvim-treesitter'}
 
     use {'lukas-reineke/indent-blankline.nvim', config=[[require'jd.plugins.indent-blankline']], after = 'nvim-treesitter-context'}
 
