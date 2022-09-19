@@ -17,11 +17,30 @@ require'treesitter-context'.setup{
             'switch',
             'case',
         },
-        -- Example for a specific filetype.
+        -- Patterns for specific filetypes
         -- If a pattern is missing, *open a PR* so everyone can benefit.
-        --   rust = {
-        --       'impl_item',
-        --   },
+        tex = {
+            'chapter',
+            'section',
+            'subsection',
+            'subsubsection',
+        },
+        rust = {
+            'impl_item',
+            'struct',
+            'enum',
+        },
+        scala = {
+            'object_definition',
+        },
+        vhdl = {
+            'process_statement',
+            'architecture_body',
+            'entity_declaration',
+        },
+        markdown = {
+            'section',
+        },
     },
     exact_patterns = {
         -- Example for a specific filetype with Lua patterns

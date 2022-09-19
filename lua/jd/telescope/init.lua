@@ -2,7 +2,7 @@ if not pcall(require, "telescope") then
 	return
 end
 
-SHOULD_RELOAD_TELESCOPE = true
+SHOULD_RELOAD_TELESCOPE = false
 
 local reloader = function()
 	if SHOULD_RELOAD_TELESCOPE then
@@ -75,8 +75,10 @@ require('telescope').setup{
 		mappings = {
 			i = {
 				["<Esc>"] = actions.close,
-				["<C-y>"] = set_prompt_to_entry_value,
+				["<C-j>"] = actions.move_selection_next,
+				["<C-p>"] = actions.move_selection_previous,
 				["<C-l>"] = actions.select_default,
+				["<C-y>"] = set_prompt_to_entry_value,
 				["<A-/>"] = actions_layout.toggle_preview,
 			},
 		}

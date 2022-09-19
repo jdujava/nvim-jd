@@ -299,16 +299,6 @@ snippet template "Basic template" b
 \usepackage[slovak]{babel}
 \usepackage{amsmath, amssymb}
 
-
-% figure support
-\usepackage{import}
-\usepackage{xifthen}
-\pdfminorversion=7
-\usepackage{pdfpages}
-\usepackage{transparent}
-
-\pdfsuppresswarningpagegroup=1
-
 \begin{document}
 	$0
 \end{document}
@@ -326,13 +316,13 @@ snippet ... "ldots" iA
 \ldots
 endsnippet
 
-snippet enum "Enumerate" bA
+snippet enum "Enumerate" b
 \begin{enumerate}${1/.+/[/}$1${1/.+/]/}
 	\item ${2:${VISUAL}}
 \end{enumerate}
 endsnippet
 
-snippet eitem "Itemize" bA
+snippet eitem "Itemize" b
 \begin{itemize}
 	\item $0
 \end{itemize}
@@ -344,7 +334,7 @@ snippet desc "Description" b
 \end{description}
 endsnippet
 
-snippet it "Individual item" bA
+snippet it "Individual item" b
 \item $0`!p vim.command('normal ==')`
 endsnippet
 
@@ -919,11 +909,6 @@ snippet invs "inverse" iA
 endsnippet
 
 context "math()"
-snippet compl "complement" iA
-^{c}
-endsnippet
-
-context "math()"
 snippet \\\ "setminus" iA
 \setminus
 endsnippet
@@ -1130,23 +1115,6 @@ context "math()"
 snippet "((\\)?([\w'])+(\{\w+\})?)(,\.|\.,)" "Vector postfix" riA
 \bm{`!p snip.rv=match.group(1)`}
 endsnippet
-
-context "math()"
-snippet letw "let omega" iA
-Let $\Omega \subset \C$ be open.
-endsnippet
-
-
-context "math()"
-snippet HH "H" iA
-\mathbb{H}
-endsnippet
-
-context "math()"
-snippet DD "D" iA
-\mathbb{D}
-endsnippet
-
 
 # Praktikum
 snippet "^chyba priemer" "Popis chyby priemeru" r

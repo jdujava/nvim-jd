@@ -26,6 +26,7 @@ return require('packer').startup {function(use)
 
     -- Snippets {{{ --
     use {'SirVer/ultisnips', setup=[[require'jd.plugins.ultisnips']], event = 'CursorHold' }
+    use {'L3MON4D3/LuaSnip', opt = true} -- switch to LuaSnip
     use {'honza/vim-snippets', after = 'ultisnips'}
     -- use {'reconquest/vim-pythonx', after = 'ultisnips'}
     -- }}} Snippets --
@@ -34,9 +35,10 @@ return require('packer').startup {function(use)
     -- use {'lervag/vimtex', config=[[require'jd.plugins.vimtex']], opt=true}
     -- }}} Latex
     -- Nvim-cmp {{{ --
-    use {"hrsh7th/nvim-cmp", after = "cmp-nvim-lsp", config = [[require'jd.plugins.cmp']]}
-    use {"hrsh7th/cmp-nvim-lsp", after = "ultisnips"}
-    use {"quangnguyen30192/cmp-nvim-ultisnips", after = "nvim-cmp"}
+    -- use {"hrsh7th/nvim-cmp", after = "cmp-nvim-lsp", config = [[require'jd.plugins.cmp']]}
+    use {"hrsh7th/nvim-cmp", config = [[require'jd.plugins.cmp']], event = 'CursorHold' }
+    use {"hrsh7th/cmp-nvim-lsp", after = "nvim-cmp"}
+    use {"quangnguyen30192/cmp-nvim-ultisnips", after = {"ultisnips", "nvim-cmp"}}
     use {"hrsh7th/cmp-nvim-lua", after = "nvim-cmp"}
     use {"hrsh7th/cmp-buffer", after = "nvim-cmp"}
     use {"hrsh7th/cmp-cmdline", after = "nvim-cmp"}
@@ -55,11 +57,12 @@ return require('packer').startup {function(use)
     use {'nvim-treesitter/nvim-treesitter', run=':TSUpdate', config=[[require'jd.plugins.treesitter']], event = 'CursorHold'} -- better highlight
     use {'nvim-treesitter/playground', after = 'nvim-treesitter'}
     use {'nvim-treesitter/nvim-treesitter-context', config=[[require'jd.plugins.treesitter-context']], after = 'nvim-treesitter' }
-    -- use {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'}
+    use {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'}
+    -- use {'nvim-treesitter/nvim-treesitter-textobjects', opt = true}
     -- use {'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter'}
     -- use {'~/.config/nvim/bundle/nvim-treesitter-refactor', after = 'nvim-treesitter'}
 
-    -- use {'lukas-reineke/indent-blankline.nvim', config=[[require'jd.plugins.indent-blankline']], after = 'nvim-treesitter-context'}
+    use {'lukas-reineke/indent-blankline.nvim', config=[[require'jd.plugins.indent-blankline']], after = 'nvim-treesitter-context'}
 
     -- }}} Treesitter --
     -- Telescope {{{ --
@@ -151,7 +154,8 @@ return require('packer').startup {function(use)
             nmap { '<Leader><Leader>C', require'colorizer'.color_picker_on_cursor }
         end
     } -- high-performance color highlighter for Neovim
-    use {'phaazon/hop.nvim', config = [[require'jd.plugins.hop']], event = 'CursorHold'}
+    -- use {'phaazon/hop.nvim', config = [[require'jd.plugins.hop']], event = 'CursorHold'}
+    use {'phaazon/hop.nvim', config = [[require'jd.plugins.hop']], opt = true}
     use {'junegunn/vim-easy-align', config=[[require'jd.plugins.vim-easy-align']], event = 'CursorHold'} -- use easy-align, instead of tabular
     use {'tpope/vim-unimpaired', event = 'CursorHold'} -- mappings with [ and ]
     -- use {'tpope/vim-scriptease', event = 'CursorHold'} -- mappings with [ and ]

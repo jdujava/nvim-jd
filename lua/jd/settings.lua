@@ -39,11 +39,11 @@ vim.o.backup        = true
 vim.o.undofile      = true
 vim.o.undolevels    = 2000
 vim.o.backupdir     = (vim.env.XDG_STATE_HOME or vim.env.HOME.."/.local/state").."/nvim/backup"
-vim.o.shada         = [[!,'100,<50,s10,/100,:100,h]]
+vim.o.shada         = [[!,'100,<50,s10,/100,:1000,h]]
 vim.o.list          = true
 -- vim.o.listchars     = [[tab:▶·,trail:_,extends:»,precedes:«,nbsp:·,eol:↲]]
 vim.o.listchars     = [[tab:> ,trail:_,extends:»,precedes:«,nbsp:·]]
-vim.o.fillchars     = [[vert:│,fold:·]]
+vim.o.fillchars     = [[vert:│,fold:·,diff:╱]]
 vim.opt.shortmess:append "cI"
 
 -- vim.o.formatoptions:remove {"c", "r", "o"}
@@ -64,6 +64,9 @@ if vim.env.DISPLAY then
 end
 
 vim.cmd [[colorscheme noice]]
+
+-- treesitter highlighting for Lua
+vim.g.ts_highlight_lua = true
 
 -- ignore some builtin plugins
 vim.g.loaded_netrwPlugin    = 1

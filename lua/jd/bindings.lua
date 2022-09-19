@@ -132,3 +132,21 @@ nmap { '<leader>X',         '<CMD>call SaveandExec()<CR>' }
 -- Toggle hlsearch
 nmap { '<A-CR>', '<CMD>let v:hlsearch=!v:hlsearch<CR>', {silent=true} }
 tmap { '<A-CR>', '<C-\\><C-n><Cmd>let v:hlsearch=!v:hlsearch<CR>a', {silent=true} }
+
+-- Show highlight group under cursor
+local function name_syn_stack()
+  local stack = vim.fn.synstack(vim.fn.line("."), vim.fn.col("."))
+  stack = vim.tbl_map(function(v)
+    return vim.fn.synIDattr(v, "name")
+  end, stack)
+  return stack
+end
+
+local function print_syn_group()
+  local id = vim.fn.synID(vim.fn.line("."), vim.fn.col("."), 1)
+  -- print("synstack:", vim.inspect(name_syn_stack()))
+  -- print(vim.fn.synIDattr(id, "name") .. " -> " .. vim.fn.synIDattr(vim.fn.synIDtrans(id), "name"))
+  vim.notify("synstack:", vim.inspect(name_syn_stack()))
+  vim.notify(vim.fn.synIDattr(id, "name") .. " -> " .. vim.fn.synIDattr(vim.fn.synIDtrans(id), "name"))
+end
+nmap { '<F10>', print_syn_group }

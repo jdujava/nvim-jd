@@ -75,6 +75,19 @@ local custom_attach = function()
     if vim.bo.filetype == 'tex' then
         nmap { 'K', '<CMD>VimtexDocPackage<CR>', buf_opts}
         nmap { 'gK', vim.lsp.buf.hover, buf_opts}
+
+        local opts = {silent=true, buffer=0, remap=true}
+        nmap {'csm', 'cs$', opts}
+        nmap {'dsm', 'ds$', opts}
+        nmap {'cim', 'ci$', opts}
+        nmap {'dim', 'di$', opts}
+        nmap {'vim', 'vi$', opts}
+        nmap {'yim', 'ya$', opts}
+        nmap {'cam', 'ca$', opts}
+        nmap {'dam', 'da$', opts}
+        nmap {'vam', 'va$', opts}
+        nmap {'yam', 'ya$', opts}
+        nmap {'tsm', 'ts$', opts}
     end
 end
 

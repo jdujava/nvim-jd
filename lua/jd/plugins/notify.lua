@@ -17,6 +17,7 @@ end
 
 notify.setup {
     background_colour = "#000000",
+    top_down = false,
 }
 
 nmap { '<A-Space>', notify.dismiss, {silent=true} }
