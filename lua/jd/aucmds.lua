@@ -59,7 +59,7 @@ end
 autoupdate('*/shell/folders',                             [[!shortcuts]])
 autoupdate('*/st-jd/config.def.h',                        [[!make && sudo make install]])
 autoupdate('*/dwm-jd/dwm.c',                              [[!make && sudo make install]])
-autoupdate('*/slstatus/config.h',                         [[!make && sudo make install && killall slstatus; setsid slstatus >/dev/null 2>&1 &]])
+autoupdate('*/slstatus-jd/config.def.h',                  [[!make && sudo make install && killall slstatus; setsid slstatus >/dev/null 2>&1 &]])
 autoupdate('*/xournalpp-shortcuts/plugin/main.lua',       [[!cp -r ~/Documents/customfiles/xournalpp-shortcuts/plugin ~/.config/xournalpp/plugins]])
 autoupdate('*Xresources/*',                               [[!xrdb $XRESOURCES && pkill -USR1 st]])
 autoupdate('sxhkdrc',                                     [[!pkill -USR1 sxhkd]])
