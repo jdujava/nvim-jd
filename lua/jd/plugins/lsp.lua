@@ -47,22 +47,22 @@ local custom_attach = function()
                 local _, finish = string.find(word, 'vim.api.')
                 local api_function = string.sub(word, finish + 1)
 
-                vim.cmd(string.format('help %s', api_function))
+                vim.cmd.help(api_function)
                 return
             elseif string.find(word, 'vim.fn') then
                 local _, finish = string.find(word, 'vim.fn.')
                 local api_function = string.sub(word, finish + 1) .. '()'
 
-                vim.cmd(string.format('help %s', api_function))
+                vim.cmd.help(api_function)
                 return
             else
                 -- TODO: This should be exact match only. Not sure how to do that with `:help`
                 -- TODO: Let users determine how magical they want the help finding to be
-                local ok = pcall(vim.cmd, string.format('help %s', word))
+                local ok = pcall(vim.cmd.help, word)
 
                 if not ok then
                     local split_word = vim.split(word, '.', true)
-                    ok = pcall(vim.cmd, string.format('help %s', split_word[#split_word]))
+                    ok = pcall(vim.cmd.help, split_word[#split_word])
                 end
 
                 if not ok then
@@ -91,14 +91,13 @@ local custom_attach = function()
     end
 end
 
-local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
-updated_capabilities = require('cmp_nvim_lsp').update_capabilities(updated_capabilities)
+local custom_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local setup_server = function(server, config)
     config = vim.tbl_deep_extend("force", {
         on_init = custom_init,
         on_attach = custom_attach,
-        capabilities = updated_capabilities,
+        capabilities = custom_capabilities,
         -- flags = {
         --     debounce_text_changes = 50,
         -- },
@@ -211,7 +210,7 @@ vim.fn.sign_define("DiagnosticSignInfo",  {text = "󰋽", texthl = "DiagnosticIn
 vim.fn.sign_define("DiagnosticSignHint",  {text = "󰛩", texthl = "DiagnosticHint"})  --  HINT = "",
 
 require('lspconfig.ui.windows').default_options.border = 'rounded'
-vim.api.nvim_set_hl(0, "LspInfoBorder",  {link = 'FloatBorder'})
+vim.api.nvim_set_hl(0, "LspInfoBorder", {link = 'FloatBorder'})
 
 -- Jump directly to the first available definition every time.
 vim.lsp.handlers["textDocument/definition"] = function(_, result)

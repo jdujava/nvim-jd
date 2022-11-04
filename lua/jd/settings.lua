@@ -63,7 +63,7 @@ if vim.env.DISPLAY then
     vim.o.pumblend      = 5
 end
 
-vim.cmd [[colorscheme noice]]
+vim.cmd.colorscheme 'noice'
 
 -- treesitter highlighting for Lua
 vim.g.ts_highlight_lua = true

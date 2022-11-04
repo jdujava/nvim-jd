@@ -129,8 +129,6 @@ cmp.setup.cmdline(':', {
 	})
 })
 
--- vim.cmd[[autocmd FileType firenvim lua require('cmp').setup.buffer { enabled = false }]]
-
 local CmpHighlights = {
     CmpGhostText = { fg = '#767676', bg = 'NONE' },
     CmpItemAbbr = { link = 'CmpGhostText' },

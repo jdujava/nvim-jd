@@ -1,7 +1,7 @@
 local tsconf = require'nvim-treesitter.configs'
 if not tsconf then
-   vim.cmd [[ echom 'Cannot load `nvim-treesitter.configs`' ]]
-   return
+    vim.cmd.echom 'Cannot load `nvim-treesitter.configs`'
+    return
 end
 
 tsconf.setup {

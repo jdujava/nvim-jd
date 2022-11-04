@@ -1,4 +1,4 @@
-vim.cmd [[packadd packer.nvim]]
+vim.cmd.packadd 'packer.nvim'
 
 -- Start bootstrap {{{ --
 local present, packer = pcall(require, 'packer')
@@ -13,7 +13,7 @@ if not present then
     if present then
         print "Packer cloned successfully."
         print "( You'll need to restart now )"
-        vim.cmd [[qa]]
+        vim.cmd 'qa'
     else
         error("Couldn't clone packer !\nPacker path: " .. packer_path .. "\n" .. packer)
     end
