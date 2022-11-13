@@ -225,3 +225,5 @@ vim.lsp.handlers["textDocument/definition"] = function(_, result)
         vim.lsp.util.jump_to_location(result, "utf-8")
     end
 end
+
+vim.cmd [[ LspStart ]]

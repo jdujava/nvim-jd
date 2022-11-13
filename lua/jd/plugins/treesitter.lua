@@ -4,12 +4,17 @@ if not tsconf then
     return
 end
 
+require("vim.treesitter.query").set_query("sxhkdrc", "injections", [[
+    (command) @bash
+    (comment) @comment
+]])
+
 tsconf.setup {
 	ensure_installed = "all", -- one of "all", or a list of languages
 	-- ignore_install = { "phpdoc" },
 	highlight = {
 		enable = true, -- false will disable the whole extension
-		disable = { "tex", "latex", "help" },  -- list of language that will be disabled
+		disable = { "tex", "latex", "help", "c" },  -- list of language that will be disabled
 		-- additional_vim_regex_highlighting = { "vim" },
 	},
 	incremental_selection = {

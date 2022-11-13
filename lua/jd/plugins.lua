@@ -31,8 +31,7 @@ return require('packer').startup {function(use)
     -- use {'reconquest/vim-pythonx', after = 'ultisnips'}
     -- }}} Snippets --
     -- Latex {{{ -- reverse search works now
-    use {'lervag/vimtex', config=[[require'jd.plugins.vimtex']], event = 'CursorHold', cmd = 'VimtexInverseSearch'}
-    -- use {'lervag/vimtex', config=[[require'jd.plugins.vimtex']], opt=true}
+    use {'lervag/vimtex', config=[[require'jd.plugins.vimtex']]}
     -- }}} Latex
     -- Nvim-cmp {{{ --
     -- use {"hrsh7th/nvim-cmp", after = "cmp-nvim-lsp", config = [[require'jd.plugins.cmp']]}
@@ -61,7 +60,28 @@ return require('packer').startup {function(use)
     -- use {'nvim-treesitter/nvim-treesitter-textobjects', opt = true}
     -- use {'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter'}
 
-    use {'lukas-reineke/indent-blankline.nvim', config=[[require'jd.plugins.indent-blankline']], after = 'nvim-treesitter-context'}
+    -- use {'lukas-reineke/indent-blankline.nvim', config=[[require'jd.plugins.indent-blankline']], after = 'nvim-treesitter-context'}
+    -- use {'kevinhwang91/nvim-hlslens', config = function ()
+    --     require('hlslens').setup {
+    --         calm_down = true,
+    --         nearest_only = true,
+    --     }
+    --
+    --     local kopts = {noremap = true, silent = true}
+    --
+    --     vim.api.nvim_set_keymap('n', 'n',
+    --     [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
+    --     kopts)
+    --     vim.api.nvim_set_keymap('n', 'N',
+    --     [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
+    --     kopts)
+    --     vim.api.nvim_set_keymap('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+    --     vim.api.nvim_set_keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+    --     vim.api.nvim_set_keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+    --     vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+    --
+    --     vim.api.nvim_set_keymap('n', '<Leader>l', ':noh<CR>', kopts)
+    -- end}
 
     -- }}} Treesitter --
     -- Telescope {{{ --

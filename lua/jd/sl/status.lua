@@ -59,7 +59,7 @@ function StatusLine()
     statusline = statusline.."%="
 
     -- Search count
-    statusline = statusline..search_count()
+    -- statusline = statusline..search_count()
 
     -- Component: FileType
     local filetype = vim.bo.filetype ~= '' and vim.bo.filetype or "none"

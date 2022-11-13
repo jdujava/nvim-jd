@@ -46,6 +46,10 @@ vim.o.listchars     = [[tab:> ,trail:_,extends:»,precedes:«,nbsp:·]]
 vim.o.fillchars     = [[vert:│,fold:·,diff:╱]]
 vim.opt.shortmess:append "cI"
 
+-- TODO
+-- do this !!!!!!!!!!
+-- set diffopt+=linematch:60
+
 -- vim.o.formatoptions:remove {"c", "r", "o"}
 -- vim.o.formatoptions = opt.formatoptions
 --   - "a" -- Auto formatting is BAD.
