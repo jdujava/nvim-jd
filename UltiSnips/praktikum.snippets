@@ -1,0 +1,191 @@
+global !p
+def complete(t, opts):
+	if t:
+		opts = [ m[len(t):] for m in opts if m.startswith(t) ]
+	if len(opts) == 1:
+		return opts[0]
+	return "(" + '|'.join(opts) + ")"
+endglobal
+
+snippet preamble "basic preamble" b
+\\documentclass[10pt,a4paper]{article}
+
+% \\input{titledata.tex}
+\\input{../preamble.tex}
+% \\input{Titul/titul.tex}
+
+\\begin{document}
+
+% \\maketitle
+
+% \\bibliographystyle{unsrt} % Use for unsorted references
+% \\bibliography{../references.bib} % Path to your References.bib file
+
+\\end{document}
+endsnippet
+
+snippet "^chyba priemer" "Popis chyby priemeru" r
+Pre chybu merania $${1:d}$ platí vzťah \cite{uvod_prakticka}
+\begin{equation} \label{eq:chyba$1}
+	\sigma^2_{$1} = \sigma^2_{\overline{$1}} + \sigma^2_{${2:M}},
+\end{equation}
+kde $\sigma_{$2} \approx \SI{${3:0.005}}{${4:mm}}$ je chyba ${5:mikrometra} a $\sigma_{\overline{$1}}$ je štatistická chyba aritmetického priemeru \$\overline{$1}\$, pre ktorú platí
+\begin{equation} \label{eq:chybapriemer$1}
+	\sigma^2_{\overline{$1}} = \frac{\sum\limits_{i=1}^{N} ({$1}_{i}-\overline{$1})^2}{N(N-1)}.
+\end{equation}
+endsnippet
+
+snippet "^chyba analog" "Chyba analog" r
+Prúd prechádzajúci cievkou bol meraný analógovým ampérmetrom s triedou presnosti $P=0.2$ na rozsahoch $R=\{0.75,1.5,3.0,7.5\}\si{A}$. Meranie bolo vždy konané pri najmenšom možnom rozsahu $R_m$, takže pre chybu merania prúdu platí \cite{uvod_prakticka}
+\begin{equation} \label{eq:12}
+	\sigma_I = \frac{PR_m}{\sqrt{3}}10^{-2}.
+\end{equation}
+endsnippet
+
+snippet "(lin|reg) rovnake" "Lineárna regresia s jednotnymi chybami" r
+Krivka závislosti $${1:y} = ${2:k}${3:x}$ bola čo najlepšie aproximovaná metódou lineárnej regresie.  Pre koeficient $$2$ a jeho chybu $\sigma_{$2}$ platia vzťahy \cite{uvod_prakticka}
+\begin{equation} \label{eq:regresia$2}
+	$2=\dfrac{\sum\limits_{n=1}^{N} $1_{i} $3_{i}}{\sum\limits_{n=1}^{N} $3_{i}^2}, \qquad \sigma_{$2}=\dfrac{\sigma_{$1}}{\sqrt{\sum\limits_{n=1}^{N} $3_{i}^2} }.
+\end{equation}
+endsnippet
+
+snippet "(lin|reg) rozne" "Lineárna regresia s roznymi chybami" r
+Krivka závislosti $${1:y} = ${2:k}${3:x}$ bola čo najlepšie aproximovaná metódou lineárnej regresie.  Pre koeficient $$2$ a jeho chybu $\sigma_{$2}$ platia vzťahy \cite{uvod_prakticka}
+\begin{equation} \label{eq:regresia$2}
+	$2=\dfrac{\sum\limits_{n=1}^{N} \dfrac{$1_{i} $3_{i}}{\sigma_{$1_{i}}^2} }{\sum\limits_{n=1}^{N} \dfrac{$3_{i}^2}{\sigma_{$1_{i}}^2}}, \qquad \sigma_{$2}=\dfrac{1}{\sqrt{\sum\limits_{n=1}^{N} \dfrac{$3_{i}^2}{\sigma_{$1_{i}}^2}} }.
+\end{equation}
+endsnippet
+
+snippet "(lin|reg) gnuplot" "Gnuplot regresia" r
+Koeficienty získané lineárnou regresiou programom \texttt{Gnuplot}\cite{Gnuplot}, ktorý bral do úvahy chyby určenia $${1}$ a zároveň $${2}$, sú zhrnuté v tabuľke \ref{tab:${3}}.
+endsnippet
+
+snippet lin "Lineárna regresia" b
+lin $1`!p snip.rv=complete(t[1],['rovnake','rozne'])`$0
+endsnippet
+
+snippet htab "Horizontalna tabuľka"
+\begin{table}[!ht]
+	% \vspace{-5pt}
+	\centering
+	\caption{${1}}
+	\label{tab:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+	\begin{tabular}{S*{${3:10}}{S}}
+	\toprule
+	$${4:d}/\si{${5:mm}}$   & 0.50 & 0.50 & 0.50 & 0.51 & 0.50 & 0.50 & 0.50 & 0.51 & 0.50 & 0.50\\\\
+	\bottomrule
+	\end{tabular}
+\end{table}
+endsnippet
+
+
+snippet vtab "Vertikálna tabuľka"
+\begin{table}[!ht]
+	\centering
+	\caption{${1}}
+	\label{tab:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+	\begin{tabular}{SSSS}
+	\toprule
+	$d/\si{mm}$       & $l_0/\si{cm}$   & $L/\si{cm}$    & $D/\si{mm}$ \\\\
+	\midrule
+	$ 0.502 \pm 0.005$ & $ 115.0 \pm 0.5$ & $ 78.8 \pm 0.3$ & $ 38.50 \pm 0.05$\\\\
+	\bottomrule
+	\end{tabular}
+\end{table}
+endsnippet
+
+snippet vtabm "Vertikálna tabuľka multiple"
+\begin{table}[!ht]
+	\centering
+	\caption{${1}}
+	\label{tab:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+	\sisetup{
+		table-number-alignment = center,
+		round-precision = 1,
+		% table-auto-round
+		% separate-uncertainty = false,
+		% table-figures-uncertainty=3
+	}
+	\begin{adjustbox}{center}
+	\begin{tabular}{
+		S[ table-format=2.6 ]
+		S[ table-format=1.6, round-mode = figures ]
+	}
+	\toprule
+	\multicolumn{2}{c}{Oceľ} & \phantom{abc} & \multicolumn{2}{c}{Mosadz}\\\\
+	\cmidrule{1-2} \cmidrule{4-5}
+	$a$/mm & $b$/mm & & $a$/mm & $b$/mm \\\\
+	\midrule
+	11.95 & 1.95 && 11.85  & 1.98   \\\\
+	\bottomrule
+	\end{tabular}
+	\end{adjustbox}
+\end{table}
+endsnippet
+
+
+snippet vtabmmult "Vertikálna tabuľka multiple-multi"
+\begin{table}[!ht]
+	\centering
+	\caption{Meranie $H$ pre súhlasný smer prúdu}
+
+	\sisetup{table-number-alignment = center}
+	\begin{subtable}[h]{0.45\textwidth}
+		\centering
+		\caption{Uprostred v závislosti na $a$}
+		\label{tab:Hoda}
+		\begin{tabular}{
+			S[ table-format=3.0 ]
+			S[ table-format=3.1 ]
+			S[
+				table-format=4.0,
+				table-figures-uncertainty = 2
+			]
+		}
+			\toprule
+			{$a$/mm} & {$U$/mV} & {$H$/$\si{Am^{-1}}$} \\\\
+			\midrule
+			40 & 248.2  & 1169 +- 19 \\\\
+			\bottomrule
+		\end{tabular}
+	\end{subtable}
+	\begin{subtable}[h]{0.45\textwidth}
+		\centering
+		\caption{V Helmholtzovom usporiadaní}
+		\label{tab:helmholtz}
+		\begin{tabular}{
+			S[ table-format=+2.0 ]
+			S[ table-format=3.1 ]
+			S[
+				table-format=4.0,
+				table-figures-uncertainty = 2
+			]
+		}
+			\toprule
+			{$x$/mm} & {$U$/mV} & {$H$/$\si{Am^{-1}}$} \\\\
+			\midrule
+			-20 & 210.9 & 1038 +- 17 \\\\
+			\bottomrule
+		\end{tabular}
+	\end{subtable}
+\end{table}
+endsnippet
+
+snippet sir "Si round precision" w
+\sisetup{round-precision=${1:1}}
+endsnippet
+
+#Menu pre praktikum-snippets
+
+snippet chyb "Chyby merania" b
+chyba ${1|priemer,analog|}
+endsnippet
+
+snippet reg "Linearna regresia" b
+reg ${1|rovnake,rozne,gnuplot|}
+endsnippet
+
+priority 200
+snippet tab "Tabulky" b
+${1|htab,vtab,vtabm,vtabmmult|}
+endsnippet

@@ -4,5 +4,5 @@ vim.g.UltiSnipsJumpForwardTrigger="<tab>" -- exactly same as UltiSnipsExpandTrig
 vim.g.UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 nmap {'<Leader>us', '<Cmd>UltiSnipsEdit<CR>' }
-imap {'<A-Tab>', '<Cmd>call UltiSnips#ListSnippets()<CR>', {silent=true}}
+-- imap {'<A-Tab>', '<Cmd>call UltiSnips#ListSnippets()<CR>', {silent=true}}
 
