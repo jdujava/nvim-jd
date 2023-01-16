@@ -61,7 +61,7 @@ local custom_attach = function()
                 local ok = pcall(vim.cmd.help, word)
 
                 if not ok then
-                    local split_word = vim.split(word, '.', true)
+                    local split_word = vim.split(word, '.', {plain = true})
                     ok = pcall(vim.cmd.help, split_word[#split_word])
                 end
 

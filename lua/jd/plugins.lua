@@ -53,7 +53,9 @@ return require('packer').startup {function(use)
     use {'j-hui/fidget.nvim', config = [[require'jd.plugins.fidget']], after = 'nvim-lspconfig'}
     -- }}} LSP --
     -- Treesitter {{{ --
-    use {'nvim-treesitter/nvim-treesitter', run=':TSUpdate', config=[[require'jd.plugins.treesitter']], event = 'CursorHold'} -- better highlight
+    use {'nvim-treesitter/nvim-treesitter', config=[[require'jd.plugins.treesitter']], event = 'CursorHold', run = function()
+        pcall(require('nvim-treesitter.install').update { with_sync = true })
+    end } -- better highlight
     use {'nvim-treesitter/playground', after = 'nvim-treesitter'}
     use {'nvim-treesitter/nvim-treesitter-context', config=[[require'jd.plugins.treesitter-context']], after = 'nvim-treesitter' }
     use {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'}
@@ -166,7 +168,13 @@ return require('packer').startup {function(use)
         end
     }
 
-
+    use {'asiryk/auto-hlsearch.nvim', event = 'CursorHold',
+        config = function()
+            require("auto-hlsearch").setup {
+                remap_keys = { "/", "?", "*", "#", "n", "N" },
+            }
+        end
+    }
     use {'norcalli/nvim-colorizer.lua', branch = 'color-editor', event = 'CursorHold',
         config = function()
             nmap { '<Leader><Leader>c', '<CMD>ColorizerToggle<CR>' }
