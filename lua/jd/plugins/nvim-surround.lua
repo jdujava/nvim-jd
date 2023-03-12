@@ -1,4 +1,4 @@
-require("nvim-surround").setup({
+require("nvim-surround").setup {
     keymaps = {         -- Defines plugin keymaps,
         insert = "<C-g>s",
         insert_line = "<C-g>S",
@@ -15,4 +15,4 @@ require("nvim-surround").setup({
     -- aliases =        -- Defines aliases,
     -- highlight =      -- Defines highlight behavior,
     -- move_cursor =    -- Defines cursor behavior,
-})
+}

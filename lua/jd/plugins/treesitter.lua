@@ -11,6 +11,7 @@ require("vim.treesitter.query").set_query("sxhkdrc", "injections", [[
 
 tsconf.setup {
 	ensure_installed = "all", -- one of "all", or a list of languages
+    -- ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim' },
 	-- ignore_install = { "phpdoc" },
 	highlight = {
 		enable = true, -- false will disable the whole extension

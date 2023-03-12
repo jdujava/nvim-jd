@@ -24,6 +24,9 @@ return require('packer').startup {function(use)
     -- Packer can manage itself as an optional plugin
     use {'wbthomason/packer.nvim', opt=true} -- no lazy packer
 
+    use { "github/copilot.vim" }
+    -- use { "zbirenbaum/copilot.lua", config=[[require'jd.plugins.copilot']], cmd = "Copilot", event = "InsertEnter"}
+
     -- Snippets {{{ --
     use {'SirVer/ultisnips', setup=[[require'jd.plugins.ultisnips']], event = 'CursorHold' }
     use {'L3MON4D3/LuaSnip', opt = true} -- switch to LuaSnip
@@ -191,6 +194,7 @@ return require('packer').startup {function(use)
     use {'kylechui/nvim-surround', config=[[require'jd.plugins.nvim-surround']], event = 'CursorHold'}
     use {'lewis6991/gitsigns.nvim', config=[[require'jd.plugins.gitsigns']], after = 'plenary.nvim'}
     -- }}} Misc --
+
 
 end,
 config = {

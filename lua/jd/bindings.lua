@@ -1,6 +1,11 @@
 vim.g.mapleader       = ' '
 vim.g.maplocalleader  = ' '
 
+-- handle copilot
+imap { '<A-l>', 'copilot#Accept("<CR>")', {expr=true, silent=true}}
+vim.g.copilot_no_tab_map = true
+vim.g.copilot_filetypes = { TelescopePrompt = false, mail = false }
+
 -- Packer
 nmap {'<Leader><Leader>P', function()
     R 'jd.plugins'
@@ -20,10 +25,10 @@ end }
 
 -- Alt maps
 for _,i in ipairs{'h','j','k','l'} do
-	nmap {'<A-'..i..'>',               '<C-w>'..i                         }
-	nmap {'<A-'..string.upper(i)..'>', '<C-w>'..string.upper(i)           }
-	tmap {'<A-'..i..'>',               '<C-\\><C-n><C-w>'..i              }
-	tmap {'<A-'..string.upper(i)..'>', '<C-\\><C-n><C-w>'..string.upper(i)}
+    nmap {'<A-'..i..'>',               '<C-w>'..i                         }
+    nmap {'<A-'..string.upper(i)..'>', '<C-w>'..string.upper(i)           }
+    tmap {'<A-'..i..'>',               '<C-\\><C-n><C-w>'..i              }
+    tmap {'<A-'..string.upper(i)..'>', '<C-\\><C-n><C-w>'..string.upper(i)}
 end
 
 nmap {'<A-q>',     '<C-w>c' }

@@ -1,6 +1,6 @@
-local has_notify, notify = pcall(require, "notify")
+local has_notify, notify_plugin = pcall(require, "notify")
 if not has_notify then
-  return
+    return
 end
 
 local log = require("plenary.log").new {
@@ -12,12 +12,12 @@ local log = require("plenary.log").new {
 vim.notify = function(msg, level, opts)
     log.info(msg, level, opts)
 
-    notify.notify(msg, level, opts)
+    notify_plugin.notify(msg, level, opts)
 end
 
-notify.setup {
+notify_plugin.setup {
     background_colour = "#000000",
     top_down = false,
 }
 
-nmap { '<A-Space>', notify.dismiss, {silent=true} }
+nmap { '<A-Space>', notify_plugin.dismiss, {silent=true} }

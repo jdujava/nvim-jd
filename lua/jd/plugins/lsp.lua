@@ -11,19 +11,19 @@ end
 
 local custom_attach = function()
     local buf_opts = {silent=true, buffer=0}
-    nmap { '[e',         vim.diagnostic.goto_prev,                                   buf_opts}
-    nmap { ']e',         vim.diagnostic.goto_next,                                   buf_opts}
-    nmap { '<leader>vD', function() vim.diagnostic.open_float(0,{scope="line"}) end, buf_opts}
-    imap { '<c-s>',      vim.lsp.buf.signature_help,                                 buf_opts}
-    nmap { '<leader>vs', vim.lsp.buf.signature_help,                                 buf_opts}
-    nmap { '<leader>vd', vim.lsp.buf.definition,                                     buf_opts}
-    nmap { 'gD',         vim.lsp.buf.declaration,                                    buf_opts}
-    nmap { 'gT',         vim.lsp.buf.type_definition,                                buf_opts}
-    nmap { 'gR',         vim.lsp.buf.rename,                                         buf_opts}
-    nmap { 'gH',         vim.lsp.buf.hover,                                          buf_opts}
-    nmap { 'K',          vim.lsp.buf.hover,                                          buf_opts}
-    nmap { 'gF',         function() vim.lsp.buf.format { async = true } end,         buf_opts}
-    nmap { 'gA',         vim.lsp.buf.code_action,                                    buf_opts}
+    nmap { '[e',         vim.diagnostic.goto_prev,                           buf_opts}
+    nmap { ']e',         vim.diagnostic.goto_next,                           buf_opts}
+    nmap { '<leader>vD', vim.diagnostic.setloclist,                          buf_opts}
+    imap { '<c-s>',      vim.lsp.buf.signature_help,                         buf_opts}
+    nmap { '<leader>vs', vim.lsp.buf.signature_help,                         buf_opts}
+    nmap { '<leader>vd', vim.lsp.buf.definition,                             buf_opts}
+    nmap { 'gD',         vim.lsp.buf.declaration,                            buf_opts}
+    nmap { 'gT',         vim.lsp.buf.type_definition,                        buf_opts}
+    nmap { 'gR',         vim.lsp.buf.rename,                                 buf_opts}
+    nmap { 'gH',         vim.lsp.buf.hover,                                  buf_opts}
+    nmap { 'K',          vim.lsp.buf.hover,                                  buf_opts}
+    nmap { 'gF',         function() vim.lsp.buf.format { async = true } end, buf_opts}
+    nmap { 'gA',         vim.lsp.buf.code_action,                            buf_opts}
 
     map_tele("gr",         "lsp_references",                nil,                        true)
     map_tele("gd",         "lsp_definitions",               nil,                        true)
@@ -150,8 +150,8 @@ require("mason-lspconfig").setup_handlers({
             },
         })
     end,
-    ["sumneko_lua"] = function ()
-        setup_server("sumneko_lua", {
+    ["lua_ls"] = function ()
+        setup_server("lua_ls", {
             settings = {
                 Lua = {
                     runtime = {

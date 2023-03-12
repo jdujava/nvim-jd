@@ -3,14 +3,14 @@
 -- vim.g.did_load_filetypes = 0
 
 vim.filetype.add({
-	extension = {
-		-- gnu = "gnuplot",
-		-- snippets = "snippets",
-	},
-	-- filename = {
-	-- 	[".foorc"] = "foorc",
-	-- },
-	pattern = {
-		-- ["neomutt-.*"] = "mail",
-	},
+    extension = {
+        -- gnu = "gnuplot",
+        -- snippets = "snippets",
+    },
+    -- filename = {
+    --  [".foorc"] = "foorc",
+    -- },
+    pattern = {
+        -- ["neomutt-.*"] = "mail",
+    },
 })

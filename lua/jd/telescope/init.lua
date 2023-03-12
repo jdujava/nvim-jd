@@ -1,14 +1,14 @@
 if not pcall(require, "telescope") then
-	return
+    return
 end
 
 SHOULD_RELOAD_TELESCOPE = false
 
 local reloader = function()
-	if SHOULD_RELOAD_TELESCOPE then
-		RELOAD "jd.telescope"
-		RELOAD "jd.telescope.mappings"
-	end
+    if SHOULD_RELOAD_TELESCOPE then
+        RELOAD "jd.telescope"
+        RELOAD "jd.telescope.mappings"
+    end
 end
 
 reloader()
@@ -20,87 +20,87 @@ local themes = require "telescope.themes"
 
 
 local set_prompt_to_entry_value = function(prompt_bufnr)
-	local entry = action_state.get_selected_entry()
-	if not entry or not type(entry) == "table" then
-		return
-	end
+    local entry = action_state.get_selected_entry()
+    if not entry or not type(entry) == "table" then
+        return
+    end
 
-	action_state.get_current_picker(prompt_bufnr):reset_prompt(entry.ordinal)
+    action_state.get_current_picker(prompt_bufnr):reset_prompt(entry.ordinal)
 end
 
 require('telescope').setup{
-	defaults = {
-		vimgrep_arguments = {
-			'rg',
-			'--color=never',
-			'--no-heading',
-			'--with-filename',
-			'--line-number',
-			'--column',
-			'--smart-case'
-		},
-		prompt_prefix = "🔭 ",
-		selection_caret = "> ",
+    defaults = {
+        vimgrep_arguments = {
+            'rg',
+            '--color=never',
+            '--no-heading',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--smart-case'
+        },
+        prompt_prefix = "🔭 ",
+        selection_caret = "> ",
         entry_prefix = "  ",
         multi_icon = ">",
 
-		sorting_strategy = "ascending",
-		layout_config = {
-			width = 0.85,
-			height = 0.85,
-			prompt_position = "top",
+        sorting_strategy = "ascending",
+        layout_config = {
+            width = 0.85,
+            height = 0.85,
+            prompt_position = "top",
 
-			horizontal = {
-			},
-			vertical = {
-				-- width_padding = 0.05,
-				-- height_padding = 1,
-				width = 0.9,
-				height = 0.95,
-				preview_height = 0.5,
-			},
-		},
-		-- file_ignore_patterns = {
-		-- 	".zwc",
-		-- },
-		border = true,
-		borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
-		color_devicons = true,
-		path_display = {},
-		set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
-		file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
-		grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
-		qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
+            horizontal = {
+            },
+            vertical = {
+                -- width_padding = 0.05,
+                -- height_padding = 1,
+                width = 0.9,
+                height = 0.95,
+                preview_height = 0.5,
+            },
+        },
+        -- file_ignore_patterns = {
+        --  ".zwc",
+        -- },
+        border = true,
+        borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+        color_devicons = true,
+        path_display = {},
+        set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+        file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
+        grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
+        qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
 
-		mappings = {
-			i = {
-				["<Esc>"] = actions.close,
-				["<C-j>"] = actions.move_selection_next,
-				["<C-p>"] = actions.move_selection_previous,
-				["<C-l>"] = actions.select_default,
-				["<C-y>"] = set_prompt_to_entry_value,
-				["<A-/>"] = actions_layout.toggle_preview,
-			},
-		}
-	},
-	pickers = {
-		-- Your special builtin config goes in here
-		buffers = {
-			sort_lastused = true,
-			theme = "dropdown",
-			previewer = false,
-			mappings = {
-				i = {
-					["<c-d>"] = actions.delete_buffer,
-					-- Right hand side can also be the name of the action as a string
-					-- ["<c-d>"] = "delete_buffer",
-				},
-				n = {
-					["<c-d>"] = actions.delete_buffer,
-				}
-			}
-		},
-		find_files = {
+        mappings = {
+            i = {
+                ["<Esc>"] = actions.close,
+                ["<C-j>"] = actions.move_selection_next,
+                ["<C-p>"] = actions.move_selection_previous,
+                ["<C-l>"] = actions.select_default,
+                ["<C-y>"] = set_prompt_to_entry_value,
+                ["<A-/>"] = actions_layout.toggle_preview,
+            },
+        }
+    },
+    pickers = {
+        -- Your special builtin config goes in here
+        buffers = {
+            sort_lastused = true,
+            theme = "dropdown",
+            previewer = false,
+            mappings = {
+                i = {
+                    ["<c-d>"] = actions.delete_buffer,
+                    -- Right hand side can also be the name of the action as a string
+                    -- ["<c-d>"] = "delete_buffer",
+                },
+                n = {
+                    ["<c-d>"] = actions.delete_buffer,
+                }
+            }
+        },
+        find_files = {
             find_command = {
                 "fd", "--type", "f",
                 -- "--base-directory", "/home/jonas",
@@ -113,35 +113,35 @@ require('telescope').setup{
             -- prompt_title = '',
             -- results_title = '',
             -- preview_title = '',
-		}
-	},
-	extensions = {
-		fzf = {
-			fuzzy = true,                    -- false will only do exact matching
-			override_generic_sorter = true, -- override the generic sorter
-			override_file_sorter = true,     -- override the file sorter
-			case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-			-- the default case_mode is "smart_case"
-		},
-		frecency = {
-			show_scores = true,
-			show_unindexed = true,
-			ignore_patterns = {"*.git/*", "*.github/*", "*/tmp/*"},
-			disable_devicons = false,
-			workspaces = {
-				["conf"] = "/home/jonas/.config",
-				["data"] = "/home/jonas/.local/share",
-				["doc"]  = "/home/jonas/Documents",
-				["cus"]  = "/home/jonas/Documents/customfiles",
-			}
-		},
-		["ui-select"] = {
-			themes.get_dropdown {
-				-- even more opts
-			}
-		}
+        }
+    },
+    extensions = {
+        fzf = {
+            fuzzy = true,                    -- false will only do exact matching
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true,     -- override the file sorter
+            case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+            -- the default case_mode is "smart_case"
+        },
+        frecency = {
+            show_scores = true,
+            show_unindexed = true,
+            ignore_patterns = {"*.git/*", "*.github/*", "*/tmp/*"},
+            disable_devicons = false,
+            workspaces = {
+                ["conf"] = "/home/jonas/.config",
+                ["data"] = "/home/jonas/.local/share",
+                ["doc"]  = "/home/jonas/Documents",
+                ["cus"]  = "/home/jonas/Documents/customfiles",
+            }
+        },
+        ["ui-select"] = {
+            themes.get_dropdown {
+                -- even more opts
+            }
+        }
 
-	},
+    },
 }
 
 vim.api.nvim_set_hl(0, 'TelescopeSelectionCaret', {fg = '#ff87d7', bg = '#262626'} )
@@ -182,101 +182,101 @@ require("telescope").load_extension "messages"
 local M = {}
 
 function M.edit_neovim()
-	require("telescope.builtin").find_files {
-		cwd = "~/.config/nvim/",
-		prompt_title = "Neovim Dotfiles",
-	}
+    require("telescope.builtin").find_files {
+        cwd = "~/.config/nvim/",
+        prompt_title = "Neovim Dotfiles",
+    }
 end
 
 function M.edit_zsh()
-	require("telescope.builtin").find_files {
-		cwd = "~/.config/zsh/",
-		prompt_title = "Zsh Dotfiles",
-	}
+    require("telescope.builtin").find_files {
+        cwd = "~/.config/zsh/",
+        prompt_title = "Zsh Dotfiles",
+    }
 end
 
 function M.builtin()
-	local opts = {
-		-- previewer = false,
-		-- layout_config = {
-		-- 	width = 0.4,
-		-- 	height = 0.5,
-		-- },
-	}
-	require("telescope.builtin").builtin(opts)
+    local opts = {
+        -- previewer = false,
+        -- layout_config = {
+        --  width = 0.4,
+        --  height = 0.5,
+        -- },
+    }
+    require("telescope.builtin").builtin(opts)
 end
 
 function M.live_grep()
-	require("telescope.builtin").live_grep {
-		-- shorten_path = true,
-		-- previewer = true,
-	}
+    require("telescope.builtin").live_grep {
+        -- shorten_path = true,
+        -- previewer = true,
+    }
 end
 
 function M.oldfiles()
-	require("telescope").extensions.frecency.frecency {
-		cwd = "~/",
-		-- sorter = require'telescope.config'.values.file_sorter(),
-		sorter = require "telescope.sorters".fuzzy_with_index_bias(),
-	}
+    require("telescope").extensions.frecency.frecency {
+        cwd = "~/",
+        -- sorter = require'telescope.config'.values.file_sorter(),
+        sorter = require "telescope.sorters".fuzzy_with_index_bias(),
+    }
 end
 
 function M.my_plugins()
-	require("telescope.builtin").find_files {
-		cwd = "~/.config/nvim/bundle/",
-	}
+    require("telescope.builtin").find_files {
+        cwd = "~/.config/nvim/bundle/",
+    }
 end
 
 function M.installed_plugins()
-	require("telescope.builtin").find_files {
-		cwd = vim.fn.stdpath "data" .. "/site/pack/packer/",
-	}
+    require("telescope.builtin").find_files {
+        cwd = vim.fn.stdpath "data" .. "/site/pack/packer/",
+    }
 end
 
 function M.project_search()
-	local opts = {
-		-- previewer = false,
-		shorten_path = false,
-		cwd = require("lspconfig.util").root_pattern ".git"(vim.fn.expand "%:p"),
-		-- layout_config = {
-		-- 	height=0.6,
-		-- 	width=0.7,
-		-- }
-	}
-	require("telescope.builtin").find_files(opts)
+    local opts = {
+        -- previewer = false,
+        shorten_path = false,
+        cwd = require("lspconfig.util").root_pattern ".git"(vim.fn.expand "%:p"),
+        -- layout_config = {
+        --  height=0.6,
+        --  width=0.7,
+        -- }
+    }
+    require("telescope.builtin").find_files(opts)
 end
 
 function M.buffers()
-	require("telescope.builtin").buffers {
-		path_display = {"absolute"},
-		cwd = "~"
-	}
+    require("telescope.builtin").buffers {
+        path_display = {"absolute"},
+        cwd = "~"
+    }
 end
 
 function M.curbuf()
-	-- local opts = themes.get_dropdown {
-	-- 	previewer = false,
-	-- 	shorten_path = false,
-	-- 	layout_config = {
-	-- 		height=0.6,
-	-- 		width=0.7,
-	-- 	}
-	-- }
-	-- require("telescope.builtin").current_buffer_fuzzy_find(opts)
-	require("telescope.builtin").current_buffer_fuzzy_find{}
+    -- local opts = themes.get_dropdown {
+    --  previewer = false,
+    --  shorten_path = false,
+    --  layout_config = {
+    --      height=0.6,
+    --      width=0.7,
+    --  }
+    -- }
+    -- require("telescope.builtin").current_buffer_fuzzy_find(opts)
+    require("telescope.builtin").current_buffer_fuzzy_find{}
 end
 
 function M.ultisnips()
-	local opts = {
-		-- previewer = true,
-		layout_strategy = 'vertical',
-		layout_config = {
-			height = 0.95,
-			width = 0.5
-		}
-	}
-	require("telescope").extensions.ultisnips.ultisnips(opts)
-	-- require("telescope").extensions.ultisnips.ultisnips{}
+    local opts = {
+        -- previewer = true,
+        layout_strategy = 'vertical',
+        layout_config = {
+            height = 0.95,
+            width = 0.5
+        }
+    }
+    require("telescope").extensions.ultisnips.ultisnips(opts)
+    -- require("telescope").extensions.ultisnips.ultisnips{}
 end
 
 function M.messages()
@@ -291,14 +291,14 @@ function M.messages()
 end
 
 function M.help_tags()
-	require("telescope.builtin").help_tags {}
+    require("telescope.builtin").help_tags {}
 end
 
 function M.search_all_files()
-	require("telescope.builtin").find_files {
-		cwd = "~",
-		-- previewer = false,
-	}
+    require("telescope.builtin").find_files {
+        cwd = "~",
+        -- previewer = false,
+    }
 end
 
 function M.notify()
@@ -306,18 +306,18 @@ function M.notify()
 end
 
 return setmetatable({}, {
-	__index = function(_, k)
-		reloader()
+    __index = function(_, k)
+        reloader()
 
-		local has_custom, custom = pcall(require, string.format("jd.telescope.custom.%s", k))
+        local has_custom, custom = pcall(require, string.format("jd.telescope.custom.%s", k))
 
-		if M[k] then
-			return M[k]
-		elseif has_custom then
-			return custom
-		else
-			return require("telescope.builtin")[k]
-		end
-	end,
+        if M[k] then
+            return M[k]
+        elseif has_custom then
+            return custom
+        else
+            return require("telescope.builtin")[k]
+        end
+    end,
 })
 
