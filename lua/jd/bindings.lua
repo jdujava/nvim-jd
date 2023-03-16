@@ -128,11 +128,14 @@ nmap { '<leader><leader>v', '<CMD>!opout "%:p"<CR><CR>' }
 nmap { '<leader>sw', '<CMD>SudoWrite<CR>' }
 
 -- Executor
-nmap { '<leader>x', '<CMD>call Executor()<CR>' }
+-- nmap { '<leader>x', '<CMD>call Executor()<CR>' }
+nmap { '<leader>x', function() executor() end }
 vmap { '<leader>x', [[<CMD><C-w>exe join(getline("'<","'>"),'<Bar>')<CR>]] }
 -- Save&Exec
-nmap { '<leader><leader>x', '<CMD>call SaveandExec()<CR>' }
-nmap { '<leader>X',         '<CMD>call SaveandExec()<CR>' }
+-- nmap { '<leader><leader>x', '<CMD>call SaveandExec()<CR>' }
+-- nmap { '<leader>X',         '<CMD>call SaveandExec()<CR>' }
+nmap { '<leader><leader>x', saveandexec }
+nmap { '<leader>X',         saveandexec }
 
 -- Toggle hlsearch
 nmap { '<A-CR>', '<CMD>let v:hlsearch=!v:hlsearch<CR>', {silent=true} }

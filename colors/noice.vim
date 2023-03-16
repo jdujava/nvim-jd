@@ -5,6 +5,7 @@ set background=dark
 let g:colors_name='noice'
 
 hi  Normal           guifg=#abb2bf ctermfg=249  guibg=NONE    ctermbg=234  gui=NONE         cterm=NONE
+hi  NormalNC         guifg=#abb2bf ctermfg=249  guibg=NONE    ctermbg=234  gui=NONE         cterm=NONE
 hi  Comment          guifg=#608b4e ctermfg=65   guibg=NONE    ctermbg=NONE gui=italic       cterm=italic
 hi  Constant         guifg=#dcdcaa ctermfg=187  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
 hi  String           guifg=#ce9178 ctermfg=174  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
@@ -129,9 +130,9 @@ hi TSInclude            guifg=#c586c0 ctermfg=175  guibg=NONE    ctermbg=NONE gu
 hi TSVariable           guifg=#9cdcfe ctermfg=153  guibg=NONE    ctermbg=NONE gui=NONE      cterm=NONE
 hi TSVariableBuiltin    guifg=#9cdcfe ctermfg=153  guibg=NONE    ctermbg=NONE gui=NONE      cterm=NONE
 hi TSText               guifg=#ffff00 ctermfg=226  guibg=NONE    ctermbg=NONE gui=NONE      cterm=NONE
-hi TSStrong             guifg=#ffff00 ctermfg=226  guibg=NONE    ctermbg=NONE gui=NONE      cterm=NONE
-hi TSEmphasis           guifg=#ffff00 ctermfg=226  guibg=NONE    ctermbg=NONE gui=NONE      cterm=NONE
-hi TSUnderline          guifg=#ffff00 ctermfg=226  guibg=NONE    ctermbg=NONE gui=NONE      cterm=NONE
+hi TSStrong             guifg=#ffff00 ctermfg=226  guibg=NONE    ctermbg=NONE gui=bold      cterm=NONE
+hi TSEmphasis           guifg=#ffff00 ctermfg=226  guibg=NONE    ctermbg=NONE gui=italic    cterm=NONE
+hi TSUnderline          guifg=#ffff00 ctermfg=226  guibg=NONE    ctermbg=NONE gui=underline cterm=NONE
 hi TSTitle              guifg=#ffff00 ctermfg=226  guibg=NONE    ctermbg=NONE gui=NONE      cterm=NONE
 hi TSLiteral            guifg=#ce9178 ctermfg=174  guibg=NONE    ctermbg=NONE gui=NONE      cterm=NONE
 hi TSURI                guifg=NONE    ctermfg=NONE guibg=NONE    ctermbg=NONE gui=underline cterm=underline

@@ -24,6 +24,8 @@ return require('packer').startup {function(use)
     -- Packer can manage itself as an optional plugin
     use {'wbthomason/packer.nvim', opt=true} -- no lazy packer
 
+    -- use {'folke/tokyonight.nvim', config=[[require'jd.plugins.tokyonight']]}
+
     use { "github/copilot.vim" }
     -- use { "zbirenbaum/copilot.lua", config=[[require'jd.plugins.copilot']], cmd = "Copilot", event = "InsertEnter"}
 
@@ -50,7 +52,6 @@ return require('packer').startup {function(use)
     -- LSP {{{ --
     use {'williamboman/mason.nvim', config = [[require'jd.plugins.mason']], after = 'cmp-nvim-lsp'}
     use {'williamboman/mason-lspconfig.nvim', config = function() require('mason-lspconfig').setup() end, after = 'mason.nvim'}
-    -- use {'tjdevries/nlua.nvim', after = "mason-lspconfig.nvim"}
     use {'neovim/nvim-lspconfig', config = [[require'jd.plugins.lsp']], after = 'mason-lspconfig.nvim'}
 
     use {'j-hui/fidget.nvim', config = [[require'jd.plugins.fidget']], after = 'nvim-lspconfig'}
@@ -65,38 +66,12 @@ return require('packer').startup {function(use)
     -- use {'nvim-treesitter/nvim-treesitter-textobjects', opt = true}
     -- use {'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter'}
 
-    -- use {'lukas-reineke/indent-blankline.nvim', config=[[require'jd.plugins.indent-blankline']], after = 'nvim-treesitter-context'}
-    -- use {'kevinhwang91/nvim-hlslens', config = function ()
-    --     require('hlslens').setup {
-    --         calm_down = true,
-    --         nearest_only = true,
-    --     }
-    --
-    --     local kopts = {noremap = true, silent = true}
-    --
-    --     vim.api.nvim_set_keymap('n', 'n',
-    --     [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
-    --     kopts)
-    --     vim.api.nvim_set_keymap('n', 'N',
-    --     [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
-    --     kopts)
-    --     vim.api.nvim_set_keymap('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
-    --     vim.api.nvim_set_keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
-    --     vim.api.nvim_set_keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
-    --     vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
-    --
-    --     vim.api.nvim_set_keymap('n', '<Leader>l', ':noh<CR>', kopts)
-    -- end}
-
     -- }}} Treesitter --
     -- Telescope {{{ --
     -- use 'norcalli/nvim_utils' -- neovim lua utils
     use {'nvim-lua/plenary.nvim', config=[[require'jd.plugins.plenary']], event = 'CursorHold' }
     -- use {'nvim-lua/plenary.nvim', config=[[require'jd.plugins.plenary']]}
 
-    -- use {'kyazdani42/nvim-web-devicons', config=function()
-    --     require("nvim-web-devicons").set_default_icon('', '#8b929f')
-    -- end, event = 'CursorHold'}
     use {'kyazdani42/nvim-web-devicons', config=function()
         require("nvim-web-devicons").set_default_icon('', '#8b929f')
     end}
@@ -112,26 +87,49 @@ return require('packer').startup {function(use)
             require'jd.telescope.mappings'
         end,
     }
+
+    -- Packer
+    -- use({
+    --     "folke/noice.nvim",
+    --     config = function()
+    --         require("noice").setup({
+    --             lsp = {
+    --                 -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+    --                 override = {
+    --                     ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+    --                     ["vim.lsp.util.stylize_markdown"] = true,
+    --                     ["cmp.entry.get_documentation"] = true,
+    --                 },
+    --             },
+    --             -- you can enable a preset for easier configuration
+    --             presets = {
+    --                 bottom_search = false, -- use a classic bottom cmdline for search
+    --                 command_palette = true, -- position the cmdline and popupmenu together
+    --                 long_message_to_split = true, -- long messages will be sent to a split
+    --                 inc_rename = false, -- enables an input dialog for inc-rename.nvim
+    --                 lsp_doc_border = false, -- add a border to hover docs and signature help
+    --             },
+    --             routes = {
+    --                 {
+    --                     view = "notify",
+    --                     filter = { event = "msg_showmode" },
+    --                 },
+    --                 {
+    --                     filter = {
+    --                         event = "msg_show",
+    --                         kind = "search_count",
+    --                     },
+    --                     opts = { skip = true },
+    --                 },
+    --             },
+    --         })
+    --     end,
+    --     requires = {
+    --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+    --         "MunifTanjim/nui.nvim",
+    --     }
+    -- })
     use {'rcarriga/nvim-notify', config=[[require'jd.plugins.notify']], after = 'telescope.nvim' }
-    -- use { "vigoux/notifier.nvim", after = 'telescope.nvim',
-    use { "vigoux/notifier.nvim", opt = true,
-        config = function()
-            require'notifier'.setup {
-                -- You configuration here
-                ignore_messages = {}, -- Ignore message from LSP servers with this name
-                -- status_width = something, -- COmputed using 'columns' and 'textwidth'
-                components = {  -- Order of the components to draw from top to bottom (first nvim notifications, then lsp)
-                    "nvim",  -- Nvim notifications (vim.notify and such)
-                    "lsp"  -- LSP status updates
-                },
-                notify = {
-                    clear_time = 5000, -- Time in milisecond before removing a vim.notifiy notification, 0 to make them sticky
-                    min_level = vim.log.levels.INFO, -- Minimum log level to print the notification
-                },
-                component_name_recall = true -- Whether to prefix the title of the notification by the component name
-            }
-        end,
-    }
 
     -- }}} Telescope --
     -- Misc {{{ --
@@ -141,7 +139,6 @@ return require('packer').startup {function(use)
     --  config=[[require'jd.plugins.firenvim']],
     -- }
     use {'voldikss/vim-floaterm', config=[[require'jd.plugins.vim-floaterm']], event = 'CursorHold' }
-    -- use {'is0n/fm-nvim', event = 'CursorHold'}
     use {'mbbill/undotree', event = 'CursorHold',
         config = function()
             vim.g.undotree_WindowLayout = 2
@@ -184,17 +181,41 @@ return require('packer').startup {function(use)
             nmap { '<Leader><Leader>C', require'colorizer'.color_picker_on_cursor }
         end
     } -- high-performance color highlighter for Neovim
-    -- use {'phaazon/hop.nvim', config = [[require'jd.plugins.hop']], event = 'CursorHold'}
-    use {'phaazon/hop.nvim', config = [[require'jd.plugins.hop']], opt = true}
-    use {'junegunn/vim-easy-align', config=[[require'jd.plugins.vim-easy-align']], event = 'CursorHold'} -- use easy-align, instead of tabular
+    use {'junegunn/vim-easy-align', config=[[require'jd.plugins.vim-easy-align']], event = 'CursorHold'}
     use {'tpope/vim-unimpaired', event = 'CursorHold'} -- mappings with [ and ]
-    -- use {'tpope/vim-scriptease', event = 'CursorHold'} -- mappings with [ and ]
-
     use {'numToStr/Comment.nvim', config=[[require'jd.plugins.Comment']], event = 'CursorHold'} -- comments
     use {'kylechui/nvim-surround', config=[[require'jd.plugins.nvim-surround']], event = 'CursorHold'}
     use {'lewis6991/gitsigns.nvim', config=[[require'jd.plugins.gitsigns']], after = 'plenary.nvim'}
     -- }}} Misc --
 
+    -- use {
+    --     "nvim-neorg/neorg",
+    --     config = function()
+    --         require('neorg').setup {
+    --             load = {
+    --                 ["core.defaults"] = {}, -- Loads default behaviour
+    --                 ["core.norg.concealer"] = {
+    --                     config = {
+    --                         dim_code_blocks = {
+    --                             padding = { left = 5, right = 5},
+    --                             width = "content",
+    --                         },
+    --                     },
+    --                 }, -- Adds pretty icons to your documents
+    --                 ["core.norg.dirman"] = { -- Manages Neorg workspaces
+    --                     config = {
+    --                         workspaces = {
+    --                             notes = "~/notes",
+    --                         },
+    --                         default_workspace = "notes",
+    --                     },
+    --                 },
+    --             },
+    --         }
+    --     end,
+    --     run = ":Neorg sync-parsers",
+    --     after = {'plenary.nvim', 'telescope.nvim', 'nvim-treesitter'}
+    -- }
 
 end,
 config = {
