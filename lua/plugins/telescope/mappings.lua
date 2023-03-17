@@ -6,9 +6,9 @@ local map_tele = function(key, f, options, buffer)
     TelescopeMapArgs[map_key] = options or {}
 
     local mode = "n"
-    local rhs = function() require('jd.telescope')[f](TelescopeMapArgs[map_key]) end
+    local rhs = function() require('plugins.telescope.setup')[f](TelescopeMapArgs[map_key]) end
     -- always automatically update
-    -- local rhs = function() R('jd.telescope')[f](TelescopeMapArgs[map_key]) end
+    -- local rhs = function() R('plugins.telescope.setup')[f](TelescopeMapArgs[map_key]) end
 
     local map_options = {
         noremap = true,

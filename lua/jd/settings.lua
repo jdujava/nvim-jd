@@ -41,9 +41,22 @@ vim.o.undolevels    = 2000
 vim.o.backupdir     = (vim.env.XDG_STATE_HOME or vim.env.HOME.."/.local/state").."/nvim/backup"
 vim.o.shada         = [[!,'100,<50,s10,/100,:1000,h]]
 vim.o.list          = true
--- vim.o.listchars     = [[tab:▶·,trail:_,extends:»,precedes:«,nbsp:·,eol:↲]]
-vim.o.listchars     = [[tab:> ,trail:_,extends:»,precedes:«,nbsp:·]]
-vim.o.fillchars     = [[vert:│,fold:·,diff:╱]]
+vim.opt.listchars = {
+    tab = "> ",
+    trail = "_",
+    extends = "»",
+    precedes = "«",
+    nbsp = "·",
+}
+vim.opt.fillchars = {
+    vert = "│",
+    foldopen = "",
+    foldclose = "",
+    fold = "·",
+    foldsep = " ",
+    diff = "╱",
+    eob = " ",
+}
 vim.opt.shortmess:append "cI"
 
 -- TODO

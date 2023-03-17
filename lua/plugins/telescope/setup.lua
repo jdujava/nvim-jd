@@ -6,8 +6,8 @@ SHOULD_RELOAD_TELESCOPE = false
 
 local reloader = function()
     if SHOULD_RELOAD_TELESCOPE then
-        RELOAD "jd.telescope"
-        RELOAD "jd.telescope.mappings"
+        RELOAD "plugins.telescope.setup"
+        RELOAD "plugins.telescope.mappings"
     end
 end
 
@@ -308,12 +308,8 @@ return setmetatable({}, {
     __index = function(_, k)
         reloader()
 
-        local has_custom, custom = pcall(require, string.format("jd.telescope.custom.%s", k))
-
         if M[k] then
             return M[k]
-        elseif has_custom then
-            return custom
         else
             return require("telescope.builtin")[k]
         end

@@ -6,16 +6,6 @@ imap { '<A-l>', 'copilot#Accept("<CR>")', {expr=true, silent=true}}
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_filetypes = { TelescopePrompt = false, mail = false }
 
--- Packer
-nmap {'<Leader><Leader>P', function()
-    R 'jd.plugins'
-    require('packer').status()
-end }
-nmap {'<A-P>', function()
-    R 'jd.plugins'
-    require('packer').sync()
-end }
-
 -- open link in browser/pdf-viewer
 map {'<A-~>', function()
     local link = vim.fn.expand('<cWORD>'):gsub('^%[(.*)%]$', '%1')
