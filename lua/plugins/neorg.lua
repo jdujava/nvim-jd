@@ -1,7 +1,7 @@
 return {
     {
         "nvim-neorg/neorg",
-        event = "CursorHold",
+        event = "VeryLazy",
         ft = "norg",
         keys = {{'<leader>n', '<CMD>Neorg<CR>'}},
         opts = {

@@ -7,19 +7,13 @@ local map_tele = function(key, f, options, buffer)
 
     local mode = "n"
     local rhs = function() require('plugins.telescope.setup')[f](TelescopeMapArgs[map_key]) end
-    -- always automatically update
-    -- local rhs = function() R('plugins.telescope.setup')[f](TelescopeMapArgs[map_key]) end
 
-    local map_options = {
-        noremap = true,
-        silent = true,
-    }
-
+    local opts = { silent = true }
     if buffer then
-        map_options.buffer = 0
+        opts.buffer = 0
     end
 
-    vim.keymap.set(mode, key, rhs, map_options)
+    vim.keymap.set(mode, key, rhs, opts)
 end
 
 cmap {"<c-r><c-r>", "<Plug>(TelescopeFuzzyCommandSearch)", {nowait=true}}

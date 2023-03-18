@@ -1,6 +1,7 @@
 return {
     {
         'voldikss/vim-floaterm',
+        pin = true, -- pin to a specific (custom) commit
         keys = {
             { '<leader>r', function()
                 local function lf_open(opener)

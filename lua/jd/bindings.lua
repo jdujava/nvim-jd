@@ -124,6 +124,9 @@ nmap { '<leader>X', function() require('jd.cmds').saveandexec() end }
 nmap { '<A-CR>', '<CMD>let v:hlsearch=!v:hlsearch<CR>', {silent=true} }
 tmap { '<A-CR>', '<C-\\><C-n><Cmd>let v:hlsearch=!v:hlsearch<CR>a', {silent=true} }
 
+-- Toggle diagnostics
+nmap { "<leader>ud", require("jd.helpers").toggle_diagnostics }
+
 -- Show highlight group under cursor
 local function name_syn_stack()
   local stack = vim.fn.synstack(vim.fn.line("."), vim.fn.col("."))

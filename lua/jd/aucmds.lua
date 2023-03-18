@@ -1,10 +1,15 @@
 local au = vim.api.nvim_create_autocmd
 local gr = vim.api.nvim_create_augroup
 
-local core         = gr("core", {})
-local auto_updates = gr("auto_updates", {})
-local term         = gr("term", {})
+local core         = gr("core",         { clear = true })
+local auto_updates = gr("auto_updates", { clear = true })
+local term         = gr("term",         { clear = true })
 
+-- Check if we need to reload the file when it changed
+au({ "FocusGained", "TermClose", "TermLeave" }, {
+  command = "checktime",
+  group = core,
+})
 
 -- Automatically deletes all trailing whitespace on save
 au('BufWritePre', {

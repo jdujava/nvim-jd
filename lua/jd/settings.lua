@@ -5,6 +5,7 @@ vim.o.showmatch      = true
 vim.o.number         = true
 vim.o.relativenumber = true
 vim.o.scrolloff      = 10
+vim.o.sidescrolloff  = 8
 
 vim.o.tabstop     = 4
 vim.o.shiftwidth  = 4
@@ -17,6 +18,7 @@ vim.o.linebreak   = true
 
 vim.o.ignorecase    = true
 vim.o.smartcase     = true
+vim.o.smartindent   = true
 vim.o.foldmethod    = 'marker'
 -- vim.o.foldmarker    = '{{{,}}}'
 -- vim.o.foldmethod = 'expr'
@@ -28,16 +30,17 @@ vim.o.virtualedit   = 'block'
 vim.o.splitbelow    = true
 vim.o.splitright    = true
 vim.o.clipboard     = 'unnamedplus'
+vim.o.completeopt   = 'menu,menuone,noselect'
 vim.o.spelllang     = 'sk,en_us'
 vim.o.signcolumn    = 'yes'
 vim.o.mouse         = 'a'
-vim.o.pumheight     = 25
+vim.o.pumheight     = 15
 vim.o.lazyredraw    = true
 vim.o.timeoutlen    = 500
-vim.o.updatetime    = 5       -- instant lazy-load of packages
+vim.o.updatetime    = 200  -- Save swap file and trigger CursorHold
 vim.o.backup        = true
 vim.o.undofile      = true
-vim.o.undolevels    = 2000
+vim.o.undolevels    = 10000
 vim.o.backupdir     = (vim.env.XDG_STATE_HOME or vim.env.HOME.."/.local/state").."/nvim/backup"
 vim.o.shada         = [[!,'100,<50,s10,/100,:1000,h]]
 vim.o.list          = true
@@ -57,7 +60,7 @@ vim.opt.fillchars = {
     diff = "╱",
     eob = " ",
 }
-vim.opt.shortmess:append "cI"
+vim.opt.shortmess:append { W = true, I = true, c = true }
 
 -- TODO
 -- do this !!!!!!!!!!

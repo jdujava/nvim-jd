@@ -52,88 +52,51 @@ return {
                     },
                 },
             },
+            setup = {
+                clangd = function(_, opts)
+                    opts.capabilities.offsetEncoding = { "utf-16" }
+                end,
+                -- Specify * to use this function as a fallback for any server
+                -- ["*"] = function(server, opts) end,
+            },
         },
         config = function(_, opts)
-            vim.diagnostic.config(opts.diagnostics)
+            -- setup keymaps
+            require("jd.helpers").on_attach(function(client, buffer)
+                require("plugins.lsp.keymaps").on_attach(client, buffer)
+            end)
 
-            local on_attach = function()
-                local buf_opts = {silent=true, buffer=0}
-                nmap { '[e',         vim.diagnostic.goto_prev,                           buf_opts}
-                nmap { ']e',         vim.diagnostic.goto_next,                           buf_opts}
-                nmap { '<leader>vD', vim.diagnostic.setloclist,                          buf_opts}
-                imap { '<c-s>',      vim.lsp.buf.signature_help,                         buf_opts}
-                nmap { '<leader>vs', vim.lsp.buf.signature_help,                         buf_opts}
-                nmap { '<leader>vd', vim.lsp.buf.definition,                             buf_opts}
-                nmap { 'gD',         vim.lsp.buf.declaration,                            buf_opts}
-                nmap { 'gT',         vim.lsp.buf.type_definition,                        buf_opts}
-                nmap { 'gR',         vim.lsp.buf.rename,                                 buf_opts}
-                nmap { 'gH',         vim.lsp.buf.hover,                                  buf_opts}
-                nmap { 'K',          vim.lsp.buf.hover,                                  buf_opts}
-                nmap { 'gF',         function() vim.lsp.buf.format { async = true } end, buf_opts}
-                nmap { 'gA',         vim.lsp.buf.code_action,                            buf_opts}
-
-                local map_tele = require "plugins.telescope.mappings"
-                map_tele("gr",         "lsp_references",                nil,                        true)
-                map_tele("gd",         "lsp_definitions",               nil,                        true)
-                map_tele("gI",         "lsp_implementations",           nil,                        true)
-                map_tele("<leader>wd", "lsp_document_symbols",          { ignore_filename = true }, true)
-                map_tele("<leader>ww", "lsp_dynamic_workspace_symbols", { ignore_filename = true }, true)
-
-                vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-                if vim.bo.filetype == 'lua' or vim.bo.filetype == 'vim' then
-                    nmap { 'K', function()
-                        local original_iskeyword = vim.bo.iskeyword
-
-                        vim.bo.iskeyword = vim.bo.iskeyword .. ',.'
-                        local word = vim.fn.expand("<cword>")
-
-                        vim.bo.iskeyword = original_iskeyword
-
-                        -- TODO: This is kind of a lame hack... since you could rename `vim.api` -> `a` or similar
-                        if string.find(word, 'vim.api') then
-                            local _, finish = string.find(word, 'vim.api.')
-                            local api_function = string.sub(word, finish + 1)
-
-                            vim.cmd.help(api_function)
-                            return
-                        elseif string.find(word, 'vim.fn') then
-                            local _, finish = string.find(word, 'vim.fn.')
-                            local api_function = string.sub(word, finish + 1) .. '()'
-
-                            vim.cmd.help(api_function)
-                            return
-                        else
-                            -- TODO: This should be exact match only. Not sure how to do that with `:help`
-                            -- TODO: Let users determine how magical they want the help finding to be
-                            local ok = pcall(vim.cmd.help, word)
-
-                            if not ok then
-                                local split_word = vim.split(word, '.', {plain = true})
-                                ok = pcall(vim.cmd.help, split_word[#split_word])
-                            end
-
-                            if not ok then
-                                vim.lsp.buf.hover()
-                            end
-                        end
-                    end, buf_opts}
-                end
-
-                if vim.bo.filetype == 'tex' then
-                    nmap { 'K', '<CMD>VimtexDocPackage<CR>', buf_opts}
-                    nmap { 'gK', vim.lsp.buf.hover, buf_opts}
-                end
+            -- diagnostics
+            local diagnostics = { Error = "", Warn = "", Hint = "", Info = "" }
+            for name, icon in pairs(diagnostics) do
+                name = "DiagnosticSign" .. name
+                vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
             end
+            local highlights = { Error = "#f44747", Warn = "#ff8800", Hint = "#9cdcfe", Info = "#ffcc66" }
+            for name, color in pairs(highlights) do
+                name = "Diagnostic" .. name
+                vim.api.nvim_set_hl(0, name, { fg = color, bg = "NONE" })
+            end
+            vim.diagnostic.config(opts.diagnostics)
 
             local servers = opts.servers
             local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
             local function setup(server)
                 local server_opts = vim.tbl_deep_extend("force", {
-                    on_attach = on_attach,
+                    -- on_attach = on_attach,
                     capabilities = vim.deepcopy(capabilities),
                 }, servers[server] or {})
+
+                if opts.setup[server] then
+                    if opts.setup[server](server, server_opts) then
+                        return
+                    end
+                elseif opts.setup["*"] then
+                    if opts.setup["*"](server, server_opts) then
+                        return
+                    end
+                end
                 require("lspconfig")[server].setup(server_opts)
             end
 
@@ -157,15 +120,6 @@ return {
                 mlsp.setup({ ensure_installed = ensure_installed })
                 mlsp.setup_handlers({ setup })
             end
-
-            vim.api.nvim_set_hl(0, "DiagnosticError", {fg="#f44747", bg="NONE"})
-            vim.api.nvim_set_hl(0, "DiagnosticWarn",  {fg="#ff8800", bg="NONE"})
-            vim.api.nvim_set_hl(0, "DiagnosticInfo",  {fg="#ffcc66", bg="NONE"})
-            vim.api.nvim_set_hl(0, "DiagnosticHint",  {fg="#9cdcfe", bg="NONE"})
-            vim.fn.sign_define("DiagnosticSignError", {text = "󰜺", texthl = "DiagnosticError"}) --  ERROR = "",
-            vim.fn.sign_define("DiagnosticSignWarn",  {text = "󱈸", texthl = "DiagnosticWarn"})  --  WARN = "",
-            vim.fn.sign_define("DiagnosticSignInfo",  {text = "󰋽", texthl = "DiagnosticInfo"})  --  INFO = "",
-            vim.fn.sign_define("DiagnosticSignHint",  {text = "󰛩", texthl = "DiagnosticHint"})  --  HINT = "",
 
             require('lspconfig.ui.windows').default_options.border = 'rounded'
             vim.api.nvim_set_hl(0, "LspInfoBorder", {link = 'FloatBorder'})
@@ -193,7 +147,6 @@ return {
                 "texlab",
             },
         },
-        ---@param opts MasonSettings | {ensure_installed: string[]}
         config = function(_, opts)
             require("mason").setup(opts)
             local mr = require("mason-registry")

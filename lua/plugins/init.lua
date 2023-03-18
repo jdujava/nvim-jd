@@ -22,12 +22,12 @@ return {
     },
     {
         dir = '~/.config/nvim/bundle/deadkeys',
-        event = 'CursorHold',
+        event = 'VeryLazy',
         keys = {{'<A-d>', '<Plug>DeadKeysToggle', mode = {'i', 'n'}}}
     },
     {
         'asiryk/auto-hlsearch.nvim',
-        event = 'CursorHold',
+        event = 'VeryLazy',
         opts = {
             remap_keys = { "/", "?", "*", "#", "n", "N" },
         }
@@ -40,12 +40,12 @@ return {
         }
     },
 
-    { 'tpope/vim-unimpaired', event = 'CursorHold' },
-    { 'tpope/vim-repeat', event = 'CursorHold' },
+    { 'tpope/vim-unimpaired', event = 'VeryLazy' },
+    { 'tpope/vim-repeat', event = 'VeryLazy' },
 
     {
         'kylechui/nvim-surround',
-        event = 'CursorHold',
+        event = 'VeryLazy',
         opts = {
             keymaps = {
                 insert = "<C-g>s",
