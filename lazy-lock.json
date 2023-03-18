@@ -13,6 +13,7 @@
   "lazy.nvim": { "branch": "main", "commit": "8456a867f79e3fb3b5390659c5d11a1e35793372" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "2b811031febe5f743e07305738181ff367e1e452" },
   "mason.nvim": { "branch": "main", "commit": "9582bee51c8071981283c3428b30560590ad09b5" },
+  "middleclass": { "branch": "master", "commit": "9fab4d5bca67262614960960ca35c4740eb2be2c" },
   "neorg": { "branch": "main", "commit": "532548b9f444bd1ae6f2efd3edd842282cc79659" },
   "nvim-cmp": { "branch": "main", "commit": "777450fd0ae289463a14481673e26246b5e38bf2" },
   "nvim-colorizer.lua": { "branch": "color-editor", "commit": "cf7310dbe6529baaed1ca48345ba96e9c266dabc" },
@@ -39,5 +40,6 @@
   "vim-snippets": { "branch": "master", "commit": "c7e61b73a546c9dd0525cd158cc1613bb48e414a" },
   "vim-startuptime": { "branch": "master", "commit": "6580cf539c33a212f4f5542068a3b4dd2b3ad834" },
   "vim-unimpaired": { "branch": "master", "commit": "6d44a6dc2ec34607c41ec78acf81657248580bf1" },
-  "vimtex": { "branch": "master", "commit": "7c1bc9b8ad6c6bddc0194aeb27b34bd1107880f2" }
+  "vimtex": { "branch": "master", "commit": "7c1bc9b8ad6c6bddc0194aeb27b34bd1107880f2" },
+  "windows.nvim": { "branch": "main", "commit": "c7492552b23d0ab30325e90b56066ec51242adc8" }
 }
