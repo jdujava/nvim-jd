@@ -16,7 +16,7 @@ return {
             end },
             { '<leader>L', '<CMD>FloatermNew lazygit<CR>' },
         },
-        init = function()
+        config = function()
             vim.g.floaterm_title = ''
             vim.g.floaterm_borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' }
             vim.g.floaterm_autoinsert = 1
