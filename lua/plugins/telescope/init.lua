@@ -5,38 +5,11 @@ return {
         priority = 100,
         dependencies = {
             'nvim-lua/plenary.nvim',
-            {
-                dir = '~/.config/nvim/bundle/telescope-messages.nvim',
-                config = function()
-                    require('telescope').load_extension('messages')
-                end
-            },
-            {
-                'nvim-telescope/telescope-frecency.nvim',
-                dependencies = {'tami5/sqlite.lua'},
-                config = function()
-                    require('telescope').load_extension('frecency')
-                end
-            },
-            {
-                'nvim-telescope/telescope-fzf-native.nvim',
-                build = "make",
-                config = function()
-                    require('telescope').load_extension('fzf')
-                end
-            },
-            {
-                'nvim-telescope/telescope-ui-select.nvim',
-                config = function()
-                    require('telescope').load_extension('ui-select')
-                end
-            },
-            {
-                'fhill2/telescope-ultisnips.nvim',
-                config = function()
-                    require('telescope').load_extension('ultisnips')
-                end
-            },
+            { dir = vim.fn.stdpath("config")..'/lua/jd/telescope-messages.nvim' },
+            { 'nvim-telescope/telescope-frecency.nvim', dependencies = {'tami5/sqlite.lua'} },
+            { 'nvim-telescope/telescope-fzf-native.nvim', build = "make" },
+            { 'fhill2/telescope-ultisnips.nvim' },
+            { 'nvim-telescope/telescope-ui-select.nvim' },
         },
         opts = {
             defaults = {
@@ -96,6 +69,7 @@ return {
             extensions = {
                 frecency = {
                     show_scores = true,
+                    disable_devicons = false,
                     ignore_patterns = {"*.git/*", "*.github/*", "*/tmp/*"},
                     workspaces = {
                         ["conf"] = "/home/jonas/.config",
@@ -108,6 +82,11 @@ return {
         },
         config = function(_, opts)
             require('telescope').setup(opts)
+            require('telescope').load_extension('messages')
+            require('telescope').load_extension('frecency')
+            require('telescope').load_extension('fzf')
+            require('telescope').load_extension('ultisnips')
+            require('telescope').load_extension('ui-select')
             require('plugins.telescope.setup')
             require('plugins.telescope.mappings')
         end,

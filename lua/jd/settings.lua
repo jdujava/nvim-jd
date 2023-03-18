@@ -41,7 +41,7 @@ vim.o.updatetime    = 200  -- Save swap file and trigger CursorHold
 vim.o.backup        = true
 vim.o.undofile      = true
 vim.o.undolevels    = 10000
-vim.o.backupdir     = (vim.env.XDG_STATE_HOME or vim.env.HOME.."/.local/state").."/nvim/backup"
+vim.o.backupdir     = vim.fn.stdpath("state") .. "/backup"
 vim.o.shada         = [[!,'100,<50,s10,/100,:1000,h]]
 vim.o.list          = true
 vim.opt.listchars = {
@@ -85,6 +85,8 @@ vim.cmd.colorscheme 'noice'
 --   + "j" -- Auto-remove comments if possible.
 --   - "2" -- I'm not in gradeschool anymore
 
+
+--TODO - diff colors ...
 
 -- highlights
 local hl = function(group, opts)
@@ -178,6 +180,10 @@ hl('@text.math', {link = 'Special'})
 hl('@text.environment', {link = 'Macro'})
 hl('@text.environment.name', {link = 'Type'})
 hl('@text.reference', {link = 'Constant'})
+
+-- hl('@text.diff.add.diff', {link = 'DiffAdd'})
+-- hl('@text.diff.delete.diff', {link = 'DiffDelete'})
+-- hl('@text.diff.change.diff', {link = 'DiffChange'})
 
 hl('@text.todo', {link = 'Todo'})
 hl('@text.note', {link = 'SpecialComment'})

@@ -1,6 +1,6 @@
 local c = {}
 
-local modes = require('jd.sl.modes')
+local modes = require('simple-line.modes')
 local hl = vim.api.nvim_set_hl
 
 -- Different colors for mode

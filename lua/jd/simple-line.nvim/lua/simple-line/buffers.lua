@@ -2,7 +2,7 @@ local B = {}
 
 local api = vim.api
 local has_icons, icons = pcall(require, 'nvim-web-devicons')
-local builder = require('jd.sl.builder')
+local builder = require('simple-line.builder')
 
 B.buffers = {}
 local ignore = {
@@ -51,7 +51,7 @@ function B.jumpBuf(buf)
 end
 
 for i=1,9 do
-    map {'<A-'..i..'>', function() require'jd.sl.buffers'.jumpBuf(i) end}
+    map {'<A-'..i..'>', function() require'simple-line.buffers'.jumpBuf(i) end}
 end
 
 return B

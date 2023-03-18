@@ -20,58 +20,17 @@ return {
             }
         }
     },
-    {
-        dir = '~/.config/nvim/bundle/deadkeys',
-        event = 'VeryLazy',
-        keys = {{'<A-d>', '<Plug>DeadKeysToggle', mode = {'i', 'n'}}}
-    },
-    {
-        'asiryk/auto-hlsearch.nvim',
-        event = 'VeryLazy',
-        opts = {
-            remap_keys = { "/", "?", "*", "#", "n", "N" },
-        }
-    },
-    {
-        'norcalli/nvim-colorizer.lua', branch = 'color-editor',
-        keys = {
-            { '<Leader><Leader>c', '<CMD>ColorizerToggle<CR>' },
-            { '<Leader><Leader>C', function() require('colorizer').color_picker_on_cursor() end},
-        }
-    },
-
-    { 'tpope/vim-unimpaired', event = 'VeryLazy' },
-    { 'tpope/vim-repeat', event = 'VeryLazy' },
 
     {
-        'kylechui/nvim-surround',
-        event = 'VeryLazy',
-        opts = {
-            keymaps = {
-                insert = "<C-g>s",
-                insert_line = "<C-g>S",
-                normal = "s",
-                normal_cur = "ss",
-                normal_line = "S",
-                normal_cur_line = "SS",
-                visual = "s",
-                visual_line = "S",
-                delete = "ds",
-                change = "cs",
-            }
-            -- surrounds =      -- Defines surround keys and behavior,
-            -- aliases =        -- Defines aliases,
-            -- highlight =      -- Defines highlight behavior,
-            -- move_cursor =    -- Defines cursor behavior,
-        }
-    },
-
-    {
-        'junegunn/vim-easy-align',
-        keys = {
-            {'ga', '<Plug>(EasyAlign)', mode = {'n','x'}},
-            {'<Enter>', '<Plug>(EasyAlign)', mode = 'v'},
-        },
+        'mbbill/undotree',
+        keys = {{ 'U', function()
+            vim.cmd [[UndotreeToggle | UndotreeFocus]]
+            vim.api.nvim_win_set_width(0, 30)
+            vim.o.statusline = "%!v:lua.StatusLine()"
+        end}},
+        config = function()
+            vim.g.undotree_WindowLayout = 2
+        end
     },
 
     {
@@ -80,21 +39,6 @@ return {
         keys = {{'<A-S>', '<CMD>StartupTime --tries 10<CR>'}},
     },
 
-    -- auto-resize windows
-    {
-        "anuvyklack/windows.nvim",
-        event = "WinNew",
-        dependencies = {
-            { "anuvyklack/middleclass" },
-            { "anuvyklack/animation.nvim", enabled = false },
-        },
-        keys = { { "<leader>Z", "<cmd>WindowsMaximize<cr>", desc = "Zoom" } },
-        config = function()
-            vim.o.winwidth = 5
-            vim.o.equalalways = false
-            require("windows").setup({
-                animation = { enable = false, duration = 150 },
-            })
-        end,
-    },
+    { 'tpope/vim-unimpaired', event = 'VeryLazy' },
+    { 'tpope/vim-repeat', event = 'VeryLazy' },
 }

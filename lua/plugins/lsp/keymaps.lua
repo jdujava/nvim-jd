@@ -85,7 +85,7 @@ end
 function M.remap_hover()
     local buf_opts = { silent = true, buffer = true}
     if vim.bo.filetype == 'tex' then
-        nmap { 'K', '<CMD>VimtexDocPackage<CR>', buf_opts}
+        nmap { 'gK', '<CMD>VimtexDocPackage<CR>', buf_opts}
     elseif vim.bo.filetype == 'lua' or vim.bo.filetype == 'vim' then
         nmap { 'K', function()
             local original_iskeyword = vim.bo.iskeyword

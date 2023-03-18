@@ -1,5 +1,5 @@
-local modes   = require('jd.sl.modes')
-local builder = require('jd.sl.builder')
+local modes   = require('simple-line.modes')
+local builder = require('simple-line.builder')
 
 local get_directory = function(width)
     local dir = vim.fn.fnamemodify(vim.fn.getcwd(), ':~')

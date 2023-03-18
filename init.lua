@@ -6,6 +6,3 @@ require 'jd.abbr'
 
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require 'jd.lazy'
-
--- statusline + bufferline
-require 'jd.sl'
