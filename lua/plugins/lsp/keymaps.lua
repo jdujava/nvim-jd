@@ -69,6 +69,9 @@ function M.on_attach(client, buffer)
             vim.keymap.set(keys.mode or "n", keys[1], keys[2], opts)
         end
     end
+
+    -- remap hover key for lua/vim and tex files
+    M.remap_hover()
 end
 
 function M.diagnostic_goto(next, severity)

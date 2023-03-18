@@ -20,9 +20,9 @@ vim.o.ignorecase    = true
 vim.o.smartcase     = true
 vim.o.smartindent   = true
 vim.o.foldmethod    = 'marker'
--- vim.o.foldmarker    = '{{{,}}}'
--- vim.o.foldmethod = 'expr'
--- vim.o.foldexpr   = 'nvim_treesitter#foldexpr()'
+vim.o.foldmarker    = '{{{,}}}'
+-- vim.o.foldmethod    = 'expr'
+-- vim.o.foldexpr      = 'v:lua.vim.treesitter.foldexpr()'
 
 vim.o.jumpoptions   = 'view'
 vim.o.inccommand    = 'split'
@@ -62,6 +62,13 @@ vim.opt.fillchars = {
 }
 vim.opt.shortmess:append { W = true, I = true, c = true }
 
+if vim.env.DISPLAY then
+    vim.o.termguicolors = true
+    vim.o.pumblend      = 5
+end
+
+vim.cmd.colorscheme 'noice'
+
 -- TODO
 -- do this !!!!!!!!!!
 -- set diffopt+=linematch:60
@@ -78,30 +85,8 @@ vim.opt.shortmess:append { W = true, I = true, c = true }
 --   + "j" -- Auto-remove comments if possible.
 --   - "2" -- I'm not in gradeschool anymore
 
-if vim.env.DISPLAY then
-    vim.o.termguicolors = true
-    vim.o.pumblend      = 5
-end
-
-vim.cmd.colorscheme 'noice'
-
--- treesitter highlighting for Lua
-vim.g.ts_highlight_lua = true
-
--- ignore some builtin plugins
-vim.g.loaded_netrwPlugin    = 1
-vim.g.loaded_gzip           = 1
-vim.g.loaded_zipPlugin      = 1
-vim.g.loaded_tarPlugin      = 1
-vim.g.loaded_2html_plugin   = 1
-vim.g.loaded_matchit        = 1
-vim.g.loaded_matchparen     = 1
-vim.g.loaded_remote_plugins = 1
-
-
 
 -- highlights
-
 local hl = function(group, opts)
     opts.default = true
     vim.api.nvim_set_hl(0, group, opts)
@@ -115,13 +100,11 @@ hl('@preproc', {link = 'PreProc'})
 hl('@define', {link = 'Define'})
 hl('@operator', {link = 'Operator'})
 -- }}}
-
 -- Punctuation {{{
 hl('@punctuation.delimiter', {link = 'Delimiter'})
 hl('@punctuation.bracket', {link = 'Delimiter'})
 hl('@punctuation.special', {link = 'Delimiter'})
 -- }}}
-
 -- Literals {{{
 hl('@string', {link = 'String'})
 hl('@string.regex', {link = 'String'})
@@ -135,7 +118,6 @@ hl('@boolean', {link = 'Boolean'})
 hl('@number', {link = 'Number'})
 hl('@float', {link = 'Float'})
 -- }}}
-
 -- Functions {{{
 hl('@function', {link = 'Function'})
 hl('@function.call', {link = 'Function'})
@@ -148,7 +130,6 @@ hl('@method.call', {link = 'Function'})
 hl('@constructor', {link = 'Special'})
 hl('@parameter', {link = 'Identifier'})
 -- }}}
-
 -- Keywords {{{
 hl('@keyword', {link = 'Keyword'})
 hl('@keyword.function', {link = 'Keyword'})
@@ -162,7 +143,6 @@ hl('@label', {link = 'Label'})
 hl('@include', {link = 'Include'})
 hl('@exception', {link = 'Exception'})
 -- }}}
-
 -- Types {{{
 hl('@type', {link = 'Type'})
 hl('@type.builtin', {link = 'Type'})
@@ -174,7 +154,6 @@ hl('@attribute', {link = 'PreProc'})
 hl('@field', {link = 'Identifier'})
 hl('@property', {link = 'Identifier'})
 -- }}}
-
 -- Identifiers {{{
 hl('@variable', {link = 'Normal'})
 hl('@variable.builtin', {link = 'Special'})
@@ -186,7 +165,6 @@ hl('@constant.macro', {link = 'Define'})
 hl('@namespace', {link = 'Include'})
 hl('@symbol', {link = 'Identifier'})
 -- }}}
-
 -- Text {{{
 hl('@text', {link = 'Normal'})
 hl('@text.strong', {bold = true})
@@ -206,11 +184,9 @@ hl('@text.note', {link = 'SpecialComment'})
 hl('@text.warning', {link = 'WarningMsg'})
 hl('@text.danger', {link = 'ErrorMsg'})
 -- }}}
-
 -- Tags {{{
 hl('@tag', {link = 'Tag'})
 hl('@tag.attribute', {link = 'Identifier'})
 hl('@tag.delimiter', {link = 'Delimiter'})
--- }}}
-
 hl('@neorg.tags.ranged_verbatim.code_block', {bg = "#1c1c1c"})
+-- }}}

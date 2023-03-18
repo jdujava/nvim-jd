@@ -17,7 +17,7 @@ return {
                         -- load lspkind icons
                         vim_item.kind = string.format(
                             "%s %s",
-                            require("jd.lspkind_icons").icons[vim_item.kind],
+                            require("plugins.cmp.lspkind_icons").icons[vim_item.kind],
                             vim_item.kind
                         )
 
