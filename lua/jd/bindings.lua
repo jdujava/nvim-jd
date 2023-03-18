@@ -1,11 +1,6 @@
 vim.g.mapleader       = ' '
 vim.g.maplocalleader  = ' '
 
--- handle copilot
-imap { '<A-l>', 'copilot#Accept("<CR>")', {expr=true, silent=true}}
-vim.g.copilot_no_tab_map = true
-vim.g.copilot_filetypes = { TelescopePrompt = false, mail = false }
-
 -- open link in browser/pdf-viewer
 map {'<A-~>', function()
     local link = vim.fn.expand('<cWORD>'):gsub('^%[(.*)%]$', '%1')
@@ -115,17 +110,15 @@ nmap { '<leader>W', '<CMD>w! <bar> !compiler "%:p"<CR>' }
 nmap { '<leader><leader>v', '<CMD>!opout "%:p"<CR><CR>' }
 
 -- SudoWrite
-nmap { '<leader>sw', '<CMD>SudoWrite<CR>' }
+nmap { '<leader>sw', function() require('jd.cmds').sudo_write() end}
 
 -- Executor
--- nmap { '<leader>x', '<CMD>call Executor()<CR>' }
-nmap { '<leader>x', function() executor() end }
+nmap { '<leader>x', function() require('jd.cmds').executor() end }
 vmap { '<leader>x', [[<CMD><C-w>exe join(getline("'<","'>"),'<Bar>')<CR>]] }
+
 -- Save&Exec
--- nmap { '<leader><leader>x', '<CMD>call SaveandExec()<CR>' }
--- nmap { '<leader>X',         '<CMD>call SaveandExec()<CR>' }
-nmap { '<leader><leader>x', saveandexec }
-nmap { '<leader>X',         saveandexec }
+nmap { '<leader><leader>x', function() require('jd.cmds').saveandexec() end }
+nmap { '<leader>X', function() require('jd.cmds').saveandexec() end }
 
 -- Toggle hlsearch
 nmap { '<A-CR>', '<CMD>let v:hlsearch=!v:hlsearch<CR>', {silent=true} }

@@ -1,7 +1,7 @@
 return {
     {
         "hrsh7th/nvim-cmp",
-        event = 'VeryLazy',
+        event = 'CursorHold',
         config = function()
             local cmp = require("cmp")
 
@@ -17,9 +17,9 @@ return {
                     format = function(entry, vim_item)
                         -- load lspkind icons
                         vim_item.kind = string.format(
-                        "%s %s",
-                        require("jd.lspkind_icons").icons[vim_item.kind],
-                        vim_item.kind
+                            "%s %s",
+                            require("jd.lspkind_icons").icons[vim_item.kind],
+                            vim_item.kind
                         )
 
                         -- set a name for each source
@@ -40,11 +40,11 @@ return {
                         return vim_item
                     end,
                 },
-                experimental = {
-                    -- ghost_text = {
-                    --  hl_group = "CmpGhostText",
-                    -- },
-                },
+                -- experimental = {
+                --     ghost_text = {
+                --         hl_group = "CmpGhostText",
+                --     },
+                -- },
                 window = {
                     completion = cmp.config.window.bordered({
                         winhighlight = 'Normal:CmpBorderedWindow_Normal,FloatBorder:CmpBorderedWindow_FloatBorder,CursorLine:CmpBorderedWindow_CursorLine,Search:None'
@@ -57,11 +57,11 @@ return {
                     ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), {"i"}),
                     ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), {"i"}),
                     ["<C-l>"] = cmp.mapping(
-                    cmp.mapping.confirm {
-                        behavior = cmp.ConfirmBehavior.Insert,
-                        select = true,
-                    },
-                    { "i", "c" }
+                        cmp.mapping.confirm {
+                            behavior = cmp.ConfirmBehavior.Insert,
+                            select = true,
+                        },
+                        { "i", "c" }
                     ),
                     -- ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
                     -- ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
@@ -87,16 +87,11 @@ return {
                     end, { "i", "s", "c" }),
                 }),
                 sources = cmp.config.sources({
-                    -- { name = 'treesitter' },
-                    -- { name = "nvim_lua", ft='lua' },
                     { name = "nvim_lsp" },
                     { name = "ultisnips" },
                     { name = "path" },
                     { name = "buffer" },
                     { name = 'emoji' },
-                    -- { name = "look" },
-                    -- { name = "latex_symbols" },
-                    -- { name = 'calc' },
                 }),
                 -- sorting = {
                 --  comparators = {
@@ -111,22 +106,13 @@ return {
                 -- },
             }
 
-            -- -- Use buffer source for `/`.
-            -- cmp.setup.cmdline('/', {
-            --  mapping = cmp.mapping.preset.cmdline(),
-            --  sources = {
-            --      { name = 'buffer' }
-            --  }
-            -- })
-
             -- Use cmdline & path source for ':'.
             cmp.setup.cmdline(':', {
                 mapping = cmp.mapping.preset.cmdline(),
-                sources = cmp.config.sources({
-                    { name = 'path' }
-                }, {
-                    { name = 'cmdline' }
-                })
+                sources = cmp.config.sources(
+                    {{ name = 'path' }},
+                    {{ name = 'cmdline' }}
+                )
             })
 
             local CmpHighlights = {
@@ -155,7 +141,7 @@ return {
             "hrsh7th/cmp-cmdline",
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-emoji",
-            {"quangnguyen30192/cmp-nvim-ultisnips", dependencies = {"ultisnips", "nvim-cmp"}},
+            {"quangnguyen30192/cmp-nvim-ultisnips", dependencies = {"ultisnips"}},
         },
     },
 }

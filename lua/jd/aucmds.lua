@@ -29,15 +29,6 @@ au({'BufEnter','BufRead'}, {
     group = core,
 })
 
-au('BufWritePost', {
-    pattern = 'plugins.lua',
-    callback = function()
-        R 'jd.plugins'
-        require('packer').sync()
-    end,
-    group = core,
-})
-
 au('TextYankPost', {
     callback = function()
         vim.highlight.on_yank {higroup="Yank", on_visual=false}

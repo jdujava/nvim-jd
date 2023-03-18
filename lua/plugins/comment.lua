@@ -1,7 +1,7 @@
 return {
     {
         'numToStr/Comment.nvim',
-        event = 'VeryLazy',
+        event = 'CursorHold',
         config = function()
             local ft = require('Comment.ft')
             ft.mail = '>%s'

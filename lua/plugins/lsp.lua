@@ -6,7 +6,6 @@ return {
             'j-hui/fidget.nvim',
             'williamboman/mason.nvim',
             "williamboman/mason-lspconfig.nvim",
-            "hrsh7th/cmp-nvim-lsp",
         },
         opts = {
             -- options for vim.diagnostic.config()

@@ -1,5 +1,13 @@
 return {
-    { 'github/copilot.vim', event = 'VeryLazy'},
+    {
+        'github/copilot.vim',
+        event = 'CursorHold',
+        init = function()
+            imap { '<A-l>', 'copilot#Accept("<CR>")', {expr=true, silent=true}}
+            vim.g.copilot_no_tab_map = true
+            vim.g.copilot_filetypes = { TelescopePrompt = false, mail = false }
+        end
+    },
 
     {
         'kyazdani42/nvim-web-devicons',
@@ -14,12 +22,12 @@ return {
     },
     {
         dir = '~/.config/nvim/bundle/deadkeys',
-        event = 'VeryLazy',
+        event = 'CursorHold',
         keys = {{'<A-d>', '<Plug>DeadKeysToggle', mode = {'i', 'n'}}}
     },
     {
         'asiryk/auto-hlsearch.nvim',
-        event = 'VeryLazy',
+        event = 'CursorHold',
         opts = {
             remap_keys = { "/", "?", "*", "#", "n", "N" },
         }
@@ -32,11 +40,12 @@ return {
         }
     },
 
-    { 'tpope/vim-unimpaired', event = 'VeryLazy' },
+    { 'tpope/vim-unimpaired', event = 'CursorHold' },
+    { 'tpope/vim-repeat', event = 'CursorHold' },
 
     {
         'kylechui/nvim-surround',
-        event = 'VeryLazy',
+        event = 'CursorHold',
         opts = {
             keymaps = {
                 insert = "<C-g>s",

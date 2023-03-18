@@ -1,7 +1,7 @@
 return {
     {
         "rcarriga/nvim-notify",
-        event = "VeryLazy",
+        event = "CursorHold",
         config = function()
             local log = require("plenary.log").new {
                 plugin = "notify",

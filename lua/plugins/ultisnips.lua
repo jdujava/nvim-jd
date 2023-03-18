@@ -1,7 +1,7 @@
 return {
     {
         'SirVer/ultisnips',
-        event = 'InsertEnter',
+        event = 'CursorHold',
         init = function()
             vim.g.UltiSnipsEditSplit="vertical"
             vim.g.UltiSnipsExpandTrigger="<tab>"

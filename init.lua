@@ -1,6 +1,5 @@
 require 'jd.helpers'
 require 'jd.settings'
-require 'jd.cmds'
 require 'jd.bindings'
 require 'jd.aucmds'
 require 'jd.abbr'
@@ -29,6 +28,9 @@ require("lazy").setup("plugins",
 })
 
 nmap {'<A-p>', function()
+    require('lazy').home()
+end }
+nmap {'<A-P>', function()
     require('lazy').home()
 end }
 
