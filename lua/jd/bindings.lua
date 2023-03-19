@@ -28,7 +28,7 @@ tmap {'<A-x>',     '<C-\\><C-n>:bd!<CR>' }
 nmap {'<A-X>',     ':edit #<CR>' }
 nmap {'Z',         ':wqa<CR>' }
 tmap {'<A-Esc>',   '<C-\\><C-n>' }
-nmap {'<leader>t', ':split | call nvim_win_set_height(0, 12)<CR>:terminal<CR>' }
+nmap {'<leader>t', ':split | call nvim_win_set_height(0, 12) | terminal<CR>', {silent = true} }
 
 -- resizing with arrow keys
 nmap {'<C-Up>',    ':resize +2<CR>' }
@@ -36,27 +36,25 @@ nmap {'<C-Down>',  ':resize -2<CR>' }
 nmap {'<C-Left>',  ':vert resize +2<CR>' }
 nmap {'<C-Right>', ':vert resize -2<CR>' }
 
-imap {'<C-j>', '<C-n>', {remap=true}}
-imap {'<C-k>', '<C-p>', {remap=true}}
-cmap {'<C-j>', '<C-n>', {remap=true}}
-cmap {'<C-k>', '<C-p>', {remap=true}}
+vim.keymap.set({'i', 'c'}, '<C-j>', '<C-n>', {remap = true})
+vim.keymap.set({'i', 'c'}, '<C-k>', '<C-p>', {remap = true})
 
 map {'H', 'g^'}
 map {'L', 'g$'}
-nmap {'j', [[v:count == 0 ? "gj" : "j"]], {expr=true}}
-nmap {'k', [[v:count == 0 ? "gk" : "k"]], {expr=true}}
+nmap {'j', [[v:count == 0 ? "gj" : "j"]], {expr = true} }
+nmap {'k', [[v:count == 0 ? "gk" : "k"]], {expr = true} }
 
-nmap {'<C-j>',   ':move+1<cr>',         {silent=true}}
-nmap {'<C-k>',   ':move-2<cr>',         {silent=true}}
-nmap {'<C-h>',   '<<',                  {silent=true}}
-nmap {'<C-l>',   '>>',                  {silent=true}}
-xmap {'<C-k>',   [[:move-2<cr>gv=gv]],  {silent=true}}
-xmap {'<C-j>',   [[:move'>+<cr>gv=gv]], {silent=true}}
-xmap {'<C-h>',   '<gv',                 {silent=true}}
-xmap {'<C-l>',   '>gv',                 {silent=true}}
-xmap {'<',       '<gv',                 {silent=true}}
-xmap {'>',       '>gv',                 {silent=true}}
-xmap {'<Space>', 'I<Space><ESC>gv',     {silent=true}}
+nmap {'<C-j>',   ':move+1<cr>',         {silent = true} }
+nmap {'<C-k>',   ':move-2<cr>',         {silent = true} }
+nmap {'<C-h>',   '<<',                  {silent = true} }
+nmap {'<C-l>',   '>>',                  {silent = true} }
+xmap {'<C-k>',   [[:move-2<cr>gv=gv]],  {silent = true} }
+xmap {'<C-j>',   [[:move'>+<cr>gv=gv]], {silent = true} }
+xmap {'<C-h>',   '<gv',                 {silent = true} }
+xmap {'<C-l>',   '>gv',                 {silent = true} }
+xmap {'<',       '<gv',                 {silent = true} }
+xmap {'>',       '>gv',                 {silent = true} }
+xmap {'<Space>', 'I<Space><ESC>gv',     {silent = true} }
 
 -- Swap implementations of ` and ' jump to markers
 nmap { "'", "`" }
@@ -66,7 +64,7 @@ nmap { "`", "'" }
 omap { "'", "i'" }
 omap { '"', 'i"' }
 omap { "p", "i(" }
-omap { "[", "i[", {nowait=true}}
+omap { "[", "i[", {nowait = true} }
 omap { "b", "i{" }
 
 map { 'q:', '<nop>' }
@@ -75,30 +73,38 @@ map { 'q?', '<nop>' }
 map { '<C-z>', '<nop>' }
 
 -- Fixed I/A for visual
-xmap {'I', function()
-    local mode = vim.api.nvim_get_mode().mode
-    if mode == 'v' then
-        return "<C-v>I"
-    elseif mode == 'V' then
-        return "<C-v>^o^I"
-    else
-        return "I"
-    end
-end, {expr=true}}
-xmap {'A', function()
-    local mode = vim.api.nvim_get_mode().mode
-    if mode == 'v' then
-        return "<C-v>A"
-    elseif mode == 'V' then
-        return "<C-v>Oo$A"
-    else
-        return "A"
-    end
-end, {expr=true}}
+xmap {
+    'I',
+    function()
+        local mode = vim.api.nvim_get_mode().mode
+        if mode == 'v' then
+            return "<C-v>I"
+        elseif mode == 'V' then
+            return "<C-v>^o^I"
+        else
+            return "I"
+        end
+    end,
+    {expr = true}
+}
+xmap {
+    'A',
+    function()
+        local mode = vim.api.nvim_get_mode().mode
+        if mode == 'v' then
+            return "<C-v>A"
+        elseif mode == 'V' then
+            return "<C-v>Oo$A"
+        else
+            return "A"
+        end
+    end,
+    {expr = true}
+}
 
 -- Spell-check
-map  {'<Leader><Leader>s', '<Cmd>setlocal spell!<CR>', {silent=true}}
-imap {'<C-h>', '<c-g>u<Esc>[s1z=`]a<c-g>u', {silent=true}}
+map  {'<Leader><Leader>s', '<Cmd>setlocal spell!<CR>', {silent = true} }
+imap {'<C-h>', '<c-g>u<Esc>[s1z=`]a<c-g>u', {silent = true} }
 
 -- Replace all is aliased to S
 nmap { '<leader>S', ':%s/' }
@@ -121,26 +127,8 @@ nmap { '<leader><leader>x', function() require('jd.cmds').saveandexec() end }
 nmap { '<leader>X', function() require('jd.cmds').saveandexec() end }
 
 -- Toggle hlsearch
-nmap { '<A-CR>', '<CMD>let v:hlsearch=!v:hlsearch<CR>', {silent=true} }
-tmap { '<A-CR>', '<C-\\><C-n><Cmd>let v:hlsearch=!v:hlsearch<CR>a', {silent=true} }
+nmap { '<A-CR>', '<CMD>let v:hlsearch=!v:hlsearch<CR>', {silent = true} }
+tmap { '<A-CR>', '<C-\\><C-n><Cmd>let v:hlsearch=!v:hlsearch<CR>a', {silent = true} }
 
 -- Toggle diagnostics
 nmap { "<leader>ud", require("jd.helpers").toggle_diagnostics }
-
--- Show highlight group under cursor
-local function name_syn_stack()
-  local stack = vim.fn.synstack(vim.fn.line("."), vim.fn.col("."))
-  stack = vim.tbl_map(function(v)
-    return vim.fn.synIDattr(v, "name")
-  end, stack)
-  return stack
-end
-
-local function print_syn_group()
-  local id = vim.fn.synID(vim.fn.line("."), vim.fn.col("."), 1)
-  -- print("synstack:", vim.inspect(name_syn_stack()))
-  -- print(vim.fn.synIDattr(id, "name") .. " -> " .. vim.fn.synIDattr(vim.fn.synIDtrans(id), "name"))
-  vim.notify("synstack:", vim.inspect(name_syn_stack()))
-  vim.notify(vim.fn.synIDattr(id, "name") .. " -> " .. vim.fn.synIDattr(vim.fn.synIDtrans(id), "name"))
-end
-nmap { '<F10>', print_syn_group }

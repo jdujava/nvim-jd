@@ -3,7 +3,7 @@ return {
         "nvim-neorg/neorg",
         event = "VeryLazy",
         ft = "norg",
-        keys = {{'<leader>n', '<CMD>Neorg<CR>'}},
+        keys = {{'<leader>n', '<CMD>Neorg<CR>', desc = 'Neorg'}},
         opts = {
             load = {
                 ["core.defaults"] = {},

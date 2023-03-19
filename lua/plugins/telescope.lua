@@ -48,7 +48,7 @@ return {
             {
                 "<leader><leader>C",
                 function()
-                    require("telescope").builtin.colorscheme { enable_preview = true }
+                    require("telescope.builtin").colorscheme { enable_preview = true }
                 end,
                 desc = "Colorscheme with preview"
             },
@@ -60,16 +60,12 @@ return {
             { "<leader><leader>M", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
             { "<leader>O", "<cmd>Telescope vim_options<cr>", desc = "Options" },
             { "<leader>R", "<cmd>Telescope resume<cr>", desc = "Resume" },
-            { "<leader><leader>R", "<cmd>Telescope reload<cr>", desc = "Reload" },
+            { "<leader><leader>R", "<cmd>Telescope reloader<cr>", desc = "Reload" },
             {
                 "<A-Tab>",
                 function()
-                    require("telescope").extensions.frecency.ultisnips {
+                    require("telescope").extensions.ultisnips.ultisnips {
                         layout_strategy = 'vertical',
-                        layout_config = {
-                            height = 0.95,
-                            width = 0.5
-                        }
                     }
                 end,
                 desc = "Ultisnips"

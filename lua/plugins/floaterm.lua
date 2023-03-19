@@ -3,18 +3,22 @@ return {
         'voldikss/vim-floaterm',
         pin = true, -- pin to a specific (custom) commit
         keys = {
-            { '<leader>r', function()
-                local function lf_open(opener)
-                    vim.b.floaterm_opener = opener or vim.g.floaterm_opener
-                    vim.api.nvim_input("l")
-                end
+            {
+                '<leader>r',
+                function()
+                    local function lf_open(opener)
+                        vim.b.floaterm_opener = opener or vim.g.floaterm_opener
+                        vim.api.nvim_input("l")
+                    end
 
-                vim.cmd [[FloatermNew lf]]
-                tmap {'<c-o>', function() lf_open()         end, {buffer=0}}
-                tmap {'<c-v>', function() lf_open('vsplit') end, {buffer=0}}
-                tmap {'<c-x>', function() lf_open('split')  end, {buffer=0}}
-            end },
-            { '<leader>L', '<CMD>FloatermNew lazygit<CR>' },
+                    vim.cmd [[FloatermNew lf]]
+                    tmap {'<c-o>', function() lf_open()         end, {buffer=0}}
+                    tmap {'<c-v>', function() lf_open('vsplit') end, {buffer=0}}
+                    tmap {'<c-x>', function() lf_open('split')  end, {buffer=0}}
+                end,
+                desc = 'File Manager - LF',
+            },
+            { '<leader>L', '<CMD>FloatermNew lazygit<CR>', desc = "LazyGit" },
         },
         config = function()
             vim.g.floaterm_title = ''

@@ -31,7 +31,17 @@ return {
             nmap { '<A-Space>', notify.dismiss, {silent=true} }
         end,
     },
-
+    {
+        'kyazdani42/nvim-web-devicons',
+        opts = {
+            override = {
+                default_icon = {
+                    icon = "",
+                    color = "#8b929f",
+                }
+            }
+        }
+    },
     {
         'asiryk/auto-hlsearch.nvim',
         event = 'VeryLazy',
@@ -42,11 +52,14 @@ return {
     {
         'norcalli/nvim-colorizer.lua', branch = 'color-editor',
         keys = {
-            { '<Leader><Leader>c', '<CMD>ColorizerToggle<CR>' },
-            { '<Leader><Leader>C', function() require('colorizer').color_picker_on_cursor() end},
+            { '<Leader><Leader>c', '<CMD>ColorizerToggle<CR>', desc = 'Toggle colorizer' },
+            {
+                '<Leader><Leader>C',
+                function() require('colorizer').color_picker_on_cursor() end,
+                desc = 'Color picker'
+            },
         }
     },
-
     {
         "anuvyklack/windows.nvim",
         event = "WinNew",
@@ -54,7 +67,7 @@ return {
             { "anuvyklack/middleclass" },
             { "anuvyklack/animation.nvim", enabled = false },
         },
-        keys = { { "<leader>Z", "<cmd>WindowsMaximize<cr>", desc = "Zoom" } },
+        keys = { { "<leader>Z", "<cmd>WindowsMaximize<cr>", desc = "Maximize current window" } },
         config = function()
             vim.o.winwidth = 5
             vim.o.equalalways = false
