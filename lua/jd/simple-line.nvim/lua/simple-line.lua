@@ -8,14 +8,10 @@ function M.setup(user_config)
     -- set highlights on first run
     M.colors.setStatusHi()
 
-    -- Global Statusline
+    -- Global Statusline and Bufferline
     vim.o.laststatus = 3
     -- vim.o.statusline = "%!v:lua.StatusLine()"
-
-    -- Bufferline
-    if vim.o.showtabline ~= 0 then
-        vim.o.showtabline = 2
-    end
+    vim.o.showtabline = 2
     vim.o.tabline = "%!v:lua.BufferLine()"
 
     -- setup autocommands

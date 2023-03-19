@@ -4,8 +4,10 @@ return {
         event = 'VeryLazy',
         config = function()
             local cmp = require("cmp")
-
             cmp.setup {
+                completion = {
+                    completeopt = "menu,menuone,noinsert",
+                },
                 snippet = {
                     expand = function(args)
                         -- require("luasnip").lsp_expand(args.body)
@@ -17,7 +19,7 @@ return {
                         -- load lspkind icons
                         vim_item.kind = string.format(
                             "%s %s",
-                            require("plugins.cmp.lspkind_icons").icons[vim_item.kind],
+                            require("plugins.lsp.lspkind_icons").icons[vim_item.kind],
                             vim_item.kind
                         )
 
@@ -53,8 +55,8 @@ return {
                     }),
                 },
                 mapping = cmp.mapping.preset.insert({
-                    ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), {"i"}),
-                    ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), {"i"}),
+                    ["<C-d>"] = cmp.mapping.scroll_docs(4),
+                    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
                     ["<C-l>"] = cmp.mapping(
                         cmp.mapping.confirm {
                             behavior = cmp.ConfirmBehavior.Insert,
@@ -62,19 +64,12 @@ return {
                         },
                         { "i", "c" }
                     ),
-                    -- ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-                    -- ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
                     ["<C-p>"] = cmp.mapping(function()
                         return cmp.select_prev_item() or cmp.complete()
                     end, { "i", "c" }),
                     ["<C-n>"] = cmp.mapping(function()
                         return cmp.select_next_item() or cmp.complete()
                     end, { "i", "c" }),
-                    -- ['<C-e>'] = cmp.mapping({
-                    --  i = cmp.mapping.abort(),
-                    --  c = cmp.mapping.abort(),
-                    --  -- c = cmp.mapping.close(),
-                    -- }),
                     ["<C-Space>"] = cmp.mapping(function()
                         if cmp.visible() then
                             if vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
@@ -92,17 +87,6 @@ return {
                     { name = "buffer" },
                     { name = 'emoji' },
                 }),
-                -- sorting = {
-                --  comparators = {
-                --      cmp.config.compare.offset,
-                --      cmp.config.compare.exact,
-                --      cmp.config.compare.score,
-                --      cmp.config.compare.kind,
-                --      -- cmp.config.compare.sort_text,
-                --      cmp.config.compare.length,
-                --      cmp.config.compare.order,
-                --  }
-                -- },
             }
 
             -- Use cmdline & path source for ':'.

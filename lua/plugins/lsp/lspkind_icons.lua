@@ -1,5 +1,6 @@
 local M = {}
 
+-- used in cmp.lua
 M.icons = {
     Text = "",
     Method = "",

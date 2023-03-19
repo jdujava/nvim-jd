@@ -1,8 +1,8 @@
 local M = {}
 
 function M.sudo_write()
-    vim.cmd [[silent! write !sudo tee % >/dev/null]]
-    vim.cmd [[edit!]]
+    vim.cmd [[silent! write !sudo tee % >/dev/null ]]
+    vim.cmd.edit { bang = true }
 end
 
 function M.executor()
@@ -13,7 +13,6 @@ function M.executor()
     elseif filetype == 'vim' then
         vim.cmd(line)
     elseif filetype == 'sh' then
-        -- vim.cmd([[exe '!]]..line..[[']])
         print("Executing ["..line.."]")
         vim.cmd('split | call nvim_win_set_height(0, 12) | terminal '..line)
     end
@@ -22,8 +21,8 @@ end
 function M.saveandexec()
     local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
     if filetype == 'lua' or 'vim' then
-        vim.cmd [[silent! write]]
-        vim.cmd [[source %]]
+        vim.cmd.write()
+        vim.cmd.source("%")
     end
 end
 

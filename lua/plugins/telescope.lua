@@ -11,6 +11,71 @@ return {
             { 'fhill2/telescope-ultisnips.nvim' },
             { 'nvim-telescope/telescope-ui-select.nvim' },
         },
+        keys = {
+            { "<leader>B", "<cmd>Telescope builtin<cr>", desc = "Builtin" },
+            { "<leader>/", "<cmd>Telescope live_grep<cr>" , desc = "Find in Files (Grep)" },
+            { "<leader>c", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer (Fuzzy)" },
+            { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
+            { "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+            { "<leader><leader>f", "<cmd>Telescope find_files<cr>", desc = "Find Files (current dir)" },
+            {
+                "<leader>f",
+                function() require("telescope.builtin").find_files { cwd = "~" } end,
+                desc = "Find Files (home dir)"
+            },
+            {
+                "<leader>p",
+                function()
+                    require("telescope.builtin").find_files {
+                        shorten_path = false,
+                        cwd = require("lspconfig.util").root_pattern ".git"(vim.fn.expand "%:p"),
+                    }
+                end,
+                desc = "Find Files (project)"
+            },
+            {
+                "<leader>F",
+                function() require("telescope").extensions.frecency.frecency { cwd = "~" } end,
+                desc = "Find Files (Frecency)"
+            },
+            {
+                "<leader>N",
+                function() require("telescope").extensions.notify.notify() end,
+                desc = "Notifications"
+            },
+            { "<leader>A", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
+            { "<leader>C", "<cmd>Telescope commands<cr>", desc = "Commands" },
+            {
+                "<leader><leader>C",
+                function()
+                    require("telescope").builtin.colorscheme { enable_preview = true }
+                end,
+                desc = "Colorscheme with preview"
+            },
+            { "<leader>D", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
+            { "<leader>H", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
+            { "<leader><leader>H", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
+            { "<leader>K", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
+            { "<leader>M", "<cmd>Telescope messages<cr>", desc = "Messages" },
+            { "<leader><leader>M", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
+            { "<leader>O", "<cmd>Telescope vim_options<cr>", desc = "Options" },
+            { "<leader>R", "<cmd>Telescope resume<cr>", desc = "Resume" },
+            { "<leader><leader>R", "<cmd>Telescope reload<cr>", desc = "Reload" },
+            {
+                "<A-Tab>",
+                function()
+                    require("telescope").extensions.frecency.ultisnips {
+                        layout_strategy = 'vertical',
+                        layout_config = {
+                            height = 0.95,
+                            width = 0.5
+                        }
+                    }
+                end,
+                desc = "Ultisnips"
+            },
+            { "<c-r><c-r>", "<Plug>(TelescopeFuzzyCommandSearch)", mode = "c", nowait = true},
+        },
         opts = {
             defaults = {
                 vimgrep_arguments = {
@@ -87,8 +152,12 @@ return {
             require('telescope').load_extension('fzf')
             require('telescope').load_extension('ultisnips')
             require('telescope').load_extension('ui-select')
-            require('plugins.telescope.setup')
-            require('plugins.telescope.mappings')
+
+            vim.api.nvim_set_hl(0, 'TelescopeSelectionCaret', {fg = '#ff87d7', bg = '#262626'} )
+            -- vim.api.nvim_set_hl(0, 'TelescopeMultiIcon', {fg = '#ff97e7'} )
+            vim.api.nvim_set_hl(0, 'TelescopeSelection', {bg = '#262626', bold = true} )
+            -- require('plugins.telescope.setup')
+            -- require('plugins.telescope.mappings')
         end,
     },
 }

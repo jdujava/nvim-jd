@@ -7,9 +7,7 @@ require 'jd.abbr'
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require 'jd.lazy'
 
--- statusline + bufferline
-require 'jd.sl'
-
+-- set up quick keybindings
 imap {'wq',   '<CMD>wq<CR>'}
 imap {'qw',   '<CMD>wq<CR>'}
 imap {'<CR>', '<CMD>wq<CR>'}
