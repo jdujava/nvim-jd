@@ -1,34 +1,23 @@
 vim.g.mapleader       = ' '
 vim.g.maplocalleader  = ' '
 
--- open link in browser/pdf-viewer
-map {'<A-~>', function()
-    local link = vim.fn.expand('<cWORD>'):gsub('^%[(.*)%]$', '%1')
-    -- vim.notify {link}
-    vim.fn.jobstart({'xdg-open', link}, {detach = true})
-end }
-
 -- Alt maps
-for _,i in ipairs{'h','j','k','l'} do
-    nmap {'<A-'..i..'>',               '<C-w>'..i                         }
-    nmap {'<A-'..string.upper(i)..'>', '<C-w>'..string.upper(i)           }
-    tmap {'<A-'..i..'>',               '<C-\\><C-n><C-w>'..i              }
-    tmap {'<A-'..string.upper(i)..'>', '<C-\\><C-n><C-w>'..string.upper(i)}
+for _,i in ipairs{'h','j','k','l','H','J','K','L'} do
+    nmap {'<A-'..i..'>', '<C-w>'..i            }
+    tmap {'<A-'..i..'>', '<C-\\><C-n><C-w>'..i }
 end
+nmap {'<A-q>', '<C-w>c' }
+nmap {'<A-Q>', '<CMD>wa | %bdelete<CR>' }
+nmap {'<A-x>', '<CMD>bd<CR>' }
+nmap {'<A-X>', '<CMD>edit #<CR>' }
+nmap {'<A-w>', '<CMD>update<CR>' }
+nmap {'<A-s>', '<CMD>vsp | edit #<CR>' }
+nmap {'Z',     '<CMD>wqa<CR>' }
 
-nmap {'<A-q>',     '<C-w>c' }
-nmap {'<A-Q>',     ':wa<CR>:%bdelete<CR>' }
-nmap {'<A-w>',     'mu:update<CR>`u' }
-nmap {'<A-r>',     'ma:update<CR>:so $MYVIMRC<CR>`a' }
-nmap {'<A-R>',     ':redraw!<CR>' }
-tmap {'<A-R>',     '<C-\\><C-n>:FloatermUpdate<CR>' }
-nmap {'<A-s>',     ':vsp|edit #<CR>' }
-nmap {'<A-x>',     ':bd<CR>' }
-tmap {'<A-x>',     '<C-\\><C-n>:bd!<CR>' }
-nmap {'<A-X>',     ':edit #<CR>' }
-nmap {'Z',         ':wqa<CR>' }
+-- terminal
+tmap {'<A-x>',     '<CMD>bd!<CR>' }
 tmap {'<A-Esc>',   '<C-\\><C-n>' }
-nmap {'<leader>t', ':split | call nvim_win_set_height(0, 12) | terminal<CR>', {silent = true} }
+nmap {'<leader>t', '<CMD>split | call nvim_win_set_height(0, 12) | terminal<CR>', {silent = true} }
 
 -- resizing with arrow keys
 nmap {'<C-Up>',    ':resize +2<CR>' }
@@ -54,7 +43,7 @@ xmap {'<C-h>',   '<gv',                 {silent = true} }
 xmap {'<C-l>',   '>gv',                 {silent = true} }
 xmap {'<',       '<gv',                 {silent = true} }
 xmap {'>',       '>gv',                 {silent = true} }
-xmap {'<Space>', 'I<Space><ESC>gv',     {silent = true} }
+xmap {'<Space>', 'I<Space><ESC>gv',     {remap = true, silent = true} }
 
 -- Swap implementations of ` and ' jump to markers
 nmap { "'", "`" }
@@ -132,3 +121,10 @@ tmap { '<A-CR>', '<C-\\><C-n><Cmd>let v:hlsearch=!v:hlsearch<CR>a', {silent = tr
 
 -- Toggle diagnostics
 nmap { "<leader>ud", require("jd.helpers").toggle_diagnostics }
+
+-- Open link in browser/pdf-viewer
+map {'<A-~>', function()
+    local link = vim.fn.expand('<cWORD>'):gsub('^%[(.*)%]$', '%1')
+    -- vim.notify {link}
+    vim.fn.jobstart({'xdg-open', link}, {detach = true})
+end }
