@@ -189,7 +189,8 @@ hi MatchParen      guifg=NONE    ctermfg=NONE guibg=NONE    ctermbg=NONE gui=und
 hi MatchWordCur    guifg=NONE    ctermfg=NONE guibg=NONE    ctermbg=NONE gui=underline    cterm=underline
 hi MatchParenCur   guifg=NONE    ctermfg=NONE guibg=NONE    ctermbg=NONE gui=underline    cterm=underline
 hi diffAdded       guifg=#608b4e ctermfg=65   guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
-hi diffRemoved     guifg=#d16969 ctermfg=167  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
+hi diffChanged     guifg=#d7ba7d ctermfg=167  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
+hi diffRemoved     guifg=#d16969 ctermfg=234  guibg=NONE    ctermbg=NONE gui=NONE        cterm=NONE
 hi diffFileId      guifg=#569cd6 ctermfg=74   guibg=NONE    ctermbg=NONE gui=bold,reverse cterm=bold,reverse
 hi diffFile        guifg=#3b4048 ctermfg=238  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
 hi diffNewFile     guifg=#608b4e ctermfg=65   guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
