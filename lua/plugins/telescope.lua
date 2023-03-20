@@ -68,90 +68,83 @@ return {
                 end,
                 desc = "Ultisnips"
             },
-            { "<c-r><c-r>", "<Plug>(TelescopeFuzzyCommandSearch)", mode = "c", nowait = true},
         },
-        opts = {
-            defaults = {
-                vimgrep_arguments = {
-                    'rg',
-                    '--color=never',
-                    '--no-heading',
-                    '--with-filename',
-                    '--line-number',
-                    '--column',
-                    '--smart-case'
+        opts = function()
+            local actions = require("telescope.actions")
+            return {
+                defaults = {
+                    vimgrep_arguments = {
+                        'rg',
+                        '--color=never',
+                        '--no-heading',
+                        '--with-filename',
+                        '--line-number',
+                        '--column',
+                        '--smart-case'
+                    },
+                    prompt_prefix = "🔭 ",
+                    selection_caret = "> ",
+                    entry_prefix = "  ",
+                    multi_icon = ">",
+
+                    sorting_strategy = "ascending",
+                    layout_config = {
+                        width = 0.85,
+                        height = 0.85,
+                        prompt_position = "top",
+
+                        horizontal = { },
+                        vertical = {
+                            -- width_padding = 0.05,
+                            -- height_padding = 1,
+                            width = 0.9,
+                            height = 0.95,
+                            preview_height = 0.5,
+                        },
+                    },
+                    mappings = {
+                        i = {
+                            ["<Esc>"] = actions.close,
+                            ["<C-j>"] = actions.move_selection_next,
+                            ["<C-k>"] = actions.move_selection_previous,
+                            ["<C-space>"] = actions.toggle_selection,
+                            ["<C-l>"] = actions.select_default,
+                            ["<C-y>"] = function() -- yank selected entry
+                                local entry = require('telescope.actions.state').get_selected_entry()
+                                vim.fn.setreg("+", entry.ordinal)
+                            end,
+                            ["<A-/>"] = require("telescope.actions.layout").toggle_preview,
+                            ["<A-l>"] = actions.smart_send_to_loclist + actions.open_loclist,
+                        },
+                    }
                 },
-                prompt_prefix = "🔭 ",
-                selection_caret = "> ",
-                entry_prefix = "  ",
-                multi_icon = ">",
-
-                sorting_strategy = "ascending",
-                layout_config = {
-                    width = 0.85,
-                    height = 0.85,
-                    prompt_position = "top",
-
-                    horizontal = { },
-                    vertical = {
-                        -- width_padding = 0.05,
-                        -- height_padding = 1,
-                        width = 0.9,
-                        height = 0.95,
-                        preview_height = 0.5,
+                pickers = {
+                    find_files = {
+                        find_command = {
+                            "fd", "--type", "f",
+                            "--hidden",
+                            "--follow",
+                            "--strip-cwd-prefix",
+                            "--ignore-file", "/home/jonas/.config/fd/ignore",
+                            "--ignore-file", "/home/jonas/.config/fd/nvim-ignore",
+                        },
+                    }
+                },
+                extensions = {
+                    frecency = {
+                        show_scores = true,
+                        disable_devicons = false,
+                        ignore_patterns = {"*.git/*", "*.github/*", "*/tmp/*"},
+                        workspaces = {
+                            ["conf"] = "/home/jonas/.config",
+                            ["data"] = "/home/jonas/.local/share",
+                            ["doc"]  = "/home/jonas/Documents",
+                            ["cus"]  = "/home/jonas/Documents/customfiles",
+                        }
                     },
                 },
-                mappings = {
-                    i = {
-                        ["<Esc>"] = function(...) require('telescope.actions').close(...) end,
-                        ["<C-j>"] = function(...) require('telescope.actions').move_selection_next(...) end,
-                        ["<C-k>"] = function(...) require('telescope.actions').move_selection_previous(...) end,
-                        ["<C-f>"] = function(...) require('telescope.actions').to_fuzzy_refine(...) end,
-                        ["<C-space>"] = function(...) require('telescope.actions').toggle_selection(...) end,
-                        ["<C-l>"] = function(...) require('telescope.actions').select_default(...) end,
-                        ["<C-y>"] = function() -- yank selected entry
-                            local entry = require('telescope.actions.state').get_selected_entry()
-                            vim.fn.setreg("+", entry.ordinal)
-                        end,
-                        ["<A-/>"] = function(...) require('telescope.actions.layout').toggle_preview(...) end,
-                        ["<A-l>"] = function(...)
-                            require('telescope.actions').smart_send_to_loclist(...)
-                            require('telescope.actions').open_loclist(...)
-                        end,
-                    },
-                }
             }
-        },
-        pickers = {
-            find_files = {
-                find_command = {
-                    "fd", "--type", "f",
-                    "--hidden",
-                    "--follow",
-                    "--strip-cwd-prefix",
-                    "--ignore-file", "/home/jonas/.config/fd/ignore",
-                    "--ignore-file", "/home/jonas/.config/fd/nvim-ignore",
-                },
-            }
-        },
-        extensions = {
-            fzf = {
-                fuzzy = true,                    -- false will only do exact matching
-                override_generic_sorter = true,  -- override the generic sorter
-                override_file_sorter = true,     -- override the file sorter
-            },
-            frecency = {
-                show_scores = true,
-                disable_devicons = false,
-                ignore_patterns = {"*.git/*", "*.github/*", "*/tmp/*"},
-                workspaces = {
-                    ["conf"] = "/home/jonas/.config",
-                    ["data"] = "/home/jonas/.local/share",
-                    ["doc"]  = "/home/jonas/Documents",
-                    ["cus"]  = "/home/jonas/Documents/customfiles",
-                }
-            },
-        },
+        end,
         config = function(_, opts)
             require('telescope').setup(opts)
             require('telescope').load_extension('frecency')
