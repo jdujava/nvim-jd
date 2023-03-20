@@ -1,35 +1,34 @@
 return {
     {
         "rcarriga/nvim-notify",
-        event = "VeryLazy",
-        config = function()
-            local log = require("plenary.log").new {
-                plugin = "notify",
-                level = "debug",
-                use_console = false,
-            }
-
-            ---@diagnostic disable-next-line: duplicate-set-field
-            vim.notify = function(msg, level, opts)
-                log.info(msg, level, opts)
-                if string.find(msg, "method .* is not supported") then
-                    return
-                end
-
-                require "notify"(msg, level, opts)
-            end
-
-            local notify = require "notify"
-            notify.setup {
-                background_colour = "#000000",
-                max_height = function() return math.floor(vim.o.lines * 0.75) end,
-                max_width = function() return math.floor(vim.o.columns * 0.75) end,
-                timeout = 3000,
-                top_down = false,
-            }
-
-            nmap { '<A-Space>', notify.dismiss, {silent=true} }
+        event = 'VeryLazy',
+        keys = {{
+            '<A-Space>',
+            function() require("notify").dismiss() end,
+            desc = "Dismiss notification"
+        }},
+        opts = {
+            background_colour = "#000000",
+            max_height = function() return math.floor(vim.o.lines * 0.75) end,
+            max_width = function() return math.floor(vim.o.columns * 0.75) end,
+            timeout = 3000,
+            top_down = false,
+        },
+        config = function(_, opts)
+            vim.notify = require("notify")
+            vim.notify.setup(opts)
         end,
+    },
+    {
+        'j-hui/fidget.nvim',
+        opts = {
+            text = {
+                spinner = "moon",
+            },
+            window = {
+                blend = 0,
+            },
+        },
     },
     {
         'kyazdani42/nvim-web-devicons',
@@ -54,7 +53,7 @@ return {
         keys = {
             { '<Leader><Leader>c', '<CMD>ColorizerToggle<CR>', desc = 'Toggle colorizer' },
             {
-                '<Leader><Leader>C',
+                '<Leader><Leader>C', -- TODO: conflict with telescope mapping
                 function() require('colorizer').color_picker_on_cursor() end,
                 desc = 'Color picker'
             },

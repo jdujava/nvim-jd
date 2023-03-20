@@ -17,6 +17,7 @@ local function get_git_status()
     return (' +%s ~%s -%s |  %s '):format(s.added, s.changed, s.removed, s.head)
 end
 
+---@diagnostic disable-next-line: unused-function, unused-local
 local function search_count()
   if vim.v.hlsearch == 0 then return '' end
   -- `searchcount()` can return errors because it is evaluated very often in

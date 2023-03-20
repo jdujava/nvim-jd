@@ -59,7 +59,7 @@ hi  IncSearch        guifg=none    ctermfg=187  guibg=#343434 ctermbg=241  gui=u
 hi  LineNr           guifg=#64636d ctermfg=240  guibg=NONE    ctermbg=NONE gui=bold         cterm=bold
 hi  LineNrAbove      guifg=#4b5263 ctermfg=240  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
 hi  LineNrBelow      guifg=#4b5263 ctermfg=240  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
-hi  NonText          guifg=#3b4048 ctermfg=238  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
+hi  NonText          guifg=#3f464c ctermfg=238  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
 hi  Pmenu            guifg=#abb2bf ctermfg=249  guibg=#262626 ctermbg=236  gui=NONE         cterm=NONE
 hi  PmenuSel         guifg=#dbd2df ctermfg=234  guibg=#323232 ctermbg=74   gui=bold         cterm=bold
 hi  PmenuSbar        guifg=#dbd2df ctermfg=NONE guibg=#262626 ctermbg=238  gui=NONE         cterm=NONE

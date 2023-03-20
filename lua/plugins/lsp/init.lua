@@ -4,8 +4,9 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             'j-hui/fidget.nvim',
+            { 'folke/neodev.nvim', opts = true },
             'williamboman/mason.nvim',
-            "williamboman/mason-lspconfig.nvim",
+            'williamboman/mason-lspconfig.nvim',
         },
         opts = {
             -- options for vim.diagnostic.config()
@@ -15,6 +16,8 @@ return {
                 virtual_text = { spacing = 4, prefix = "●" },
                 severity_sort = true,
             },
+            hover = { border = "rounded" },
+            signature_help = { border = "rounded" },
             -- LSP Server Settings
             servers = {
                 ltex = {
@@ -35,11 +38,8 @@ return {
                             diagnostics = {
                                 enable = true,
                                 disable = { "trailing-space" },
-                                -- Get the language server to recognize the `vim` global
-                                globals = {
-                                    "vim", "c", "Group", "g", "s",
-                                    "map", "imap", "vmap", "nmap", "cmap", "tmap", "xmap", "omap",
-                                },
+                                -- Get the language server to recognize the `*map` globals
+                                globals = { "map", "imap", "vmap", "nmap", "cmap", "tmap", "xmap", "omap", },
                             },
                             workspace = {
                                 checkThirdParty = false,
@@ -78,6 +78,10 @@ return {
                 vim.api.nvim_set_hl(0, name, { fg = color, bg = "NONE" })
             end
             vim.diagnostic.config(opts.diagnostics)
+
+            -- setup hover and signature_help
+            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with( vim.lsp.handlers.hover, opts.hover )
+            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with( vim.lsp.handlers.signature_help, opts.signature_help )
 
             local servers = opts.servers
             local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -157,22 +161,5 @@ return {
                 end
             end
         end,
-    },
-
-
-    {
-        'j-hui/fidget.nvim',
-        config = function()
-            vim.api.nvim_set_hl(0, "FidgetTask", {bg = "#202020"})
-
-            require('fidget').setup {
-                window = {
-                    blend = 0,              -- &winblend for the window
-                },
-                text = {
-                    spinner = "moon",
-                }
-            }
-        end
     },
 }
