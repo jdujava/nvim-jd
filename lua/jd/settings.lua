@@ -59,7 +59,7 @@ vim.opt.fillchars = {
     diff = "╱",
     eob = " ",
 }
-vim.opt.shortmess:append { I = true, c = true }
+vim.opt.shortmess:append { A = true, I = true, c = true, }
 
 if vim.env.DISPLAY then
     vim.o.termguicolors = true

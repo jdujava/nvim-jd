@@ -101,42 +101,55 @@ return {
                         preview_height = 0.5,
                     },
                 },
-                -- set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
                 mappings = {
                     i = {
-                        ["<Esc>"] = function(...) return require('telescope.actions').close(...) end,
-                        ["<C-j>"] = function(...) return require('telescope.actions').move_selection_next(...) end,
-                        ["<C-k>"] = function(...) return require('telescope.actions').move_selection_previous(...) end,
-                        ["<C-l>"] = function(...) return require('telescope.actions').select_default(...) end,
-                        ["<C-y>"] = function(...) return require('telescope.actions').set_prompt_to_entry_value(...) end,
-                        ["<A-/>"] = function(...) return require('telescope.actions').toggle_preview(...) end,
+                        ["<Esc>"] = function(...) require('telescope.actions').close(...) end,
+                        ["<C-j>"] = function(...) require('telescope.actions').move_selection_next(...) end,
+                        ["<C-k>"] = function(...) require('telescope.actions').move_selection_previous(...) end,
+                        ["<C-f>"] = function(...) require('telescope.actions').to_fuzzy_refine(...) end,
+                        ["<C-space>"] = function(...) require('telescope.actions').toggle_selection(...) end,
+                        ["<C-l>"] = function(...) require('telescope.actions').select_default(...) end,
+                        ["<C-y>"] = function() -- yank selected entry
+                            local entry = require('telescope.actions.state').get_selected_entry()
+                            vim.fn.setreg("+", entry.ordinal)
+                        end,
+                        ["<A-/>"] = function(...) require('telescope.actions.layout').toggle_preview(...) end,
+                        ["<A-l>"] = function(...)
+                            require('telescope.actions').smart_send_to_loclist(...)
+                            require('telescope.actions').open_loclist(...)
+                        end,
                     },
                 }
-            },
-            pickers = {
-                find_files = {
-                    find_command = {
-                        "fd", "--type", "f",
-                        "--hidden",
-                        "--follow",
-                        "--strip-cwd-prefix",
-                        "--ignore-file", "/home/jonas/.config/fd/ignore",
-                        "--ignore-file", "/home/jonas/.config/fd/nvim-ignore",
-                    },
-                }
-            },
-            extensions = {
-                frecency = {
-                    show_scores = true,
-                    disable_devicons = false,
-                    ignore_patterns = {"*.git/*", "*.github/*", "*/tmp/*"},
-                    workspaces = {
-                        ["conf"] = "/home/jonas/.config",
-                        ["data"] = "/home/jonas/.local/share",
-                        ["doc"]  = "/home/jonas/Documents",
-                        ["cus"]  = "/home/jonas/Documents/customfiles",
-                    }
+            }
+        },
+        pickers = {
+            find_files = {
+                find_command = {
+                    "fd", "--type", "f",
+                    "--hidden",
+                    "--follow",
+                    "--strip-cwd-prefix",
+                    "--ignore-file", "/home/jonas/.config/fd/ignore",
+                    "--ignore-file", "/home/jonas/.config/fd/nvim-ignore",
                 },
+            }
+        },
+        extensions = {
+            fzf = {
+                fuzzy = true,                    -- false will only do exact matching
+                override_generic_sorter = true,  -- override the generic sorter
+                override_file_sorter = true,     -- override the file sorter
+            },
+            frecency = {
+                show_scores = true,
+                disable_devicons = false,
+                ignore_patterns = {"*.git/*", "*.github/*", "*/tmp/*"},
+                workspaces = {
+                    ["conf"] = "/home/jonas/.config",
+                    ["data"] = "/home/jonas/.local/share",
+                    ["doc"]  = "/home/jonas/Documents",
+                    ["cus"]  = "/home/jonas/Documents/customfiles",
+                }
             },
         },
         config = function(_, opts)
