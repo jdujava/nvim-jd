@@ -1,5 +1,5 @@
 vim.o.autochdir      = true
--- vim.o.cmdheight      = 0       -- no cmd bar, still experimental
+vim.o.cmdheight      = 0
 vim.o.showmode       = false
 vim.o.showmatch      = true
 vim.o.number         = true
@@ -25,7 +25,7 @@ vim.o.foldmarker    = '{{{,}}}'
 -- vim.o.foldexpr      = 'v:lua.vim.treesitter.foldexpr()'
 
 vim.o.jumpoptions   = 'view'
-vim.o.inccommand    = 'split'
+vim.o.inccommand    = 'nosplit'
 vim.o.virtualedit   = 'block'
 vim.o.splitbelow    = true
 vim.o.splitright    = true
@@ -35,7 +35,6 @@ vim.o.spelllang     = 'sk,en_us'
 vim.o.signcolumn    = 'yes'
 vim.o.mouse         = 'a'
 vim.o.pumheight     = 15
-vim.o.lazyredraw    = true
 vim.o.timeoutlen    = 500
 vim.o.updatetime    = 200  -- Save swap file and trigger CursorHold
 vim.o.backup        = true
@@ -60,7 +59,7 @@ vim.opt.fillchars = {
     diff = "╱",
     eob = " ",
 }
-vim.opt.shortmess:append { W = true, I = true, c = true }
+vim.opt.shortmess:append { I = true, c = true }
 
 if vim.env.DISPLAY then
     vim.o.termguicolors = true

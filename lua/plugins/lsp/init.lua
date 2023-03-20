@@ -16,8 +16,6 @@ return {
                 virtual_text = { spacing = 4, prefix = "●" },
                 severity_sort = true,
             },
-            hover = { border = "rounded" },
-            signature_help = { border = "rounded" },
             -- LSP Server Settings
             servers = {
                 ltex = {
@@ -72,16 +70,12 @@ return {
                 name = "DiagnosticSign" .. name
                 vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
             end
-            local highlights = { Error = "#f44747", Warn = "#ff8800", Hint = "#9cdcfe", Info = "#ffcc66" }
+            local highlights = { Error = "#f44747", Warn = "#ffcc66", Hint = "#9cdcfe", Info = "#ffd38f" }
             for name, color in pairs(highlights) do
                 name = "Diagnostic" .. name
                 vim.api.nvim_set_hl(0, name, { fg = color, bg = "NONE" })
             end
             vim.diagnostic.config(opts.diagnostics)
-
-            -- setup hover and signature_help
-            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with( vim.lsp.handlers.hover, opts.hover )
-            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with( vim.lsp.handlers.signature_help, opts.signature_help )
 
             local servers = opts.servers
             local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())

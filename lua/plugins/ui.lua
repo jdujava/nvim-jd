@@ -4,7 +4,7 @@ return {
         event = 'VeryLazy',
         keys = {{
             '<A-Space>',
-            function() require("notify").dismiss() end,
+            function() require("notify").dismiss {} end,
             desc = "Dismiss notification"
         }},
         opts = {
@@ -13,11 +13,8 @@ return {
             max_width = function() return math.floor(vim.o.columns * 0.75) end,
             timeout = 3000,
             top_down = false,
+            -- render = "minimal",
         },
-        config = function(_, opts)
-            vim.notify = require("notify")
-            vim.notify.setup(opts)
-        end,
     },
     {
         'j-hui/fidget.nvim',
@@ -30,6 +27,49 @@ return {
             },
         },
     },
+
+    -- noicer ui
+    {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+        },
+        opts = {
+            lsp = {
+                progress = {
+                    enabled = false,
+                },
+                override = {
+                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                    ["vim.lsp.util.stylize_markdown"] = true,
+                    ["cmp.entry.get_documentation"] = true,
+                },
+            },
+            presets = {
+                bottom_search = false,
+                command_palette = true,
+                long_message_to_split = true,
+                lsp_doc_border = true,
+            },
+            routes = {
+                { filter = { event = "msg_show", kind = "search_count" }, opts = { skip = true } },
+                { filter = { event = "msg_show", kind = "", find = "written" }, opts = { skip = true } },
+                { filter = { event = "msg_show", kind = "wmsg", find = "BOTTOM" }, opts = { skip = true } },
+            },
+        },
+        -- stylua: ignore
+        keys = {
+            { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
+            { "<leader>sl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
+            { "<leader>sa", function() require("noice").cmd("all") end, desc = "Noice History" },
+            { "<leader>M", function() require("noice").cmd("telescope") end, desc = "Noice Telescope" },
+            { "<c-d>", function() if not require("noice.lsp").scroll(4) then return "<c-d>" end end, silent = true, expr = true, desc = "Scroll forward", mode = {"i", "n", "s"} },
+            { "<c-u>", function() if not require("noice.lsp").scroll(-4) then return "<c-u>" end end, silent = true, expr = true, desc = "Scroll backward", mode = {"i", "n", "s"}},
+        },
+    },
+
+
     {
         'kyazdani42/nvim-web-devicons',
         opts = {

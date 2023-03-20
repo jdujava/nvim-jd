@@ -12,12 +12,12 @@ end
 
 local function get_git_status()
     -- use fallback because it doesn't set this variable on the initial `BufEnter`
+    ---@diagnostic disable-next-line: undefined-field
     local s = vim.b.gitsigns_status_dict or {head = '', added = 0, changed = 0, removed = 0}
     if s.head == '' then return '' end
     return (' +%s ~%s -%s |  %s '):format(s.added, s.changed, s.removed, s.head)
 end
 
----@diagnostic disable-next-line: unused-function, unused-local
 local function search_count()
   if vim.v.hlsearch == 0 then return '' end
   -- `searchcount()` can return errors because it is evaluated very often in
@@ -60,7 +60,20 @@ function StatusLine()
     statusline = statusline.."%="
 
     -- Search count
-    -- statusline = statusline..search_count()
+    statusline = statusline..search_count()
+
+    if package.loaded["noice"] then
+        local noice_status = require("noice").api.status
+        -- if noice_status.search.has() then
+        --     statusline = statusline .. noice_status.search.get() .. " "
+        -- end
+        if noice_status.mode.has() then
+            statusline = statusline .. builder("SlFiletype", noice_status.mode.get())
+        end
+        if noice_status.command.has() then
+            statusline = statusline .. "%#SlDirectorySeparator#" .. noice_status.command.get() .. " "
+        end
+    end
 
     -- Component: FileType
     local filetype = vim.bo.filetype ~= '' and vim.bo.filetype or "none"

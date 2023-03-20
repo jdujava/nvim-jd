@@ -83,8 +83,8 @@ return {
                         },
                         { "i", "c" }
                     ),
-                    ["<C-d>"] = cmp.mapping.scroll_docs(4),
-                    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+                    ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+                    ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
                     ["<C-Space>"] = cmp.mapping(
                         function()
                             if cmp.visible() then

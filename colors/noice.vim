@@ -60,11 +60,12 @@ hi  LineNr           guifg=#64636d ctermfg=240  guibg=NONE    ctermbg=NONE gui=b
 hi  LineNrAbove      guifg=#4b5263 ctermfg=240  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
 hi  LineNrBelow      guifg=#4b5263 ctermfg=240  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
 hi  NonText          guifg=#3f464c ctermfg=238  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
-hi  Pmenu            guifg=#abb2bf ctermfg=249  guibg=#262626 ctermbg=236  gui=NONE         cterm=NONE
-hi  PmenuSel         guifg=#dbd2df ctermfg=234  guibg=#323232 ctermbg=74   gui=bold         cterm=bold
+hi  Pmenu            guifg=#abb2bf ctermfg=249  guibg=#202020 ctermbg=236  gui=NONE         cterm=NONE
+hi  PmenuSel         guifg=#abb2bf ctermfg=234  guibg=#252525 ctermbg=74   gui=bold         cterm=bold
 hi  PmenuSbar        guifg=#dbd2df ctermfg=NONE guibg=#262626 ctermbg=238  gui=NONE         cterm=NONE
 hi  PmenuThumb       guifg=NONE    ctermfg=NONE guibg=#abb2bf ctermbg=249  gui=NONE         cterm=NONE
-hi  FloatBorder                                 guibg=#262626
+hi  NormalFloat                                 guibg=#202020
+hi  FloatBorder                                 guibg=#1e1e1e
 hi  Question         guifg=#c586c0 ctermfg=175  guibg=NONE    ctermbg=NONE gui=NONE         cterm=NONE
 hi  QuickFixLine     guifg=#1e1e1e ctermfg=234  guibg=#dcdcaa ctermbg=187  gui=NONE         cterm=NONE
 hi  Search           guifg=none    ctermfg=234  guibg=#343434 ctermbg=187  gui=underline    cterm=underline
@@ -199,3 +200,6 @@ hi debugPc         guifg=NONE    ctermfg=NONE guibg=#4ec9b0 ctermbg=79   gui=NON
 hi debugBreakpoint guifg=#d16969 ctermfg=167  guibg=NONE    ctermbg=NONE gui=reverse      cterm=reverse
 
 hi Yank                guifg=none      ctermfg=234        guibg=#343434 ctermbg=187 gui=NONE cterm=NONE
+
+hi TreesitterContext guibg=#262626
+hi LazyH1            guifg=#abb2bf guifg=NONE  guibg=#3e4462 gui=bold

@@ -5,7 +5,6 @@ return {
         priority = 100,
         dependencies = {
             'nvim-lua/plenary.nvim',
-            { dir = vim.fn.stdpath("config")..'/lua/jd/telescope-messages.nvim' },
             { 'nvim-telescope/telescope-frecency.nvim', dependencies = {'tami5/sqlite.lua'} },
             { 'nvim-telescope/telescope-fzf-native.nvim', build = "make" },
             { 'fhill2/telescope-ultisnips.nvim' },
@@ -56,7 +55,6 @@ return {
             { "<leader>H", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
             { "<leader><leader>H", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
             { "<leader>K", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
-            { "<leader>M", "<cmd>Telescope messages<cr>", desc = "Messages" },
             { "<leader><leader>M", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
             { "<leader>O", "<cmd>Telescope vim_options<cr>", desc = "Options" },
             { "<leader>R", "<cmd>Telescope resume<cr>", desc = "Resume" },
@@ -143,7 +141,6 @@ return {
         },
         config = function(_, opts)
             require('telescope').setup(opts)
-            require('telescope').load_extension('messages')
             require('telescope').load_extension('frecency')
             require('telescope').load_extension('fzf')
             require('telescope').load_extension('ultisnips')
