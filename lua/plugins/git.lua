@@ -13,25 +13,18 @@ return {
             -- },
             on_attach = function(bufnr)
                 local gs = require("gitsigns")
-
-                -- Navigation
-                nmap { ']c', gs.next_hunk, { buffer = bufnr } }
-                nmap { '[c', gs.prev_hunk, { buffer = bufnr } }
-
-                -- Actions
-                map  { '<leader>hs', gs.stage_hunk }
-                map  { '<leader>hr', gs.reset_hunk }
-                nmap { '<leader>hS', gs.stage_buffer }
-                nmap { '<leader>hu', gs.undo_stage_hunk }
-                nmap { '<leader>hR', gs.reset_buffer }
-                nmap { '<leader>hp', gs.preview_hunk }
-                nmap { '<leader>hb', function() gs.blame_line { full = true } end }
-                nmap { '<leader>hB', gs.toggle_current_line_blame }
-                nmap { '<leader>hd', gs.diffthis }
-                nmap { '<leader>hD', gs.toggle_deleted }
-
-                -- Text object
-                vim.keymap.set({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { buffer = bufnr })
+                local map = vim.keymap.set
+                map('n', ']c',         gs.next_hunk,                                 { buffer = bufnr })
+                map('n', '[c',         gs.prev_hunk,                                 { buffer = bufnr })
+                map('n', '<leader>hs', gs.stage_hunk,                                { buffer = bufnr })
+                map('n', '<leader>hr', gs.reset_hunk,                                { buffer = bufnr })
+                map('n', '<leader>hR', gs.reset_buffer,                              { buffer = bufnr })
+                map('n', '<leader>hp', gs.preview_hunk,                              { buffer = bufnr })
+                map('n', '<leader>hd', gs.diffthis,                                  { buffer = bufnr })
+                map('n', '<leader>hD', gs.toggle_deleted,                            { buffer = bufnr })
+                map('n', '<leader>hB', gs.toggle_current_line_blame,                 { buffer = bufnr })
+                map('n', '<leader>hb', function() gs.blame_line { full = true } end, { buffer = bufnr })
+                map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>',            { buffer = bufnr })
             end,
         }
     }

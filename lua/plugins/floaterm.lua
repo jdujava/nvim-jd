@@ -12,9 +12,9 @@ return {
                     end
 
                     vim.cmd [[FloatermNew lf]]
-                    tmap { '<c-o>', function() lf_open()         end, { buffer = 0 } }
-                    tmap { '<c-v>', function() lf_open('vsplit') end, { buffer = 0 } }
-                    tmap { '<c-x>', function() lf_open('split')  end, { buffer = 0 } }
+                    vim.keymap.set('t', '<c-o>', function() lf_open()         end, { buffer = true })
+                    vim.keymap.set('t', '<c-v>', function() lf_open('vsplit') end, { buffer = true })
+                    vim.keymap.set('t', '<c-x>', function() lf_open('split')  end, { buffer = true })
                 end,
                 desc = 'File Manager - LF',
             },

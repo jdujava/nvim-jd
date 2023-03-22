@@ -89,18 +89,6 @@ return {
         }
     },
     {
-        'norcalli/nvim-colorizer.lua',
-        branch = 'color-editor',
-        keys = {
-            { '<Leader><Leader>c', '<CMD>ColorizerToggle<CR>', desc = 'Toggle colorizer' },
-            {
-                '<Leader><Leader>C', -- TODO: conflict with telescope mapping
-                function() require('colorizer').color_picker_on_cursor() end,
-                desc = 'Color picker'
-            },
-        }
-    },
-    {
         "anuvyklack/windows.nvim",
         event = "WinNew",
         dependencies = {

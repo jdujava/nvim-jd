@@ -10,6 +10,7 @@ return {
                 ["core.norg.concealer"] = {
                     config = {
                         dim_code_blocks = {
+                            conceal = false,
                             padding = { left = 5, right = 5 },
                             width = "content",
                         },
@@ -23,6 +24,8 @@ return {
                         default_workspace = "notes",
                     },
                 },
+                ["core.norg.completion"] = { config = { engine = "nvim-cmp" } },
+                ["core.integrations.nvim-cmp"] = {},
             },
         },
         build = ":Neorg sync-parsers",

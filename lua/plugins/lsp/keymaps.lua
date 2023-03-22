@@ -83,11 +83,10 @@ function M.diagnostic_goto(next, severity)
 end
 
 function M.remap_hover()
-    local buf_opts = { silent = true, buffer = true }
     if vim.bo.filetype == 'tex' then
-        nmap { 'gK', '<CMD>VimtexDocPackage<CR>', buf_opts }
+        vim.keymap.set('n', 'gK', '<CMD>VimtexDocPackage<CR>', { silent = true, buffer = true, desc = "LaTeX Package Documentation" })
     elseif vim.bo.filetype == 'lua' or vim.bo.filetype == 'vim' then
-        nmap { 'K', function()
+        vim.keymap.set('n', 'K', function()
             local original_iskeyword = vim.bo.iskeyword
 
             vim.bo.iskeyword = vim.bo.iskeyword .. ',.'
@@ -122,7 +121,7 @@ function M.remap_hover()
                     vim.lsp.buf.hover()
                 end
             end
-        end, buf_opts }
+        end, { silent = true, buffer = true, desc = "NeoVim help or Lua Hover" })
     end
 end
 

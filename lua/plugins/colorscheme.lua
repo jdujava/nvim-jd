@@ -1,5 +1,5 @@
 return {
-    -- tokyonight
+    -- *custom* tokyonight theme
     {
         "folke/tokyonight.nvim",
         lazy = false,
@@ -23,8 +23,9 @@ return {
                 hl["@operator"] = { fg = c.magenta }
                 hl["@parameter"] = { fg = c.yellow2 }
                 hl.TreesitterContext = { bg = c.bg_context }
-                hl.Search = { fg = "NONE", bg = c.dark4, underline = true }
-                hl.IncSearch = { fg = "NONE", bg = c.dark4, underline = true }
+                hl.Search = { bg = c.dark4, underline = true }
+                hl.IncSearch = { bg = c.dark4, underline = true }
+                hl.MatchParen = { bg = c.dark3, bold = true  }
 
                 hl.LineNr = { fg = c.dark5 }
                 hl.CursorLineNr = { fg = c.fg_dark }
@@ -44,6 +45,8 @@ return {
                 hl.PmenuThumb = { bg = c.border_highlight }
                 hl.PmenuSel = { bg = c.bg_highlight, bold = true }
                 hl.FloatermBorder = hl.FloatBorder
+
+                hl["@neorg.tags.ranged_verbatim.code_block"] = { bg = "#1a1a1a" }
             end,
         },
         config = function(_, opts)
@@ -89,5 +92,23 @@ return {
             require("tokyonight").load(opts) -- load custom style
             -- require("tokyonight").load() -- default style
         end,
+    },
+    -- colorizer
+    {
+        "NvChad/nvim-colorizer.lua",
+        event = "BufReadPre",
+        keys = { { '<Leader><Leader>c', '<CMD>ColorizerToggle<CR>', desc = 'Toggle colorizer' } },
+        opts = {
+            filetypes = { "*", "!lazy" },
+            buftype = { "*", "!prompt", "!nofile" },
+            user_default_options = {
+                RGB = true,          -- #RGB hex codes
+                RRGGBB = true,       -- #RRGGBB hex codes
+                names = false,       -- "Name" codes like Blue
+                RRGGBBAA = true,     -- #RRGGBBAA hex codes
+                -- Available modes for `mode`: foreground, background,  virtualtext
+                mode = "background", -- Set the display mode.
+            },
+        },
     },
 }

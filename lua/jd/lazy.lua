@@ -12,7 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    spec = {{ import = "plugins" }},
+    spec = { { import = "plugins" } },
     defaults = {
         lazy = true,
     },
@@ -37,6 +37,5 @@ require("lazy").setup({
     },
 })
 
-nmap {'<A-p>', require('lazy').home }
-nmap {'<A-P>', require('lazy').home }
-
+nmap { '<A-p>', require('lazy').home }
+nmap { '<A-P>', require('lazy').home }

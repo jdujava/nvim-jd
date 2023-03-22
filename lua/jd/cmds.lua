@@ -13,8 +13,8 @@ function M.executor()
     elseif filetype == 'vim' then
         vim.cmd(line)
     elseif filetype == 'sh' then
-        print("Executing ["..line.."]")
-        vim.cmd('split | call nvim_win_set_height(0, 12) | terminal '..line)
+        print("Executing [" .. line .. "]")
+        vim.cmd('split | call nvim_win_set_height(0, 12) | terminal ' .. line)
     end
 end
 

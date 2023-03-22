@@ -14,9 +14,11 @@ return {
         config = function()
             require('nvim-treesitter.configs').setup {
                 highlight = {
-                    enable = true,               -- false will disable the whole extension
-                    -- disable = { "tex", "latex", "help", "c" },  -- list of language that will be disabled
+                    enable = true,                -- false will disable the whole extension
                     disable = { "tex", "latex" }, -- list of language that will be disabled
+                },
+                matchup = {
+                    enable = true,
                 },
                 indent = { enable = true, disable = { "python" } },
                 context_commentstring = { enable = true, enable_autocmd = false },

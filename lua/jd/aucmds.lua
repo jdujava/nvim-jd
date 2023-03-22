@@ -7,8 +7,8 @@ local term         = gr("term",         { clear = true })
 
 -- Check if we need to reload the file when it changed
 au({ "FocusGained", "TermClose", "TermLeave" }, {
-  command = "checktime",
-  group = core,
+    command = "checktime",
+    group = core,
 })
 
 -- Automatically deletes all trailing whitespace on save
@@ -24,7 +24,7 @@ au('VimResized', {
 })
 
 -- " Disables automatic commenting on newline - Commentary
-au({'BufEnter','BufRead'}, {
+au({ 'BufEnter', 'BufRead' }, {
     callback = function()
         vim.opt.formatoptions = vim.opt.formatoptions
             + 'c' -- In general, I like it when comments respect textwidth

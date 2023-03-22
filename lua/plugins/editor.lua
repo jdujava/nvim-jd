@@ -68,5 +68,11 @@ return {
             vim.g.undotree_WindowLayout = 2
         end
     },
-
+    {
+        "andymass/vim-matchup",
+        event = "BufReadPost",
+        config = function()
+            vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
+        end,
+    },
 }
