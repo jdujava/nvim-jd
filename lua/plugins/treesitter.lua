@@ -14,9 +14,9 @@ return {
         config = function()
             require('nvim-treesitter.configs').setup {
                 highlight = {
-                    enable = true, -- false will disable the whole extension
+                    enable = true,               -- false will disable the whole extension
                     -- disable = { "tex", "latex", "help", "c" },  -- list of language that will be disabled
-                    disable = { "tex", "latex"},  -- list of language that will be disabled
+                    disable = { "tex", "latex" }, -- list of language that will be disabled
                 },
                 indent = { enable = true, disable = { "python" } },
                 context_commentstring = { enable = true, enable_autocmd = false },
@@ -89,7 +89,7 @@ return {
                         -- You can choose the select mode (default is charwise 'v')
                         selection_modes = {
                             ['@parameter.outer'] = 'v', -- charwise
-                            ['@function.outer'] = 'V', -- linewise
+                            ['@function.outer'] = 'V',  -- linewise
                             ['@class.outer'] = '<c-v>', -- blockwise
                         },
                     },
@@ -100,7 +100,6 @@ return {
                 (command) @bash
                 (comment) @comment
             ]])
-
         end
     },
 }

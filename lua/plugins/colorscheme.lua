@@ -5,7 +5,7 @@ return {
         lazy = false,
         opts = {
             style = "custom",
-            transparent = true, -- Enable this to disable setting the background color
+            transparent = true,      -- Enable this to disable setting the background color
             terminal_colors = false, -- Configure the colors used when opening a `:terminal` in Neovim
             styles = {
                 floats = "transparent",
@@ -45,7 +45,7 @@ return {
                 hl.PmenuSel = { bg = c.bg_highlight, bold = true }
                 hl.FloatermBorder = hl.FloatBorder
             end,
-        } ,
+        },
         config = function(_, opts)
             local colors = require("tokyonight.colors")
 
@@ -54,36 +54,36 @@ return {
 
             -- change the colors for your new palette here
             colors.custom = {
-                bg_dark = "#1e1e1e",
-                bg = "#1e1e1e",
-                dark2 = "#212121",
-                bg_context = "#262626",
+                bg_dark      = "#1e1e1e",
+                bg           = "#1e1e1e",
+                dark2        = "#212121",
+                bg_context   = "#262626",
                 bg_highlight = "#2a2a2a",
-                fg_gutter = "#2a2a2a",
-                dark3 = "#3e4452",
-                dark4 = "#454e53",
-                dark5 = "#5c6370",
-                fg_bright = "#F5EBD9",
-                fg_dark = "#98a8b4",
-                fg = "#abb2bf",
-                purple = "#fca7ea",
-                magenta = "#c586c0",
-                magenta2 = "#934669",
-                blue0 = "#569cd6",
-                blue  = "#7ecbff",
-                cyan = "#7dcfff",
-                blue1 = "#6bafe5",
-                blue2 = "#9cdcfe",
-                orange = "#e6b089",
-                yellow = "#fbdc85",
-                yellow2 = "#dcdcaa",
-                green = "#c3e88d",
-                -- green1 = "#4ec9b0",
-                green1 = "#89dcf4",
-                green2 = "#2f563a",
-                green3 = "#163a2f",
-                teal = "#4ec9b0",
-                comment = "#608b4e",
+                fg_gutter    = "#2a2a2a",
+                dark3        = "#3e4452",
+                dark4        = "#454e53",
+                dark5        = "#5c6370",
+                fg_bright    = "#F5EBD9",
+                fg_dark      = "#98a8b4",
+                fg           = "#abb2bf",
+                purple       = "#fca7ea",
+                magenta      = "#c586c0",
+                magenta2     = "#934669",
+                blue0        = "#569cd6",
+                blue         = "#7ecbff",
+                cyan         = "#7dcfff",
+                blue1        = "#6bafe5",
+                blue2        = "#9cdcfe",
+                orange       = "#e6b089",
+                yellow       = "#fbdc85",
+                yellow2      = "#dcdcaa",
+                green        = "#c3e88d",
+                -- green1    = "#4ec9b0",
+                green1       = "#89dcf4",
+                green2       = "#2f563a",
+                green3       = "#163a2f",
+                teal         = "#4ec9b0",
+                comment      = "#608b4e",
             }
 
             require("tokyonight").load(opts) -- load custom style

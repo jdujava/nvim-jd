@@ -20,7 +20,6 @@ local keys = {
     ["'y"] = "ý",
     ["'Y"] = "Ý",
     ["' "] = "'",
-
     ["[a"] = "ä",
     ["[A"] = "Ä",
     ["[c"] = "č",
@@ -74,7 +73,7 @@ function M.setup(user_config)
 
     if defaults.enabled then
         M.map(true)
-        vim.api.nvim_create_autocmd({"BufReadPost","BufNewFile"}, {
+        vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
             callback = function() M.map(true) end,
             group = vim.api.nvim_create_augroup("deadkeys", { clear = true }),
         })

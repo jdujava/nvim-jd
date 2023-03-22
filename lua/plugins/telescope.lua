@@ -5,18 +5,18 @@ return {
         priority = 100,
         dependencies = {
             'nvim-lua/plenary.nvim',
-            { 'nvim-telescope/telescope-frecency.nvim', dependencies = {'tami5/sqlite.lua'} },
+            { 'nvim-telescope/telescope-frecency.nvim',   dependencies = { 'tami5/sqlite.lua' } },
             { 'nvim-telescope/telescope-fzf-native.nvim', build = "make" },
             { 'fhill2/telescope-ultisnips.nvim' },
             { 'nvim-telescope/telescope-ui-select.nvim' },
         },
         keys = {
-            { "<leader>B", "<cmd>Telescope builtin<cr>", desc = "Builtin" },
-            { "<leader>/", "<cmd>Telescope live_grep<cr>" , desc = "Find in Files (Grep)" },
-            { "<leader>c", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer (Fuzzy)" },
-            { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
-            { "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-            { "<leader><leader>f", "<cmd>Telescope find_files<cr>", desc = "Find Files (current dir)" },
+            { "<leader>B",         "<cmd>Telescope builtin<cr>",                   desc = "Builtin" },
+            { "<leader>/",         "<cmd>Telescope live_grep<cr>",                 desc = "Find in Files (Grep)" },
+            { "<leader>c",         "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer (Fuzzy)" },
+            { "<leader>:",         "<cmd>Telescope command_history<cr>",           desc = "Command History" },
+            { "<leader>b",         "<cmd>Telescope buffers<cr>",                   desc = "Buffers" },
+            { "<leader><leader>f", "<cmd>Telescope find_files<cr>",                desc = "Find Files (current dir)" },
             {
                 "<leader>f",
                 function() require("telescope.builtin").find_files { cwd = "~" } end,
@@ -43,7 +43,7 @@ return {
                 desc = "Notifications"
             },
             { "<leader>A", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
-            { "<leader>C", "<cmd>Telescope commands<cr>", desc = "Commands" },
+            { "<leader>C", "<cmd>Telescope commands<cr>",     desc = "Commands" },
             {
                 "<leader><leader>C",
                 function()
@@ -51,14 +51,14 @@ return {
                 end,
                 desc = "Colorscheme with preview"
             },
-            { "<leader>D", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
-            { "<leader>H", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
-            { "<leader><leader>H", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
-            { "<leader>K", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
-            { "<leader><leader>M", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
-            { "<leader>O", "<cmd>Telescope vim_options<cr>", desc = "Options" },
-            { "<leader>R", "<cmd>Telescope resume<cr>", desc = "Resume" },
-            { "<leader><leader>R", "<cmd>Telescope reloader<cr>", desc = "Reload" },
+            { "<leader>D",         "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
+            { "<leader>H",         "<cmd>Telescope help_tags<cr>",   desc = "Help Pages" },
+            { "<leader><leader>H", "<cmd>Telescope highlights<cr>",  desc = "Search Highlight Groups" },
+            { "<leader>K",         "<cmd>Telescope keymaps<cr>",     desc = "Key Maps" },
+            { "<leader><leader>M", "<cmd>Telescope man_pages<cr>",   desc = "Man Pages" },
+            { "<leader>O",         "<cmd>Telescope vim_options<cr>", desc = "Options" },
+            { "<leader>R",         "<cmd>Telescope resume<cr>",      desc = "Resume" },
+            { "<leader><leader>R", "<cmd>Telescope reloader<cr>",    desc = "Reload" },
             {
                 "<A-Tab>",
                 function()
@@ -86,14 +86,12 @@ return {
                     selection_caret = "> ",
                     entry_prefix = "  ",
                     multi_icon = ">",
-
                     sorting_strategy = "ascending",
                     layout_config = {
                         width = 0.85,
                         height = 0.85,
                         prompt_position = "top",
-
-                        horizontal = { },
+                        horizontal = {},
                         vertical = {
                             width = 0.9,
                             height = 0.95,
@@ -133,7 +131,7 @@ return {
                     frecency = {
                         show_scores = true,
                         disable_devicons = false,
-                        ignore_patterns = {"*.git/*", "*.github/*", "*/tmp/*"},
+                        ignore_patterns = { "*.git/*", "*.github/*", "*/tmp/*" },
                         workspaces = {
                             ["conf"] = "/home/jonas/.config",
                             ["data"] = "/home/jonas/.local/share",

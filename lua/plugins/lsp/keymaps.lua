@@ -5,27 +5,27 @@ M._keys = nil
 function M.get()
     if not M._keys then
         M._keys =  {
-            { "<leader>vd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
-            { "<leader>vD", vim.diagnostic.setloclist, desc = "Diagnostics to LocList" },
-            { "<leader>vi", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
-            { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition", has = "definition" },
-            { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
-            { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
-            { "gI", "<cmd>Telescope lsp_implementations<cr>", desc = "Goto Implementation" },
-            { "gT", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },
-            { "K", vim.lsp.buf.hover, desc = "Hover" },
-            { "gK", vim.lsp.buf.hover, desc = "Hover" },
-            { "gS", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
-            { "<c-s>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
-            { "]d", M.diagnostic_goto(true), desc = "Next Diagnostic" },
-            { "[d", M.diagnostic_goto(false), desc = "Prev Diagnostic" },
-            { "]e", M.diagnostic_goto(true, "ERROR"), desc = "Next Error" },
-            { "[e", M.diagnostic_goto(false, "ERROR"), desc = "Prev Error" },
-            { "]w", M.diagnostic_goto(true, "WARN"), desc = "Next Warning" },
-            { "[w", M.diagnostic_goto(false, "WARN"), desc = "Prev Warning" },
-            { "gF", function() vim.lsp.buf.format {async = true} end, desc = "Format"},
-            { "gR", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
-            { "gA", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
+            { "<leader>vd", vim.diagnostic.open_float,                    desc = "Line Diagnostics" },
+            { "<leader>vD", vim.diagnostic.setloclist,                    desc = "Diagnostics to LocList" },
+            { "<leader>vi", "<cmd>LspInfo<cr>",                           desc = "Lsp Info" },
+            { "gd",         "<cmd>Telescope lsp_definitions<cr>",         desc = "Goto Definition", has = "definition" },
+            { "gr",         "<cmd>Telescope lsp_references<cr>",          desc = "References" },
+            { "gD",         vim.lsp.buf.declaration,                      desc = "Goto Declaration" },
+            { "gI",         "<cmd>Telescope lsp_implementations<cr>",     desc = "Goto Implementation" },
+            { "gT",         "<cmd>Telescope lsp_type_definitions<cr>",    desc = "Goto Type Definition" },
+            { "K",          vim.lsp.buf.hover,                            desc = "Hover" },
+            { "gK",         vim.lsp.buf.hover,                            desc = "Hover" },
+            { "gS",         vim.lsp.buf.signature_help,                   desc = "Signature Help", has = "signatureHelp" },
+            { "<c-s>",      vim.lsp.buf.signature_help, mode = "i",       desc = "Signature Help", has = "signatureHelp" },
+            { "]d",         M.diagnostic_goto(true),                      desc = "Next Diagnostic" },
+            { "[d",         M.diagnostic_goto(false),                     desc = "Prev Diagnostic" },
+            { "]e",         M.diagnostic_goto(true,  "ERROR"),            desc = "Next Error" },
+            { "[e",         M.diagnostic_goto(false, "ERROR"),            desc = "Prev Error" },
+            { "]w",         M.diagnostic_goto(true,  "WARN"),             desc = "Next Warning" },
+            { "[w",         M.diagnostic_goto(false, "WARN"),             desc = "Prev Warning" },
+            { "gR",         vim.lsp.buf.rename,                           desc = "Rename", has = "rename" },
+            { "gA",         vim.lsp.buf.code_action, mode = { "n", "v" }, desc = "Code Action", has = "codeAction" },
+            { "gF",         function() vim.lsp.buf.format {async = true} end, desc = "Format"},
             {
                 "<leader>vA",
                 function()
@@ -83,9 +83,9 @@ function M.diagnostic_goto(next, severity)
 end
 
 function M.remap_hover()
-    local buf_opts = { silent = true, buffer = true}
+    local buf_opts = { silent = true, buffer = true }
     if vim.bo.filetype == 'tex' then
-        nmap { 'gK', '<CMD>VimtexDocPackage<CR>', buf_opts}
+        nmap { 'gK', '<CMD>VimtexDocPackage<CR>', buf_opts }
     elseif vim.bo.filetype == 'lua' or vim.bo.filetype == 'vim' then
         nmap { 'K', function()
             local original_iskeyword = vim.bo.iskeyword
@@ -114,7 +114,7 @@ function M.remap_hover()
                 local ok = pcall(vim.cmd.help, word)
 
                 if not ok then
-                    local split_word = vim.split(word, '.', {plain = true})
+                    local split_word = vim.split(word, '.', { plain = true })
                     ok = pcall(vim.cmd.help, split_word[#split_word])
                 end
 
@@ -122,7 +122,7 @@ function M.remap_hover()
                     vim.lsp.buf.hover()
                 end
             end
-        end, buf_opts}
+        end, buf_opts }
     end
 end
 

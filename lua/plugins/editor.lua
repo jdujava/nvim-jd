@@ -49,8 +49,8 @@ return {
     {
         'junegunn/vim-easy-align',
         keys = {
-            {'ga', '<Plug>(EasyAlign)', mode = {'n','x'}, desc = "EasyAlign"},
-            {'<Enter>', '<Plug>(EasyAlign)', mode = 'v', desc = "EasyAlign"},
+            { 'ga',      '<Plug>(EasyAlign)', mode = { 'n', 'x' }, desc = "EasyAlign"},
+            { '<Enter>', '<Plug>(EasyAlign)', mode = 'v',          desc = "EasyAlign"},
         },
     },
     {

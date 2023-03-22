@@ -122,7 +122,7 @@ return {
     {
         'williamboman/mason.nvim',
         cmd = "Mason",
-        keys = {{ '<Leader>m', '<CMD>Mason<CR>' }},
+        keys = { { '<Leader>m', '<CMD>Mason<CR>' } },
         opts = {
             ui = {
                 border = "rounded",

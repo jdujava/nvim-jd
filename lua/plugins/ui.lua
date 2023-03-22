@@ -89,7 +89,8 @@ return {
         }
     },
     {
-        'norcalli/nvim-colorizer.lua', branch = 'color-editor',
+        'norcalli/nvim-colorizer.lua',
+        branch = 'color-editor',
         keys = {
             { '<Leader><Leader>c', '<CMD>ColorizerToggle<CR>', desc = 'Toggle colorizer' },
             {

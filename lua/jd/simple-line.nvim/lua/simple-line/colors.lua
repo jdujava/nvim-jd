@@ -1,7 +1,7 @@
-local c = {}
+local c      = {}
 
-local modes = require('simple-line.modes')
-local hl = vim.api.nvim_set_hl
+local modes  = require('simple-line.modes')
+local hl     = vim.api.nvim_set_hl
 
 -- Different colors for mode
 local purple = '#B48EAD'
@@ -16,8 +16,8 @@ local black  = '#282c34'
 local bg     = '#4d4d4d'
 
 function c.MakeHi(higroup, gbg, gfg, isbold, cbg, cfg)
-    hl(0, higroup, { bg=gbg, fg=gfg, bold=isbold, ctermbg=cbg, ctermfg=cfg})
-    hl(0, higroup..'Separator', { bg='None', fg=gbg})
+    hl(0, higroup, { bg = gbg, fg = gfg, bold = isbold, ctermbg = cbg, ctermfg = cfg })
+    hl(0, higroup .. 'Separator', { bg = 'None', fg = gbg })
 end
 
 function c.setStatusHi()

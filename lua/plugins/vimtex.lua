@@ -1,7 +1,7 @@
 return {
     {
         'lervag/vimtex',
-        lazy = false,  -- otherwise reverse search does not work
+        lazy = false, -- otherwise reverse search does not work
         init = function()
             vim.g.vimtex_imaps_leader = ';'
             vim.g.tex_flavor = 'latex'

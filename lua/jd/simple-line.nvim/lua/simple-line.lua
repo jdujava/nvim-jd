@@ -23,14 +23,13 @@ function M.setup(user_config)
         desc = "Set highlights on colorscheme change."
     })
 
-    vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+    vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
         callback = function()
             vim.o.statusline = "%!v:lua.StatusLine()"
         end,
         group = group,
         desc = "Setup StatusLine for all (including 'quickfix') windows."
     })
-
 end
 
 return M
