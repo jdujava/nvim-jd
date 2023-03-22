@@ -6,31 +6,11 @@ return {
             local cmp = require("cmp")
 
             local winhighlight = table.concat({
-                "Normal:CmpBorderedWindow_Normal",
-                "FloatBorder:CmpBorderedWindow_FloatBorder",
-                "CursorLine:CmpBorderedWindow_CursorLine",
+                "Normal:Pmenu",
+                "FloatBorder:FloatBorder",
+                "CursorLine:PmenuSel",
                 "Search:None",
             }, ",")
-
-            local CmpHighlights = {
-                CmpGhostText = { fg = '#767676', bg = 'NONE' },
-                CmpItemAbbr = { link = 'CmpGhostText' },
-                CmpItemAbbrMatch = { fg = '#dbe2ef', bg = 'NONE' },
-                CmpItemAbbrDeprecated = { underline = true },
-                CmpBorderedWindow_Normal = { bg = '#202020' },
-                CmpBorderedWindow_CursorLine = { bg = '#252525', bold = true },
-                CmpBorderedWindow_FloatBorder = { bg = '#1e1e1e' },
-
-                CmpItemKind = { bg = 'NONE', fg = '#569cd6' },
-                CmpItemKindDefault = { bg = 'NONE', fg = '#569cd6' },
-                CmpItemKindFunction = { bg = 'NONE', fg = '#C586C0' },
-                CmpItemKindMethod = { bg = 'NONE', fg = '#C586C0' },
-                CmpItemKindVariable = { bg = 'NONE', fg = '#9CDCFE' },
-                CmpItemKindKeyword = { bg = 'NONE', fg = '#D4D4D4' },
-            }
-            for hl, col in pairs(CmpHighlights) do
-                vim.api.nvim_set_hl(0, hl, col)
-            end
 
             cmp.setup {
                 completeopt = vim.o.completeopt,
@@ -40,24 +20,12 @@ return {
                     end,
                 },
                 formatting = {
-                    format = function(entry, vim_item)
-                        -- load lspkind icons
-                        vim_item.kind = string.format(
-                            "%s %s",
-                            require("plugins.lsp.lspkind_icons").icons[vim_item.kind],
-                            vim_item.kind
-                        )
-
-                        -- set a name for each source
-                        vim_item.menu = ({
-                            nvim_lsp      = "[L]",
-                            ultisnips     = "[S]",
-                            path          = "[P]",
-                            buffer        = "[B]",
-                            emoji         = "[E]",
-                        })[entry.source.name]
-
-                        return vim_item
+                    format = function(_, item)
+                        local icons = require("plugins.lsp.lspkind_icons").icons
+                        if icons[item.kind] then
+                            item.kind = icons[item.kind] .. item.kind
+                        end
+                        return item
                     end,
                 },
                 window = {

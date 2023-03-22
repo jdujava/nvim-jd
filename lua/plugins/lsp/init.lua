@@ -65,19 +65,16 @@ return {
                 require("plugins.lsp.keymaps").on_attach(client, buffer)
             end)
 
-            -- diagnostics
+            -- visuals
             local diagnostics = { Error = "", Warn = "", Hint = "", Info = "" }
             for name, icon in pairs(diagnostics) do
                 name = "DiagnosticSign" .. name
                 vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
             end
-            local highlights = { Error = "#f44747", Warn = "#ffcc66", Hint = "#9cdcfe", Info = "#ffd38f" }
-            for name, color in pairs(highlights) do
-                name = "Diagnostic" .. name
-                vim.api.nvim_set_hl(0, name, { fg = color, bg = "NONE" })
-            end
             vim.diagnostic.config(opts.diagnostics)
+            require('lspconfig.ui.windows').default_options.border = 'rounded'
 
+            -- setup servers
             local servers = opts.servers
             local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -119,9 +116,6 @@ return {
                 mlsp.setup({ ensure_installed = ensure_installed })
                 mlsp.setup_handlers({ setup })
             end
-
-            require('lspconfig.ui.windows').default_options.border = 'rounded'
-            vim.api.nvim_set_hl(0, "LspInfoBorder", {link = 'FloatBorder'})
         end,
     },
 

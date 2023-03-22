@@ -150,10 +150,6 @@ return {
             require('telescope').load_extension('fzf')
             require('telescope').load_extension('ultisnips')
             require('telescope').load_extension('ui-select')
-
-            vim.api.nvim_set_hl(0, 'TelescopeSelectionCaret', {fg = '#ff87d7', bg = '#262626'} )
-            -- vim.api.nvim_set_hl(0, 'TelescopeMultiIcon', {fg = '#ff97e7'} )
-            vim.api.nvim_set_hl(0, 'TelescopeSelection', {bg = '#262626', bold = true} )
             -- require('plugins.telescope.setup')
             -- require('plugins.telescope.mappings')
         end,

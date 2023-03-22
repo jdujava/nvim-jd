@@ -4,7 +4,7 @@ require 'jd.bindings'
 require 'jd.aucmds'
 require 'jd.abbr'
 
--- bootstrap lazy.nvim, LazyVim and your plugins
+-- bootstrap lazy.nvim, LazyVim and plugins
 require 'jd.lazy'
 
 -- set up quick keybindings
@@ -16,7 +16,7 @@ map  {'qw',   '<CMD>wq<CR>'}
 map  {'<CR>', '<CMD>wq<CR>'}
 
 -- autostart editing as "$|$", where | is position of cursor
-vim.api.nvim_buf_set_lines(0, 0, 1, 0, {"$$"})
+vim.api.nvim_buf_set_lines(0, 0, 1, false, {"$$"})
 vim.api.nvim_win_set_cursor(0, {1,1})
 vim.api.nvim_create_autocmd('UIEnter', {
     command = 'startinsert',

@@ -34,9 +34,6 @@ return {
                 command = [[silent FloatermUpdate]],
                 group = vim.api.nvim_create_augroup("Floaterm", {}),
             })
-
-            vim.api.nvim_set_hl(0, "Floaterm", {bg = "#202020"})
-            vim.api.nvim_set_hl(0, "FloatermBorder", {bg = "#202020"})
         end
     }
 }

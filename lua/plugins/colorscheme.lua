@@ -4,7 +4,7 @@ return {
         "folke/tokyonight.nvim",
         lazy = false,
         opts = {
-            style = "mystyle",
+            style = "custom",
             transparent = true, -- Enable this to disable setting the background color
             terminal_colors = false, -- Configure the colors used when opening a `:terminal` in Neovim
             styles = {
@@ -36,17 +36,25 @@ return {
                 hl.DiffDelete = { fg = c.dark4, bg = c.dark2 }
                 -- hl.DiffText = { bg = c.diff.text }
                 hl.LazyH1 = { fg = c.bg_dark, bg = c.orange }
+
+                hl.TelescopeSelection = { bg = c.bg_context, bold = true }
+                hl.TelescopeSelectionCaret = { fg = c.purple, bg = c.bg_context }
+
+                hl.CmpItemKindSnippet = { fg = c.fg_bright }
+                hl.PmenuThumb = { bg = c.border_highlight }
+                hl.PmenuSel = { bg = c.bg_highlight, bold = true }
+                hl.FloatermBorder = hl.FloatBorder
             end,
         } ,
         config = function(_, opts)
             local colors = require("tokyonight.colors")
 
             -- create a new palette based on the default colors
-            colors.mystyle = vim.deepcopy(colors.default)
+            colors.custom = vim.deepcopy(colors.default)
 
             -- change the colors for your new palette here
-            colors.mystyle = {
-                bg_dark = "#121212",
+            colors.custom = {
+                bg_dark = "#1e1e1e",
                 bg = "#1e1e1e",
                 dark2 = "#212121",
                 bg_context = "#262626",
@@ -55,6 +63,7 @@ return {
                 dark3 = "#3e4452",
                 dark4 = "#454e53",
                 dark5 = "#5c6370",
+                fg_bright = "#F5EBD9",
                 fg_dark = "#98a8b4",
                 fg = "#abb2bf",
                 purple = "#fca7ea",
