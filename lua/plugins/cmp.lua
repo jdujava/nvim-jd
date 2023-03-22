@@ -33,6 +33,7 @@ return {
             end
 
             cmp.setup {
+                completeopt = vim.o.completeopt,
                 snippet = {
                     expand = function(args)
                         vim.fn['UltiSnips#Anon'](args.body)

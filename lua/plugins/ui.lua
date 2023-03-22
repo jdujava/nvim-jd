@@ -54,6 +54,8 @@ return {
                 { filter = { event = "msg_show", kind = "search_count" }, opts = { skip = true } },
                 { filter = { event = "msg_show", kind = "", find = "written" }, opts = { skip = true } },
                 { filter = { event = "msg_show", kind = "wmsg", find = "BOTTOM" }, opts = { skip = true } },
+                { filter = { event = "msg_show", kind = "emsg", find = "E353" }, opts = { skip = true } },
+                { view = "notify", filter = { event = "msg_showmode" }, }, -- notify start of macro recorging
             },
         },
         -- stylua: ignore
@@ -116,5 +118,18 @@ return {
                 },
             })
         end,
+    },
+
+    -- indent guides for Neovim
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        event = { "BufReadPost", "BufNewFile" },
+        opts = {
+            -- char = "▏",
+            char = "│",
+            filetype_exclude = { "help", "lazy" },
+            show_trailing_blankline_indent = false,
+            show_current_context = false,
+        },
     },
 }

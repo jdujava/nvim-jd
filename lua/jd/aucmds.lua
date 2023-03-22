@@ -36,7 +36,7 @@ au({'BufEnter','BufRead'}, {
 
 au('TextYankPost', {
     callback = function()
-        vim.highlight.on_yank {higroup="Yank", on_visual=false}
+        vim.highlight.on_yank { higroup = "Visual", on_visual = false }
     end,
     group = core,
 })

@@ -15,6 +15,7 @@ return {
                 update_in_insert = false,
                 virtual_text = { spacing = 4, prefix = "●" },
                 severity_sort = true,
+                float = { border = "rounded" },
             },
             -- LSP Server Settings
             servers = {

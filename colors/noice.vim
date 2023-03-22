@@ -202,4 +202,8 @@ hi debugBreakpoint guifg=#d16969 ctermfg=167  guibg=NONE    ctermbg=NONE gui=rev
 hi Yank                guifg=none      ctermfg=234        guibg=#343434 ctermbg=187 gui=NONE cterm=NONE
 
 hi TreesitterContext guibg=#262626
-hi LazyH1            guifg=#abb2bf guifg=NONE  guibg=#3e4462 gui=bold
+hi LazyH1            guifg=#030303 guibg=#ffae80 gui=bold
+hi LazyButtonActive  guifg=#d2d2d2 guibg=#334862 gui=bold
+" #3e4452
+
+hi IndentBlanklineChar guifg=#2a2a2a guibg=none gui=nocombine

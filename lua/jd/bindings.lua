@@ -20,10 +20,10 @@ tmap {'<A-Esc>',   '<C-\\><C-n>' }
 nmap {'<leader>t', '<CMD>split | call nvim_win_set_height(0, 12) | terminal<CR>', {silent = true} }
 
 -- resizing with arrow keys
-nmap {'<C-Up>',    ':resize +2<CR>' }
-nmap {'<C-Down>',  ':resize -2<CR>' }
-nmap {'<C-Left>',  ':vert resize +2<CR>' }
-nmap {'<C-Right>', ':vert resize -2<CR>' }
+nmap {'<C-Up>',    ':resize +2<CR>',      {silent = true} }
+nmap {'<C-Down>',  ':resize -2<CR>',      {silent = true} }
+nmap {'<C-Left>',  ':vert resize +2<CR>', {silent = true} }
+nmap {'<C-Right>', ':vert resize -2<CR>', {silent = true} }
 
 vim.keymap.set({'i', 'c'}, '<C-j>', '<C-n>', {remap = true})
 vim.keymap.set({'i', 'c'}, '<C-k>', '<C-p>', {remap = true})

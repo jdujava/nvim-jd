@@ -27,7 +27,7 @@ return {
                 function()
                     require("telescope.builtin").find_files {
                         shorten_path = false,
-                        cwd = require("lspconfig.util").root_pattern ".git"(vim.fn.expand "%:p"),
+                        cwd = require("lspconfig.util").root_pattern(".git")(vim.fn.expand "%:p"),
                     }
                 end,
                 desc = "Find Files (project)"
@@ -95,8 +95,6 @@ return {
 
                         horizontal = { },
                         vertical = {
-                            -- width_padding = 0.05,
-                            -- height_padding = 1,
                             width = 0.9,
                             height = 0.95,
                             preview_height = 0.5,
@@ -107,6 +105,7 @@ return {
                             ["<Esc>"] = actions.close,
                             ["<C-j>"] = actions.move_selection_next,
                             ["<C-k>"] = actions.move_selection_previous,
+                            ["<C-f>"] = actions.to_fuzzy_refine,
                             ["<C-space>"] = actions.toggle_selection,
                             ["<C-l>"] = actions.select_default,
                             ["<C-y>"] = function() -- yank selected entry
