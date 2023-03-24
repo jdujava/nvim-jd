@@ -31,7 +31,7 @@ return {
 
             -- automatically resize
             vim.api.nvim_create_autocmd('VimResized', {
-                command = [[silent FloatermUpdate]],
+                command = "FloatermUpdate",
                 group = vim.api.nvim_create_augroup("Floaterm", {}),
             })
         end

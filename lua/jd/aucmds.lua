@@ -47,20 +47,22 @@ au('TextYankPost', {
 local autoupdate = function(pattern, command)
     au('BufWritePost', {
         pattern = pattern,
-        command = command,
+        callback = function()
+            require('jd.cmds').term_execute(command)
+        end,
         group = auto_updates,
     })
 end
 
-autoupdate({'*/shell/folders', 'shortcuts'},              [[!shortcuts]])
-autoupdate('*/st-jd/config.def.h',                        [[!make && sudo make install]])
-autoupdate('*/dwm-jd/dwm.c',                              [[!make && sudo make install]])
-autoupdate('*/slstatus-jd/config.def.h',                  [[!make && sudo make install && killall slstatus; setsid slstatus >/dev/null 2>&1 &]])
-autoupdate('*Xresources/*',                               [[!xrdb $XRESOURCES && pkill -USR1 st]])
-autoupdate('sxhkdrc',                                     [[!pkill -USR1 sxhkd]])
-autoupdate('dunstrc',                                     [[!killall dunst; setsid dunst >/dev/null 2>&1 &]])
-autoupdate({'*praktikum/*plot.gnu', '*optika/*plot.gnu'}, [[!gnuplot plot.gnu > loggg.txt]])
-autoupdate('fonts.conf',                                  [[!fc-cache]])
+autoupdate({'*/shell/folders', 'shortcuts'},              [[shortcuts]])
+autoupdate('*/st-jd/config.def.h',                        [[make && sudo make install]])
+autoupdate('*/dwm-jd/dwm.c',                              [[make && sudo make install]])
+autoupdate('*/slstatus-jd/config.def.h',                  [[make && sudo make install && killall slstatus; setsid slstatus >/dev/null 2>&1 &]])
+autoupdate('*Xresources/*',                               [[xrdb $XRESOURCES && pkill -USR1 st]])
+autoupdate('sxhkdrc',                                     [[pkill -USR1 sxhkd]])
+autoupdate('dunstrc',                                     [[killall dunst; setsid dunst >/dev/null 2>&1 &]])
+autoupdate({'*praktikum/*plot.gnu', '*optika/*plot.gnu'}, [[gnuplot plot.gnu > loggg.txt]])
+autoupdate('fonts.conf',                                  [[fc-cache]])
 
 
 

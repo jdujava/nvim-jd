@@ -5,6 +5,12 @@ function M.sudo_write()
     vim.cmd.edit { bang = true }
 end
 
+function M.term_execute(command)
+    print("Executing [" .. command .. "]")
+    -- sleep needed to avoid discarding the first line of output
+    vim.cmd('split | call nvim_win_set_height(0, 12) | terminal sleep 0.05;' .. command)
+end
+
 function M.executor()
     local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
     local line = vim.api.nvim_get_current_line()
@@ -13,8 +19,7 @@ function M.executor()
     elseif filetype == 'vim' then
         vim.cmd(line)
     elseif filetype == 'sh' then
-        print("Executing [" .. line .. "]")
-        vim.cmd('split | call nvim_win_set_height(0, 12) | terminal ' .. line)
+        M.term_execute(line)
     end
 end
 

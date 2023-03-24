@@ -17,13 +17,13 @@ nmap { 'Z',     '<CMD>wqa<CR>' }
 -- terminal
 tmap { '<A-x>',     '<CMD>bd!<CR>' }
 tmap { '<A-Esc>',   '<C-\\><C-n>' }
-nmap { '<leader>t', '<CMD>split | call nvim_win_set_height(0, 12) | terminal<CR>', { silent = true } }
+nmap { '<leader>t', '<CMD>split | call nvim_win_set_height(0, 12) | terminal<CR>' }
 
 -- resizing with arrow keys
-nmap { '<C-Up>',    ':resize +2<CR>',      { silent = true } }
-nmap { '<C-Down>',  ':resize -2<CR>',      { silent = true } }
-nmap { '<C-Left>',  ':vert resize +2<CR>', { silent = true } }
-nmap { '<C-Right>', ':vert resize -2<CR>', { silent = true } }
+nmap { '<C-Up>',    '<CMD>resize +2<CR>', }
+nmap { '<C-Down>',  '<CMD>resize -2<CR>', }
+nmap { '<C-Left>',  '<CMD>vert resize +2<CR>', }
+nmap { '<C-Right>', '<CMD>vert resize -2<CR>', }
 
 vim.keymap.set({ 'i', 'c' }, '<C-j>', '<C-n>', { remap = true })
 vim.keymap.set({ 'i', 'c' }, '<C-k>', '<C-p>', { remap = true })
@@ -33,17 +33,14 @@ map { 'L', 'g$' }
 nmap { 'j', [[v:count == 0 ? "gj" : "j"]], { expr = true } }
 nmap { 'k', [[v:count == 0 ? "gk" : "k"]], { expr = true } }
 
-nmap { '<C-j>',   ':move+1<cr>',         { silent = true } }
-nmap { '<C-k>',   ':move-2<cr>',         { silent = true } }
-nmap { '<C-h>',   '<<',                  { silent = true } }
-nmap { '<C-l>',   '>>',                  { silent = true } }
+nmap { '<C-j>',   '<CMD>move+1<CR>' }
+nmap { '<C-k>',   '<CMD>move-2<CR>' }
 xmap { '<C-k>',   [[:move-2<cr>gv=gv]],  { silent = true } }
 xmap { '<C-j>',   [[:move'>+<cr>gv=gv]], { silent = true } }
-xmap { '<C-h>',   '<gv',                 { silent = true } }
-xmap { '<C-l>',   '>gv',                 { silent = true } }
-xmap { '<',       '<gv',                 { silent = true } }
-xmap { '>',       '>gv',                 { silent = true } }
-xmap { '<Space>', 'I<Space><ESC>gv',     { silent = true, remap = true } }
+nmap { '<C-h>',   '<<' }
+nmap { '<C-l>',   '>>' }
+xmap { '<C-h>',   '<gv' }
+xmap { '<C-l>',   '>gv' }
 
 -- Swap implementations of ` and ' jump to markers
 nmap { "'", "`" }
@@ -92,18 +89,19 @@ xmap {
     end,
     { expr = true }
 }
+xmap { '<Space>', 'I<Space><ESC>gv', { remap = true } }
 
 -- Spell-check
-map { '<Leader><Leader>s', '<Cmd>setlocal spell!<CR>', { silent = true } }
-imap { '<C-h>', '<c-g>u<Esc>[s1z=`]a<c-g>u', { silent = true } }
+map { '<Leader><Leader>s', '<Cmd>setlocal spell!<CR>' }
+imap { '<C-h>', '<c-g>u<Esc>[s1z=`]a<c-g>u' }
 
 -- Replace all is aliased to S
 nmap { '<leader>S', ':%s/' }
 
 -- Change perms -> Compile document -> Open document
 nmap { '+x', '<CMD>!chmod +x "%:p"<CR>' }
-nmap { '<A-W>', '<CMD>w! <bar> split <bar> terminal compiler "%:p"<CR>' }
-nmap { '<leader>W', '<CMD>w! <bar> !compiler "%:p"<CR>' }
+nmap { '<A-W>', '<CMD>w! | split | terminal compiler "%:p"<CR>' }
+nmap { '<leader>W', '<CMD>w! | !compiler "%:p"<CR>' }
 nmap { '<leader><leader>v', '<CMD>!opout "%:p"<CR><CR>' }
 
 -- SudoWrite
@@ -111,15 +109,10 @@ nmap { '<leader>sw', function() require('jd.cmds').sudo_write() end }
 
 -- Executor
 nmap { '<leader>x', function() require('jd.cmds').executor() end }
-vmap { '<leader>x', [[<CMD><C-w>exe join(getline("'<","'>"),'<Bar>')<CR>]] }
 
 -- Save&Exec
 nmap { '<leader><leader>x', function() require('jd.cmds').saveandexec() end }
 nmap { '<leader>X', function() require('jd.cmds').saveandexec() end }
-
--- Toggle hlsearch
-nmap { '<A-CR>', '<CMD>let v:hlsearch=!v:hlsearch<CR>', { silent = true } }
-tmap { '<A-CR>', '<C-\\><C-n><Cmd>let v:hlsearch=!v:hlsearch<CR>a', { silent = true } }
 
 -- Toggle diagnostics
 nmap { "<leader>ud", require("jd.helpers").toggle_diagnostics }

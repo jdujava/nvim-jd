@@ -121,7 +121,7 @@ function M.remap_hover()
                     vim.lsp.buf.hover()
                 end
             end
-        end, { silent = true, buffer = true, desc = "NeoVim help or Lua Hover" })
+        end, { buffer = true, desc = "NeoVim help or Lua Hover" })
     end
 end
 

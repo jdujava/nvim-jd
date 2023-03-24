@@ -64,8 +64,8 @@ return {
             { "<leader>sl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
             { "<leader>sa", function() require("noice").cmd("all") end, desc = "Noice History" },
             { "<leader>M", function() require("noice").cmd("telescope") end, desc = "Noice Telescope" },
-            { "<c-d>", function() if not require("noice.lsp").scroll(4) then return "<c-d>" end end, silent = true, expr = true, desc = "Scroll forward", mode = {"i", "n", "s"} },
-            { "<c-u>", function() if not require("noice.lsp").scroll(-4) then return "<c-u>" end end, silent = true, expr = true, desc = "Scroll backward", mode = {"i", "n", "s"}},
+            { "<c-d>", function() require("noice.lsp").scroll( 4) end, mode = {"i", "s"}, desc = "Scroll forward" },
+            { "<c-u>", function() require("noice.lsp").scroll(-4) end, mode = {"i", "s"}, desc = "Scroll backward" },
         },
     },
 
