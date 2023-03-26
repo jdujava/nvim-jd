@@ -6,9 +6,9 @@ function M.sudo_write()
 end
 
 function M.term_execute(command)
-    print("Executing [" .. command .. "]")
-    -- sleep needed to avoid discarding the first line of output
-    vim.cmd('split | call nvim_win_set_height(0, 12) | terminal sleep 0.05;' .. command)
+    local output = vim.api.nvim_exec("!" .. command, { output = true })
+    vim.notify(output, vim.log.levels.INFO, { title = "Executor" })
+    -- require("lazy.util").float_cmd(command)
 end
 
 function M.executor()
