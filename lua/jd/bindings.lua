@@ -1,3 +1,5 @@
+local cmds = require('jd.cmds')
+
 vim.g.mapleader      = ' '
 vim.g.maplocalleader = ' '
 
@@ -72,7 +74,7 @@ xmap {
             return "I"
         end
     end,
-    { expr = true }
+    { expr = true, desc = "Insert at start of line/selection" }
 }
 xmap {
     'A',
@@ -87,7 +89,7 @@ xmap {
             return "A"
         end
     end,
-    { expr = true }
+    { expr = true, desc = "Append at end of line/selection" }
 }
 xmap { '<Space>', 'I<Space><ESC>gv', { remap = true } }
 
@@ -104,22 +106,16 @@ nmap { '<A-W>', '<CMD>w! | split | terminal compiler "%:p"<CR>' }
 nmap { '<leader>W', '<CMD>w! | !compiler "%:p"<CR>' }
 nmap { '<leader><leader>v', '<CMD>!opout "%:p"<CR><CR>' }
 
--- SudoWrite
-nmap { '<leader>sw', function() require('jd.cmds').sudo_write() end }
+nmap { '<leader>sw', cmds.sudo_write, { desc = "SudoWrite" } }
+nmap { '<leader>x', cmds.executor, { desc = "Executor" } }
+nmap { '<leader><leader>x', cmds.saveandexec, { desc = "Save&Exec" } }
+nmap { '<leader>X', cmds.saveandexec, { desc = "Save&Exec" } }
 
--- Executor
-nmap { '<leader>x', function() require('jd.cmds').executor() end }
-
--- Save&Exec
-nmap { '<leader><leader>x', function() require('jd.cmds').saveandexec() end }
-nmap { '<leader>X', function() require('jd.cmds').saveandexec() end }
-
--- Toggle diagnostics
-nmap { "<leader>ud", require("jd.helpers").toggle_diagnostics }
+nmap { "<leader>ud", require("jd.helpers").toggle_diagnostics, { desc = "Toggle Diagnostics" } }
 
 -- Open link in browser/pdf-viewer
 map { '<A-~>', function()
     local link = vim.fn.expand('<cWORD>'):gsub('^%[(.*)%]$', '%1')
     -- vim.notify {link}
     vim.fn.jobstart({ 'xdg-open', link }, { detach = true })
-end }
+end, desc = "Open Link" }

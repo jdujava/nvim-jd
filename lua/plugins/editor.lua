@@ -1,4 +1,5 @@
 return {
+    --  TODO: sort out the plugins
     {
         'github/copilot.vim',
         event = 'CursorHold',
@@ -58,7 +59,7 @@ return {
         keys = {{
             'U',
             function()
-                vim.cmd [[UndotreeToggle | UndotreeFocus]]
+                vim.cmd("UndotreeToggle | UndotreeFocus")
                 vim.api.nvim_win_set_width(0, 30)
                 vim.o.statusline = "%!v:lua.StatusLine()"
             end,
@@ -74,5 +75,20 @@ return {
         config = function()
             vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
         end,
+    },
+    {
+        "folke/todo-comments.nvim",
+        cmd = { "TodoTelescope" },
+        event = { "BufReadPost", "BufNewFile" },
+        keys = {
+            { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
+            { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
+            { "<leader>T", "<cmd>TodoTelescope<cr>", desc = "Todo" },
+        },
+        opts = {
+            gui_style = {
+                bg = "BOLD,NOCOMBINE", -- override italic from comment
+            },
+        },
     },
 }

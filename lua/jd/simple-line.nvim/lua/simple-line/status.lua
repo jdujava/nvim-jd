@@ -34,7 +34,7 @@ local function search_count()
 end
 
 function StatusLine()
-    local width = vim.o.columns - (vim.o.spell and 10 or 0)
+    local width = vim.o.columns - (vim.o.spell and 10 or 0) - (vim.v.hlsearch and 8 or 0)
     local statusline = ""
 
     -- Component: Mode

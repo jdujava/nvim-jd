@@ -124,6 +124,7 @@ return {
     {
         'williamboman/mason.nvim',
         cmd = "Mason",
+        build = ":MasonUpdate", -- :MasonUpdate updates registry contents
         keys = { { '<Leader>m', '<CMD>Mason<CR>' } },
         opts = {
             ui = {

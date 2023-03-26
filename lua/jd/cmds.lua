@@ -24,9 +24,8 @@ function M.executor()
 end
 
 function M.saveandexec()
-    local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
-    if filetype == 'lua' or 'vim' then
-        vim.cmd.write()
+    vim.cmd.write()
+    if vim.bo.filetype == 'lua' or vim.bo.filetype == 'vim' then
         vim.cmd.source("%")
     end
 end
