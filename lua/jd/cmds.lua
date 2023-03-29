@@ -18,7 +18,8 @@ function M.executor()
         load(line)()
     elseif filetype == 'vim' then
         vim.cmd(line)
-    elseif filetype == 'sh' then
+    else
+        -- elseif filetype == 'sh' then
         M.term_execute(line)
     end
 end

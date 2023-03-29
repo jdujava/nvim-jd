@@ -1,4 +1,6 @@
 local cmds = require('jd.cmds')
+local helpers = require('jd.helpers')
+local R = helpers.R
 
 vim.g.mapleader      = ' '
 vim.g.maplocalleader = ' '
@@ -108,10 +110,11 @@ nmap { '<leader><leader>v', '<CMD>!opout "%:p"<CR><CR>' }
 
 nmap { '<leader>sw', cmds.sudo_write, { desc = "SudoWrite" } }
 nmap { '<leader>x', cmds.executor, { desc = "Executor" } }
+-- nmap { '<leader>x', function() R('jd.cmds').executor() end, { desc = "Executor" } }
 nmap { '<leader><leader>x', cmds.saveandexec, { desc = "Save&Exec" } }
 nmap { '<leader>X', cmds.saveandexec, { desc = "Save&Exec" } }
 
-nmap { "<leader>ud", require("jd.helpers").toggle_diagnostics, { desc = "Toggle Diagnostics" } }
+nmap { "<leader>ud", helpers.toggle_diagnostics, { desc = "Toggle Diagnostics" } }
 
 -- Open link in browser/pdf-viewer
 map { '<A-~>', function()

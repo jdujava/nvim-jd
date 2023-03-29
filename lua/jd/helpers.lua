@@ -23,6 +23,11 @@ function M.has(plugin)
     return require("lazy.core.config").plugins[plugin] ~= nil
 end
 
+function M.R(module)
+    package.loaded[module] = nil
+    return require(module)
+end
+
 local enabled = true
 function M.toggle_diagnostics()
     enabled = not enabled
