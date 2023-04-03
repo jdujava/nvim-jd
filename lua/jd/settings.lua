@@ -19,10 +19,13 @@ vim.o.linebreak      = true
 vim.o.ignorecase     = true
 vim.o.smartcase      = true
 vim.o.smartindent    = true
+
 vim.o.foldmethod     = 'marker'
 vim.o.foldmarker     = '{{{,}}}'
--- vim.o.foldmethod    = 'expr'
--- vim.o.foldexpr      = 'v:lua.vim.treesitter.foldexpr()'
+-- vim.opt.foldmethod   = 'expr'
+-- vim.opt.foldexpr     = 'v:lua.vim.treesitter.foldexpr()'
+vim.opt.foldlevel      = 1
+vim.opt.foldnestmax    = 2
 
 vim.o.jumpoptions    = 'view'
 vim.o.inccommand     = 'nosplit'
@@ -56,7 +59,7 @@ vim.opt.fillchars    = {
     foldopen = "",
     foldclose = "",
     fold = "·",
-    foldsep = " ",
+    foldsep = "│",
     diff = "╱",
     eob = " ",
 }

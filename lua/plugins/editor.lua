@@ -74,6 +74,8 @@ return {
         event = "BufReadPost",
         config = function()
             vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
+            vim.g.matchup_override_vimtex = 1
+            vim.g.matchup_matchparen_deferred = 0
         end,
     },
     {

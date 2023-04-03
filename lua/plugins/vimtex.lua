@@ -9,6 +9,7 @@ return {
             vim.g.vimtex_quickfix_mode = 0
             vim.g.vimtex_fold_enabled = 1
 
+            --  TODO: set up a toggle for this
             vim.g.vimtex_syntax_conceal_disable = 1 -- disable conceal completely
             vim.o.conceallevel = 2
 

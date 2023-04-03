@@ -33,7 +33,7 @@ return {
                 "git_config",
                 "gitignore",
                 "go",
-                "help",
+                "vimdoc",
                 "html",
                 "http",
                 "java",
@@ -93,6 +93,7 @@ return {
                         ['@function.outer'] = 'V',  -- linewise
                         ['@class.outer'] = '<c-v>', -- blockwise
                     },
+                    -- include_surrounding_whitespace = true,
                 },
             },
         },

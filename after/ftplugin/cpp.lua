@@ -1,7 +1,5 @@
-vim.wo.foldlevel = 1
-vim.wo.foldnestmax = 2
-vim.wo.foldmethod = 'expr'
-vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.opt_local.foldmethod = 'expr'
+vim.opt_local.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
 local buf_opts = { silent = true, buffer = 0 }
 nmap { '<A-W>', ':w <bar> split <bar> terminal g++ -Wall -Ofast % -o %:r && ./%:r | tee %:r.data<CR>', buf_opts }
