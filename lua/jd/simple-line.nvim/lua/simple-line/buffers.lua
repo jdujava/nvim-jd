@@ -1,18 +1,21 @@
 local B = {}
 
-local api = vim.api
 local has_icons, icons = pcall(require, 'nvim-web-devicons')
 local builder = require('simple-line.builder')
 
 B.buffers = {}
-local ignore = {
+local ignore_buftype = {
     ["nofile"] = true,
     ["quickfix"] = true,
     ["prompt"] = true,
 }
+local noignore_filetype = {
+    ["man"] = true,
+    ["startuptime"] = true,
+}
 
 local function getBufLabel(n)
-    local filename = vim.fn.fnamemodify(api.nvim_buf_get_name(n), ':t')
+    local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(n), ':t')
     if filename == '' then
         filename = '[No name]'
     end
@@ -26,10 +29,12 @@ local function getBufLabel(n)
 end
 
 function BufferLine()
-    local current_buf = api.nvim_get_current_buf()
-    B.buffers = api.nvim_list_bufs()       -- get all buffers
+    local current_buf = vim.api.nvim_get_current_buf()
+    B.buffers = vim.api.nvim_list_bufs()   -- get all buffers
     B.buffers = vim.tbl_filter(function(b) -- filter out only valid ones
-        return api.nvim_buf_is_loaded(b) and not ignore[vim.bo[b].buftype]
+        return vim.api.nvim_buf_is_loaded(b) and
+            not ignore_buftype[vim.bo[b].buftype]
+            or noignore_filetype[vim.bo[b].filetype]
     end, B.buffers)
 
     local bufferline = ''
@@ -47,11 +52,11 @@ function B.jumpBuf(buf)
     if #B.buffers == 0 then
         return vim.notify('No buffers.', vim.log.levels.WARN, { title = "BufferLine" })
     end
-    api.nvim_set_current_buf(B.buffers[math.min(#B.buffers, buf)])
+    vim.api.nvim_set_current_buf(B.buffers[math.min(#B.buffers, buf)])
 end
 
 for i = 1,9 do
-    map { '<A-'..i..'>', function() require 'simple-line.buffers'.jumpBuf(i) end }
+    map { '<A-'..i..'>', function() require('simple-line.buffers').jumpBuf(i) end }
 end
 
 return B
