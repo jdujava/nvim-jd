@@ -34,7 +34,12 @@ return {
             },
             {
                 "<leader>F",
-                function() require("telescope").extensions.frecency.frecency { cwd = "~" } end,
+                function()
+                    require("telescope").extensions.frecency.frecency {
+                        cwd = "~",
+                        sorter = require("telescope.sorters").fuzzy_with_index_bias(),
+                    }
+                end,
                 desc = "Find Files (Frecency)"
             },
             {

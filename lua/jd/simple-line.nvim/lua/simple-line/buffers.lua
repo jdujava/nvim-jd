@@ -12,6 +12,7 @@ local ignore_buftype = {
 local noignore_filetype = {
     ["man"] = true,
     ["startuptime"] = true,
+    ["checkhealth"] = true,
 }
 
 local function getBufLabel(n)
