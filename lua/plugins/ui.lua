@@ -2,11 +2,6 @@ return {
     {
         "rcarriga/nvim-notify",
         event = 'VeryLazy',
-        keys = {{
-            '<A-Space>',
-            function() require("notify").dismiss {} end,
-            desc = "Dismiss notification"
-        }},
         opts = {
             background_colour = "#000000",
             max_height = function() return math.floor(vim.o.lines * 0.75) end,
@@ -63,6 +58,7 @@ return {
             { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
             { "<leader>sl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
             { "<leader>sa", function() require("noice").cmd("all") end, desc = "Noice History" },
+            { "<A-Space>", function() require("noice").cmd("dismiss") end, desc = "Noice Dismiss All" },
             { "<leader>M", function() require("noice").cmd("telescope") end, desc = "Noice Telescope" },
             { "<c-d>", function() if not require("noice.lsp").scroll(4) then return "<c-d>" end end, silent = true, expr = true, desc = "Scroll forward", mode = {"i", "n", "s"} },
             { "<c-u>", function() if not require("noice.lsp").scroll(-4) then return "<c-u>" end end, silent = true, expr = true, desc = "Scroll backward", mode = {"i", "n", "s"}},

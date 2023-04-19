@@ -7,7 +7,7 @@ return {
         opts = {
             load = {
                 ["core.defaults"] = {},
-                ["core.norg.concealer"] = {
+                ["core.concealer"] = {
                     config = {
                         dim_code_blocks = {
                             conceal = false,
@@ -16,7 +16,7 @@ return {
                         },
                     },
                 },
-                ["core.norg.dirman"] = {
+                ["core.dirman"] = {
                     config = {
                         workspaces = {
                             notes = "~/Documents/Notes/",
@@ -24,7 +24,7 @@ return {
                         default_workspace = "notes",
                     },
                 },
-                ["core.norg.completion"] = { config = { engine = "nvim-cmp" } },
+                ["core.completion"] = { config = { engine = "nvim-cmp" } },
                 ["core.integrations.nvim-cmp"] = {},
             },
         },

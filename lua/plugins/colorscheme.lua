@@ -86,7 +86,7 @@ return {
                 -- green1    = "#4ec9b0",
                 green1       = "#89dcf4",
                 green2       = "#2f563a",
-                green3       = "#163a2f",
+                green3       = "#204533",
                 teal         = "#4ec9b0",
                 comment      = "#608b4e",
             }

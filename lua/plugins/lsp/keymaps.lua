@@ -8,6 +8,7 @@ function M.get()
             { "<leader>vd", vim.diagnostic.open_float,                    desc = "Line Diagnostics" },
             { "<leader>vD", vim.diagnostic.setloclist,                    desc = "Diagnostics to LocList" },
             { "<leader>vi", "<cmd>LspInfo<cr>",                           desc = "Lsp Info" },
+            { "gw",         "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols" },
             { "gd",         "<cmd>Telescope lsp_definitions<cr>",         desc = "Goto Definition", has = "definition" },
             { "gr",         "<cmd>Telescope lsp_references<cr>",          desc = "References" },
             { "gD",         vim.lsp.buf.declaration,                      desc = "Goto Declaration" },

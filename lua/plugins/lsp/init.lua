@@ -13,7 +13,11 @@ return {
             diagnostics = {
                 underline = true,
                 update_in_insert = false,
-                virtual_text = { spacing = 4, prefix = "●" },
+                virtual_text = {
+                    spacing = 4,
+                    source = "if_many",
+                    prefix = "●",
+                },
                 severity_sort = true,
                 float = { border = "rounded" },
             },
@@ -71,7 +75,7 @@ return {
                 name = "DiagnosticSign" .. name
                 vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
             end
-            vim.diagnostic.config(opts.diagnostics)
+            vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
             require('lspconfig.ui.windows').default_options.border = 'rounded'
 
             -- setup servers
