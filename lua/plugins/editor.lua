@@ -16,6 +16,7 @@ return {
             vim.g.copilot_no_tab_map = true
             vim.g.copilot_filetypes = {
                 TelescopePrompt = false,
+                frecency = false,
                 mail = false
             }
         end
