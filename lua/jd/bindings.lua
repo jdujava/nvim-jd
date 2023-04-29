@@ -66,7 +66,6 @@ map { '<C-z>', '<nop>' }
 xmap {
     'I',
     function()
-        ---@diagnostic disable-next-line: undefined-field
         local mode = vim.api.nvim_get_mode().mode
         if mode == 'v' then
             return "<C-v>I"
@@ -81,7 +80,6 @@ xmap {
 xmap {
     'A',
     function()
-        ---@diagnostic disable-next-line: undefined-field
         local mode = vim.api.nvim_get_mode().mode
         if mode == 'v' then
             return "<C-v>A"

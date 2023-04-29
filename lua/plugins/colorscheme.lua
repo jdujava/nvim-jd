@@ -25,7 +25,7 @@ return {
                 hl.TreesitterContext = { bg = c.bg_context }
                 hl.Search = { bg = c.dark4, underline = true }
                 hl.IncSearch = { bg = c.dark4, underline = true }
-                hl.MatchParen = { bg = c.dark3, bold = true  }
+                hl.MatchParen = { bg = c.dark3, bold = true }
                 hl.DiagnosticUnnecessary = { link = "DiagnosticUnderlineHint" }
 
 
