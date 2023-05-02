@@ -302,6 +302,22 @@ snippet =< "implied by" Ai
 \impliedby
 endsnippet
 
+priority 100
+context "math()"
+snippet space "mspace" i
+\mspace{${1:1}mu}
+endsnippet
+
+priority 10
+snippet space "vspace" i
+\vspace{${1:1}em}
+endsnippet
+
+priority 100
+snippet hspace "hspace" i
+\hspace{${1:1}em}
+endsnippet
+
 context "math()"
 snippet iff "iff" Ai
 \iff
