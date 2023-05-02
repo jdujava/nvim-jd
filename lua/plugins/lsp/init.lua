@@ -22,10 +22,12 @@ return {
                 severity_sort = true,
                 float = { border = "rounded" },
             },
+            -- add any global capabilities here
+            capabilities = {},
             -- LSP Server Settings
             servers = {
                 ltex = {
-                    enabled = false,
+                    enabled = false, -- manually by ltex_extra
                 },
                 clangd = {
                     cmd = {
@@ -90,7 +92,13 @@ return {
 
             -- setup servers
             local servers = opts.servers
-            local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+            local capabilities = vim.tbl_deep_extend(
+                "force",
+                {},
+                vim.lsp.protocol.make_client_capabilities(),
+                require("cmp_nvim_lsp").default_capabilities(),
+                opts.capabilities or {}
+            )
 
             local function setup(server)
                 local server_opts = vim.tbl_deep_extend("force", {
@@ -174,5 +182,24 @@ return {
                 ensure_installed()
             end
         end,
+    },
+
+    {
+        'barreiroleo/ltex_extra.nvim',
+        ft = { "markdown", "tex" },
+        dependencies = { "neovim/nvim-lspconfig" },
+        -- yes, you can use the opts field, just I'm showing the setup explicitly
+        config = function()
+            local capabilities = vim.tbl_deep_extend("force", {},
+                vim.lsp.protocol.make_client_capabilities(),
+                require("cmp_nvim_lsp").default_capabilities()
+            )
+            require("ltex_extra").setup {
+                path = ".ltex",
+                server_opts = {
+                    capabilities = capabilities,
+                },
+            }
+        end
     },
 }
