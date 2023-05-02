@@ -18,6 +18,14 @@ nmap { '<A-w>', '<CMD>update<CR>' }
 nmap { '<A-s>', '<CMD>vsp | edit #<CR>' }
 nmap { 'Z',     '<CMD>wqa<CR>' }
 
+-- Clear search with <esc>
+nmap { "<esc>", "<cmd>noh<cr><esc>" }
+
+-- Add undo break-points
+imap { ",", ",<c-g>u" }
+imap { ".", ".<c-g>u" }
+imap { ";", ";<c-g>u" }
+
 -- terminal
 tmap { '<A-x>',     '<CMD>bd!<CR>' }
 tmap { '<A-Esc>',   '<C-\\><C-n>' }
@@ -37,14 +45,14 @@ map { 'L', 'g$' }
 nmap { 'j', [[v:count == 0 ? "gj" : "j"]], { expr = true } }
 nmap { 'k', [[v:count == 0 ? "gk" : "k"]], { expr = true } }
 
-nmap { '<C-j>',   '<CMD>move+1<CR>' }
-nmap { '<C-k>',   '<CMD>move-2<CR>' }
-xmap { '<C-k>',   [[:move-2<cr>gv=gv]],  { silent = true } }
-xmap { '<C-j>',   [[:move'>+<cr>gv=gv]], { silent = true } }
-nmap { '<C-h>',   '<<' }
-nmap { '<C-l>',   '>>' }
-xmap { '<C-h>',   '<gv' }
-xmap { '<C-l>',   '>gv' }
+nmap { '<C-j>', '<CMD>m .+1<CR>==' }
+nmap { '<C-k>', '<CMD>m .-2<CR>==' }
+xmap { '<C-j>', [[:move '>+1<cr>gv=gv]], { silent = true } }
+xmap { '<C-k>', [[:move '<-2<cr>gv=gv]], { silent = true } }
+nmap { '<C-h>', '<<' }
+nmap { '<C-l>', '>>' }
+xmap { '<C-h>', '<gv' }
+xmap { '<C-l>', '>gv' }
 
 -- Swap implementations of ` and ' jump to markers
 nmap { "'", "`" }
