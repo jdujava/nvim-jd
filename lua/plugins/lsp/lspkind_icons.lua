@@ -36,7 +36,8 @@ M.icons = {
     TypeParameter = " ",
     Unit          = " ",
     Value         = " ",
-    Variable      = " ",
+    Variable      = " ",
+    -- Variable      = " ",
 }
 
 return M

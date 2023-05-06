@@ -1,0 +1,55 @@
+diff --git a/autoload/floaterm/terminal.vim b/autoload/floaterm/terminal.vim
+index fcbfb1a..62fee48 100644
+--- a/autoload/floaterm/terminal.vim
++++ b/autoload/floaterm/terminal.vim
+@@ -74,10 +74,10 @@ function! floaterm#terminal#open(bufnr, cmd, jobopts, config) abort
+ 
+   if !bufexists(a:bufnr)
+     " change cwd
+-    let savedcwd = getcwd()
+-    if has_key(a:config, 'cwd')
+-      call floaterm#path#chdir(a:config.cwd)
+-    endif
++    " let savedcwd = getcwd()
++    " if has_key(a:config, 'cwd')
++    "   call floaterm#path#chdir(a:config.cwd)
++    " endif
+ 
+     " spawn terminal
+     let bufnr = s:spawn_terminal(a:cmd, a:jobopts, a:config)
+@@ -88,7 +88,7 @@ function! floaterm#terminal#open(bufnr, cmd, jobopts, config) abort
+     endif
+ 
+     " restore cwd
+-    call floaterm#path#chdir(savedcwd)
++    " call floaterm#path#chdir(savedcwd)
+   else
+     let config = floaterm#config#parse(a:bufnr, a:config)
+     call floaterm#window#open(a:bufnr, config)
+diff --git a/autoload/floaterm/wrapper/lf.vim b/autoload/floaterm/wrapper/lf.vim
+index 76cba23..525b58e 100644
+--- a/autoload/floaterm/wrapper/lf.vim
++++ b/autoload/floaterm/wrapper/lf.vim
+@@ -7,8 +7,11 @@
+ 
+ function! floaterm#wrapper#lf#(cmd, jobopts, config) abort
+   let s:lf_tmpfile = tempname()
+-  let original_dir = getcwd()
+-  lcd %:p:h
++  " let original_dir = getcwd()
++  " lcd %:p:h
++
++  " disable broken ueberzug previews in neovim
++  unlet $FIFO_UEBERZUG
+ 
+   let cmdlist = split(a:cmd)
+   let cmd = 'lf -selection-path="' . s:lf_tmpfile . '"'
+@@ -24,7 +27,7 @@ function! floaterm#wrapper#lf#(cmd, jobopts, config) abort
+     endif
+   endif
+ 
+-  exe "lcd " . original_dir
++  " exe "lcd " . original_dir
+   let cmd = [&shell, &shellcmdflag, cmd]
+   let jobopts = {'on_exit': funcref('s:lf_callback')}
+   call floaterm#util#deep_extend(a:jobopts, jobopts)
