@@ -196,6 +196,7 @@ return {
             )
             require("ltex_extra").setup {
                 path = ".ltex",
+                load_langs = { "en-US" },
                 server_opts = {
                     capabilities = capabilities,
                 },
