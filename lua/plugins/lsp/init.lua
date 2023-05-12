@@ -27,7 +27,8 @@ return {
             -- LSP Server Settings
             servers = {
                 ltex = {
-                    enabled = false, -- manually by ltex_extra
+                    enabled = true,
+                    autostart = false, -- manually by ltex_extra keybinding
                 },
                 clangd = {
                     cmd = {
@@ -186,21 +187,22 @@ return {
 
     {
         'barreiroleo/ltex_extra.nvim',
-        ft = { "markdown", "tex" },
+        keys = {{
+            '<Leader><Leader>L',
+            function()
+                vim.cmd('LspStart ltex')
+                -- wait for the server to start
+                vim.defer_fn(function()
+                    require('ltex_extra').reload()
+                end, 10000)
+            end,
+            desc = 'Start LTeX server',
+        }},
         dependencies = { "neovim/nvim-lspconfig" },
-        -- yes, you can use the opts field, just I'm showing the setup explicitly
-        config = function()
-            local capabilities = vim.tbl_deep_extend("force", {},
-                vim.lsp.protocol.make_client_capabilities(),
-                require("cmp_nvim_lsp").default_capabilities()
-            )
-            require("ltex_extra").setup {
-                path = ".ltex",
-                load_langs = { "en-US" },
-                server_opts = {
-                    capabilities = capabilities,
-                },
-            }
-        end
+        opts = {
+            load_langs = { "en-US" },
+            init_check = false,
+            path = ".ltex",
+        },
     },
 }
