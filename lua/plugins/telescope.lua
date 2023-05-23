@@ -127,8 +127,8 @@ return {
                             "--hidden",
                             "--follow",
                             "--strip-cwd-prefix",
-                            "--ignore-file", "/home/jonas/.config/fd/ignore",
-                            "--ignore-file", "/home/jonas/.config/fd/nvim-ignore",
+                            "--ignore-file", vim.env.HOME .. "/.config/fd/ignore",
+                            "--ignore-file", vim.env.HOME .. "/.config/fd/nvim-ignore",
                         },
                     }
                 },
@@ -138,10 +138,10 @@ return {
                         disable_devicons = false,
                         ignore_patterns = { "*.git/*", "*.github/*", "*/tmp/*" },
                         workspaces = {
-                            ["conf"] = "/home/jonas/.config",
-                            ["data"] = "/home/jonas/.local/share",
-                            ["doc"]  = "/home/jonas/Documents",
-                            ["cus"]  = "/home/jonas/Documents/customfiles",
+                            ["conf"] = vim.env.HOME .. "/.config",
+                            ["data"] = vim.env.HOME .. "/.local/share",
+                            ["doc"]  = vim.env.HOME .. "/Documents",
+                            ["cus"]  = vim.env.HOME .. "/Documents/customfiles",
                         }
                     },
                 },
