@@ -13,8 +13,17 @@ return {
                 sidebars = "transparent",
             },
             on_colors = function(c)
+                local util = require("tokyonight.util")
+
                 c.border = c.dark3
                 c.bg_visual = c.dark3
+
+                c.diff = {
+                    add = util.darken(c.green2, 0.35),
+                    delete = util.darken(c.red1, 0.35),
+                    change = util.darken(c.blue7, 0.35),
+                    text = c.blue7,
+                }
             end,
             on_highlights = function(hl, c)
                 hl.String = { fg = c.orange }
