@@ -14,7 +14,7 @@ au({ "FocusGained", "TermClose", "TermLeave" }, {
 -- Automatically deletes all trailing whitespace on save
 au('BufWritePre', {
     command = [[%s/\s\+$//e]],
-    group = core,
+    group = gr("delete_trailing", { clear = true }),
 })
 
 -- resize panes when host window is resized

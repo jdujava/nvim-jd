@@ -1,6 +1,7 @@
 return {
     {
         "nvim-neorg/neorg",
+        enabled = false,
         event = "VeryLazy",
         ft = "norg",
         keys = { { '<leader>n', '<CMD>Neorg<CR>', desc = 'Neorg' } },

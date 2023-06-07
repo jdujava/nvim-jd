@@ -103,7 +103,10 @@ xmap { '<Space>', 'I<Space><ESC>gv', { remap = true } }
 
 -- Spell-check
 map { '<Leader><Leader>s', '<Cmd>setlocal spell!<CR>' }
-imap { '<C-h>', '<c-g>u<Esc>[s1z=`]a<c-g>u' }
+-- imap { '<C-h>', '<c-g>u<Esc>[s1z=`]a<c-g>u' }
+
+-- Delete word in insert mode
+imap { "<C-h>", "<C-w>" }
 
 -- Replace all is aliased to S
 nmap { '<leader>S', ':%s/' }
