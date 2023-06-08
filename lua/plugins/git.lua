@@ -3,14 +3,13 @@ return {
         'lewis6991/gitsigns.nvim',
         event = 'VeryLazy',
         opts = {
-            -- signs = {
-            --     add          = { text = '│' },
-            --     change       = { text = '│' },
-            --     delete       = { text = '_' },
-            --     topdelete    = { text = '‾' },
-            --     changedelete = { text = '~' },
-            --     untracked    = { text = '┆' },
-            -- },
+            -- by default fallback to the bare dotfiles repository
+            worktrees = {
+                {
+                    toplevel = vim.env.HOME,
+                    gitdir = vim.env.HOME .. '/.config/baredots'
+                }
+            },
             on_attach = function(bufnr)
                 local gs = require("gitsigns")
                 local map = vim.keymap.set
@@ -34,6 +33,9 @@ return {
         "sindrets/diffview.nvim",
         cmd = { "DiffviewOpen", "DiffviewFileHistory" },
         config = true,
-        keys = { { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "DiffView" } },
+        keys = {
+            { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "DiffView" },
+            { "<leader>gf", "<cmd>DiffviewFileHistory<cr>", desc = "DiffView File History" }
+        },
     },
 }
