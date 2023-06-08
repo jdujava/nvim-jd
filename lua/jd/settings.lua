@@ -25,8 +25,8 @@ vim.o.foldmethod     = 'marker'
 vim.o.foldmarker     = '{{{,}}}'
 -- vim.opt.foldmethod   = 'expr'
 -- vim.opt.foldexpr     = 'v:lua.vim.treesitter.foldexpr()'
-vim.opt.foldlevel      = 1
-vim.opt.foldnestmax    = 2
+vim.opt.foldlevel    = 1
+vim.opt.foldnestmax  = 2
 
 vim.o.jumpoptions    = 'view'
 vim.o.inccommand     = 'nosplit'
@@ -65,3 +65,4 @@ vim.opt.fillchars    = {
     eob = " ",
 }
 vim.opt.shortmess:append { A = true, I = true, c = true, C = true }
+vim.opt.diffopt:append { "linematch:60" }
