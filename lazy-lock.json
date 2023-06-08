@@ -20,7 +20,7 @@
   "middleclass": { "branch": "master", "commit": "9fab4d5bca67262614960960ca35c4740eb2be2c" },
   "neodev.nvim": { "branch": "main", "commit": "a24a910ad0842be997f34a4811c10b4f92aa53af" },
   "noice.nvim": { "branch": "main", "commit": "acf47e2b863eb20f177aa1bd5398041513e731e1" },
-  "nui.nvim": { "branch": "main", "commit": "bd2fefb2efac70231fee497137295333dd4ada30" },
+  "nui.nvim": { "branch": "main", "commit": "062e366afcdf2bc1e9d28313a1df4ff14f05cb4e" },
   "nvim-cmp": { "branch": "main", "commit": "b5a636d46c69bb371995c22d7a10ee1544004879" },
   "nvim-colorizer.lua": { "branch": "master", "commit": "dde3084106a70b9a79d48f426f6d6fec6fd203f7" },
   "nvim-lspconfig": { "branch": "master", "commit": "0f598b9ab9f2a6d7e137074be99c8d89af44b990" },

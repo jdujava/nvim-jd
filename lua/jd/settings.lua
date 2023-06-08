@@ -66,3 +66,7 @@ vim.opt.fillchars    = {
 }
 vim.opt.shortmess:append { A = true, I = true, c = true, C = true }
 vim.opt.diffopt:append { "linematch:60" }
+
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
