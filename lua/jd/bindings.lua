@@ -42,8 +42,8 @@ vim.keymap.set({ 'i', 'c' }, '<C-k>', '<C-p>', { remap = true })
 
 map { 'H', 'g^' }
 map { 'L', 'g$' }
-map { 'j', [[v:count == 0 ? "gj" : "j"]], { expr = true } }
-map { 'k', [[v:count == 0 ? "gk" : "k"]], { expr = true } }
+vim.keymap.set({ 'n', 'x' }, 'j', [[v:count == 0 ? "gj" : "j"]], { expr = true } )
+vim.keymap.set({ 'n', 'x' }, 'k', [[v:count == 0 ? "gk" : "k"]], { expr = true } )
 
 nmap { '<C-j>', '<CMD>m .+1<CR>==' }
 nmap { '<C-k>', '<CMD>m .-2<CR>==' }
