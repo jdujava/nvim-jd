@@ -1,21 +1,21 @@
-vim.cmd [[inoreabbrev <expr> #!! "#!/usr/bin/env" . (empty(&filetype) ? '' : ' '.&filetype)]]
+iamap { '#!!', [["#!/usr/bin/env" . (empty(&filetype) ? '' : ' '.&filetype)]], { expr = true } }
 
-vim.cmd.cnoreabbrev "Bd bd"
-vim.cmd.cnoreabbrev "Cp cp"
-vim.cmd.cnoreabbrev "E e"
-vim.cmd.cnoreabbrev "Sp sp"
-vim.cmd.cnoreabbrev "SP sp"
-vim.cmd.cnoreabbrev "Vs vs"
-vim.cmd.cnoreabbrev "VS vs"
-vim.cmd.cnoreabbrev "Q q"
-vim.cmd.cnoreabbrev "Q! q!"
-vim.cmd.cnoreabbrev "Qa qa"
-vim.cmd.cnoreabbrev "QA qa"
-vim.cmd.cnoreabbrev "QA! qa!"
-vim.cmd.cnoreabbrev "W w"
-vim.cmd.cnoreabbrev "W! w!"
-vim.cmd.cnoreabbrev "Wq wq"
-vim.cmd.cnoreabbrev "WQ wq"
-vim.cmd.cnoreabbrev "Wqa wqa"
-vim.cmd.cnoreabbrev "WQa wqa"
-vim.cmd.cnoreabbrev "WQA wqa"
+camap { 'Bd', 'bd' }
+camap { 'Cp', 'cp' }
+camap { 'E', 'e' }
+camap { 'Sp', 'sp' }
+camap { 'SP', 'sp' }
+camap { 'Vs', 'vs' }
+camap { 'VS', 'vs' }
+camap { 'Q', 'q' }
+camap { 'Q!', 'q!' }
+camap { 'Qa', 'qa' }
+camap { 'QA', 'qa' }
+camap { 'QA!', 'qa!' }
+camap { 'W', 'w' }
+camap { 'W!', 'w!' }
+camap { 'Wq', 'wq' }
+camap { 'WQ', 'wq' }
+camap { 'Wqa', 'wqa' }
+camap { 'WQa', 'wqa' }
+camap { 'WQA', 'wqa' }

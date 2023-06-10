@@ -47,7 +47,7 @@ return {
                                 enable = true,
                                 disable = { "trailing-space" },
                                 -- Get the language server to recognize the `*map` globals
-                                globals = { "map", "imap", "vmap", "nmap", "cmap", "tmap", "xmap", "omap", },
+                                globals = { "map", "imap", "vmap", "nmap", "cmap", "tmap", "xmap", "omap", "iamap", "camap" },
                             },
                             workspace = {
                                 checkThirdParty = false,

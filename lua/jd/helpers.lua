@@ -1,7 +1,7 @@
 local M = {}
 
 -- helper keymap functions (map, nmap, imap, ...)
-for _, mode in ipairs({ "", "i", "v", "n", "c", "t", "x", "o" }) do
+for _, mode in ipairs({ "", "i", "v", "n", "c", "t", "x", "o", "ia", "ca" }) do
     _G[mode .. "map"] = function(tbl)
         vim.keymap.set(mode, tbl[1], tbl[2], tbl[3])
     end
