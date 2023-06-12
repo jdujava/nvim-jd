@@ -7,7 +7,7 @@ return {
             {
                 "nvim-treesitter/nvim-treesitter-context",
                 event = "BufReadPre",
-                config = true,
+                opts = {},
             },
             'nvim-treesitter/nvim-treesitter-textobjects',
         },

@@ -13,6 +13,7 @@ return {
     },
     {
         'j-hui/fidget.nvim',
+        tag = "legacy",
         opts = {
             text = {
                 spinner = "moon",
@@ -29,6 +30,15 @@ return {
         event = "VeryLazy",
         dependencies = {
             "MunifTanjim/nui.nvim",
+        },
+        keys = {
+            { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
+            { "<leader>sl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
+            { "<leader>sa", function() require("noice").cmd("all") end, desc = "Noice History" },
+            { "<A-Space>", function() require("noice").cmd("dismiss") end, desc = "Noice Dismiss All" },
+            { "<leader>M", function() require("noice").cmd("telescope") end, desc = "Noice Telescope" },
+            { "<c-d>", function() if not require("noice.lsp").scroll(4) then return "<c-d>" end end, silent = true, expr = true, desc = "Scroll forward", mode = {"i", "n", "s"} },
+            { "<c-u>", function() if not require("noice.lsp").scroll(-4) then return "<c-u>" end end, silent = true, expr = true, desc = "Scroll backward", mode = {"i", "n", "s"}},
         },
         opts = {
             lsp = {
@@ -53,16 +63,6 @@ return {
                 { filter = { event = "msg_show", kind = "emsg", find = "E353" }, opts = { skip = true } },
                 { view = "notify", filter = { event = "msg_showmode" }, }, -- notify start of macro recorging
             },
-        },
-        -- stylua: ignore
-        keys = {
-            { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
-            { "<leader>sl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
-            { "<leader>sa", function() require("noice").cmd("all") end, desc = "Noice History" },
-            { "<A-Space>", function() require("noice").cmd("dismiss") end, desc = "Noice Dismiss All" },
-            { "<leader>M", function() require("noice").cmd("telescope") end, desc = "Noice Telescope" },
-            { "<c-d>", function() if not require("noice.lsp").scroll(4) then return "<c-d>" end end, silent = true, expr = true, desc = "Scroll forward", mode = {"i", "n", "s"} },
-            { "<c-u>", function() if not require("noice.lsp").scroll(-4) then return "<c-u>" end end, silent = true, expr = true, desc = "Scroll backward", mode = {"i", "n", "s"}},
         },
     },
 

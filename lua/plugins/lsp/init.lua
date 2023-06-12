@@ -187,6 +187,7 @@ return {
 
     {
         'barreiroleo/ltex_extra.nvim',
+        dependencies = { "neovim/nvim-lspconfig" },
         keys = {{
             '<Leader><Leader>L',
             function()
@@ -198,7 +199,6 @@ return {
             end,
             desc = 'Start LTeX server',
         }},
-        dependencies = { "neovim/nvim-lspconfig" },
         opts = {
             load_langs = { "en-US" },
             init_check = false,
