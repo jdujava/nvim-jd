@@ -6,13 +6,13 @@ function M.sudo_write()
 end
 
 function M.term_execute(command)
-    local output = vim.api.nvim_exec("!" .. command, { output = true })
-    vim.notify(output, vim.log.levels.INFO, { title = "Executor" })
+    local output = vim.api.nvim_exec2("!" .. command, { output = true })
+    vim.notify(output.output, vim.log.levels.INFO, { title = "Executor" })
     -- require("lazy.util").float_cmd(command)
 end
 
 function M.executor()
-    local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
+    local filetype = vim.bo.filetype
     local line = vim.api.nvim_get_current_line()
     if filetype == 'lua' then
         load(line)()
@@ -20,7 +20,7 @@ function M.executor()
         vim.cmd(line)
     else
         -- elseif filetype == 'sh' then
-        M.term_execute(line)
+        M.term_execute(line:gsub('#', '\\#'))
     end
 end
 
