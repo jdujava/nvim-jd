@@ -2,9 +2,6 @@ local cmds = require('jd.cmds')
 local helpers = require('jd.helpers')
 local R = helpers.R
 
-vim.g.mapleader      = ' '
-vim.g.maplocalleader = ' '
-
 -- Alt maps
 for _, i in ipairs{'h','j','k','l','H','J','K','L'} do
     nmap {'<A-'..i..'>', '<C-w>'..i }
@@ -123,6 +120,7 @@ nmap { '<leader>x', cmds.executor, { desc = "Executor" } }
 nmap { '<leader><leader>x', cmds.saveandexec, { desc = "Save&Exec" } }
 nmap { '<leader>X', cmds.saveandexec, { desc = "Save&Exec" } }
 
+nmap { "<leader>uf", require("plugins.lsp.format").toggle, { desc = "Toggle format on Save" } }
 nmap { "<leader>ud", helpers.toggle_diagnostics, { desc = "Toggle Diagnostics" } }
 
 -- Open link in browser/pdf-viewer

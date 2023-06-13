@@ -1,3 +1,6 @@
+vim.g.mapleader      = ' '
+vim.g.maplocalleader = ' '
+
 vim.o.autochdir      = true
 vim.o.cmdheight      = 0
 vim.o.showmode       = false

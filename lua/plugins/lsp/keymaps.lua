@@ -3,6 +3,9 @@ local M = {}
 M._keys = nil
 
 function M.get()
+    local format = function()
+        require("plugins.lsp.format").format({ force = true })
+    end
     if not M._keys then
         M._keys =  {
             { "<leader>vd", vim.diagnostic.open_float,                    desc = "Line Diagnostics" },
@@ -17,16 +20,17 @@ function M.get()
             { "K",          vim.lsp.buf.hover,                            desc = "Hover" },
             { "gK",         vim.lsp.buf.hover,                            desc = "Hover" },
             { "gS",         vim.lsp.buf.signature_help,                   desc = "Signature Help", has = "signatureHelp" },
-            { "<c-s>",      vim.lsp.buf.signature_help, mode = "i",       desc = "Signature Help", has = "signatureHelp" },
+            { "<c-s>",      vim.lsp.buf.signature_help,       mode = "i", desc = "Signature Help", has = "signatureHelp" },
             { "]d",         M.diagnostic_goto(true),                      desc = "Next Diagnostic" },
             { "[d",         M.diagnostic_goto(false),                     desc = "Prev Diagnostic" },
             { "]e",         M.diagnostic_goto(true,  "ERROR"),            desc = "Next Error" },
             { "[e",         M.diagnostic_goto(false, "ERROR"),            desc = "Prev Error" },
             { "]w",         M.diagnostic_goto(true,  "WARN"),             desc = "Next Warning" },
             { "[w",         M.diagnostic_goto(false, "WARN"),             desc = "Prev Warning" },
+            { "gF",         format,                                       desc = "Format Document", has = "documentFormatting" },
+            { "gF",         format,                           mode = "v", desc = "Format Range", has = "documentRangeFormatting" },
             { "gR",         vim.lsp.buf.rename,                           desc = "Rename", has = "rename" },
             { "gA",         vim.lsp.buf.code_action, mode = { "n", "v" }, desc = "Code Action", has = "codeAction" },
-            { "gF",         function() vim.lsp.buf.format {async = true} end, desc = "Format"},
             {
                 "<leader>vA",
                 function()

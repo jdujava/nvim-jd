@@ -25,6 +25,18 @@ return {
             },
             -- add any global capabilities here
             capabilities = {},
+            -- Automatically format on save
+            autoformat = false,
+            -- Enable this to show formatters used in a notification
+            -- Useful for debugging formatter issues
+            format_notify = true,
+            -- options for vim.lsp.buf.format
+            -- `bufnr` and `filter` is handled by the LazyVim formatter,
+            -- but can be also overridden when specified
+            format = {
+                formatting_options = nil,
+                timeout_ms = nil,
+            },
             -- LSP Server Settings
             servers = {
                 ltex = {
@@ -60,6 +72,8 @@ return {
                     },
                 },
             },
+            -- you can do any additional lsp server setup here
+            -- return true if you don't want this server to be setup with lspconfig
             setup = {
                 clangd = function(_, opts)
                     opts.capabilities.offsetEncoding = { "utf-16" }
@@ -69,7 +83,8 @@ return {
             },
         },
         config = function(_, opts)
-            -- setup keymaps
+            require("plugins.lsp.format").setup(opts)
+            -- setup formatting and keymaps
             require("jd.helpers").on_attach(function(client, buffer)
                 require("plugins.lsp.keymaps").on_attach(client, buffer)
             end)
@@ -119,6 +134,7 @@ return {
                 require("lspconfig")[server].setup(server_opts)
             end
 
+            -- get all the servers that are available thourgh mason-lspconfig
             local have_mason, mlsp = pcall(require, "mason-lspconfig")
             local all_mslp_servers = {}
             if have_mason then
@@ -144,11 +160,30 @@ return {
         end,
     },
 
+    -- formatters
+    {
+        "jose-elias-alvarez/null-ls.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = { "mason.nvim" },
+        opts = function()
+            local nls = require("null-ls")
+            return {
+                root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+                sources = {
+                    nls.builtins.formatting.fish_indent,
+                    nls.builtins.diagnostics.fish,
+                    nls.builtins.formatting.stylua,
+                    nls.builtins.formatting.shfmt,
+                    -- nls.builtins.diagnostics.flake8,
+                },
+            }
+        end,
+    },
+
     {
         'williamboman/mason.nvim',
         cmd = "Mason",
-        build = ":MasonUpdate", -- :MasonUpdate updates registry contents
-        keys = { { '<Leader>m', '<CMD>Mason<CR>' } },
+        keys = { { "<leader>m", "<cmd>Mason<cr>", desc = "Mason" } },
         opts = {
             ui = {
                 border = "rounded",
@@ -164,6 +199,7 @@ return {
                 "lua-language-server",
                 "ltex-ls",
                 "texlab",
+                "shfmt",
             },
         },
         config = function(_, opts)
