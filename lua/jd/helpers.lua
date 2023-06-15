@@ -37,15 +37,14 @@ function M.R(module)
     return require(module)
 end
 
-local enabled = true
 function M.toggle_diagnostics()
-    enabled = not enabled
-    if enabled then
-        vim.diagnostic.enable()
-        require("lazy.core.util").info("Enabled diagnostics", { title = "Diagnostics" })
-    else
-        vim.diagnostic.disable()
+    vim.b.diagnostics_disabled = not vim.b.diagnostics_disabled
+    if vim.b.diagnostics_disabled then
+        vim.diagnostic.disable(0)
         require("lazy.core.util").warn("Disabled diagnostics", { title = "Diagnostics" })
+    else
+        vim.diagnostic.enable(0)
+        require("lazy.core.util").info("Enabled diagnostics", { title = "Diagnostics" })
     end
 end
 
