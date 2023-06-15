@@ -107,6 +107,7 @@ imap { "<C-h>", "<C-w>" }
 
 -- Replace all is aliased to S
 nmap { '<leader>S', ':%s/' }
+vmap { '<leader>S', ':s/' }
 
 -- Change perms -> Compile document -> Open document
 nmap { '+x', '<CMD>!chmod +x "%:p"<CR>' }

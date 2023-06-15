@@ -175,6 +175,13 @@ return {
                     nls.builtins.formatting.stylua,
                     nls.builtins.formatting.shfmt,
                     -- nls.builtins.diagnostics.flake8,
+                    nls.builtins.code_actions.gitsigns.with({
+                        config = {
+                            filter_actions = function(title)
+                                return title:lower():match("blame") == nil -- filter out blame actions
+                            end,
+                        },
+                    }),
                 },
             }
         end,
@@ -224,7 +231,7 @@ return {
     {
         'barreiroleo/ltex_extra.nvim',
         dependencies = { "neovim/nvim-lspconfig" },
-        keys = {{
+        keys = { {
             '<Leader><Leader>L',
             function()
                 vim.cmd('LspStart ltex')
@@ -234,7 +241,7 @@ return {
                 end, 10000)
             end,
             desc = 'Start LTeX server',
-        }},
+        } },
         opts = {
             load_langs = { "en-US" },
             init_check = false,
