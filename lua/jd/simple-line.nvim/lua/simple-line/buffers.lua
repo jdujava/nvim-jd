@@ -29,7 +29,7 @@ local function getBufLabel(n)
     return filename
 end
 
-function BufferLine()
+function B.bufferLine()
     local current_buf = vim.api.nvim_get_current_buf()
     B.buffers = vim.api.nvim_list_bufs()   -- get all buffers
     B.buffers = vim.tbl_filter(function(b) -- filter out only valid ones

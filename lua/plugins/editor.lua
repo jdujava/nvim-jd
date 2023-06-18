@@ -57,7 +57,7 @@ return {
     },
     {
         'mbbill/undotree',
-        keys = {{
+        keys = { {
             'U',
             function()
                 vim.cmd("UndotreeToggle | UndotreeFocus")
@@ -65,7 +65,7 @@ return {
                 vim.o.statusline = "%!v:lua.StatusLine()"
             end,
             desc = 'Undotree'
-        }},
+        } },
         config = function()
             vim.g.undotree_WindowLayout = 2
         end
@@ -73,6 +73,9 @@ return {
     {
         "andymass/vim-matchup",
         event = "BufReadPost",
+        init = function()
+            vim.o.matchpairs = "(:),{:},[:],<:>"
+        end,
         config = function()
             vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
             vim.g.matchup_override_vimtex = 1
@@ -91,9 +94,9 @@ return {
         cmd = { "TodoTelescope" },
         event = { "BufReadPost", "BufNewFile" },
         keys = {
-            { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
-            { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
-            { "<leader>T", "<cmd>TodoTelescope<cr>", desc = "Todo" },
+            { "]t",        function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
+            { "[t",        function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
+            { "<leader>T", "<cmd>TodoTelescope<cr>",                            desc = "Todo" },
         },
         opts = {
             gui_style = {

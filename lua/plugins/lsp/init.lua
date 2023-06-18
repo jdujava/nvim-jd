@@ -68,6 +68,14 @@ return {
                             telemetry = {
                                 enable = false,
                             },
+                            hint = {
+                                enable = true,
+                                setType = false,
+                                paramType = true,
+                                paramName = "Disable",
+                                semicolon = "Disable",
+                                arrayIndex = "Disable",
+                            },
                         },
                     },
                 },
@@ -264,7 +272,7 @@ return {
                         return
                     end
                     local client = vim.lsp.get_client_by_id(args.data.client_id)
-                    require("lsp-inlayhints").on_attach(client, args.buf)
+                    require("lsp-inlayhints").on_attach(client, args.buf, false)
                 end,
             })
         end,

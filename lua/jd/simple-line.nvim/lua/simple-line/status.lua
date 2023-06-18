@@ -1,6 +1,8 @@
 local modes         = require('simple-line.modes')
 local builder       = require('simple-line.builder')
 
+local S = {}
+
 local get_directory = function(width)
     local dir = vim.fn.fnamemodify(vim.fn.getcwd(), ':~')
     -- if #dir > width - 41 then
@@ -33,7 +35,7 @@ local function search_count()
     return (' [%s/%s] '):format(current, total)
 end
 
-function StatusLine()
+function S.statusLine()
     local width = vim.o.columns - (vim.o.spell and 10 or 0) - (vim.v.hlsearch and 8 or 0)
     local statusline = ""
 
@@ -85,3 +87,5 @@ function StatusLine()
 
     return statusline
 end
+
+return S
