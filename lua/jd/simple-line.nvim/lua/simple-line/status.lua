@@ -1,5 +1,5 @@
-local modes         = require('simple-line.modes')
-local builder       = require('simple-line.builder')
+local modes = require('simple-line.modes')
+local builder = require('simple-line.builder')
 
 local S = {}
 
@@ -16,18 +16,26 @@ local function get_git_status()
     -- use fallback because it doesn't set this variable on the initial `BufEnter`
     ---@diagnostic disable-next-line: undefined-field
     local s = vim.b.gitsigns_status_dict or { head = '', added = 0, changed = 0, removed = 0 }
-    if s.head == '' then return '' end
+    if s.head == '' then
+        return ''
+    end
     return (' +%s ~%s -%s |  %s '):format(s.added, s.changed, s.removed, s.head)
 end
 
 local function search_count()
-    if vim.v.hlsearch == 0 then return '' end
+    if vim.v.hlsearch == 0 then
+        return ''
+    end
     -- `searchcount()` can return errors because it is evaluated very often in
     -- statusline. For example, when typing `/` followed by `\(`, it gives E54.
     local ok, s_count = pcall(vim.fn.searchcount, { recompute = true })
-    if not ok or s_count.current == nil or s_count.total == 0 then return '' end
+    if not ok or s_count.current == nil or s_count.total == 0 then
+        return ''
+    end
 
-    if s_count.incomplete == 1 then return ' [?/?] ' end
+    if s_count.incomplete == 1 then
+        return ' [?/?] '
+    end
 
     local too_many = ('>%d'):format(s_count.maxcount)
     local current = s_count.current > s_count.maxcount and too_many or s_count.current
@@ -37,7 +45,7 @@ end
 
 function S.statusLine()
     local width = vim.o.columns - (vim.o.spell and 10 or 0) - (vim.v.hlsearch and 8 or 0)
-    local statusline = ""
+    local statusline = ''
 
     -- Component: Mode
     local mode = vim.api.nvim_get_mode().mode
@@ -45,12 +53,12 @@ function S.statusLine()
 
     -- Component: Spell
     if vim.o.spell then
-        statusline = statusline .. builder("SlFiletype", "Spell")
+        statusline = statusline .. builder('SlFiletype', 'Spell')
     end
 
     -- Component: Working Directory
     local dir = get_directory(width)
-    statusline = statusline .. builder("SlDirectory", dir)
+    statusline = statusline .. builder('SlDirectory', dir)
 
     -- Component: Git status
     local git_status = get_git_status()
@@ -59,31 +67,31 @@ function S.statusLine()
     end
 
     -- Alignment to right
-    statusline = statusline .. "%="
+    statusline = statusline .. '%='
 
     -- Search count
     statusline = statusline .. search_count()
 
-    if package.loaded["noice"] then
-        local noice_status = require("noice").api.status
+    if package.loaded['noice'] then
+        local noice_status = require('noice').api.status
         -- if noice_status.search.has() then
         --     statusline = statusline .. noice_status.search.get() .. " "
         -- end
         if noice_status.mode.has() then
-            statusline = statusline .. builder("SlFiletype", noice_status.mode.get())
+            statusline = statusline .. builder('SlFiletype', noice_status.mode.get())
         end
         if noice_status.command.has() then
-            statusline = statusline .. "%#SlDirectorySeparator#" .. noice_status.command.get() .. " "
+            statusline = statusline .. '%#SlDirectorySeparator#' .. noice_status.command.get() .. ' '
         end
     end
 
     -- Component: FileType
-    local filetype = vim.bo.filetype ~= '' and vim.bo.filetype or "none"
-    statusline = statusline .. builder("SlFiletype", filetype)
+    local filetype = vim.bo.filetype ~= '' and vim.bo.filetype or 'none'
+    statusline = statusline .. builder('SlFiletype', filetype)
 
     -- Component: row and col
     local allsize = string.len(vim.api.nvim_buf_line_count(0)) -- digits of all rows
-    statusline = statusline .. "%#SlLine# ℓ %" .. allsize .. "l/%L 𝚌 %-3c"
+    statusline = statusline .. '%#SlLine# ℓ %' .. allsize .. 'l/%L 𝚌 %-3c'
 
     return statusline
 end

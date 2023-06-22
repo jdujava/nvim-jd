@@ -1,7 +1,7 @@
 return {
     {
         'neovim/nvim-lspconfig',
-        event = { "BufReadPre", "BufNewFile" },
+        event = { 'BufReadPre', 'BufNewFile' },
         dependencies = {
             'j-hui/fidget.nvim',
             { 'folke/neodev.nvim', opts = true },
@@ -17,12 +17,12 @@ return {
                 update_in_insert = false,
                 virtual_text = {
                     spacing = 4,
-                    source = "if_many",
+                    source = 'if_many',
                     -- prefix = "●",
-                    prefix = "icons",
+                    prefix = 'icons',
                 },
                 severity_sort = true,
-                float = { border = "rounded" },
+                float = { border = 'rounded' },
             },
             -- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
             -- Be aware that you also will need to properly configure your LSP server to
@@ -53,10 +53,10 @@ return {
                 },
                 clangd = {
                     cmd = {
-                        "clangd",
-                        "--background-index",
-                        "--clang-tidy",
-                        "--header-insertion=iwyu",
+                        'clangd',
+                        '--background-index',
+                        '--clang-tidy',
+                        '--header-insertion=iwyu',
                     },
                 },
                 lua_ls = {
@@ -65,9 +65,10 @@ return {
                         Lua = {
                             diagnostics = {
                                 enable = true,
-                                disable = { "trailing-space" },
+                                disable = { 'trailing-space' },
                                 -- Get the language server to recognize the `*map` globals
-                                globals = { "map", "imap", "vmap", "nmap", "cmap", "tmap", "xmap", "omap", "iamap", "camap" },
+                                -- stylua: ignore
+                                globals = { 'map', 'imap', 'vmap', 'nmap', 'cmap', 'tmap', 'xmap', 'omap', 'iamap', 'camap' },
                             },
                             workspace = {
                                 checkThirdParty = false,
@@ -80,9 +81,9 @@ return {
                                 enable = true,
                                 setType = false,
                                 paramType = true,
-                                paramName = "Disable",
-                                semicolon = "Disable",
-                                arrayIndex = "Disable",
+                                paramName = 'Disable',
+                                semicolon = 'Disable',
+                                arrayIndex = 'Disable',
                             },
                         },
                     },
@@ -92,28 +93,28 @@ return {
             -- return true if you don't want this server to be setup with lspconfig
             ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
             setup = {
-                -- clangd = function(_, opts)
-                --     opts.capabilities.offsetEncoding = { "utf-16" }
-                -- end,
+                clangd = function(_, opts)
+                    opts.capabilities.offsetEncoding = { "utf-16" }
+                end,
                 -- Specify * to use this function as a fallback for any server
                 -- ["*"] = function(server, opts) end,
             },
         },
         ---@param opts PluginLspOpts
         config = function(_, opts)
-            local helpers = require("jd.helpers")
+            local helpers = require('jd.helpers')
             -- setup autoformat
-            require("plugins.lsp.format").setup(opts)
+            require('plugins.lsp.format').setup(opts)
             -- setup formatting and keymaps
             helpers.on_attach(function(client, buffer)
-                require("plugins.lsp.keymaps").on_attach(client, buffer)
+                require('plugins.lsp.keymaps').on_attach(client, buffer)
             end)
 
             -- diagnostics
-            local icons = { Error = "", Warn = "", Hint = "", Info = "" }
+            local icons = { Error = '', Warn = '', Hint = '', Info = '' }
             for name, icon in pairs(icons) do
-                name = "DiagnosticSign" .. name
-                vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
+                name = 'DiagnosticSign' .. name
+                vim.fn.sign_define(name, { text = icon, texthl = name, numhl = '' })
             end
 
             if opts.inlay_hints.enabled and vim.lsp.buf.inlay_hint then
@@ -124,7 +125,7 @@ return {
                 end)
             end
 
-            if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
+            if type(opts.diagnostics.virtual_text) == 'table' and opts.diagnostics.virtual_text.prefix == 'icons' then
                 opts.diagnostics.virtual_text.prefix = function(diagnostic)
                     for d, icon in pairs(icons) do
                         if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
@@ -139,15 +140,15 @@ return {
             -- setup servers
             local servers = opts.servers
             local capabilities = vim.tbl_deep_extend(
-                "force",
+                'force',
                 {},
                 vim.lsp.protocol.make_client_capabilities(),
-                require("cmp_nvim_lsp").default_capabilities(),
+                require('cmp_nvim_lsp').default_capabilities(),
                 opts.capabilities or {}
             )
 
             local function setup(server)
-                local server_opts = vim.tbl_deep_extend("force", {
+                local server_opts = vim.tbl_deep_extend('force', {
                     capabilities = vim.deepcopy(capabilities),
                 }, servers[server] or {})
 
@@ -155,19 +156,19 @@ return {
                     if opts.setup[server](server, server_opts) then
                         return
                     end
-                elseif opts.setup["*"] then
-                    if opts.setup["*"](server, server_opts) then
+                elseif opts.setup['*'] then
+                    if opts.setup['*'](server, server_opts) then
                         return
                     end
                 end
-                require("lspconfig")[server].setup(server_opts)
+                require('lspconfig')[server].setup(server_opts)
             end
 
             -- get all the servers that are available thourgh mason-lspconfig
-            local have_mason, mlsp = pcall(require, "mason-lspconfig")
+            local have_mason, mlsp = pcall(require, 'mason-lspconfig')
             local all_mslp_servers = {}
             if have_mason then
-                all_mslp_servers = vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
+                all_mslp_servers = vim.tbl_keys(require('mason-lspconfig.mappings.server').lspconfig_to_package)
             end
 
             local ensure_installed = {} ---@type string[]
@@ -191,20 +192,20 @@ return {
 
     -- formatters
     {
-        "jose-elias-alvarez/null-ls.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        dependencies = { "mason.nvim" },
+        'jose-elias-alvarez/null-ls.nvim',
+        event = { 'BufReadPre', 'BufNewFile' },
+        dependencies = { 'mason.nvim' },
         opts = function()
-            local nls = require("null-ls")
+            local nls = require('null-ls')
             return {
-                root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+                root_dir = require('null-ls.utils').root_pattern('.null-ls-root', '.neoconf.json', 'Makefile', '.git'),
                 sources = {
                     nls.builtins.formatting.stylua,
                     nls.builtins.formatting.shfmt,
                     nls.builtins.code_actions.gitsigns.with({
                         config = {
                             filter_actions = function(title)
-                                return title:lower():match("blame") == nil -- filter out blame actions
+                                return title:lower():match('blame') == nil -- filter out blame actions
                             end,
                         },
                     }),
@@ -215,31 +216,31 @@ return {
 
     {
         'williamboman/mason.nvim',
-        cmd = "Mason",
-        keys = { { "<leader>m", "<cmd>Mason<cr>", desc = "Mason" } },
+        cmd = 'Mason',
+        keys = { { '<leader>m', '<cmd>Mason<cr>', desc = 'Mason' } },
         opts = {
             ui = {
-                border = "rounded",
+                border = 'rounded',
                 icons = {
-                    package_installed = "✓",
-                    package_pending = "➜",
-                    package_uninstalled = "✗"
+                    package_installed = '✓',
+                    package_pending = '➜',
+                    package_uninstalled = '✗',
                 },
             },
             ensure_installed = {
-                "stylua",
-                "bash-language-server",
-                "clangd",
-                "lua-language-server",
-                "ltex-ls",
-                "texlab",
-                "shfmt",
+                'stylua',
+                'bash-language-server',
+                'clangd',
+                'lua-language-server',
+                'ltex-ls',
+                'texlab',
+                'shfmt',
             },
         },
         ---@param opts MasonSettings | {ensure_installed: string[]}
         config = function(_, opts)
-            require("mason").setup(opts)
-            local mr = require("mason-registry")
+            require('mason').setup(opts)
+            local mr = require('mason-registry')
             local function ensure_installed()
                 for _, tool in ipairs(opts.ensure_installed) do
                     local p = mr.get_package(tool)
@@ -258,22 +259,24 @@ return {
 
     {
         'barreiroleo/ltex_extra.nvim',
-        dependencies = { "neovim/nvim-lspconfig" },
-        keys = { {
-            '<Leader><Leader>L',
-            function()
-                vim.cmd('LspStart ltex')
-                -- wait for the server to start
-                vim.defer_fn(function()
-                    require('ltex_extra').reload()
-                end, 10000)
-            end,
-            desc = 'Start LTeX server',
-        } },
+        dependencies = { 'neovim/nvim-lspconfig' },
+        keys = {
+            {
+                '<Leader><Leader>L',
+                function()
+                    vim.cmd('LspStart ltex')
+                    -- wait for the server to start
+                    vim.defer_fn(function()
+                        require('ltex_extra').reload()
+                    end, 10000)
+                end,
+                desc = 'Start LTeX server',
+            },
+        },
         opts = {
-            load_langs = { "en-US" },
+            load_langs = { 'en-US' },
             init_check = false,
-            path = ".ltex",
+            path = '.ltex',
         },
     },
 }

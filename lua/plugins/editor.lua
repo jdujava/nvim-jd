@@ -5,10 +5,13 @@ return {
         event = 'CursorHold',
         keys = {
             {
-                '<A-l>', 'copilot#Accept("")',
+                '<A-l>',
+                'copilot#Accept("")',
                 mode = 'i',
-                expr = true, replace_keycodes = false, -- important!
-                silent = true, desc = 'Copilot Accept'
+                expr = true,
+                replace_keycodes = false, -- important!
+                silent = true,
+                desc = 'Copilot Accept',
             },
             { '<A-p>', '<cmd>Copilot panel<CR>', mode = 'i', desc = 'Copilot Panel' },
         },
@@ -17,10 +20,11 @@ return {
             vim.g.copilot_filetypes = {
                 TelescopePrompt = false,
                 frecency = false,
-                mail = false
+                mail = false,
             }
-        end
+        end,
     },
+
     {
         'numToStr/Comment.nvim',
         event = 'VeryLazy',
@@ -30,77 +34,86 @@ return {
             require('Comment').setup()
         end,
     },
+
     {
         'kylechui/nvim-surround',
         event = 'VeryLazy',
         opts = {
             keymaps = {
-                insert = "<C-g>s",
-                insert_line = "<C-g>S",
-                normal = "s",
-                normal_cur = "ss",
-                normal_line = "S",
-                normal_cur_line = "SS",
-                visual = "s",
-                visual_line = "S",
-                delete = "ds",
-                change = "cs",
-            }
-        }
+                insert = '<C-g>s',
+                insert_line = '<C-g>S',
+                normal = 's',
+                normal_cur = 'ss',
+                normal_line = 'S',
+                normal_cur_line = 'SS',
+                visual = 's',
+                visual_line = 'S',
+                delete = 'ds',
+                change = 'cs',
+            },
+        },
     },
+
     {
         'junegunn/vim-easy-align',
         keys = {
-            { 'ga',      '<Plug>(EasyAlign)', mode = { 'n', 'x' }, desc = "EasyAlign" },
-            { '<Enter>', '<Plug>(EasyAlign)', mode = 'v',          desc = "EasyAlign" },
+            { 'ga', '<Plug>(EasyAlign)', mode = { 'n', 'x' }, desc = 'EasyAlign' },
+            { '<Enter>', '<Plug>(EasyAlign)', mode = 'v', desc = 'EasyAlign' },
         },
     },
+
     {
         'mbbill/undotree',
-        keys = { {
-            'U',
-            function()
-                vim.cmd("UndotreeToggle | UndotreeFocus")
-                vim.api.nvim_win_set_width(0, 30)
-                vim.o.statusline = "%!v:lua.StatusLine()"
-            end,
-            desc = 'Undotree'
-        } },
+        keys = {
+            {
+                'U',
+                function()
+                    vim.cmd('UndotreeToggle | UndotreeFocus')
+                    vim.api.nvim_win_set_width(0, 30)
+                    vim.o.statusline = '%!v:lua.StatusLine()'
+                end,
+                desc = 'Undotree',
+            },
+        },
         config = function()
             vim.g.undotree_WindowLayout = 2
-        end
+        end,
     },
+
     {
-        "andymass/vim-matchup",
-        event = "BufReadPost",
+        'andymass/vim-matchup',
+        event = 'BufReadPost',
         init = function()
-            vim.o.matchpairs = "(:),{:},[:],<:>"
+            vim.o.matchpairs = '(:),{:},[:],<:>'
         end,
         config = function()
-            vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
+            vim.g.matchup_matchparen_offscreen = { method = 'status_manual' }
             vim.g.matchup_override_vimtex = 1
             vim.g.matchup_matchparen_deferred = 1
         end,
     },
+
     {
-        "Wansmer/treesj",
-        keys = { { "gs", "<cmd>TSJToggle<cr>", desc = "Split/Join" } },
+        'Wansmer/treesj',
+        keys = { { 'gs', '<cmd>TSJToggle<cr>', desc = 'Split/Join' } },
         opts = {
             use_default_keymaps = false,
         },
     },
+
+    -- stylua: ignore
     {
-        "folke/todo-comments.nvim",
-        cmd = { "TodoTelescope" },
-        event = { "BufReadPost", "BufNewFile" },
+        'folke/todo-comments.nvim',
+        cmd = { 'TodoTelescope' },
+        event = { 'BufReadPost', 'BufNewFile' },
         keys = {
-            { "]t",        function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
-            { "[t",        function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
-            { "<leader>T", "<cmd>TodoTelescope<cr>",                            desc = "Todo" },
+            { ']t', function() require('todo-comments').jump_next() end, desc = 'Next todo comment' },
+            { '[t', function() require('todo-comments').jump_prev() end, desc = 'Previous todo comment' },
+            { '<leader>T', '<cmd>TodoTelescope<cr>', desc = 'Todo' },
         },
         opts = {
             gui_style = {
-                bg = "BOLD,NOCOMBINE", -- override italic from comment
+                bg = 'BOLD,NOCOMBINE', -- override italic from comment
             },
         },
     },

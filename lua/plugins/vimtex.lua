@@ -20,6 +20,6 @@ return {
                 show_help = 0,
                 todo_sorted = 0,
             }
-        end
-    }
+        end,
+    },
 }

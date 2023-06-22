@@ -1,13 +1,13 @@
 local M = {}
 
 function M.sudo_write()
-    vim.cmd [[silent! write !sudo tee % >/dev/null ]]
-    vim.cmd.edit { bang = true }
+    vim.cmd([[silent! write !sudo tee % >/dev/null ]])
+    vim.cmd.edit({ bang = true })
 end
 
 function M.term_execute(command)
-    local output = vim.api.nvim_exec2("!" .. command, { output = true })
-    vim.notify(output.output, vim.log.levels.INFO, { title = "Executor" })
+    local output = vim.api.nvim_exec2('!' .. command, { output = true })
+    vim.notify(output.output, vim.log.levels.INFO, { title = 'Executor' })
     -- require("lazy.util").float_cmd(command)
 end
 
@@ -27,7 +27,7 @@ end
 function M.saveandexec()
     vim.cmd.write()
     if vim.bo.filetype == 'lua' or vim.bo.filetype == 'vim' then
-        vim.cmd.source("%")
+        vim.cmd.source('%')
     end
 end
 

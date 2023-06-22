@@ -15,20 +15,20 @@ function M.setup(opts)
     vim.o.tabline = [[%!v:lua.require'simple-line.buffers'.bufferLine()]]
 
     -- setup autocommands
-    local group = vim.api.nvim_create_augroup("StatusLine", {})
+    local group = vim.api.nvim_create_augroup('StatusLine', {})
 
-    vim.api.nvim_create_autocmd("ColorScheme", {
+    vim.api.nvim_create_autocmd('ColorScheme', {
         callback = colors.setStatusHi,
         group = group,
-        desc = "Set highlights on colorscheme change."
+        desc = 'Set highlights on colorscheme change.',
     })
 
-    vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+    vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
         callback = function()
             vim.o.statusline = [[%!v:lua.require'simple-line.status'.statusLine()]]
         end,
         group = group,
-        desc = "Setup StatusLine for all (including 'quickfix') windows."
+        desc = "Setup StatusLine for all (including 'quickfix') windows.",
     })
 end
 

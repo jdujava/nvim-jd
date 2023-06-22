@@ -5,14 +5,14 @@ local builder = require('simple-line.builder')
 
 B.buffers = {}
 local ignore_buftype = {
-    ["nofile"] = true,
-    ["quickfix"] = true,
-    ["prompt"] = true,
+    ['nofile'] = true,
+    ['quickfix'] = true,
+    ['prompt'] = true,
 }
 local noignore_filetype = {
-    ["man"] = true,
-    ["startuptime"] = true,
-    ["checkhealth"] = true,
+    ['man'] = true,
+    ['startuptime'] = true,
+    ['checkhealth'] = true,
 }
 
 local function getBufLabel(n)
@@ -51,13 +51,15 @@ end
 -- Buffer jumping
 function B.jumpBuf(buf)
     if #B.buffers == 0 then
-        return vim.notify('No buffers.', vim.log.levels.WARN, { title = "BufferLine" })
+        return vim.notify('No buffers.', vim.log.levels.WARN, { title = 'BufferLine' })
     end
     vim.api.nvim_set_current_buf(B.buffers[math.min(#B.buffers, buf)])
 end
 
-for i = 1,9 do
-    vim.keymap.set({ "n", "v" }, "<A-"..i..">", function() require("simple-line.buffers").jumpBuf(i) end, { desc = "Jump to buffer " .. i })
+for i = 1, 9 do
+    vim.keymap.set({ 'n', 'v' }, '<A-' .. i .. '>', function()
+        require('simple-line.buffers').jumpBuf(i)
+    end, { desc = 'Jump to buffer ' .. i })
 end
 
 return B

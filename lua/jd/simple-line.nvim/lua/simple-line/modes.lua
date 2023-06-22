@@ -38,8 +38,8 @@ local modes = {
 
 return setmetatable(modes, {
     __index = function(_, k)
-        vim.notify("Fallback from '" .. k .. "' to 'n' mode.", vim.log.levels.WARN, { title = "StatusLine" })
+        vim.notify("Fallback from '" .. k .. "' to 'n' mode.", vim.log.levels.WARN, { title = 'StatusLine' })
         -- pcall(vim.notify, "Fallback from '"..k.."' to 'n' mode.", vim.log.levels.WARN, {title = "StatusLine"})
         return { 'NORMAL', 'SlNormal' } -- default value
-    end
+    end,
 })

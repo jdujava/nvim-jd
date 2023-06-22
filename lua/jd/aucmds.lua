@@ -1,20 +1,20 @@
 local au = vim.api.nvim_create_autocmd
 local gr = vim.api.nvim_create_augroup
 
-local core         = gr("core",         {})
-local auto_updates = gr("auto_updates", {})
-local term         = gr("term",         {})
+local auto_updates = gr('auto_updates', {})
+local core = gr('core', {})
+local term = gr('term', {})
 
 -- Check if we need to reload the file when it changed
-au({ "FocusGained", "TermClose", "TermLeave" }, {
-    command = "checktime",
+au({ 'FocusGained', 'TermClose', 'TermLeave' }, {
+    command = 'checktime',
     group = core,
 })
 
 -- Automatically deletes all trailing whitespace on save
 au('BufWritePre', {
     command = [[%s/\s\+$//e]],
-    group = gr("delete_trailing", {}),
+    group = gr('delete_trailing', {}),
 })
 
 -- resize panes when host window is resized
@@ -36,12 +36,10 @@ au({ 'BufEnter', 'BufRead' }, {
 
 au('TextYankPost', {
     callback = function()
-        vim.highlight.on_yank { higroup = "Visual", on_visual = false }
+        vim.highlight.on_yank({ higroup = 'Visual', on_visual = false })
     end,
     group = core,
 })
-
-
 
 -- Auto updates
 local autoupdate = function(pattern, command)
@@ -54,18 +52,15 @@ local autoupdate = function(pattern, command)
     })
 end
 
-autoupdate({'*/shell/folders', 'shortcuts'},              [[shortcuts]])
-autoupdate('*/st-jd/config.def.h',                        [[make && sudo make install]])
-autoupdate('*/dwm-jd/dwm.c',                              [[make && sudo make install]])
-autoupdate('*/slstatus-jd/config.def.h',                  [[make && sudo make install && killall slstatus; setsid slstatus >/dev/null 2>&1 &]])
--- autoupdate('*Xresources/*',                               [[xrdb $XRESOURCES && pkill -USR1 st]])
-autoupdate('*Xresources/*',                               [[xrdb $XRESOURCES]])
-autoupdate('sxhkdrc',                                     [[pkill -USR1 sxhkd]])
-autoupdate('dunstrc',                                     [[killall dunst; setsid dunst >/dev/null 2>&1 &]])
-autoupdate({'*praktikum/*plot.gnu', '*optika/*plot.gnu'}, [[gnuplot plot.gnu > loggg.txt]])
-autoupdate('fonts.conf',                                  [[fc-cache]])
-
-
+autoupdate({ '*/shell/folders', 'shortcuts' }, [[shortcuts]])
+autoupdate('*/st-jd/config.def.h',             [[make && sudo make install]])
+autoupdate('*/dwm-jd/dwm.c',                   [[make && sudo make install]])
+autoupdate('*/slstatus-jd/config.def.h',       [[make && sudo make install && killall slstatus; setsid slstatus >/dev/null 2>&1 &]])
+autoupdate('*Xresources/*',                    [[xrdb $XRESOURCES]])
+autoupdate('sxhkdrc',                          [[pkill -USR1 sxhkd]])
+autoupdate('dunstrc',                          [[killall dunst; setsid dunst >/dev/null 2>&1 &]])
+autoupdate('*praktikum/*plot.gnu',             [[gnuplot plot.gnu > loggg.txt]])
+autoupdate('fonts.conf',                       [[fc-cache]])
 
 au('TermOpen', {
     pattern = 'term://*',

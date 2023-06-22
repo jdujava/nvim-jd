@@ -7,11 +7,12 @@ return {
             worktrees = {
                 {
                     toplevel = vim.env.HOME,
-                    gitdir = vim.env.HOME .. '/.config/baredots'
-                }
+                    gitdir = vim.env.HOME .. '/.config/baredots',
+                },
             },
+            -- stylua: ignore
             on_attach = function(bufnr)
-                local gs = require("gitsigns")
+                local gs = require('gitsigns')
                 local map = vim.keymap.set
                 map('n', ']c',         gs.next_hunk,                                 { buffer = bufnr })
                 map('n', '[c',         gs.prev_hunk,                                 { buffer = bufnr })
@@ -25,16 +26,16 @@ return {
                 map('n', '<leader>hb', function() gs.blame_line { full = true } end, { buffer = bufnr })
                 map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>',            { buffer = bufnr })
             end,
-        }
+        },
     },
 
     -- better diffing
     {
-        "sindrets/diffview.nvim",
-        cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+        'sindrets/diffview.nvim',
+        cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
         keys = {
-            { "<leader>gd", "<cmd>DiffviewOpen<cr>",        desc = "DiffView" },
-            { "<leader>gf", "<cmd>DiffviewFileHistory<cr>", desc = "DiffView File History" }
+            { '<leader>gd', '<cmd>DiffviewOpen<cr>', desc = 'DiffView' },
+            { '<leader>gf', '<cmd>DiffviewFileHistory<cr>', desc = 'DiffView File History' },
         },
         opts = {},
     },

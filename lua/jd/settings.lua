@@ -49,27 +49,27 @@ vim.o.updatetime     = 200 -- Save swap file and trigger CursorHold
 vim.o.backup         = true
 vim.o.undofile       = true
 vim.o.undolevels     = 10000
-vim.o.backupdir      = vim.fn.stdpath("state") .. "/backup"
+vim.o.backupdir      = vim.fn.stdpath('state') .. '/backup'
 vim.o.shada          = [[!,'100,<50,s10,/100,:1000,h]]
 vim.o.list           = true
-vim.opt.listchars    = {
-    tab = "> ",
-    trail = "_",
-    extends = "»",
-    precedes = "«",
-    nbsp = "·",
+vim.opt.listchars = {
+    tab = '> ',
+    trail = '_',
+    extends = '»',
+    precedes = '«',
+    nbsp = '·',
 }
-vim.opt.fillchars    = {
-    vert = "│",
-    foldopen = "",
-    foldclose = "",
-    fold = "·",
-    foldsep = "│",
-    diff = "╱",
-    eob = " ",
+vim.opt.fillchars = {
+    vert = '│',
+    foldopen = '',
+    foldclose = '',
+    fold = '·',
+    foldsep = '│',
+    diff = '╱',
+    eob = ' ',
 }
-vim.opt.shortmess:append { A = true, I = true, c = true, C = true }
-vim.opt.diffopt:append { "linematch:60" }
+vim.opt.shortmess:append({ A = true, I = true, c = true, C = true })
+vim.opt.diffopt:append({ 'linematch:60' })
 
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0

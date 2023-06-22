@@ -1,35 +1,35 @@
 return {
     {
-        "nvim-neorg/neorg",
+        'nvim-neorg/neorg',
         enabled = false,
-        event = "VeryLazy",
-        ft = "norg",
+        event = 'VeryLazy',
+        ft = 'norg',
         keys = { { '<leader>n', '<CMD>Neorg<CR>', desc = 'Neorg' } },
         opts = {
             load = {
-                ["core.defaults"] = {},
-                ["core.concealer"] = {
+                ['core.defaults'] = {},
+                ['core.concealer'] = {
                     config = {
                         dim_code_blocks = {
                             conceal = false,
                             padding = { left = 5, right = 5 },
-                            width = "content",
+                            width = 'content',
                         },
                     },
                 },
-                ["core.dirman"] = {
+                ['core.dirman'] = {
                     config = {
                         workspaces = {
-                            notes = "~/Documents/Notes/",
+                            notes = '~/Documents/Notes/',
                         },
-                        default_workspace = "notes",
+                        default_workspace = 'notes',
                     },
                 },
-                ["core.completion"] = { config = { engine = "nvim-cmp" } },
-                ["core.integrations.nvim-cmp"] = {},
+                ['core.completion'] = { config = { engine = 'nvim-cmp' } },
+                ['core.integrations.nvim-cmp'] = {},
             },
         },
-        build = ":Neorg sync-parsers",
-        dependencies = { 'plenary.nvim' }
-    }
+        build = ':Neorg sync-parsers',
+        dependencies = { 'plenary.nvim' },
+    },
 }

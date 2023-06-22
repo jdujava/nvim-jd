@@ -8,6 +8,6 @@ for _, key in ipairs(quit_keys) do
 end
 
 -- autostart editing as "$|$", where | is position of cursor
-vim.api.nvim_buf_set_lines(0, 0, 1, false, { "$$" })
+vim.api.nvim_buf_set_lines(0, 0, 1, false, { '$$' })
 vim.api.nvim_win_set_cursor(0, { 1, 1 })
 vim.cmd.startinsert()
