@@ -6,14 +6,11 @@ for _, key in ipairs(keys_to_map) do
 end
 
 -- beamer -- label and show only current slide
-nmap({
+vim.keymap.set(
+    'n',
     '<leader><leader>c',
     [[mc<CMD>%s/,\s*label=current//e<CR>`c$?in{frame<CR>f]i, label=current<ESC>`c]],
-    { buffer = true, silent = true },
-})
+    { buffer = true, silent = true }
+)
 
-nmap({
-    '<Tab>',
-    '<CMD>VimtexTocOpen<CR>',
-    { buffer = true, silent = true },
-})
+vim.keymap.set('n', '<Tab>', '<CMD>VimtexTocOpen<CR>', { buffer = true, silent = true })
