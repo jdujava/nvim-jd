@@ -1,4 +1,5 @@
 -- Mode Prompt Table (mode-highlight)
+-- stylua: ignore
 local modes = {
     ['n']    = {'NORMAL',     'SlNormal'},
     ['no']   = {'NORMAL',     'SlNormal'},

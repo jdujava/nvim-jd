@@ -31,10 +31,9 @@ end
 
 function B.bufferLine()
     local current_buf = vim.api.nvim_get_current_buf()
-    B.buffers = vim.api.nvim_list_bufs()   -- get all buffers
+    B.buffers = vim.api.nvim_list_bufs() -- get all buffers
     B.buffers = vim.tbl_filter(function(b) -- filter out only valid ones
-        return vim.api.nvim_buf_is_loaded(b) and
-            not ignore_buftype[vim.bo[b].buftype]
+        return vim.api.nvim_buf_is_loaded(b) and not ignore_buftype[vim.bo[b].buftype]
             or noignore_filetype[vim.bo[b].filetype]
     end, B.buffers)
 
