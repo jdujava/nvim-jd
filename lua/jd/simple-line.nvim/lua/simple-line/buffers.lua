@@ -57,7 +57,7 @@ function B.jumpBuf(buf)
 end
 
 for i = 1,9 do
-    map { '<A-'..i..'>', function() require('simple-line.buffers').jumpBuf(i) end }
+    vim.keymap.set({ "n", "v" }, "<A-"..i..">", function() require("simple-line.buffers").jumpBuf(i) end, { desc = "Jump to buffer " .. i })
 end
 
 return B

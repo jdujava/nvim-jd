@@ -1,5 +1,6 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
+    -- bootstrap lazy.nvim
     vim.fn.system({
         "git",
         "clone",
@@ -9,7 +10,7 @@ if not vim.uv.fs_stat(lazypath) then
         lazypath,
     })
 end
-vim.opt.rtp:prepend(lazypath)
+vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 require("lazy").setup({
     spec = { { import = "plugins" } },
@@ -38,5 +39,5 @@ require("lazy").setup({
     },
 })
 
-nmap { '<A-p>', require('lazy').home }
-nmap { '<A-P>', require('lazy').home }
+vim.keymap.set("n", "<A-p>", require("lazy").home, { desc = "Lazy Home" })
+vim.keymap.set("n", "<A-P>", require("lazy").home, { desc = "Lazy Home" })
