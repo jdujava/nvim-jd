@@ -33,7 +33,7 @@ M.keys = {
 function M.map()
     vim.b.deadkeys_on = true
     for k, v in pairs(M.keys) do
-        vim.keymap.set("i", k, v, { buffer = true })
+        vim.keymap.set("i", k, v, { buffer = true, desc = "Deadkey" })
     end
 end
 

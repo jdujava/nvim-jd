@@ -98,10 +98,6 @@ xmap {
 }
 xmap { '<Space>', 'I<Space><ESC>gv', { remap = true } }
 
--- Spell-check
-map { '<Leader><Leader>s', '<Cmd>setlocal spell!<CR>' }
--- imap { '<C-h>', '<c-g>u<Esc>[s1z=`]a<c-g>u' }
-
 -- Delete word in insert mode
 imap { "<C-h>", "<C-w>" }
 
@@ -121,9 +117,18 @@ nmap { '<leader>x', cmds.executor, { desc = "Executor" } }
 nmap { '<leader><leader>x', cmds.saveandexec, { desc = "Save&Exec" } }
 nmap { '<leader>X', cmds.saveandexec, { desc = "Save&Exec" } }
 
-nmap { "<leader>uf", require("plugins.lsp.format").toggle, { desc = "Toggle format on Save" } }
+-- Toggle options
+local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
+nmap { "<leader>uc", function() helpers.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" } }
+nmap { "<leader>uw", function() helpers.toggle("wrap") end, { desc = "Toggle Word Wrap" } }
+nmap { "<leader>ul", function() helpers.toggle("relativenumber", true) helpers.toggle("number") end, { desc = "Toggle Line Numbers" } }
+nmap { "<leader><leader>s", function() helpers.toggle("spell") end, { desc = "Toggle Spelling" } }
 nmap { "<leader>ud", helpers.toggle_diagnostics, { desc = "Toggle Diagnostics" } }
 nmap { "<leader>uh", function() vim.lsp.buf.inlay_hint(0, nil) end, { desc = "Toggle Inlay Hints" } }
+nmap { "<leader>uf", require("plugins.lsp.format").toggle, { desc = "Toggle format on Save" } }
+
+-- Spell-check
+-- imap { '<C-h>', '<c-g>u<Esc>[s1z=`]a<c-g>u' }
 
 -- Open link in browser/pdf-viewer
 map { '<A-~>', function()
@@ -131,3 +136,25 @@ map { '<A-~>', function()
     -- vim.notify {link}
     vim.fn.jobstart({ 'xdg-open', link }, { detach = true })
 end, desc = "Open Link" }
+
+-- Abbreviations
+iamap { '#!!', [["#!/usr/bin/env" . (empty(&filetype) ? '' : ' '.&filetype)]], { expr = true } }
+camap { 'Bd', 'bd' }
+camap { 'Cp', 'cp' }
+camap { 'E', 'e' }
+camap { 'Sp', 'sp' }
+camap { 'SP', 'sp' }
+camap { 'Vs', 'vs' }
+camap { 'VS', 'vs' }
+camap { 'Q', 'q' }
+camap { 'Q!', 'q!' }
+camap { 'Qa', 'qa' }
+camap { 'QA', 'qa' }
+camap { 'QA!', 'qa!' }
+camap { 'W', 'w' }
+camap { 'W!', 'w!' }
+camap { 'Wq', 'wq' }
+camap { 'WQ', 'wq' }
+camap { 'Wqa', 'wqa' }
+camap { 'WQa', 'wqa' }
+camap { 'WQA', 'wqa' }
