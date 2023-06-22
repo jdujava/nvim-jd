@@ -70,7 +70,7 @@ return {
                 function()
                     vim.cmd('UndotreeToggle | UndotreeFocus')
                     vim.api.nvim_win_set_width(0, 30)
-                    vim.o.statusline = '%!v:lua.StatusLine()'
+                    require('simple-line.status').setup()
                 end,
                 desc = 'Undotree',
             },
@@ -98,6 +98,7 @@ return {
         keys = { { 'gs', '<cmd>TSJToggle<cr>', desc = 'Split/Join' } },
         opts = {
             use_default_keymaps = false,
+            max_join_length = 150,
         },
     },
 

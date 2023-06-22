@@ -61,4 +61,9 @@ for i = 1, 9 do
     end, { desc = 'Jump to buffer ' .. i })
 end
 
+function B.setup()
+    vim.o.showtabline = 2
+    vim.o.tabline = [[%!v:lua.require'simple-line.buffers'.bufferLine()]]
+end
+
 return B

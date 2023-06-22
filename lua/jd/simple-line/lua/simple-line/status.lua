@@ -96,4 +96,9 @@ function S.statusLine()
     return statusline
 end
 
+function S.setup()
+    vim.o.laststatus = 3
+    vim.o.statusline = [[%!v:lua.require'simple-line.status'.statusLine()]]
+end
+
 return S

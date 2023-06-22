@@ -23,7 +23,7 @@ function C.MakeHi(higroup, gbg, gfg, isbold, cbg, cfg)
 end
 
 -- stylua: ignore
-function C.setStatusHi()
+function C.setup()
     C.MakeHi('SlDirectory',     C.col.bg,     C.col.white, true,  0,  15)
     C.MakeHi('SlFiletype',      C.col.purple, C.col.black, true,  13, 15)
     C.MakeHi('SlLine',          C.col.none,   C.col.white, true,  15, 15)

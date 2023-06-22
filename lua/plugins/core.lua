@@ -2,7 +2,7 @@
 require('jd.settings')
 
 if vim.fn.argc(-1) == 0 then
-    -- autocmds and keymaps can wait to load
+    -- autocommands and keybindings can wait to load
     vim.api.nvim_create_autocmd('User', {
         group = vim.api.nvim_create_augroup('jd_core', { clear = true }),
         callback = function()
@@ -18,4 +18,7 @@ end
 
 return {
     { 'folke/lazy.nvim', version = '*' },
+
+    -- check whether LazyVim has some new goodies
+    { 'LazyVim/LazyVim', version = '*', cond = false },
 }

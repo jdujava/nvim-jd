@@ -11,7 +11,7 @@ require('lazy').setup({
     defaults = {
         lazy = true,
     },
-    install = { colorscheme = { 'tokyonight' } },
+    install = { colorscheme = { 'tokyonight', 'habamax' } },
     ui = {
         border = 'rounded',
     },
@@ -32,6 +32,3 @@ require('lazy').setup({
         },
     },
 })
-
-vim.keymap.set('n', '<A-p>', require('lazy').home, { desc = 'Lazy Home' })
-vim.keymap.set('n', '<A-P>', require('lazy').home, { desc = 'Lazy Home' })

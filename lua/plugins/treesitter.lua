@@ -11,6 +11,7 @@ return {
             },
             'nvim-treesitter/nvim-treesitter-textobjects',
         },
+        ---@type TSConfig
         opts = {
             highlight = {
                 enable = true, -- false will disable the whole extension
@@ -97,6 +98,7 @@ return {
                 },
             },
         },
+        ---@param opts TSConfig
         config = function(_, opts)
             require('nvim-treesitter.configs').setup(opts)
 

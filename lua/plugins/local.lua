@@ -1,6 +1,6 @@
 return {
     {
-        dir = vim.fn.stdpath('config') .. '/lua/jd/deadkeys.nvim/',
+        dir = vim.fn.stdpath('config') .. '/lua/jd/deadkeys/',
         event = 'VeryLazy',
         keys = {
             {
@@ -17,7 +17,7 @@ return {
 
     -- statusline + bufferline
     {
-        dir = vim.fn.stdpath('config') .. '/lua/jd/simple-line.nvim/',
+        dir = vim.fn.stdpath('config') .. '/lua/jd/simple-line/',
         lazy = false,
         opts = true,
     },
