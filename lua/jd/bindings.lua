@@ -123,6 +123,7 @@ nmap { '<leader>X', cmds.saveandexec, { desc = "Save&Exec" } }
 
 nmap { "<leader>uf", require("plugins.lsp.format").toggle, { desc = "Toggle format on Save" } }
 nmap { "<leader>ud", helpers.toggle_diagnostics, { desc = "Toggle Diagnostics" } }
+nmap { "<leader>uh", function() vim.lsp.buf.inlay_hint(0, nil) end, { desc = "Toggle Inlay Hints" } }
 
 -- Open link in browser/pdf-viewer
 map { '<A-~>', function()

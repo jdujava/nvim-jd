@@ -58,6 +58,8 @@ return {
                 hl.PmenuSel = { bg = c.bg_highlight, bold = true }
                 hl.FloatermBorder = hl.FloatBorder
 
+                hl.LspInlayHint = { fg = c.dark4 }
+
                 hl["@neorg.tags.ranged_verbatim.code_block"] = { bg = "#1a1a1a" }
             end,
         },

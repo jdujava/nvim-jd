@@ -9,6 +9,7 @@ return {
             'williamboman/mason-lspconfig.nvim',
             'lvimuser/lsp-inlayhints.nvim',
         },
+        ---@class PluginLspOpts
         opts = {
             -- options for vim.diagnostic.config()
             diagnostics = {
@@ -22,6 +23,12 @@ return {
                 },
                 severity_sort = true,
                 float = { border = "rounded" },
+            },
+            -- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
+            -- Be aware that you also will need to properly configure your LSP server to
+            -- provide the inlay hints.
+            inlay_hints = {
+                enabled = true,
             },
             -- add any global capabilities here
             capabilities = {},
@@ -38,6 +45,7 @@ return {
                 timeout_ms = nil,
             },
             -- LSP Server Settings
+            ---@type lspconfig.options
             servers = {
                 ltex = {
                     enabled = true,
@@ -82,27 +90,40 @@ return {
             },
             -- you can do any additional lsp server setup here
             -- return true if you don't want this server to be setup with lspconfig
+            ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
             setup = {
-                clangd = function(_, opts)
-                    opts.capabilities.offsetEncoding = { "utf-16" }
-                end,
+                -- clangd = function(_, opts)
+                --     opts.capabilities.offsetEncoding = { "utf-16" }
+                -- end,
                 -- Specify * to use this function as a fallback for any server
                 -- ["*"] = function(server, opts) end,
             },
         },
+        ---@param opts PluginLspOpts
         config = function(_, opts)
+            local helpers = require("jd.helpers")
+            -- setup autoformat
             require("plugins.lsp.format").setup(opts)
             -- setup formatting and keymaps
-            require("jd.helpers").on_attach(function(client, buffer)
+            helpers.on_attach(function(client, buffer)
                 require("plugins.lsp.keymaps").on_attach(client, buffer)
             end)
 
-            -- visuals
+            -- diagnostics
             local icons = { Error = "", Warn = "", Hint = "", Info = "" }
             for name, icon in pairs(icons) do
                 name = "DiagnosticSign" .. name
                 vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
             end
+
+            if opts.inlay_hints.enabled and vim.lsp.buf.inlay_hint then
+                helpers.on_attach(function(client, buffer)
+                    if client.server_capabilities.inlayHintProvider then
+                        vim.lsp.buf.inlay_hint(buffer, true)
+                    end
+                end)
+            end
+
             if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
                 opts.diagnostics.virtual_text.prefix = function(diagnostic)
                     for d, icon in pairs(icons) do
@@ -178,11 +199,8 @@ return {
             return {
                 root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
                 sources = {
-                    nls.builtins.formatting.fish_indent,
-                    nls.builtins.diagnostics.fish,
                     nls.builtins.formatting.stylua,
                     nls.builtins.formatting.shfmt,
-                    -- nls.builtins.diagnostics.flake8,
                     nls.builtins.code_actions.gitsigns.with({
                         config = {
                             filter_actions = function(title)
@@ -209,6 +227,7 @@ return {
                 },
             },
             ensure_installed = {
+                "stylua",
                 "bash-language-server",
                 "clangd",
                 "lua-language-server",
@@ -217,6 +236,7 @@ return {
                 "shfmt",
             },
         },
+        ---@param opts MasonSettings | {ensure_installed: string[]}
         config = function(_, opts)
             require("mason").setup(opts)
             local mr = require("mason-registry")
@@ -255,26 +275,5 @@ return {
             init_check = false,
             path = ".ltex",
         },
-    },
-
-    -- inlay hints
-    {
-        "lvimuser/lsp-inlayhints.nvim",
-        branch = "anticonceal",
-        event = "LspAttach",
-        opts = {},
-        config = function(_, opts)
-            require("lsp-inlayhints").setup(opts)
-            vim.api.nvim_create_autocmd("LspAttach", {
-                group = vim.api.nvim_create_augroup("LspAttach_inlayhints", {}),
-                callback = function(args)
-                    if not (args.data and args.data.client_id) then
-                        return
-                    end
-                    local client = vim.lsp.get_client_by_id(args.data.client_id)
-                    require("lsp-inlayhints").on_attach(client, args.buf, false)
-                end,
-            })
-        end,
     },
 }
