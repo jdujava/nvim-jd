@@ -100,8 +100,8 @@ map('x', '<Space>', 'I<Space><ESC>gv', { remap = true })
 map('i', '<C-h>', '<C-w>')
 
 -- Replace all is aliased to S
-map('n', '<leader>S', ':%s/')
-map('x', '<leader>S', ':s/')
+map('n', '<leader>S', ':%s/', { silent = false })
+map('x', '<leader>S', ':s/', { silent = false })
 
 -- Change perms -> Compile document -> Open document
 map('n', '+x', '<CMD>!chmod +x "%:p"<CR>')

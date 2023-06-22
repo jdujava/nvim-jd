@@ -57,6 +57,9 @@ au('TermOpen', {
     pattern = 'term://*',
     callback = function()
         vim.bo.filetype = 'term'
+        vim.o.number = false
+        vim.o.relativenumber = false
+        vim.o.signcolumn = 'no'
     end,
 })
 au('TermOpen', {
