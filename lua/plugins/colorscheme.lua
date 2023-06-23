@@ -60,6 +60,8 @@ return {
                 hl.LspInlayHint = { fg = c.dark4 }
 
                 hl['@neorg.tags.ranged_verbatim.code_block'] = { bg = '#1a1a1a' }
+                hl['@label.markdown'] = { link = 'NonText' }
+                hl['@punctuation.delimiter.markdown'] = { link = 'NonText' }
             end,
         },
         config = function(_, opts)

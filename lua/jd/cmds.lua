@@ -9,9 +9,23 @@ function M.sudo_write()
 end
 
 function M.term_execute(command)
-    local output = vim.api.nvim_exec2('!' .. command, { output = true })
-    Util.info(output.output, { title = 'Executor' })
-    -- require("lazy.util").float_cmd(command)
+    local pre = '```sh\n' .. command .. '\n```\n'
+    local output = ''
+    local function on_data(_, data)
+        output = output .. table.concat(data, '\n')
+    end
+    vim.fn.jobstart(command, {
+        on_stdout = on_data,
+        on_stderr = on_data,
+        on_exit = function(_, code)
+            local level = (code == 0) and vim.log.levels.INFO or vim.log.levels.ERROR
+            if #output == 0 then
+                output = '[No output of command]'
+            end
+            output = output .. '\n[Exit code: **' .. code .. '**]'
+            Util.notify({ pre, output }, { level = level, title = 'Executor' })
+        end,
+    })
 end
 
 function M.executor()
@@ -22,8 +36,8 @@ function M.executor()
     elseif filetype == 'vim' then
         vim.cmd(line)
     else
-        -- elseif filetype == 'sh' then
-        M.term_execute(line:gsub('#', '\\#'))
+        -- try to execute as a shell command
+        M.term_execute(line)
     end
 end
 
