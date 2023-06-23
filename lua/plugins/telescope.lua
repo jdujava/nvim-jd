@@ -9,6 +9,7 @@ return {
             { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
             { 'fhill2/telescope-ultisnips.nvim' },
             { 'nvim-telescope/telescope-ui-select.nvim' },
+            { 'rcarriga/nvim-notify' },
         },
         -- stylua: ignore
         keys = {
@@ -150,6 +151,7 @@ return {
             require('telescope').load_extension('fzf')
             require('telescope').load_extension('ultisnips')
             require('telescope').load_extension('ui-select')
+            require('telescope').load_extension('notify')
             -- require('plugins.telescope.setup')
             -- require('plugins.telescope.mappings')
         end,

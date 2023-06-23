@@ -71,9 +71,11 @@ au('TermOpen', {
 })
 
 -- Auto updates
+local group_autoupdates = gr('auto_updates')
+
 local autoupdate = function(pattern, command)
     au('BufWritePost', {
-        group = gr('auto_updates'),
+        group = group_autoupdates,
         pattern = pattern,
         callback = function()
             require('jd.cmds').term_execute(command)
