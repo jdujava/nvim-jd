@@ -15,6 +15,7 @@ function M.term_execute(command)
         output = output .. table.concat(data, '\n')
     end
     vim.fn.jobstart(command, {
+        stdout_buffered = true,
         on_stdout = on_data,
         on_stderr = on_data,
         on_exit = function(_, code)

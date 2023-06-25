@@ -7,7 +7,6 @@ return {
             { 'folke/neodev.nvim', opts = true },
             'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim',
-            'lvimuser/lsp-inlayhints.nvim',
         },
         ---@class PluginLspOpts
         opts = {
@@ -114,7 +113,7 @@ return {
                 vim.fn.sign_define(name, { text = icon, texthl = name, numhl = '' })
             end
 
-            if opts.inlay_hints.enabled and vim.lsp.buf.inlay_hint then
+            if opts.inlay_hints.enabled then
                 helpers.on_attach(function(client, buffer)
                     if client.server_capabilities.inlayHintProvider then
                         vim.lsp.buf.inlay_hint(buffer, true)
