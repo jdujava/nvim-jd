@@ -48,6 +48,7 @@ function M.format(opts)
         filter = function(client)
             return vim.tbl_contains(client_ids, client.id)
         end,
+        timeout_ms = 3000,
     }, require('jd.helpers').opts('nvim-lspconfig').format or {}))
 end
 

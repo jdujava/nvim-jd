@@ -6,6 +6,12 @@ snippet datum "Insert current time" w
 `date +'%d.\,%m.\,%Y'`
 endsnippet
 
+snippet noindent "Description" w
+%\begin{noindent}
+${1:${VISUAL}}
+%\end{noindent}
+endsnippet
+
 # priority 100
 # snippet '(corollary|remark|notation|TODO|question|suggestion|example|definition|theorem)' "Environments" rbi
 # \begin{`!p snip.rv = match.group(1)`}${1/.+/[/}$1${1/.+/]/}
@@ -508,6 +514,13 @@ endsnippet
 context "math()"
 snippet substack "substack" i
 \\substack{${1:${VISUAL}}}
+endsnippet
+
+context "math()"
+snippet subarray "subarray" i
+\begin{subarray}{${1:c}}
+	${2:${VISUAL}}
+\end{subarray}
 endsnippet
 
 context "math()"
