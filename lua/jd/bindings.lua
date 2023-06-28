@@ -1,6 +1,7 @@
 -- This file is automatically loaded by plugins.core
 local cmds = require('jd.cmds')
 local helpers = require('jd.helpers')
+local Util = require('lazy.core.util')
 
 local function map(mode, lhs, rhs, opts)
     opts = opts or {}
@@ -133,9 +134,19 @@ map('n', '<leader>uf', require('plugins.lsp.format').toggle,                    
 
 -- Open link in browser/pdf-viewer
 map('n', '<A-~>', function()
-    local link = vim.fn.expand('<cWORD>'):gsub('^%[(.*)%]$', '%1')
-    -- vim.notify {link}
+    -- match anything enclosed between <>, {}, [], (); otherwise match the whole WORD
+    local link = vim.fn.expand('<cWORD>'):gsub('^.*[<{%[%(](.*)[%)%]}>].*$', '%1')
+    -- Util.info(vim.fn.expand('<cWORD>'))
+    Util.info(link, { title = 'Open Link' })
     vim.fn.jobstart({ 'xdg-open', link }, { detach = true })
+end, { desc = 'Open Link' })
+map('v', '<A-~>', function()
+    vim.fn.feedkeys('y')
+    vim.schedule(function()
+        local link = vim.fn.getreg('"')
+        Util.info(link, { title = 'Open Link' })
+        vim.fn.jobstart({ 'xdg-open', link }, { detach = true })
+    end)
 end, { desc = 'Open Link' })
 
 -- Abbreviations
