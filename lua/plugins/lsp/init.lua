@@ -198,7 +198,7 @@ return {
                 sources = {
                     nls.builtins.formatting.latexindent,
                     nls.builtins.formatting.stylua,
-                    nls.builtins.formatting.shfmt,
+                    nls.builtins.formatting.shfmt.with({ extra_args = { "-i", "4" } }),
                     nls.builtins.code_actions.gitsigns.with({
                         config = {
                             filter_actions = function(title)

@@ -3,6 +3,6 @@ snippet #! "shebang" b
 endsnippet
 
 snippet if "ifinstalled" b
-ifinstalled $1 || { echo >&2 "We require '$1' but it's not installed."; exit 1; }
+ifinstalled $1 || exit 1
 endsnippet
 

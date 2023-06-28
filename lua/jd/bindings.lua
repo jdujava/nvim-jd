@@ -129,9 +129,10 @@ map('n', '<leader>ud', helpers.toggle_diagnostics,                              
 map('n', '<leader>uh', function() vim.lsp.buf.inlay_hint(0, nil) end,                                  { desc = 'Toggle Inlay Hints' })
 map('n', '<leader>uf', require('plugins.lsp.format').toggle,                                           { desc = 'Toggle format on Save' })
 
+-- stylua: ignore end
+
 -- Spell-check
 -- map('i', '<C-h>', '<c-g>u<Esc>[s1z=`]a<c-g>u')
-
 -- Open link in browser/pdf-viewer
 map('n', '<A-~>', function()
     -- match anything enclosed between <>, {}, [], (); otherwise match the whole WORD
@@ -151,25 +152,10 @@ end, { desc = 'Open Link' })
 
 -- Abbreviations
 map('ia', '#!!', [["#!/usr/bin/env" . (empty(&filetype) ? '' : ' '.&filetype)]], { expr = true })
-map('ca', 'Bd', 'bd')
-map('ca', 'Cp', 'cp')
-map('ca', 'E', 'e')
-map('ca', 'Sp', 'sp')
-map('ca', 'SP', 'sp')
-map('ca', 'Vs', 'vs')
-map('ca', 'VS', 'vs')
-map('ca', 'Q', 'q')
-map('ca', 'Q!', 'q!')
-map('ca', 'Qa', 'qa')
-map('ca', 'QA', 'qa')
-map('ca', 'QA!', 'qa!')
-map('ca', 'W', 'w')
-map('ca', 'W!', 'w!')
-map('ca', 'Wq', 'wq')
-map('ca', 'WQ', 'wq')
-map('ca', 'Wqa', 'wqa')
-map('ca', 'WQa', 'wqa')
-map('ca', 'WQA', 'wqa')
+local abbrevs = { 'E', 'Bd', 'Sp', 'Vs', 'Q', 'Q!', 'Qa', 'QA', 'QA!', 'W', 'W!', 'Wq', 'WQ', 'Wqa', 'WQa', 'WQA' }
+for _, abbr in ipairs(abbrevs) do
+    map('ca', abbr, abbr:lower())
+end
 
 -- Delete mappings
 map('n', 'q:', '<Nop>')
