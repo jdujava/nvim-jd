@@ -126,7 +126,7 @@ map('n', '<leader>uw', function() helpers.toggle('wrap') end,                   
 map('n', '<leader>ul', function() helpers.toggle('relativenumber', true) helpers.toggle('number') end, { desc = 'Toggle Line Numbers' })
 map('n', '<leader><leader>s', function() helpers.toggle('spell') end,                                  { desc = 'Toggle Spelling' })
 map('n', '<leader>ud', helpers.toggle_diagnostics,                                                     { desc = 'Toggle Diagnostics' })
-map('n', '<leader>uh', function() vim.lsp.buf.inlay_hint(0, nil) end,                                  { desc = 'Toggle Inlay Hints' })
+map('n', '<leader>uh', function() vim.lsp.inlay_hint(0, nil) end,                                      { desc = 'Toggle Inlay Hints' })
 map('n', '<leader>uf', require('plugins.lsp.format').toggle,                                           { desc = 'Toggle format on Save' })
 
 -- stylua: ignore end
