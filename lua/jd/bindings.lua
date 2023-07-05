@@ -10,8 +10,9 @@ local function map(mode, lhs, rhs, opts)
 end
 
 -- Lazy
-map('n', '<A-p>', '<cmd>:Lazy<cr>', { desc = 'Lazy' })
-map('n', '<A-P>', '<cmd>:Lazy<cr>', { desc = 'Lazy' })
+map('n', '<A-p>', '<cmd>Lazy<cr>', { desc = 'Lazy' })
+map('n', '<A-P>', '<cmd>Lazy<cr>', { desc = 'Lazy' })
+map('n', '<A-r>', ':Lazy reload ', { silent = false, desc = 'Lazy reload' })
 
 -- Alt maps
 for _, i in ipairs({ 'h', 'j', 'k', 'l', 'H', 'J', 'K', 'L' }) do

@@ -8,7 +8,7 @@ return {
             'hrsh7th/cmp-cmdline',
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-emoji',
-            { 'quangnguyen30192/cmp-nvim-ultisnips', dependencies = { 'ultisnips' } },
+            { 'quangnguyen30192/cmp-nvim-ultisnips', dependencies = { 'ultisnips', 'nvim-treesitter' } },
         },
         config = function()
             local cmp = require('cmp')
@@ -22,6 +22,11 @@ return {
 
             cmp.setup({
                 completeopt = vim.o.completeopt,
+                completion = {
+                    -- NOTE: writing something, triggering autocomplete, accepting something
+                    -- and the deleting it with backspace will trigger autocomplete again
+                    -- autocomplete = false,
+                },
                 snippet = {
                     expand = function(args)
                         vim.fn['UltiSnips#Anon'](args.body)
@@ -50,6 +55,14 @@ return {
                     ['<C-l>'] = cmp.mapping(
                         cmp.mapping.confirm({
                             behavior = cmp.ConfirmBehavior.Insert,
+                            select = true,
+                        }),
+                        { 'i', 'c' }
+                    ),
+                    -- BUG: doesnt work with slovak characters like ž,á, ...
+                    ['<C-A-l>'] = cmp.mapping(
+                        cmp.mapping.confirm({
+                            behavior = cmp.ConfirmBehavior.Replace,
                             select = true,
                         }),
                         { 'i', 'c' }
