@@ -134,22 +134,31 @@ map('n', '<leader>uf', require('plugins.lsp.format').toggle,                    
 
 -- Spell-check
 -- map('i', '<C-h>', '<c-g>u<Esc>[s1z=`]a<c-g>u')
--- Open link in browser/pdf-viewer
-map('n', '<A-~>', function()
-    -- match anything enclosed between <>, {}, [], (); otherwise match the whole WORD
-    local link = vim.fn.expand('<cWORD>'):gsub('^.*[<{%[%(](.*)[%)%]}>].*$', '%1')
-    -- Util.info(vim.fn.expand('<cWORD>'))
-    Util.info(link, { title = 'Open Link' })
-    vim.fn.jobstart({ 'xdg-open', link }, { detach = true })
-end, { desc = 'Open Link' })
-map('v', '<A-~>', function()
-    vim.fn.feedkeys('y')
-    vim.schedule(function()
-        local link = vim.fn.getreg('"')
-        Util.info(link, { title = 'Open Link' })
-        vim.fn.jobstart({ 'xdg-open', link }, { detach = true })
-    end)
-end, { desc = 'Open Link' })
+
+-- TODO: use vim.region() when it lands... #13896 #16843
+local function get_visual_selection()
+    local save_a = vim.fn.getreginfo('a')
+    vim.cmd([[norm! "ay]])
+    local selection = vim.fn.getreg('a', 1)
+    vim.fn.setreg('a', save_a)
+    return selection
+end
+-- Opens `path` with the system default handler
+-- if it fails, it tries to open it as a pdf
+---@param path string
+local function open(path)
+    Util.info(path, { title = 'Open Link' })
+    local rv = vim.ui.open(path)
+    if rv and rv.code ~= 0 then
+        -- Util.info('Failed to open link, trying to open as pdf', { title = 'Open Link' })
+        vim.ui.open('pdf:' .. path)
+    end
+end
+-- stylua: ignore start
+map('n', '<A-~>', function() open(vim.fn.expand('<cfile>')) end, { desc = 'Open Path/Link' })
+map('v', '<A-~>', function() open(get_visual_selection()) end, { desc = 'Open Path/Link' })
+-- map('v', '<A-~>', 'gx', { remap = true, desc = 'Open Link' })
+-- stylua: ignore end
 
 -- Abbreviations
 map('ia', '#!!', [["#!/usr/bin/env" . (empty(&filetype) ? '' : ' '.&filetype)]], { expr = true })
