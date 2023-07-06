@@ -122,13 +122,14 @@ map('n', '<leader>X', cmds.saveandexec, { desc = 'Save&Exec' })
 
 -- Toggle options
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
-map('n', '<leader>uc', function() helpers.toggle('conceallevel', false, { 0, conceallevel }) end,      { desc = 'Toggle Conceal' })
-map('n', '<leader>uw', function() helpers.toggle('wrap') end,                                          { desc = 'Toggle Word Wrap' })
-map('n', '<leader>ul', function() helpers.toggle('relativenumber', true) helpers.toggle('number') end, { desc = 'Toggle Line Numbers' })
-map('n', '<leader><leader>s', function() helpers.toggle('spell') end,                                  { desc = 'Toggle Spelling' })
-map('n', '<leader>ud', helpers.toggle_diagnostics,                                                     { desc = 'Toggle Diagnostics' })
-map('n', '<leader>uh', function() vim.lsp.inlay_hint(0, nil) end,                                      { desc = 'Toggle Inlay Hints' })
-map('n', '<leader>uf', require('plugins.lsp.format').toggle,                                           { desc = 'Toggle format on Save' })
+local function toggle(...) require('lazyvim.util').toggle(...) end
+map('n', '<leader>uc', function() toggle('conceallevel', false, { 0, conceallevel }) end, { desc = 'Toggle Conceal' })
+map('n', '<leader>uw', function() toggle('wrap') end,                                     { desc = 'Toggle Word Wrap' })
+map('n', '<leader>ul', function() toggle('relativenumber', true) toggle('number') end,    { desc = 'Toggle Line Numbers' })
+map('n', '<leader><leader>s', function() toggle('spell') end,                             { desc = 'Toggle Spelling' })
+map('n', '<leader>ud', helpers.toggle_diagnostics,                                        { desc = 'Toggle Diagnostics' })
+map('n', '<leader>uh', function() vim.lsp.inlay_hint(0, nil) end,                         { desc = 'Toggle Inlay Hints' })
+map('n', '<leader>uf', function() require('lazyvim.plugins.lsp.format').toggle() end,     { desc = 'Toggle format on Save' })
 
 -- stylua: ignore end
 

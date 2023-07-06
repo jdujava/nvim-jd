@@ -41,7 +41,7 @@ return {
             -- but can be also overridden when specified
             format = {
                 formatting_options = nil,
-                timeout_ms = nil,
+                timeout_ms = 3000,
             },
             -- LSP Server Settings
             ---@type lspconfig.options
@@ -102,11 +102,11 @@ return {
         },
         ---@param opts PluginLspOpts
         config = function(_, opts)
-            local helpers = require('jd.helpers')
+            local Util = require('lazyvim.util')
             -- setup autoformat
-            require('plugins.lsp.format').setup(opts)
+            require('lazyvim.plugins.lsp.format').setup(opts)
             -- setup formatting and keymaps
-            helpers.on_attach(function(client, buffer)
+            Util.on_attach(function(client, buffer)
                 require('plugins.lsp.keymaps').on_attach(client, buffer)
             end)
 
@@ -130,7 +130,7 @@ return {
             end
 
             if opts.inlay_hints.enabled then
-                helpers.on_attach(function(client, buffer)
+                Util.on_attach(function(client, buffer)
                     if client.server_capabilities.inlayHintProvider then
                         vim.lsp.inlay_hint(buffer, true)
                     end

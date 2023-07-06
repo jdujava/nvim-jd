@@ -18,7 +18,5 @@ end
 
 return {
     { 'folke/lazy.nvim', version = '*' },
-
-    -- check whether LazyVim has some new goodies
-    { 'LazyVim/LazyVim', version = '*', cond = false },
+    { 'LazyVim/LazyVim', version = '*' },
 }

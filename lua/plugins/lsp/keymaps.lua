@@ -6,7 +6,7 @@ M._keys = nil
 ---@return (LazyKeys|{has?:string})[]
 function M.get()
     local format = function()
-        require('plugins.lsp.format').format({ force = true })
+        require("lazyvim.plugins.lsp.format").format({ force = true })
     end
     if not M._keys then
         ---@class PluginLspKeys
@@ -83,7 +83,7 @@ function M.resolve(buffer)
         add(keymap)
     end
 
-    local opts = require('jd.helpers').opts('nvim-lspconfig')
+    local opts = require('lazyvim.util').opts('nvim-lspconfig')
     local clients = vim.lsp.get_active_clients({ bufnr = buffer })
     for _, client in ipairs(clients) do
         local maps = opts.servers[client.name] and opts.servers[client.name].keys or {}
