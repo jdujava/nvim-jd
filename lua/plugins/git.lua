@@ -36,8 +36,18 @@ return {
         cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
         keys = {
             { '<leader>gd', '<cmd>DiffviewOpen<cr>', desc = 'DiffView' },
-            { '<leader>gf', '<cmd>DiffviewFileHistory<cr>', desc = 'DiffView File History' },
+            { '<leader>gf', '<cmd>DiffviewFileHistory<cr>', desc = 'DiffView File History (whole repository)' },
+            { '<leader>gh', '<cmd>DiffviewFileHistory %<cr>', desc = 'DiffView File History (current file)' },
         },
-        opts = {},
+        opts = function()
+            local close_diffview = { 'n', '<A-x>', '<cmd>DiffviewClose<cr>', { desc = 'Close Diffview' } }
+            return {
+                keymaps = {
+                    view = { close_diffview },
+                    file_panel = { close_diffview },
+                    file_history_panel = { close_diffview },
+                },
+            }
+        end,
     },
 }
