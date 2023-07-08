@@ -144,25 +144,23 @@ local function get_visual_selection()
     vim.fn.setreg('a', save_a)
     return selection
 end
--- Opens `path` with the system default handler
--- if it fails, it tries to open it as a pdf
----@param path string
-local function open(path)
-    Util.info(path, { title = 'Open Link' })
-    local rv = vim.ui.open(path)
-    if rv and rv.code ~= 0 then
-        -- Util.info('Failed to open link, trying to open as pdf', { title = 'Open Link' })
-        vim.ui.open('pdf:' .. path)
+local open_desc = 'Open URI with the system default handler'
+---@param uri string
+local function open(uri)
+    Util.info(uri, { title = 'Open URI' })
+    local _, err = vim.ui.open(uri)
+    if err then
+        Util.error(err, { title = 'Open URI' })
     end
 end
 -- stylua: ignore start
-map('n', '<A-~>', function() open(vim.fn.expand('<cfile>')) end, { desc = 'Open Path/Link' })
-map('v', '<A-~>', function() open(get_visual_selection()) end, { desc = 'Open Path/Link' })
+map('n', '<A-~>', function() open(vim.fn.expand('<cfile>')) end, { desc = open_desc })
+map('v', '<A-~>', function() open(get_visual_selection()) end, { desc = open_desc })
 -- map('v', '<A-~>', 'gx', { remap = true, desc = 'Open Link' })
 -- stylua: ignore end
 
 -- Abbreviations
-map('ia', '#!!', [["#!/usr/bin/env" . (empty(&filetype) ? '' : ' '.&filetype)]], { expr = true })
+map('ia', '#!!', [['#!/usr/bin/env ' . (empty(&filetype) ? 'sh' : &filetype)]], { expr = true })
 local abbrevs = { 'E', 'Bd', 'Sp', 'Vs', 'Q', 'Q!', 'Qa', 'QA', 'QA!', 'W', 'W!', 'Wq', 'WQ', 'Wqa', 'WQa', 'WQA' }
 for _, abbr in ipairs(abbrevs) do
     map('ca', abbr, abbr:lower())
