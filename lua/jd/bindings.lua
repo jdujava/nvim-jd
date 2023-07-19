@@ -23,9 +23,9 @@ map('n', '<A-q>', '<C-w>c')
 map('n', '<A-Q>', '<CMD>wa | %bdelete<CR>')
 map('n', '<A-x>', '<CMD>bd<CR>')
 map('n', '<A-X>', '<CMD>edit #<CR>')
-map('n', '<A-w>', '<CMD>update<CR>')
 map('n', '<A-s>', '<CMD>vsp | edit #<CR>')
 map('n', 'Z', '<CMD>wqa<CR>')
+map({ 'i', 'v', 'n', 's' }, '<A-w>', '<CMD>w<CR><ESC>')
 
 -- Clear search with <esc>
 map('n', '<esc>', '<cmd>noh<cr><esc>')
