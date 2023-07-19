@@ -70,8 +70,39 @@ return {
                 -- { filter = { event = "msg_show", kind = "wmsg", find = "BOTTOM" }, opts = { skip = true } }, -- search reached BOTTOM
                 -- { filter = { event = "msg_show", kind = "emsg", find = "E353" },   opts = { skip = true } },
                 { view = 'notify', filter = { event = 'msg_showmode' } }, -- notify start of macro recorging
+                {
+                    filter = {
+                        event = "msg_show",
+                        any = {
+                            { find = "%d+L, %d+B" },
+                            { find = "; after #%d+" },
+                            { find = "; before #%d+" },
+                            { find = "Already at newest change" },
+                            { find = "Already at oldest change" },
+                        },
+                    },
+                    view = "mini",
+                },
             },
         },
+    },
+
+    -- better vim.ui
+    {
+        'stevearc/dressing.nvim',
+        lazy = true,
+        init = function()
+            ---@diagnostic disable-next-line: duplicate-set-field
+            vim.ui.select = function(...)
+                require('lazy').load({ plugins = { 'dressing.nvim' } })
+                return vim.ui.select(...)
+            end
+            ---@diagnostic disable-next-line: duplicate-set-field
+            vim.ui.input = function(...)
+                require('lazy').load({ plugins = { 'dressing.nvim' } })
+                return vim.ui.input(...)
+            end
+        end,
     },
 
     {
