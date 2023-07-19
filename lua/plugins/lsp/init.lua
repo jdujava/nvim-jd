@@ -232,6 +232,7 @@ return {
         'williamboman/mason.nvim',
         cmd = 'Mason',
         keys = { { '<leader>m', '<cmd>Mason<cr>', desc = 'Mason' } },
+        build = ':MasonUpdate',
         opts = {
             ui = {
                 border = 'rounded',
@@ -249,6 +250,7 @@ return {
                 'ltex-ls',
                 'texlab',
                 'shfmt',
+                'black',
             },
         },
         ---@param opts MasonSettings | {ensure_installed: string[]}

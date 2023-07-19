@@ -7,11 +7,6 @@ return {
 
     { 'tpope/vim-unimpaired', event = 'VeryLazy' },
     { 'tpope/vim-repeat', event = 'VeryLazy' },
-
-    { 'delphinus/artify.nvim', event = 'VeryLazy' },
-    -- require('artify')('foo', 'bold') --> 𝐟𝐨𝐨
-    -- require('artify')('foo', 'italic') --> 𝑓𝑜𝑜
-    -- require('artify')('foo', 'monospace') --> 𝚏𝚘𝚘
-
     { 'tjdevries/sPoNGe-BoB.NvIm', event = 'VeryLazy' },
+    { 'lewis6991/whatthejump.nvim', event = 'VeryLazy' },
 }

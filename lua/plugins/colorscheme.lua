@@ -17,6 +17,7 @@ return {
 
                 c.border = c.dark3
                 c.bg_visual = c.dark3
+                -- c.bg_float = c.bg_highlight
 
                 c.diff = {
                     add = util.darken(c.green2, 0.35),
@@ -33,7 +34,7 @@ return {
                 hl['@operator'] = { fg = c.magenta }
                 hl['@parameter'] = { fg = c.yellow2 }
                 hl.TreesitterContext = { bg = c.bg_context }
-                hl.Search = { bg = c.dark4, underline = true }
+                hl.Search = { bg = c.dark3, underline = false }
                 hl.IncSearch = { bg = c.dark4, underline = true }
                 hl.MatchParen = { bg = c.dark3, bold = true }
                 hl.DiagnosticUnnecessary = { link = 'DiagnosticUnderlineHint' }
@@ -49,6 +50,8 @@ return {
                 -- hl.DiffText = { bg = c.diff.text }
                 hl.LazyH1 = { fg = c.bg_dark, bg = c.orange }
 
+                -- hl.TelescopeBorder = { fg = c.border_highlight, bg = c.none }
+                -- hl.TelescopeNormal = { fg = c.fg, bg = c.none }
                 hl.TelescopeSelection = { bg = c.bg_context, bold = true }
                 hl.TelescopeSelectionCaret = { fg = c.purple, bg = c.bg_context }
 
@@ -56,6 +59,8 @@ return {
                 hl.PmenuThumb = { bg = c.border_highlight }
                 hl.PmenuSel = { bg = c.bg_highlight, bold = true }
                 hl.FloatermBorder = hl.FloatBorder
+
+                hl.MsgArea = { bg = c.bg_highlight }
 
                 hl.LspInlayHint = { fg = c.dark4 }
 
@@ -107,6 +112,8 @@ return {
 
             require('tokyonight').load(opts) -- load custom style
             -- require("tokyonight").load() -- default style
+
+            -- require('simple-line.colors').setup() -- reload simple-line colors
         end,
     },
     -- colorizer
