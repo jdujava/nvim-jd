@@ -13,18 +13,12 @@ return {
         },
         ---@type TSConfig
         opts = {
-            highlight = {
-                enable = true, -- false will disable the whole extension
-                disable = { 'tex', 'latex' }, -- list of language that will be disabled
-            },
-            matchup = {
-                enable = true,
-            },
+            highlight = { enable = true },
+            matchup = { enable = true },
             indent = { enable = true },
             context_commentstring = { enable = true, enable_autocmd = false },
             ensure_installed = {
                 'bash',
-                'bibtex',
                 'c',
                 'cmake',
                 -- "comment", -- comments are slowing down TS bigtime, so disable for now
@@ -40,7 +34,6 @@ return {
                 'java',
                 'javascript',
                 'json',
-                'latex',
                 'lua',
                 'luap',
                 'make',

@@ -121,7 +121,7 @@ map('n', '<leader>X', cmds.saveandexec, { desc = 'Save&Exec' })
 -- stylua: ignore start
 
 -- Toggle options
-local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
+local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 2
 local function toggle(...) require('lazyvim.util').toggle(...) end
 map('n', '<leader>uc', function() toggle('conceallevel', false, { 0, conceallevel }) end, { desc = 'Toggle Conceal' })
 map('n', '<leader>uw', function() toggle('wrap') end,                                     { desc = 'Toggle Word Wrap' })
