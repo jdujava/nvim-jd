@@ -10,22 +10,27 @@ return {
                     gitdir = vim.env.HOME .. '/.config/baredots',
                 },
             },
-            -- stylua: ignore
-            on_attach = function(bufnr)
-                local gs = require('gitsigns')
-                local map = vim.keymap.set
-                map('n', ']c',         gs.next_hunk,                                 { buffer = bufnr, desc = 'Git next hunk' })
-                map('n', '[c',         gs.prev_hunk,                                 { buffer = bufnr, desc = 'Git previous hunk' })
-                map('n', '<leader>hs', gs.stage_hunk,                                { buffer = bufnr, desc = 'Git stage hunk' })
-                map('n', '<leader>hS', gs.stage_buffer,                              { buffer = bufnr, desc = 'Git stage buffer' })
-                map('n', '<leader>hr', gs.reset_hunk,                                { buffer = bufnr, desc = 'Git reset hunk' })
-                map('n', '<leader>hR', gs.reset_buffer,                              { buffer = bufnr, desc = 'Git reset buffer' })
-                map('n', '<leader>hp', gs.preview_hunk,                              { buffer = bufnr, desc = 'Git preview hunk' })
-                map('n', '<leader>hd', gs.diffthis,                                  { buffer = bufnr, desc = 'Git diff buffer' })
-                map('n', '<leader>hD', gs.toggle_deleted,                            { buffer = bufnr, desc = 'Git toggle deleted' })
-                map('n', '<leader>hB', gs.toggle_current_line_blame,                 { buffer = bufnr, desc = 'Git toggle current line blame' })
-                map('n', '<leader>hb', function() gs.blame_line { full = true } end, { buffer = bufnr, desc = 'Git blame line' })
-                map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>',            { buffer = bufnr, desc = 'Git select hunk' })
+            on_attach = function(buffer)
+                local gs = package.loaded.gitsigns
+
+                local function map(mode, l, r, desc)
+                    vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+                end
+
+                -- stylua: ignore start
+                map('n', ']c',         gs.next_hunk,                                 'Git next hunk')
+                map('n', '[c',         gs.prev_hunk,                                 'Git previous hunk')
+                map('n', '<leader>hs', gs.stage_hunk,                                'Git stage hunk')
+                map('n', '<leader>hu', gs.undo_stage_hunk,                           'Git undo stage hunk')
+                map('n', '<leader>hS', gs.stage_buffer,                              'Git stage buffer')
+                map('n', '<leader>hr', gs.reset_hunk,                                'Git reset hunk')
+                map('n', '<leader>hR', gs.reset_buffer,                              'Git reset buffer')
+                map('n', '<leader>hp', gs.preview_hunk,                              'Git preview hunk')
+                map('n', '<leader>hd', gs.diffthis,                                  'Git diff buffer')
+                map('n', '<leader>hD', gs.toggle_deleted,                            'Git toggle deleted')
+                map('n', '<leader>hB', gs.toggle_current_line_blame,                 'Git toggle current line blame')
+                map('n', '<leader>hb', function() gs.blame_line { full = true } end, 'Git blame line')
+                map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>',            'Git select hunk')
             end,
         },
     },

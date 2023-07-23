@@ -1,0 +1,29 @@
+From 6d24f0d799d92d91f746f967a529c90428e7e09d Mon Sep 17 00:00:00 2001
+From: Jonas Dujava <jonas.dujava@gmail.com>
+Date: Sun, 23 Jul 2023 18:30:41 +0200
+Subject: [PATCH 2/2] enable ueberzug previews in lf (in neovim)
+
+---
+ autoload/floaterm/wrapper/lf.vim | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/autoload/floaterm/wrapper/lf.vim b/autoload/floaterm/wrapper/lf.vim
+index 79dbd7f..03a4440 100644
+--- a/autoload/floaterm/wrapper/lf.vim
++++ b/autoload/floaterm/wrapper/lf.vim
+@@ -10,8 +10,11 @@ function! floaterm#wrapper#lf#(cmd, jobopts, config) abort
+   " let original_dir = getcwd()
+   " lcd %:p:h
+ 
++  " uncomment to disable ueberzug previews in neovim
++  " unlet $FIFO_UEBERZUG
++
+   let cmdlist = split(a:cmd)
+-  let cmd = 'lf -selection-path="' . s:lf_tmpfile . '"'
++  let cmd = 'lfimg -selection-path="' . s:lf_tmpfile . '"'
+   if len(cmdlist) > 1
+     let cmd .= ' ' . join(cmdlist[1:], ' ')
+   else
+-- 
+2.41.0
+

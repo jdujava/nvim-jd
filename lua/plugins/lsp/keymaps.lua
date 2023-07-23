@@ -108,9 +108,6 @@ function M.on_attach(client, buffer)
             vim.keymap.set(keys.mode or 'n', keys[1], keys[2], opts)
         end
     end
-
-    -- remap hover key for lua/vim and tex files
-    M.remap_hover(client, buffer)
 end
 
 function M.diagnostic_goto(next, severity)
@@ -121,46 +118,40 @@ function M.diagnostic_goto(next, severity)
     end
 end
 
-function M.remap_hover(client, buffer)
-    if vim.bo.filetype == 'tex' then
-        vim.keymap.set('n', 'gK', '<CMD>VimtexDocPackage<CR>', { buffer = true, desc = 'LaTeX Package Documentation' })
-    elseif vim.bo.filetype == 'lua' or vim.bo.filetype == 'vim' then
-        vim.keymap.set('n', 'K', function()
-            local original_iskeyword = vim.bo.iskeyword
+function M.lua_hover()
+    local original_iskeyword = vim.bo.iskeyword
 
-            vim.bo.iskeyword = vim.bo.iskeyword .. ',.'
-            local word = vim.fn.expand('<cword>')
+    vim.bo.iskeyword = vim.bo.iskeyword .. ',.'
+    local word = vim.fn.expand('<cword>')
 
-            vim.bo.iskeyword = original_iskeyword
+    vim.bo.iskeyword = original_iskeyword
 
-            -- TODO: This is kind of a lame hack... since you could rename `vim.api` -> `a` or similar
-            if string.find(word, 'vim.api') then
-                local _, finish = string.find(word, 'vim.api.')
-                local api_function = string.sub(word, finish + 1)
+    -- TODO: This is kind of a lame hack... since you could rename `vim.api` -> `a` or similar
+    if string.find(word, 'vim.api') then
+        local _, finish = string.find(word, 'vim.api.')
+        local api_function = string.sub(word, finish + 1)
 
-                vim.cmd.help(api_function)
-                return
-            elseif string.find(word, 'vim.fn') then
-                local _, finish = string.find(word, 'vim.fn.')
-                local api_function = string.sub(word, finish + 1) .. '()'
+        vim.cmd.help(api_function)
+        return
+    elseif string.find(word, 'vim.fn') then
+        local _, finish = string.find(word, 'vim.fn.')
+        local api_function = string.sub(word, finish + 1) .. '()'
 
-                vim.cmd.help(api_function)
-                return
-            else
-                -- TODO: This should be exact match only. Not sure how to do that with `:help`
-                -- TODO: Let users determine how magical they want the help finding to be
-                local ok = pcall(vim.cmd.help, word)
+        vim.cmd.help(api_function)
+        return
+    else
+        -- TODO: This should be exact match only. Not sure how to do that with `:help`
+        -- TODO: Let users determine how magical they want the help finding to be
+        local ok = pcall(vim.cmd.help, word)
 
-                if not ok then
-                    local split_word = vim.split(word, '.', { plain = true })
-                    ok = pcall(vim.cmd.help, split_word[#split_word])
-                end
+        if not ok then
+            local split_word = vim.split(word, '.', { plain = true })
+            ok = pcall(vim.cmd.help, split_word[#split_word])
+        end
 
-                if not ok and client.server_capabilities['hoverProvider'] then
-                    vim.lsp.buf.hover()
-                end
-            end
-        end, { buffer = buffer, desc = 'NeoVim help or Lua Hover' })
+        if not ok then
+            vim.lsp.buf.hover()
+        end
     end
 end
 

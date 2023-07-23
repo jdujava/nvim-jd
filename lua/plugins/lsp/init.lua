@@ -63,7 +63,10 @@ return {
                     -- Use this to add any additional keymaps
                     -- for specific lsp servers
                     ---@type LazyKeys[]
-                    -- keys = {},
+                    keys = {
+                        -- stylua: ignore
+                        { 'K', function() require('plugins.lsp.keymaps').lua_hover() end, desc = 'NeoVim help or Lua Hover' },
+                    },
                     settings = {
                         Lua = {
                             diagnostics = {
