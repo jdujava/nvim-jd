@@ -57,6 +57,11 @@ return {
                     keys = {
                         { 'gK', '<plug>(vimtex-doc-package)', desc = 'Vimtex Docs', silent = true },
                     },
+                    settings = {
+                        texlab = {
+                            auxDirectory = '.aux',
+                        },
+                    },
                 },
             },
         },
