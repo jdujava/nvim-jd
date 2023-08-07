@@ -63,6 +63,7 @@ return {
                 hl.MsgArea = { bg = c.bg_highlight }
 
                 hl.LspInlayHint = { fg = c.dark4 }
+                hl.MatchupVirtualText = { fg = c.dark5 }
 
                 hl['@neorg.tags.ranged_verbatim.code_block'] = { bg = '#1a1a1a' }
                 hl['@label.markdown'] = { link = 'NonText' }

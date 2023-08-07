@@ -28,6 +28,8 @@ return {
                 show_help = 0,
                 todo_sorted = 0,
             }
+
+            vim.g.vimtex_quickfix_ignore_filters = { [[but the package provides `simpler-wick']] }
         end,
     },
 
