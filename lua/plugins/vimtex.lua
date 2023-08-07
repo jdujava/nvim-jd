@@ -59,7 +59,10 @@ return {
                     },
                     settings = {
                         texlab = {
-                            auxDirectory = '.aux',
+                            build = {
+                                auxDirectory = '.aux',
+                                logDirectory = '.aux',
+                            },
                         },
                     },
                 },
