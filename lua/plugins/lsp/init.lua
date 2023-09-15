@@ -76,10 +76,6 @@ return {
                             workspace = {
                                 checkThirdParty = false,
                             },
-                            -- Do not send telemetry data containing a randomized but unique identifier
-                            telemetry = {
-                                enable = false,
-                            },
                             hint = {
                                 enable = true,
                                 setType = false,
@@ -215,7 +211,7 @@ return {
             return {
                 root_dir = require('null-ls.utils').root_pattern('.null-ls-root', '.neoconf.json', 'Makefile', '.git'),
                 sources = {
-                    nls.builtins.formatting.latexindent,
+                    nls.builtins.formatting.latexindent.with({ extra_args = { '-c', './.aux' } }),
                     nls.builtins.formatting.stylua,
                     nls.builtins.formatting.shfmt.with({ extra_args = { '-i', '4' } }),
                     nls.builtins.code_actions.gitsigns.with({

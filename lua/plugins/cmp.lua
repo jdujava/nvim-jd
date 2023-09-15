@@ -20,6 +20,7 @@ return {
                 'Search:None',
             }, ',')
 
+            ---@diagnostic disable: missing-fields
             cmp.setup({
                 completeopt = vim.o.completeopt,
                 completion = {

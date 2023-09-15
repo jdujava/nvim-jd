@@ -64,6 +64,11 @@ return {
                             build = {
                                 auxDirectory = '.aux',
                                 logDirectory = '.aux',
+                                pdfDirectory = '.',
+                            },
+                            forwardSearch = {
+                                args = { '--synctex-forward', '%l:1:%f', '%p' },
+                                executable = 'zathura',
                             },
                         },
                     },

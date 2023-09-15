@@ -23,7 +23,7 @@ au('VimResized', {
 })
 
 -- Disable automatic commenting on newline
-au({ 'BufEnter', 'BufRead' }, {
+au({ 'BufNew', 'BufEnter', 'BufRead' }, {
     group = gr('formatoptions'),
     callback = function()
         vim.opt.formatoptions = vim.opt.formatoptions
