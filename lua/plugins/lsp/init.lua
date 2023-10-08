@@ -62,7 +62,7 @@ return {
                     -- mason = false, -- set to false if you don't want this server to be installed with mason
                     -- Use this to add any additional keymaps
                     -- for specific lsp servers
-                    ---@type LazyKeys[]
+                    ---@type LazyKeysSpec[]
                     keys = {
                         -- stylua: ignore
                         { 'K', function() require('plugins.lsp.keymaps').lua_hover() end, desc = 'NeoVim help or Lua Hover' },
@@ -145,16 +145,17 @@ return {
                     end
                 end
             end
+
             vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
             require('lspconfig.ui.windows').default_options.border = 'rounded'
 
-            -- setup servers
             local servers = opts.servers
+            local has_cmp, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
             local capabilities = vim.tbl_deep_extend(
                 'force',
                 {},
                 vim.lsp.protocol.make_client_capabilities(),
-                require('cmp_nvim_lsp').default_capabilities(),
+                has_cmp and cmp_nvim_lsp.default_capabilities() or {},
                 opts.capabilities or {}
             )
 
@@ -175,7 +176,7 @@ return {
                 require('lspconfig')[server].setup(server_opts)
             end
 
-            -- get all the servers that are available thourgh mason-lspconfig
+            -- get all the servers that are available through mason-lspconfig
             local have_mason, mlsp = pcall(require, 'mason-lspconfig')
             local all_mslp_servers = {}
             if have_mason then

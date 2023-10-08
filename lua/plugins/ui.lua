@@ -152,6 +152,7 @@ return {
             indent = {
                 -- char = "▏",
                 char = '│',
+                tab_char = '│',
             },
             exclude = {
                 filetypes = {

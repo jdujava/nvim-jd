@@ -25,7 +25,10 @@ map('n', '<A-x>', '<CMD>bd<CR>')
 map('n', '<A-X>', '<CMD>edit #<CR>')
 map('n', '<A-s>', '<CMD>vsp | edit #<CR>')
 map('n', 'Z', '<CMD>wqa<CR>')
-map({ 'i', 'x', 'n', 's' }, '<A-w>', '<CMD>w<CR><ESC>')
+map({ 'i', 'v', 'n', 's' }, '<A-w>', '<CMD>w<CR><ESC>')
+
+-- highlights under cursor
+map('n', '<leader>ui', vim.show_pos, { desc = 'Inspect Pos' })
 
 -- Clear search with <esc>
 map('n', '<esc>', '<cmd>noh<cr><esc>')
@@ -117,6 +120,11 @@ map('n', '<leader>x', cmds.executor, { desc = 'Executor' })
 -- map('n', '<leader>x', function() helpers.R('jd.cmds').executor() end, { desc = "Executor" })
 map('n', '<leader><leader>x', cmds.saveandexec, { desc = 'Save&Exec' })
 map('n', '<leader>X', cmds.saveandexec, { desc = 'Save&Exec' })
+
+-- Formatting
+map({ 'n', 'v' }, 'gF', function()
+    require('lazyvim.plugins.lsp.format').format({ force = true })
+end, { desc = 'Format' })
 
 -- stylua: ignore start
 

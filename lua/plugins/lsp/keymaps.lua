@@ -1,64 +1,47 @@
 local M = {}
 
----@type PluginLspKeys
+---@type LazyKeysLspSpec[]|nil
 M._keys = nil
 
----@return (LazyKeys|{has?:string})[]
+---@alias LazyKeysLspSpec LazyKeysSpec|{has?:string}
+---@alias LazyKeysLsp LazyKeys|{has?:string}
+
+---@return LazyKeysLspSpec[]
 function M.get()
-    local format = function()
-        require("lazyvim.plugins.lsp.format").format({ force = true })
+    if M._keys then
+        return M._keys
     end
-    if not M._keys then
-        ---@class PluginLspKeys
-        -- stylua: ignore
-        M._keys = {
-            { '<leader>vd', vim.diagnostic.open_float, desc = 'Line Diagnostics' },
-            { '<leader>vD', vim.diagnostic.setloclist, desc = 'Diagnostics to LocList' },
-            { '<leader>vi', '<cmd>LspInfo<cr>',        desc = 'Lsp Info' },
-            { 'gw', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', desc = 'Workspace Symbols' },
-            { 'gd', function() require('telescope.builtin').lsp_definitions({ reuse_win = true }) end, desc = 'Goto Definition', has = 'definition' },
-            { 'gr', '<cmd>Telescope lsp_references<cr>',        desc = 'References' },
-            { 'gD', vim.lsp.buf.declaration,                    desc = 'Goto Declaration' },
-            { 'gI', function() require('telescope.builtin').lsp_implementations({ reuse_win = true }) end,  desc = 'Goto Implementation' },
-            { 'gT', function() require('telescope.builtin').lsp_type_definitions({ reuse_win = true }) end, desc = 'Goto Type Definition' },
-            { 'K',  vim.lsp.buf.hover,                          desc = 'Hover', has = 'hover' },
-            { 'gK', vim.lsp.buf.hover,                          desc = 'Hover', has = 'hover' },
-            { 'gS', vim.lsp.buf.signature_help,                 desc = 'Signature Help', has = 'signatureHelp' },
-            { '<c-s>', vim.lsp.buf.signature_help, mode = 'i',  desc = 'Signature Help', has = 'signatureHelp' },
-            { ']d', M.diagnostic_goto(true),                    desc = 'Next Diagnostic' },
-            { '[d', M.diagnostic_goto(false),                   desc = 'Prev Diagnostic' },
-            { ']e', M.diagnostic_goto(true,  'ERROR'),          desc = 'Next Error' },
-            { '[e', M.diagnostic_goto(false, 'ERROR'),          desc = 'Prev Error' },
-            { ']w', M.diagnostic_goto(true,  'WARN'),           desc = 'Next Warning' },
-            { '[w', M.diagnostic_goto(false, 'WARN'),           desc = 'Prev Warning' },
-            { 'gF', format,                                     desc = 'Format Document', has = 'formatting' },
-            { 'gF', format, mode = 'v',                         desc = 'Format Range', has = 'rangeFormatting' },
-            { 'gR', vim.lsp.buf.rename,                         desc = 'Rename', has = 'rename' },
-            { 'gA', vim.lsp.buf.code_action, mode = { 'n', 'v' },  desc = 'Code Action', has = 'codeAction' },
-            {
-                '<leader>vA',
-                function()
-                    vim.lsp.buf.code_action({
-                        context = {
-                            only = {
-                                'source',
-                            },
-                            diagnostics = {},
-                        },
-                    })
-                end,
-                desc = 'Source Action',
-                has = 'codeAction',
-            },
-        }
-    end
+    -- stylua: ignore
+    M._keys = {
+        { '<leader>vd', vim.diagnostic.open_float, desc = 'Line Diagnostics' },
+        { '<leader>vD', vim.diagnostic.setloclist, desc = 'Diagnostics to LocList' },
+        { '<leader>vi', '<cmd>LspInfo<cr>',        desc = 'Lsp Info' },
+        { 'gw', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', desc = 'Workspace Symbols' },
+        { 'gd', function() require('telescope.builtin').lsp_definitions({ reuse_win = true }) end, desc = 'Goto Definition', has = 'definition' },
+        { 'gr', '<cmd>Telescope lsp_references<cr>',        desc = 'References' },
+        { 'gD', vim.lsp.buf.declaration,                    desc = 'Goto Declaration' },
+        { 'gI', function() require('telescope.builtin').lsp_implementations({ reuse_win = true }) end,  desc = 'Goto Implementation' },
+        { 'gT', function() require('telescope.builtin').lsp_type_definitions({ reuse_win = true }) end, desc = 'Goto Type Definition' },
+        { 'K',  vim.lsp.buf.hover,                          desc = 'Hover', has = 'hover' },
+        { 'gK', vim.lsp.buf.hover,                          desc = 'Hover', has = 'hover' },
+        { 'gS', vim.lsp.buf.signature_help,                 desc = 'Signature Help', has = 'signatureHelp' },
+        { '<c-s>', vim.lsp.buf.signature_help, mode = 'i',  desc = 'Signature Help', has = 'signatureHelp' },
+        { ']d', M.diagnostic_goto(true),                    desc = 'Next Diagnostic' },
+        { '[d', M.diagnostic_goto(false),                   desc = 'Prev Diagnostic' },
+        { ']e', M.diagnostic_goto(true,  'ERROR'),          desc = 'Next Error' },
+        { '[e', M.diagnostic_goto(false, 'ERROR'),          desc = 'Prev Error' },
+        { ']w', M.diagnostic_goto(true,  'WARN'),           desc = 'Next Warning' },
+        { '[w', M.diagnostic_goto(false, 'WARN'),           desc = 'Prev Warning' },
+        { 'gR', vim.lsp.buf.rename,                         desc = 'Rename', has = 'rename' },
+        { 'gA', vim.lsp.buf.code_action, mode = { 'n', 'v' },  desc = 'Code Action', has = 'codeAction' },
+    }
     return M._keys
 end
 
 ---@param method string
 function M.has(buffer, method)
     method = method:find('/') and method or 'textDocument/' .. method
-    local clients = vim.lsp.get_active_clients({ bufnr = buffer })
+    local clients = require('lazyvim.util').get_clients({ bufnr = buffer })
     for _, client in ipairs(clients) do
         if client.supports_method(method) then
             return true
@@ -67,45 +50,33 @@ function M.has(buffer, method)
     return false
 end
 
+---@return (LazyKeys|{has?:string})[]
 function M.resolve(buffer)
     local Keys = require('lazy.core.handler.keys')
-    local keymaps = {} ---@type table<string,LazyKeys|{has?:string}>
-
-    local function add(keymap)
-        local keys = Keys.parse(keymap)
-        if keys[2] == false then
-            keymaps[keys.id] = nil
-        else
-            keymaps[keys.id] = keys
-        end
+    if not Keys.resolve then
+        return {}
     end
-    for _, keymap in ipairs(M.get()) do
-        add(keymap)
-    end
-
+    local spec = M.get()
     local opts = require('lazyvim.util').opts('nvim-lspconfig')
-    local clients = vim.lsp.get_active_clients({ bufnr = buffer })
+    local clients = require('lazyvim.util').get_clients({ bufnr = buffer })
     for _, client in ipairs(clients) do
         local maps = opts.servers[client.name] and opts.servers[client.name].keys or {}
-        for _, keymap in ipairs(maps) do
-            add(keymap)
-        end
+        vim.list_extend(spec, maps)
     end
-    return keymaps
+    return Keys.resolve(spec)
 end
 
-function M.on_attach(client, buffer)
+function M.on_attach(_, buffer)
     local Keys = require('lazy.core.handler.keys')
     local keymaps = M.resolve(buffer)
 
     for _, keys in pairs(keymaps) do
         if not keys.has or M.has(buffer, keys.has) then
             local opts = Keys.opts(keys)
-            ---@diagnostic disable-next-line: no-unknown
             opts.has = nil
             opts.silent = opts.silent ~= false
             opts.buffer = buffer
-            vim.keymap.set(keys.mode or 'n', keys[1], keys[2], opts)
+            vim.keymap.set(keys.mode or 'n', keys.lhs, keys.rhs, opts)
         end
     end
 end
