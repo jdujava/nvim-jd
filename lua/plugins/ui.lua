@@ -1,6 +1,7 @@
 return {
     {
         'rcarriga/nvim-notify',
+        pin = true, -- pin to a specific (custom) commit
         event = 'VeryLazy',
         opts = {
             background_colour = '#000000',

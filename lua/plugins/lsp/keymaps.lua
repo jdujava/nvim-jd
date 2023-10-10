@@ -93,7 +93,7 @@ function M.lua_hover()
     local original_iskeyword = vim.bo.iskeyword
 
     vim.bo.iskeyword = vim.bo.iskeyword .. ',.'
-    local word = vim.fn.expand('<cword>')
+    local word = vim.fn.expand('<cword>') --[[@as string]]
 
     vim.bo.iskeyword = original_iskeyword
 

@@ -12,6 +12,7 @@ return {
             'nvim-treesitter/nvim-treesitter-textobjects',
         },
         ---@type TSConfig
+        ---@diagnostic disable-next-line: missing-fields
         opts = {
             highlight = { enable = true },
             matchup = { enable = true },

@@ -148,7 +148,7 @@ map('n', '<leader>uf', function() require('lazyvim.plugins.lsp.format').toggle()
 local function get_visual_selection()
     local save_a = vim.fn.getreginfo('a')
     vim.cmd([[norm! "ay]])
-    local selection = vim.fn.getreg('a', 1)
+    local selection = vim.fn.getreg('a', 1) --[[@as string]]
     vim.fn.setreg('a', save_a)
     return selection
 end
@@ -162,7 +162,7 @@ local function open(uri)
     end
 end
 -- stylua: ignore start
-map('n', '<A-~>', function() open(vim.fn.expand('<cfile>')) end, { desc = open_desc })
+map('n', '<A-~>', function() open(vim.fn.expand('<cfile>') --[[@as string]] ) end, { desc = open_desc })
 map('v', '<A-~>', function() open(get_visual_selection()) end, { desc = open_desc })
 -- map('v', '<A-~>', 'gx', { remap = true, desc = 'Open Link' })
 -- stylua: ignore end

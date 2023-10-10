@@ -19,6 +19,6 @@ return {
     {
         dir = vim.fn.stdpath('config') .. '/lua/jd/simple-line/',
         lazy = false,
-        opts = true,
+        opts = {},
     },
 }

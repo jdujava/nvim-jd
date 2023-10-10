@@ -1,0 +1,29 @@
+From c88f6e0b71d0264ebc93a52e058bec30842f8ada Mon Sep 17 00:00:00 2001
+From: Jonas Dujava <jonas.dujava@gmail.com>
+Date: Tue, 10 Oct 2023 17:05:11 +0200
+Subject: [PATCH 2/2] WIP
+
+---
+ lua/notify/stages/static.lua | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/lua/notify/stages/static.lua b/lua/notify/stages/static.lua
+index de05cdc..67f3c9e 100644
+--- a/lua/notify/stages/static.lua
++++ b/lua/notify/stages/static.lua
+@@ -19,10 +19,11 @@ return function(direction)
+         style = "minimal",
+       }
+     end,
+-    function()
++    function(state, win)
+       return {
+         col = vim.opt.columns:get(),
+         time = true,
++        row = stages_util.slot_after_previous(win, state.open_windows, direction),
+       }
+     end,
+   }
+-- 
+2.42.0
+

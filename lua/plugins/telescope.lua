@@ -4,8 +4,8 @@ return {
         event = 'VeryLazy',
         priority = 100,
         dependencies = {
-            'nvim-lua/plenary.nvim',
-            { 'nvim-telescope/telescope-frecency.nvim', dependencies = { 'tami5/sqlite.lua' } },
+            { 'nvim-lua/plenary.nvim' },
+            { 'nvim-telescope/telescope-frecency.nvim' },
             { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
             { 'fhill2/telescope-ultisnips.nvim' },
             { 'nvim-telescope/telescope-ui-select.nvim' },
@@ -152,8 +152,6 @@ return {
             require('telescope').load_extension('ultisnips')
             require('telescope').load_extension('ui-select')
             require('telescope').load_extension('notify')
-            -- require('plugins.telescope.setup')
-            -- require('plugins.telescope.mappings')
         end,
     },
 }
