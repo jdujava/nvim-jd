@@ -1,7 +1,8 @@
 -- This file is automatically loaded by plugins.core
 local cmds = require('jd.cmds')
 local helpers = require('jd.helpers')
-local Util = require('lazy.core.util')
+local lazy_util = require('lazy.core.util')
+local Util = require('lazyvim.util')
 
 local function map(mode, lhs, rhs, opts)
     opts = opts or {}
@@ -123,21 +124,22 @@ map('n', '<leader>X', cmds.saveandexec, { desc = 'Save&Exec' })
 
 -- Formatting
 map({ 'n', 'v' }, 'gF', function()
-    require('lazyvim.plugins.lsp.format').format({ force = true })
+    Util.format({ force = true })
 end, { desc = 'Format' })
 
 -- stylua: ignore start
 
 -- Toggle options
+map('n', '<leader>uf', function() Util.format.toggle() end,          { desc = 'Toggle auto format (global)' })
+map('n', '<leader>uF', function() Util.format.toggle(true) end,      { desc = 'Toggle auto format (buffer)' })
+map('n', '<leader>uw', function() Util.toggle('wrap') end,           { desc = 'Toggle Word Wrap' })
+map('n', '<leader>uL', function() Util.toggle('relativenumber') end, { desc = 'Toggle Line Numbers' })
+map('n', '<leader>ul', function() Util.toggle.number() end,          { desc = 'Toggle Line Numbers' })
+map('n', '<leader><leader>s', function() Util.toggle('spell') end,   { desc = 'Toggle Spelling' })
+map('n', '<leader>ud', function() helpers.toggle_diagnostics() end,  { desc = 'Toggle Diagnostics' })
+map('n', '<leader>uh', function() vim.lsp.inlay_hint(0, nil) end,    { desc = 'Toggle Inlay Hints' })
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 2
-local function toggle(...) require('lazyvim.util').toggle(...) end
-map('n', '<leader>uc', function() toggle('conceallevel', false, { 0, conceallevel }) end, { desc = 'Toggle Conceal' })
-map('n', '<leader>uw', function() toggle('wrap') end,                                     { desc = 'Toggle Word Wrap' })
-map('n', '<leader>ul', function() toggle('relativenumber', true) toggle('number') end,    { desc = 'Toggle Line Numbers' })
-map('n', '<leader><leader>s', function() toggle('spell') end,                             { desc = 'Toggle Spelling' })
-map('n', '<leader>ud', helpers.toggle_diagnostics,                                        { desc = 'Toggle Diagnostics' })
-map('n', '<leader>uh', function() vim.lsp.inlay_hint(0, nil) end,                         { desc = 'Toggle Inlay Hints' })
-map('n', '<leader>uf', function() require('lazyvim.plugins.lsp.format').toggle() end,     { desc = 'Toggle format on Save' })
+map('n', '<leader>uc', function() Util.toggle('conceallevel', false, { 0, conceallevel }) end, { desc = 'Toggle Conceal' })
 
 -- stylua: ignore end
 
@@ -155,10 +157,10 @@ end
 local open_desc = 'Open URI with the system default handler'
 ---@param uri string
 local function open(uri)
-    Util.info(uri, { title = 'Open URI' })
+    lazy_util.info(uri, { title = 'Open URI' })
     local _, err = vim.ui.open(uri)
     if err then
-        Util.error(err, { title = 'Open URI' })
+        lazy_util.error(err, { title = 'Open URI' })
     end
 end
 -- stylua: ignore start

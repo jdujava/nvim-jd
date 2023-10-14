@@ -7,7 +7,10 @@ end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 require('lazy').setup({
-    spec = { { import = 'plugins' } },
+    spec = {
+        { "LazyVim/LazyVim", import = "lazyvim.plugins.formatting" },
+        { import = 'plugins' },
+    },
     defaults = {
         lazy = true,
     },

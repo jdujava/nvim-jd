@@ -31,11 +31,6 @@ return {
             },
             -- add any global capabilities here
             capabilities = {},
-            -- Automatically format on save
-            autoformat = false,
-            -- Enable this to show formatters used in a notification
-            -- Useful for debugging formatter issues
-            format_notify = true,
             -- options for vim.lsp.buf.format
             -- `bufnr` and `filter` is handled by the LazyVim formatter,
             -- but can be also overridden when specified
@@ -103,9 +98,9 @@ return {
         config = function(_, opts)
             local Util = require('lazyvim.util')
             -- setup autoformat
-            require('lazyvim.plugins.lsp.format').setup(opts)
+            Util.format.register(Util.lsp.formatter())
             -- setup formatting and keymaps
-            Util.on_attach(function(client, buffer)
+            Util.lsp.on_attach(function(client, buffer)
                 require('plugins.lsp.keymaps').on_attach(client, buffer)
             end)
 
@@ -129,7 +124,7 @@ return {
             end
 
             if opts.inlay_hints.enabled then
-                Util.on_attach(function(client, buffer)
+                Util.lsp.on_attach(function(client, buffer)
                     if client.supports_method('textDocument/inlayHint') then
                         vim.lsp.inlay_hint(buffer, true)
                     end
@@ -202,30 +197,22 @@ return {
         end,
     },
 
-    -- formatters
     {
-        'nvimtools/none-ls.nvim',
-        event = { 'BufReadPre', 'BufNewFile' },
-        dependencies = { 'mason.nvim' },
-        opts = function()
-            local nls = require('null-ls')
-            return {
-                root_dir = require('null-ls.utils').root_pattern('.null-ls-root', '.neoconf.json', 'Makefile', '.git'),
-                sources = {
-                    nls.builtins.formatting.latexindent.with({ extra_args = { '-c', './.aux' } }),
-                    nls.builtins.formatting.stylua,
-                    nls.builtins.formatting.shfmt.with({ extra_args = { '-i', '4' } }),
-                    nls.builtins.code_actions.gitsigns.with({
-                        config = {
-                            filter_actions = function(title)
-                                return title:lower():match('blame') == nil -- filter out blame actions
-                            end,
-                        },
-                    }),
-                    nls.builtins.formatting.black.with({ extra_args = { '--line-length', '120' } }),
-                },
-            }
-        end,
+        'stevearc/conform.nvim',
+        opts = {
+            formatters_by_ft = {
+                tex = { 'latexindent' },
+                lua = { 'stylua' },
+                sh = { 'shfmt' },
+                python = { 'black' },
+            },
+            formatters = {
+                injected = { options = { ignore_errors = true } },
+                latexindent = { extra_args = { '-c', './.aux' } },
+                shfmt = { extra_args = { '-i', '4', '-ci' } },
+                black = { extra_args = { '--line-length', '120' } },
+            },
+        },
     },
 
     {
@@ -257,6 +244,15 @@ return {
         config = function(_, opts)
             require('mason').setup(opts)
             local mr = require('mason-registry')
+            mr:on('package:install:success', function()
+                vim.defer_fn(function()
+                    -- trigger FileType event to possibly load this newly installed LSP server
+                    require('lazy.core.handler.event').trigger({
+                        event = 'FileType',
+                        buf = vim.api.nvim_get_current_buf(),
+                    })
+                end, 100)
+            end)
             local function ensure_installed()
                 for _, tool in ipairs(opts.ensure_installed) do
                     local p = mr.get_package(tool)
