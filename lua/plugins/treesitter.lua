@@ -7,7 +7,7 @@ return {
             {
                 'nvim-treesitter/nvim-treesitter-context',
                 event = 'BufReadPre',
-                opts = {},
+                opts = { max_lines = 3 },
             },
             'nvim-treesitter/nvim-treesitter-textobjects',
         },

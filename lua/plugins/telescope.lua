@@ -59,7 +59,7 @@ return {
                 desc = 'Colorscheme with preview',
             },
             {
-                '<A-Tab>',
+                '<leader>U',
                 function()
                     require('telescope').extensions.ultisnips.ultisnips({
                         layout_strategy = 'vertical',

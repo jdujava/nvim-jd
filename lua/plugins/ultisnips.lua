@@ -6,8 +6,8 @@ return {
         keys = { { '<Leader>us', '<Cmd>UltiSnipsEdit<CR>', desc = 'Edit UltiSnipts' } },
         init = function()
             vim.g.UltiSnipsEditSplit = 'vertical'
-            vim.g.UltiSnipsExpandTrigger = '<tab>'
-            vim.g.UltiSnipsJumpForwardTrigger = '<tab>' -- exactly same as UltiSnipsExpandTrigger
+            vim.g.UltiSnipsExpandOrJumpTrigger = '<tab>'
+            vim.g.UltiSnipsJumpForwardTrigger = '<tab>'
             vim.g.UltiSnipsJumpBackwardTrigger = '<s-tab>'
         end,
     },

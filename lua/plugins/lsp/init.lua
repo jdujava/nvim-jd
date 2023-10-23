@@ -199,20 +199,34 @@ return {
 
     {
         'stevearc/conform.nvim',
-        opts = {
-            formatters_by_ft = {
-                tex = { 'latexindent' },
-                lua = { 'stylua' },
-                sh = { 'shfmt' },
-                python = { 'black' },
-            },
-            formatters = {
-                injected = { options = { ignore_errors = true } },
-                latexindent = { extra_args = { '-c', './.aux' } },
-                shfmt = { extra_args = { '-i', '4', '-ci' } },
-                black = { extra_args = { '--line-length', '120' } },
-            },
-        },
+        opts = function()
+            Util = require('conform.util')
+            local opts = {
+                format = {
+                    timeout_ms = 3000,
+                    async = false, -- not recommended to change
+                    quiet = false, -- not recommended to change
+                },
+                ---@type table<string, conform.FormatterUnit[]>
+                formatters_by_ft = {
+                    tex = { 'latexindent' },
+                    lua = { 'stylua' },
+                    sh = { 'shfmt' },
+                    python = { 'black' },
+                },
+                ---@type table<string, conform.FormatterConfigOverride|fun(bufnr: integer): nil|conform.FormatterConfigOverride>
+                formatters = {
+                    injected = { options = { ignore_errors = true } },
+                    latexindent = {
+                        cwd = Util.root_file({ '.latexmkrc', '.git' }),
+                        prepend_args = { '-c', './.aux' },
+                    },
+                    shfmt = { prepend_args = { '-i', '4', '-ci' } },
+                    black = { prepend_args = { '--line-length', '120' } },
+                },
+            }
+            return opts
+        end,
     },
 
     {

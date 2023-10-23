@@ -13,4 +13,4 @@ vim.keymap.set(
     { buffer = true, silent = true }
 )
 
-vim.keymap.set('n', '<Tab>', '<CMD>VimtexTocOpen<CR>', { buffer = true, silent = true })
+vim.keymap.set('n', '<A-Tab>', '<CMD>VimtexTocOpen<CR>', { buffer = true, silent = true })
