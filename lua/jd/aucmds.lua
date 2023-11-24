@@ -86,6 +86,7 @@ end
 --stylua: ignore start
 autoupdate({ '*/shell/folders', 'shortcuts' }, [[shortcuts]])
 autoupdate('*/st-jd/config.def.h',             [[make && sudo make install]])
+autoupdate('*/nsxiv/config.def.h',             [[make && sudo make install]])
 autoupdate('*/dwm-jd/dwm.c',                   [[make && sudo make install]])
 autoupdate('*/slstatus-jd/config.def.h',       [[make && sudo make install && killall slstatus; setsid slstatus >/dev/null 2>&1 &]])
 autoupdate('*Xresources/*',                    [[xrdb $XRESOURCES]])

@@ -58,6 +58,7 @@ return {
                 hl.CmpItemKindSnippet = { fg = c.fg_bright }
                 hl.PmenuThumb = { bg = c.border_highlight }
                 hl.PmenuSel = { bg = c.bg_highlight, bold = true }
+                hl.FloatBorder = { fg = c.border_highlight, bg = c.bg_float, blend = 0 }
                 hl.FloatermBorder = hl.FloatBorder
 
                 hl.MsgArea = { bg = c.bg_highlight }
