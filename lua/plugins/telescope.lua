@@ -6,10 +6,17 @@ return {
         dependencies = {
             { 'nvim-lua/plenary.nvim' },
             { 'nvim-telescope/telescope-frecency.nvim' },
-            { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
             { 'fhill2/telescope-ultisnips.nvim' },
-            { 'nvim-telescope/telescope-ui-select.nvim' },
             { 'rcarriga/nvim-notify' },
+            {
+                'nvim-telescope/telescope-fzf-native.nvim',
+                build = 'make',
+                config = function()
+                    require('lazyvim.util').on_load('telescope.nvim', function()
+                        require('telescope').load_extension('fzf')
+                    end)
+                end,
+            },
         },
         -- stylua: ignore
         keys = {
@@ -144,14 +151,6 @@ return {
                     },
                 },
             }
-        end,
-        config = function(_, opts)
-            require('telescope').setup(opts)
-            require('telescope').load_extension('frecency')
-            require('telescope').load_extension('fzf')
-            require('telescope').load_extension('ultisnips')
-            require('telescope').load_extension('ui-select')
-            require('telescope').load_extension('notify')
         end,
     },
 }
