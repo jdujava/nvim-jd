@@ -33,9 +33,10 @@ return {
     -- noicer ui
     {
         'folke/noice.nvim',
-        event = 'VeryLazy',
+        -- event = 'VeryLazy', -- BUG: causes blinking on startup (when directly opening a file)
+        lazy = false,
         dependencies = {
-            'MunifTanjim/nui.nvim',
+            { 'MunifTanjim/nui.nvim', lazy = true },
         },
         -- stylua: ignore
         keys = {
