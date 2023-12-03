@@ -98,8 +98,10 @@ return {
 
             -- stylua: ignore
             require('vim.treesitter.query').set('sxhkdrc', 'injections', [[
-                (command) @bash
-                (comment) @comment
+                ((command) @injection.content
+                 (#set! injection.language "sh"))
+                ((comment) @injection.content
+                 (#set! injection.language "comment"))
             ]])
         end,
     },
