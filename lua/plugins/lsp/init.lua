@@ -126,7 +126,7 @@ return {
             if opts.inlay_hints.enabled then
                 Util.lsp.on_attach(function(client, buffer)
                     if client.supports_method('textDocument/inlayHint') then
-                        vim.lsp.inlay_hint.enable(buffer, true)
+                        Util.toggle.inlay_hints(buffer, true)
                     end
                 end)
             end
@@ -200,7 +200,7 @@ return {
     {
         'stevearc/conform.nvim',
         opts = function()
-            Util = require('conform.util')
+            local Util = require('conform.util')
             local opts = {
                 format = {
                     timeout_ms = 3000,
@@ -251,7 +251,6 @@ return {
                 'ltex-ls',
                 'texlab',
                 'shfmt',
-                'black',
             },
         },
         ---@param opts MasonSettings | {ensure_installed: string[]}
