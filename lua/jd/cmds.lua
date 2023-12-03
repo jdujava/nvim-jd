@@ -8,13 +8,19 @@ function M.sudo_write()
     Util.info('File saved (as root).', { title = 'Sudo Write' })
 end
 
-function M.term_execute(command)
-    local pre = '```sh\n' .. command .. '\n```\n'
+---@param cmd string[]|string
+function M.term_execute(cmd)
+    local cmd_string = cmd
+    if type(cmd) == 'table' then
+        local s = '"' .. table.concat(cmd, '" "') .. '"'
+        cmd_string = s:gsub('"([^%s]*)"', '%1') -- remove quotes around arguments with no spaces
+    end
+    local pre = string.format('```sh\n%s\n```\n', cmd_string)
     local output = ''
     local function on_data(_, data)
         output = output .. table.concat(data, '\n')
     end
-    vim.fn.jobstart(command, {
+    vim.fn.jobstart(cmd, {
         stdout_buffered = true,
         on_stdout = on_data,
         on_stderr = on_data,

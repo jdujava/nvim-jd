@@ -111,16 +111,19 @@ map('x', '<leader>S', ':s/', { silent = false })
 
 -- Change perms -> Compile document -> Open document
 map('n', '+x', '<CMD>!chmod +x "%:p"<CR>')
-map('n', '<A-W>', '<CMD>w! | split | terminal compiler "%:p"<CR>')
-map('n', '<leader>W', '<CMD>w! | !compiler "%:p"<CR>')
-map('n', '<leader><leader>v', '<CMD>!opout "%:p"<CR><CR>')
+map('n', '<A-W>', function()
+    vim.cmd('write')
+    cmds.term_execute({ 'compiler', vim.api.nvim_buf_get_name(0) })
+end, { desc = 'Save and Compile document' })
+map('n', '<leader>W', '<CMD>w! | split | terminal compiler "%:p"<CR>')
+-- map('n', '<leader>W', '<CMD>w! | !compiler "%:p"<CR>')
+map('n', '<leader><leader>v', '<CMD>!opout "%:p"<CR><CR>', { desc = 'Open document output' })
 
 -- Commands
 map('n', '<leader>sw', cmds.sudo_write, { desc = 'SudoWrite' })
-map('n', '<leader>x', cmds.executor, { desc = 'Executor' })
--- map('n', '<leader>x', function() helpers.R('jd.cmds').executor() end, { desc = "Executor" })
-map('n', '<leader><leader>x', cmds.saveandexec, { desc = 'Save&Exec' })
-map('n', '<leader>X', cmds.saveandexec, { desc = 'Save&Exec' })
+map('n', '<leader>x', cmds.executor, { desc = 'Execute current line' })
+map('n', '<leader><leader>x', cmds.saveandexec, { desc = 'Save and Execute document' })
+map('n', '<leader>X', cmds.saveandexec, { desc = 'Save and Execute document' })
 
 -- Formatting
 map({ 'n', 'v' }, 'gF', function()
