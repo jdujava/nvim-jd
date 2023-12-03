@@ -52,7 +52,11 @@ function M.saveandexec()
     vim.cmd.write()
     if vim.bo.filetype == 'lua' or vim.bo.filetype == 'vim' then
         vim.cmd.source('%')
-        Util.info('File saved and sourced.', { title = 'Save&Exec' })
+        Util.info('File saved and Sourced.', { title = 'Save&Exec' })
+    end
+    if vim.tbl_contains({ 'sh', 'zsh', 'bash' }, vim.bo.filetype) then
+        M.term_execute(vim.api.nvim_buf_get_name(0))
+        Util.info('File saved and Executed.', { title = 'Save&Exec' })
     end
 end
 
