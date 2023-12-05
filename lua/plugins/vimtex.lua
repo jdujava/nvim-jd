@@ -61,14 +61,10 @@ return {
                     },
                     settings = {
                         texlab = {
-                            build = {
-                                auxDirectory = '.aux',
-                                logDirectory = '.aux',
-                                pdfDirectory = '.',
-                            },
                             forwardSearch = {
-                                args = { '--synctex-forward', '%l:1:%f', '%p' },
+                                -- https://github.com/latex-lsp/texlab/wiki/Previewing
                                 executable = 'zathura',
+                                args = { '--synctex-forward', '%l:1:%f', '%p' },
                             },
                         },
                     },
