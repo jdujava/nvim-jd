@@ -8,9 +8,11 @@ return {
             'hrsh7th/cmp-cmdline',
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-emoji',
-            { 'quangnguyen30192/cmp-nvim-ultisnips', dependencies = { 'ultisnips', 'nvim-treesitter' } },
+            -- WARN: ultisnips source is slow
+            -- { 'quangnguyen30192/cmp-nvim-ultisnips', dependencies = { 'ultisnips', 'nvim-treesitter' } },
         },
         config = function()
+            vim.g.cmp_enabled = true
             local cmp = require('cmp')
 
             local winhighlight = table.concat({
@@ -22,6 +24,9 @@ return {
 
             ---@diagnostic disable: missing-fields
             cmp.setup({
+                enabled = function()
+                    return vim.g.cmp_enabled
+                end,
                 completeopt = vim.o.completeopt,
                 completion = {
                     -- NOTE: writing something, triggering autocomplete, accepting something
@@ -82,7 +87,7 @@ return {
                 }),
                 sources = cmp.config.sources({
                     { name = 'nvim_lsp' },
-                    { name = 'ultisnips' },
+                    -- { name = 'ultisnips' }, -- slow
                     { name = 'path' },
                 }, { -- extra sources
                     { name = 'buffer' },

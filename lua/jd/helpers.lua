@@ -18,6 +18,15 @@ function M.toggle_diagnostics()
     end
 end
 
+function M.toggle_completion()
+    vim.g.cmp_enabled = not vim.g.cmp_enabled
+    if vim.g.cmp_enabled then
+        Util.info('Enabled completion', { title = 'Completion' })
+    else
+        Util.warn('Disabled completion', { title = 'Completion' })
+    end
+end
+
 function M.toggle_ts_highligts()
     if vim.b.ts_highlight then
         vim.treesitter.stop()
