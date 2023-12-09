@@ -8,9 +8,34 @@ return {
                 'nvim-treesitter/nvim-treesitter-context',
                 event = 'BufReadPre',
                 opts = { max_lines = 3 },
+                keys = {
+                    {
+                        '<leader>uT',
+                        function()
+                            local Util = require('lazyvim.util')
+                            local tsc = require('treesitter-context')
+                            tsc.toggle()
+                            if Util.inject.get_upvalue(tsc.toggle, 'enabled') then
+                                Util.info('Enabled Treesitter Context', { title = 'Option' })
+                            else
+                                Util.warn('Disabled Treesitter Context', { title = 'Option' })
+                            end
+                        end,
+                        desc = 'Toggle Treesitter Context',
+                    },
+                },
             },
             'nvim-treesitter/nvim-treesitter-textobjects',
         },
+        init = function(plugin)
+            -- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
+            -- This is needed because a bunch of plugins no longer `require("nvim-treesitter")`, which
+            -- no longer trigger the **nvim-treeitter** module to be loaded in time.
+            -- Luckily, the only thins that those plugins need are the custom queries, which we make available
+            -- during startup.
+            require('lazy.core.loader').add_to_rtp(plugin)
+            require('nvim-treesitter.query_predicates')
+        end,
         ---@type TSConfig
         ---@diagnostic disable-next-line: missing-fields
         opts = {
@@ -95,14 +120,6 @@ return {
         ---@param opts TSConfig
         config = function(_, opts)
             require('nvim-treesitter.configs').setup(opts)
-
-            -- stylua: ignore
-            require('vim.treesitter.query').set('sxhkdrc', 'injections', [[
-                ((command) @injection.content
-                 (#set! injection.language "sh"))
-                ((comment) @injection.content
-                 (#set! injection.language "comment"))
-            ]])
         end,
     },
 }

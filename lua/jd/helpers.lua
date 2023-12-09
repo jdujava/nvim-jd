@@ -18,4 +18,14 @@ function M.toggle_diagnostics()
     end
 end
 
+function M.toggle_ts_highligts()
+    if vim.b.ts_highlight then
+        vim.treesitter.stop()
+        Util.warn('Disabled TreeSitter highlights', { title = 'TreeSitter' })
+    else
+        vim.treesitter.start()
+        Util.info('Enabled TreeSitter highlights', { title = 'TreeSitter' })
+    end
+end
+
 return M
