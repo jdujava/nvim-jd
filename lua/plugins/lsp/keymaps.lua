@@ -13,27 +13,19 @@ function M.get()
     end
     -- stylua: ignore
     M._keys = {
-        { '<leader>vd', vim.diagnostic.open_float, desc = 'Line Diagnostics' },
-        { '<leader>vD', vim.diagnostic.setloclist, desc = 'Diagnostics to LocList' },
-        { '<leader>vi', '<cmd>LspInfo<cr>',        desc = 'Lsp Info' },
-        { 'gw', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', desc = 'Workspace Symbols' },
-        { 'gd', function() require('telescope.builtin').lsp_definitions({ reuse_win = true }) end, desc = 'Goto Definition', has = 'definition' },
-        { 'gr', '<cmd>Telescope lsp_references<cr>',        desc = 'References' },
-        { 'gD', vim.lsp.buf.declaration,                    desc = 'Goto Declaration' },
-        { 'gI', function() require('telescope.builtin').lsp_implementations({ reuse_win = true }) end,  desc = 'Goto Implementation' },
-        { 'gT', function() require('telescope.builtin').lsp_type_definitions({ reuse_win = true }) end, desc = 'Goto Type Definition' },
-        { 'K',  vim.lsp.buf.hover,                          desc = 'Hover', has = 'hover' },
-        { 'gK', vim.lsp.buf.hover,                          desc = 'Hover', has = 'hover' },
-        { 'gS', vim.lsp.buf.signature_help,                 desc = 'Signature Help', has = 'signatureHelp' },
-        { '<c-s>', vim.lsp.buf.signature_help, mode = 'i',  desc = 'Signature Help', has = 'signatureHelp' },
-        { ']d', M.diagnostic_goto(true),                    desc = 'Next Diagnostic' },
-        { '[d', M.diagnostic_goto(false),                   desc = 'Prev Diagnostic' },
-        { ']e', M.diagnostic_goto(true,  'ERROR'),          desc = 'Next Error' },
-        { '[e', M.diagnostic_goto(false, 'ERROR'),          desc = 'Prev Error' },
-        { ']w', M.diagnostic_goto(true,  'WARN'),           desc = 'Next Warning' },
-        { '[w', M.diagnostic_goto(false, 'WARN'),           desc = 'Prev Warning' },
-        { 'gR', vim.lsp.buf.rename,                         desc = 'Rename', has = 'rename' },
+        { '<leader>vi', '<cmd>LspInfo<cr>', desc = 'Lsp Info' },
+        { 'gw', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>',       desc = 'Workspace Symbols' },
+        { 'gd', '<cmd>Telescope lsp_definitions reuse_win=true<cr>',      desc = 'Goto Definition', has = 'definition' },
+        { 'gr', '<cmd>Telescope lsp_references<cr>',                      desc = 'References' },
+        { 'gI', '<cmd>Telescope lsp_implementations reuse_win=true<cr>',  desc = 'Goto Implementation' },
+        { 'gT', '<cmd>Telescope lsp_type_definitions reuse_win=true<cr>', desc = 'Goto Type Definition' },
+        { 'gD', vim.lsp.buf.declaration,                       desc = 'Goto Declaration' },
+        { 'K',  vim.lsp.buf.hover,                             desc = 'Hover', has = 'hover' },
+        { 'gK', vim.lsp.buf.hover,                             desc = 'Hover', has = 'hover' },
+        { 'gR', vim.lsp.buf.rename,                            desc = 'Rename', has = 'rename' },
         { 'gA', vim.lsp.buf.code_action, mode = { 'n', 'v' },  desc = 'Code Action', has = 'codeAction' },
+        { 'gS', vim.lsp.buf.signature_help,                    desc = 'Signature Help', has = 'signatureHelp' },
+        { '<c-s>', vim.lsp.buf.signature_help, mode = 'i',     desc = 'Signature Help', has = 'signatureHelp' },
     }
     return M._keys
 end
@@ -78,14 +70,6 @@ function M.on_attach(_, buffer)
             opts.buffer = buffer
             vim.keymap.set(keys.mode or 'n', keys.lhs, keys.rhs, opts)
         end
-    end
-end
-
-function M.diagnostic_goto(next, severity)
-    local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-    severity = severity and vim.diagnostic.severity[severity] or nil
-    return function()
-        go({ severity = severity })
     end
 end
 
