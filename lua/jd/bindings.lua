@@ -50,8 +50,10 @@ map('n', '<C-Down>', '<CMD>resize -2<CR>')
 map('n', '<C-Left>', '<CMD>vert resize +2<CR>')
 map('n', '<C-Right>', '<CMD>vert resize -2<CR>')
 
+-- completion with ctrl-j/k
 vim.keymap.set({ 'i', 'c' }, '<C-j>', '<C-n>', { remap = true })
 vim.keymap.set({ 'i', 'c' }, '<C-k>', '<C-p>', { remap = true })
+vim.keymap.set('c', '<c-d>', '<Nop>')
 
 map({ 'n', 'x', 'o' }, 'H', 'g^')
 map({ 'n', 'x', 'o' }, 'L', 'g$')
@@ -102,8 +104,8 @@ map('x', 'A', function()
 end, { expr = true, desc = 'Append at end of line/selection' })
 map('x', '<Space>', 'I<Space><ESC>gv', { remap = true })
 
--- Delete word in insert mode
-map('i', '<C-h>', '<C-w>')
+-- Delete word in insert/command mode with ctrl-backspace
+map({ 'i', 'c' }, '<C-h>', '<C-w>', { silent = false })
 
 -- Replace all is aliased to S
 map('n', '<leader>S', ':%s/', { silent = false })
@@ -146,6 +148,7 @@ map('n', ']e', diagnostic_goto(true, 'ERROR'), { desc = 'Next Error' })
 map('n', '[e', diagnostic_goto(false, 'ERROR'), { desc = 'Prev Error' })
 map('n', ']w', diagnostic_goto(true, 'WARN'), { desc = 'Next Warning' })
 map('n', '[w', diagnostic_goto(false, 'WARN'), { desc = 'Prev Warning' })
+
 -- stylua: ignore start
 
 -- Toggle options

@@ -11,8 +11,7 @@ return {
             -- WARN: ultisnips source is slow
             -- { 'quangnguyen30192/cmp-nvim-ultisnips', dependencies = { 'ultisnips', 'nvim-treesitter' } },
         },
-        config = function()
-            vim.g.cmp_enabled = true
+        opts = function()
             local cmp = require('cmp')
 
             local winhighlight = table.concat({
@@ -22,22 +21,19 @@ return {
                 'Search:None',
             }, ',')
 
-            ---@diagnostic disable: missing-fields
-            cmp.setup({
+            ---@type cmp.ConfigSchema
+            return {
                 enabled = function()
                     return vim.g.cmp_enabled
                 end,
                 completeopt = vim.o.completeopt,
-                completion = {
-                    -- NOTE: writing something, triggering autocomplete, accepting something
-                    -- and the deleting it with backspace will trigger autocomplete again
-                    -- autocomplete = false,
-                },
+                -- completion = { autocomplete = false },
                 snippet = {
                     expand = function(args)
                         vim.fn['UltiSnips#Anon'](args.body)
                     end,
                 },
+                ---@diagnostic disable-next-line: missing-fields
                 formatting = {
                     format = function(_, item)
                         local icons = require('plugins.lsp.lspkind_icons').icons
@@ -65,7 +61,6 @@ return {
                         }),
                         { 'i', 'c' }
                     ),
-                    -- BUG: doesnt work with slovak characters like ž,á, ...
                     ['<C-A-l>'] = cmp.mapping(
                         cmp.mapping.confirm({
                             behavior = cmp.ConfirmBehavior.Replace,
@@ -75,15 +70,16 @@ return {
                     ),
                     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
                     ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-                    ['<C-Space>'] = cmp.mapping(function()
-                        if cmp.visible() then
-                            if vim.fn['UltiSnips#CanExpandSnippet']() == 1 then
-                                return vim.fn['UltiSnips#ExpandSnippet']()
-                            end
-                            return cmp.select_next_item()
-                        end
-                        cmp.complete()
-                    end, { 'i', 's', 'c' }),
+                    ['<C-space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+                    -- ['<C-Space>'] = cmp.mapping(function(fallback)
+                    --     if cmp.visible() then
+                    --         if vim.fn['UltiSnips#CanExpandSnippet']() == 1 then
+                    --             return vim.fn['UltiSnips#ExpandSnippet']()
+                    --         end
+                    --         return cmp.select_next_item()
+                    --     end
+                    --     fallback()
+                    -- end, { 'i', 's', 'c' }),
                 }),
                 sources = cmp.config.sources({
                     { name = 'nvim_lsp' },
@@ -93,11 +89,18 @@ return {
                     { name = 'buffer' },
                     { name = 'emoji' },
                 }),
-            })
+            }
+        end,
+        ---@param opts cmp.ConfigSchema
+        config = function(_, opts)
+            vim.g.cmp_enabled = true
+            local cmp = require('cmp')
+
+            cmp.setup(opts)
 
             -- Use cmdline & path source for ':'.
             cmp.setup.cmdline(':', {
-                mapping = cmp.mapping.preset.cmdline(),
+                mapping = cmp.mapping.preset.cmdline(opts.mapping),
                 sources = cmp.config.sources({ { name = 'path' } }, { { name = 'cmdline' } }),
             })
         end,
