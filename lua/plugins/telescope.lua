@@ -37,7 +37,7 @@ return {
             { '<leader>O',          '<cmd>Telescope vim_options<cr>',               desc = 'Options' },
             { '<leader>R',          '<cmd>Telescope resume<cr>',                    desc = 'Resume' },
             { '<leader><leader>R',  '<cmd>Telescope reloader<cr>',                  desc = 'Reload' },
-            { '<leader>/',          '<cmd>Telescope live_grep<cr>',                 desc = 'Find in Files (Grep)' },
+            { '<leader><leader>/',  '<cmd>Telescope live_grep<cr>',                 desc = 'Find (Grep) in Files (current dir)' },
             { '<leader>:',          '<cmd>Telescope command_history<cr>',           desc = 'Command History' },
             { '<leader>b',          '<cmd>Telescope buffers<cr>',                   desc = 'Buffers' },
             {
@@ -59,6 +59,15 @@ return {
                     })
                 end,
                 desc = 'Find Files (Frecency)',
+            },
+            {
+                '<leader>/',
+                function()
+                    require('telescope.builtin').live_grep({
+                        cwd = require('lspconfig.util').root_pattern('.git')(vim.fn.expand('%:p')),
+                    })
+                end,
+                desc = 'Find (Grep) in Files (project)',
             },
             {
                 '<leader><leader>C',

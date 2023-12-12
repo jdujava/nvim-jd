@@ -37,7 +37,12 @@ return {
                 hl.Search = { bg = c.dark3, underline = false }
                 hl.IncSearch = { bg = c.dark4, underline = true }
                 hl.MatchParen = { bg = c.dark3, bold = true }
+
                 hl.DiagnosticUnnecessary = { link = 'DiagnosticUnderlineHint' }
+                hl.DiagnosticFloatingError = { link = 'DiagnosticError' }
+                hl.DiagnosticFloatingWarn = { link = 'DiagnosticWarn' }
+                hl.DiagnosticFloatingInfo = { link = 'DiagnosticInfo' }
+                hl.DiagnosticFloatingHint = { link = 'DiagnosticHint' }
 
                 hl.LineNr = { fg = c.dark5 }
                 hl.CursorLineNr = { fg = c.fg_dark }

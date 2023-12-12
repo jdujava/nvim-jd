@@ -68,13 +68,13 @@ snippet htab "Horizontalna tabuľka"
 \begin{table}[!ht]
 	% \vspace{-5pt}
 	\centering
-	\caption{${1}}
-	\label{tab:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
 	\begin{tabular}{S*{${3:10}}{S}}
 	\toprule
 	$${4:d}/\si{${5:mm}}$   & 0.50 & 0.50 & 0.50 & 0.51 & 0.50 & 0.50 & 0.50 & 0.51 & 0.50 & 0.50\\\\
 	\bottomrule
 	\end{tabular}
+	\caption{${1}}
+	\label{tab:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
 \end{table}
 endsnippet
 
@@ -82,8 +82,6 @@ endsnippet
 snippet vtab "Vertikálna tabuľka"
 \begin{table}[!ht]
 	\centering
-	\caption{${1}}
-	\label{tab:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
 	\begin{tabular}{SSSS}
 	\toprule
 	$d/\si{mm}$       & $l_0/\si{cm}$   & $L/\si{cm}$    & $D/\si{mm}$ \\\\
@@ -91,14 +89,14 @@ snippet vtab "Vertikálna tabuľka"
 	$ 0.502 \pm 0.005$ & $ 115.0 \pm 0.5$ & $ 78.8 \pm 0.3$ & $ 38.50 \pm 0.05$\\\\
 	\bottomrule
 	\end{tabular}
+	\caption{${1}}
+	\label{tab:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
 \end{table}
 endsnippet
 
 snippet vtabm "Vertikálna tabuľka multiple"
 \begin{table}[!ht]
 	\centering
-	\caption{${1}}
-	\label{tab:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
 	\sisetup{
 		table-number-alignment = center,
 		round-precision = 1,
@@ -120,54 +118,49 @@ snippet vtabm "Vertikálna tabuľka multiple"
 	\bottomrule
 	\end{tabular}
 	\end{adjustbox}
+	\caption{${1}}
+	\label{tab:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
 \end{table}
 endsnippet
 
 
 snippet vtabmmult "Vertikálna tabuľka multiple-multi"
 \begin{table}[!ht]
-	\centering
-	\caption{Meranie $H$ pre súhlasný smer prúdu}
-
-	\sisetup{table-number-alignment = center}
-	\begin{subtable}[h]{0.45\textwidth}
-		\centering
-		\caption{Uprostred v závislosti na $a$}
-		\label{tab:Hoda}
-		\begin{tabular}{
-			S[ table-format=3.0 ]
-			S[ table-format=3.1 ]
-			S[
-				table-format=4.0,
-				table-figures-uncertainty = 2
-			]
-		}
-			\toprule
-			{$a$/mm} & {$U$/mV} & {$H$/$\si{Am^{-1}}$} \\\\
-			\midrule
-			40 & 248.2  & 1169 +- 19 \\\\
-			\bottomrule
-		\end{tabular}
-	\end{subtable}
-	\begin{subtable}[h]{0.45\textwidth}
-		\centering
-		\caption{V Helmholtzovom usporiadaní}
-		\label{tab:helmholtz}
-		\begin{tabular}{
-			S[ table-format=+2.0 ]
-			S[ table-format=3.1 ]
-			S[
-				table-format=4.0,
-				table-figures-uncertainty = 2
-			]
-		}
-			\toprule
-			{$x$/mm} & {$U$/mV} & {$H$/$\si{Am^{-1}}$} \\\\
-			\midrule
-			-20 & 210.9 & 1038 +- 17 \\\\
-			\bottomrule
-		\end{tabular}
-	\end{subtable}
+    \centering
+    \begin{subtable}[h]{0.45\textwidth}
+        \centering
+        \begin{tabular}{
+                S[ table-format=2.0 ]
+                S[ table-format=3.2(2) ]
+                S[ table-format=4.0(2) ]
+            }
+            \toprule
+            {$a$/mm} & {$U$/mV}       & {$H$/$\si{Am^{-1}}$} \\
+            \midrule
+            40       & 248.2 +- 0.3   & 1169 +- 19           \\
+            4        & 248.24 +- 0.12 & 11 +- 1              \\
+            \bottomrule
+        \end{tabular}
+        \caption{Uprostred v závislosti na $a$}
+        \label{tab:Hoda}
+    \end{subtable}
+    \begin{subtable}[h]{0.45\textwidth}
+        \centering
+        \begin{tabular}{
+                S[ table-format=+2.0 ]
+                S[ table-format=3.1 ]
+                S[ table-format=4.0(2) ]
+            }
+            \toprule
+            {$x$/mm} & {$U$/mV} & {$H$/$\si{Am^{-1}}$} \\
+            \midrule
+            -20      & 210.9    & 1038 +- 17           \\
+            \bottomrule
+        \end{tabular}
+        \caption{V Helmholtzovom usporiadaní}
+        \label{tab:helmholtz}
+    \end{subtable}
+    \caption{Meranie $H$ pre súhlasný smer prúdu}
 \end{table}
 endsnippet
 

@@ -70,7 +70,7 @@ return {
                     ),
                     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
                     ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-                    ['<C-space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+                    -- ['<C-space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
                     -- ['<C-Space>'] = cmp.mapping(function(fallback)
                     --     if cmp.visible() then
                     --         if vim.fn['UltiSnips#CanExpandSnippet']() == 1 then
