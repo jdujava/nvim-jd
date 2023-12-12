@@ -19,13 +19,14 @@ return {
     },
     {
         'j-hui/fidget.nvim',
-        tag = 'legacy',
         opts = {
-            text = {
-                spinner = 'moon',
+            progress = {
+                display = {
+                    progress_icon = { pattern = 'moon', period = 1 },
+                },
             },
-            window = {
-                blend = 0,
+            notification = {
+                window = { winblend = 0 },
             },
         },
     },
@@ -33,8 +34,7 @@ return {
     -- noicer ui
     {
         'folke/noice.nvim',
-        -- event = 'VeryLazy', -- BUG: causes blinking on startup (when directly opening a file)
-        lazy = false,
+        event = 'VeryLazy',
         dependencies = {
             { 'MunifTanjim/nui.nvim', lazy = true },
         },

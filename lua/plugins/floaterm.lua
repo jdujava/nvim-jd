@@ -1,7 +1,6 @@
 return {
     {
-        'voldikss/vim-floaterm',
-        pin = true, -- pin to a specific (custom) commit
+        'jdujava/vim-floaterm',
         keys = {
             -- stylua: ignore
             {
