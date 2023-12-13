@@ -8,6 +8,7 @@ return {
             'hrsh7th/cmp-cmdline',
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-emoji',
+            'micangl/cmp-vimtex',
             -- WARN: ultisnips source is slow
             -- { 'quangnguyen30192/cmp-nvim-ultisnips', dependencies = { 'ultisnips', 'nvim-treesitter' } },
         },
@@ -82,6 +83,7 @@ return {
                     -- end, { 'i', 's', 'c' }),
                 }),
                 sources = cmp.config.sources({
+                    { name = 'vimtex' },
                     { name = 'nvim_lsp' },
                     -- { name = 'ultisnips' }, -- slow
                     { name = 'path' },
