@@ -63,8 +63,9 @@ return {
                 hl.CmpItemKindSnippet = { fg = c.fg_bright }
                 hl.PmenuThumb = { bg = c.border_highlight }
                 hl.PmenuSel = { bg = c.bg_highlight, bold = true }
+                hl.FloatDarker = { fg = c.border_highlight, bg = c.bg_darker}
                 hl.FloatBorder = { fg = c.border_highlight, bg = c.bg_float, blend = 0 }
-                hl.FloatermBorder = hl.FloatBorder
+                hl.FloatermBorder = { link = 'FloatBorder' }
 
                 hl.MsgArea = { bg = c.bg_highlight }
 
@@ -85,6 +86,7 @@ return {
             -- change the colors for your new palette here
             -- stylua: ignore
             colors.custom = {
+                bg_darker    = '#1a1a1a',
                 bg_dark      = '#1e1e1e',
                 bg           = '#1e1e1e',
                 dark2        = '#212121',

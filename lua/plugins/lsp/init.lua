@@ -212,7 +212,6 @@ return {
                     tex = { 'latexindent' },
                     lua = { 'stylua' },
                     sh = { 'shfmt' },
-                    python = { 'black' },
                 },
                 ---@type table<string, conform.FormatterConfigOverride|fun(bufnr: integer): nil|conform.FormatterConfigOverride>
                 formatters = {
@@ -222,7 +221,6 @@ return {
                         prepend_args = { '-c', './.aux' },
                     },
                     shfmt = { prepend_args = { '-i', '4', '-ci' } },
-                    black = { prepend_args = { '--line-length', '120' } },
                 },
             }
             return opts
