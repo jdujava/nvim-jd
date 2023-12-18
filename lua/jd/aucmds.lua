@@ -11,12 +11,6 @@ au({ 'FocusGained', 'TermClose', 'TermLeave' }, {
     command = 'checktime',
 })
 
--- Automatically deletes all trailing whitespace on save
-au('BufWritePre', {
-    group = gr('delete_trailing'),
-    command = [[%s/\s\+$//e]],
-})
-
 -- Resize panes when host window is resized
 au('VimResized', {
     group = gr('resize_splits'),

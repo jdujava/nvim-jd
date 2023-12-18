@@ -212,6 +212,7 @@ return {
                     tex = { 'latexindent' },
                     lua = { 'stylua' },
                     sh = { 'shfmt' },
+                    ['_'] = { 'core_fmt' }, -- split long lines and trim trailing whitespace
                 },
                 ---@type table<string, conform.FormatterConfigOverride|fun(bufnr: integer): nil|conform.FormatterConfigOverride>
                 formatters = {
@@ -221,6 +222,7 @@ return {
                         prepend_args = { '-c', './.aux' },
                     },
                     shfmt = { prepend_args = { '-i', '4', '-ci' } },
+                    core_fmt = { command = 'fmt', args = { '-s', '--width=75' } },
                 },
             }
             return opts
