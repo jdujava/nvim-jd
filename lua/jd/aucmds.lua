@@ -1,4 +1,5 @@
 -- This file is automatically loaded by plugins.core
+local Util = require('lazy.core.util')
 local au = vim.api.nvim_create_autocmd
 local function gr(name)
     return vim.api.nvim_create_augroup('jd_' .. name, { clear = true })
@@ -67,6 +68,30 @@ au('TermOpen', {
     callback = function()
         vim.cmd('startinsert')
         vim.keymap.set('n', '<A-x>', '<cmd>bd!<cr>', { buffer = true })
+    end,
+})
+
+-- Command-line window
+au('CmdwinEnter', {
+    group = gr('cmdwin'),
+    callback = function()
+        -- vim.cmd('startinsert')
+        vim.keymap.set({ 'i', 'n' }, '<A-x>', '<esc><cmd>quit<cr>', { buffer = true })
+    end,
+})
+
+-- Notify start and stop of a macro recording
+local macro_recording = gr('macro_recording')
+au('RecordingEnter', {
+    group = macro_recording,
+    callback = function()
+        Util.info('Started recording macro **@' .. vim.fn.reg_recording() .. '**', { title = 'Macro' })
+    end,
+})
+au('RecordingLeave', {
+    group = macro_recording,
+    callback = function()
+        Util.warn('Stopped recording macro **@' .. vim.fn.reg_recording() .. '**', { title = 'Macro' })
     end,
 })
 

@@ -26,6 +26,7 @@ end
 function C.setup()
     C.MakeHi('SlDirectory',     C.col.bg,     C.col.white, true,  0,  15)
     C.MakeHi('SlFiletype',      C.col.purple, C.col.black, true,  13, 15)
+    C.MakeHi('SlRecording',     C.col.yellow, C.col.black, true,  13, 15)
     C.MakeHi('SlLine',          C.col.none,   C.col.white, true,  15, 15)
     C.MakeHi('SlInActive',      C.col.black,  C.col.white, false, 15, 15)
     C.MakeHi('SlBufferLineSel', C.col.green,  C.col.black, true,  10, 15)

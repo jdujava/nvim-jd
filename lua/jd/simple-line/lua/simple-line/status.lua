@@ -14,7 +14,6 @@ end
 
 local function get_git_status()
     -- use fallback because it doesn't set this variable on the initial `BufEnter`
-    ---@diagnostic disable-next-line: undefined-field
     local s = vim.b.gitsigns_status_dict or { head = '', added = 0, changed = 0, removed = 0 }
     if s.head == '' then
         return ''
@@ -34,17 +33,21 @@ local function search_count()
     end
 
     if s_count.incomplete == 1 then
-        return ' [?/?] '
+        return '[?/?] '
     end
 
     local too_many = ('>%d'):format(s_count.maxcount)
     local current = s_count.current > s_count.maxcount and too_many or s_count.current
     local total = s_count.total > s_count.maxcount and too_many or s_count.total
-    return (' [%s/%s] '):format(current, total)
+    return ('[%s/%s] '):format(current, total)
 end
 
 function S.statusLine()
-    local width = vim.o.columns - (vim.o.spell and 10 or 0) - (vim.v.hlsearch and 8 or 0)
+    local recording = vim.fn.reg_recording()
+    local width = vim.o.columns
+        - (vim.o.spell and 10 or 0)
+        - (vim.v.hlsearch and 8 or 0)
+        - (recording ~= '' and 15 or 0)
     local statusline = ''
 
     -- Component: Mode
@@ -69,20 +72,15 @@ function S.statusLine()
     -- Alignment to right
     statusline = statusline .. '%='
 
-    -- Search count
+    -- Component: Show (partial) command
+    statusline = statusline .. '%S '
+
+    -- Component: Search count
     statusline = statusline .. search_count()
 
-    if package.loaded['noice'] then
-        local noice_status = require('noice').api.status
-        -- if noice_status.search.has() then
-        --     statusline = statusline .. noice_status.search.get() .. " "
-        -- end
-        if noice_status.mode.has() then
-            statusline = statusline .. builder('SlFiletype', noice_status.mode.get())
-        end
-        if noice_status.command.has() then
-            statusline = statusline .. '%#SlDirectorySeparator#' .. noice_status.command.get() .. ' '
-        end
+    -- Component: Show macro recording
+    if recording ~= '' then
+        statusline = statusline .. builder('SlRecording', 'recording @' .. recording)
     end
 
     -- Component: FileType
@@ -99,6 +97,8 @@ end
 function S.setup()
     vim.o.laststatus = 3
     vim.o.statusline = [[%!v:lua.require'simple-line.status'.statusLine()]]
+    vim.o.showcmd = true
+    vim.o.showcmdloc = 'statusline'
 end
 
 return S

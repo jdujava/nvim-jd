@@ -200,9 +200,5 @@ for _, abbr in ipairs(abbrevs) do
     map('ca', abbr, abbr:lower())
 end
 
--- Delete mappings
-map('n', 'q:', '<Nop>')
-map('n', 'q/', '<Nop>')
-map('n', 'q?', '<Nop>')
-map('c', '<C-f>', '<Nop>')
-map({ 'n', 'v' }, '<C-z>', '<Nop>')
+-- Disable mappings
+map({ 'n', 'v' }, '<C-z>', '<Nop>') -- disable suspend

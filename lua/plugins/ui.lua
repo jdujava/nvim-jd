@@ -71,7 +71,6 @@ return {
                 { filter = { event = 'msg_show', kind = 'emsg', find = 'E486' }, opts = { skip = true } }, -- search pattern not found
                 -- { filter = { event = "msg_show", kind = "wmsg", find = "BOTTOM" }, opts = { skip = true } }, -- search reached BOTTOM
                 -- { filter = { event = "msg_show", kind = "emsg", find = "E353" },   opts = { skip = true } },
-                { view = 'notify', filter = { event = 'msg_showmode' } }, -- notify start of macro recorging
                 {
                     filter = {
                         event = "msg_show",
