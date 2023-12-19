@@ -101,7 +101,7 @@ return {
         end,
     },
 
-    -- Setup lspconfig for LaTeX 🚀
+    -- Setup lspconfig and additional bindings for LaTeX 🚀
     {
         'neovim/nvim-lspconfig',
         optional = true,
@@ -113,7 +113,18 @@ return {
                 },
                 texlab = {
                     keys = {
-                        { 'gK', '<plug>(vimtex-doc-package)', desc = 'Vimtex Docs', silent = true },
+                        { 'gK', '<plug>(vimtex-doc-package)' },
+                        { '<A-Tab>', '<plug>(vimtex-toc-open)' },
+                        { 'im', '<plug>(vimtex-i$)', mode = { 'x', 'o' } },
+                        { 'am', '<plug>(vimtex-a$)', mode = { 'x', 'o' } },
+                        { 'dsm', '<plug>(vimtex-env-delete-math)' },
+                        { 'csm', '<plug>(vimtex-env-change-math)' },
+                        { 'tsm', '<plug>(vimtex-env-toggle-math)' },
+                        {
+                            '<leader>lf',
+                            [[mc<CMD>%s/,\s*label=current//e<CR>`c$?in{frame<CR>f]i, label=current<ESC>`c]],
+                            desc = 'Beamer: show only current slide/frame',
+                        },
                     },
                     settings = {
                         texlab = {
