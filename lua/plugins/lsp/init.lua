@@ -14,11 +14,13 @@ return {
             diagnostics = {
                 underline = true,
                 update_in_insert = false,
+                signs = { text = { '', '', '', '' } },
                 virtual_text = {
                     spacing = 4,
                     source = 'if_many',
-                    -- prefix = "●",
-                    prefix = 'icons',
+                    prefix = function(diagnostic)
+                        return require('lazyvim.util').opts('nvim-lspconfig').diagnostics.signs.text[diagnostic.severity]
+                    end,
                 },
                 severity_sort = true,
                 float = { border = 'rounded' },
@@ -116,29 +118,12 @@ return {
                 return ret
             end
 
-            -- diagnostics
-            local icons = { Error = '', Warn = '', Hint = '', Info = '' }
-            for name, icon in pairs(icons) do
-                name = 'DiagnosticSign' .. name
-                vim.fn.sign_define(name, { text = icon, texthl = name, numhl = '' })
-            end
-
             if opts.inlay_hints.enabled then
                 Util.lsp.on_attach(function(client, buffer)
                     if client.supports_method('textDocument/inlayHint') then
                         Util.toggle.inlay_hints(buffer, true)
                     end
                 end)
-            end
-
-            if type(opts.diagnostics.virtual_text) == 'table' and opts.diagnostics.virtual_text.prefix == 'icons' then
-                opts.diagnostics.virtual_text.prefix = function(diagnostic)
-                    for d, icon in pairs(icons) do
-                        if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
-                            return icon
-                        end
-                    end
-                end
             end
 
             vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
