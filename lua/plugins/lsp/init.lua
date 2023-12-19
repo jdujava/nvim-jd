@@ -43,10 +43,6 @@ return {
             -- LSP Server Settings
             ---@type lspconfig.options
             servers = {
-                ltex = {
-                    enabled = true,
-                    autostart = false, -- manually by ltex_extra keybinding
-                },
                 clangd = {
                     cmd = {
                         'clangd',
@@ -184,34 +180,25 @@ return {
 
     {
         'stevearc/conform.nvim',
-        opts = function()
-            local Util = require('conform.util')
-            local opts = {
-                format = {
-                    timeout_ms = 3000,
-                    async = false, -- not recommended to change
-                    quiet = false, -- not recommended to change
-                },
-                ---@type table<string, conform.FormatterUnit[]>
-                formatters_by_ft = {
-                    tex = { 'latexindent' },
-                    lua = { 'stylua' },
-                    sh = { 'shfmt' },
-                    ['_'] = { 'core_fmt' }, -- split long lines and trim trailing whitespace
-                },
-                ---@type table<string, conform.FormatterConfigOverride|fun(bufnr: integer): nil|conform.FormatterConfigOverride>
-                formatters = {
-                    injected = { options = { ignore_errors = true } },
-                    latexindent = {
-                        cwd = Util.root_file({ '.latexmkrc', '.git' }),
-                        prepend_args = { '-c', './.aux' },
-                    },
-                    shfmt = { prepend_args = { '-i', '4', '-ci' } },
-                    core_fmt = { command = 'fmt', args = { '-s', '--width=75' } },
-                },
-            }
-            return opts
-        end,
+        opts = {
+            format = {
+                timeout_ms = 3000,
+                async = false, -- not recommended to change
+                quiet = false, -- not recommended to change
+            },
+            ---@type table<string, conform.FormatterUnit[]>
+            formatters_by_ft = {
+                lua = { 'stylua' },
+                sh = { 'shfmt' },
+                ['_'] = { 'core_fmt' }, -- split long lines and trim trailing whitespace
+            },
+            ---@type table<string, conform.FormatterConfigOverride|fun(bufnr: integer): nil|conform.FormatterConfigOverride>
+            formatters = {
+                injected = { options = { ignore_errors = true } },
+                shfmt = { prepend_args = { '-i', '4', '-ci' } },
+                core_fmt = { command = 'fmt', args = { '-s', '--width=75' } },
+            },
+        },
     },
 
     {
@@ -230,11 +217,9 @@ return {
             },
             ensure_installed = {
                 'stylua',
+                'lua-language-server',
                 'bash-language-server',
                 'clangd',
-                'lua-language-server',
-                'ltex-ls',
-                'texlab',
                 'shfmt',
             },
         },
@@ -265,28 +250,5 @@ return {
                 ensure_installed()
             end
         end,
-    },
-
-    {
-        'barreiroleo/ltex_extra.nvim',
-        dependencies = { 'neovim/nvim-lspconfig' },
-        keys = {
-            {
-                '<Leader><Leader>L',
-                function()
-                    vim.cmd('LspStart ltex')
-                    -- wait for the server to start
-                    vim.defer_fn(function()
-                        require('ltex_extra').reload()
-                    end, 10000)
-                end,
-                desc = 'Start LTeX server',
-            },
-        },
-        opts = {
-            load_langs = { 'en-US' },
-            init_check = false,
-            path = '.ltex',
-        },
     },
 }
