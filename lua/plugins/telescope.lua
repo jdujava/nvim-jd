@@ -32,7 +32,7 @@ return {
             { '<leader>H',          '<cmd>Telescope help_tags<cr>',                 desc = 'Help Pages' },
             { '<leader><leader>H',  '<cmd>Telescope highlights<cr>',                desc = 'Search Highlight Groups' },
             { '<leader>J',          '<cmd>Telescope jumplist<cr>',                  desc = 'Jumplist' },
-            { '<leader>K',          '<cmd>Telescope keymaps<cr>',                   desc = 'Key Maps' },
+            -- { '<leader>K',          '<cmd>Telescope keymaps<cr>',                   desc = 'Key Maps' },
             { '<leader><leader>M',  '<cmd>Telescope man_pages<cr>',                 desc = 'Man Pages' },
             { '<leader>N',          '<cmd>Telescope notify<cr>',                    desc = 'Notifications' },
             { '<leader>O',          '<cmd>Telescope vim_options<cr>',               desc = 'Options' },
@@ -42,6 +42,17 @@ return {
             { '<leader><leader>/',  '<cmd>Telescope live_grep<cr>',                 desc = 'Find (Grep) in Files (current dir)' },
             { '<leader>:',          '<cmd>Telescope command_history<cr>',           desc = 'Command History' },
             { '<leader>b',          '<cmd>Telescope buffers<cr>',                   desc = 'Buffers' },
+            {
+                '<leader>K',
+                function()
+                    require('telescope.builtin').keymaps({
+                        lhs_filter = function(lhs)
+                            return not lhs:match('Þ') -- ignore which-key prefix
+                        end,
+                    })
+                end,
+                desc = 'Keymaps',
+            },
             {
                 '<leader>p',
                 function()

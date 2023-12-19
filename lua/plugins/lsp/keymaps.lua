@@ -13,7 +13,7 @@ function M.get()
     end
     -- stylua: ignore
     M._keys = {
-        { '<leader>vi', '<cmd>LspInfo<cr>', desc = 'Lsp Info' },
+        { 'gl', '<cmd>LspInfo<cr>', desc = 'Lsp Info' },
         { 'gw', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>',       desc = 'Workspace Symbols' },
         { 'gd', '<cmd>Telescope lsp_definitions reuse_win=true<cr>',      desc = 'Goto Definition', has = 'definition' },
         { 'gr', '<cmd>Telescope lsp_references<cr>',                      desc = 'References' },

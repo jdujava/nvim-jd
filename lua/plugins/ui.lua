@@ -88,6 +88,34 @@ return {
         },
     },
 
+    {
+        'folke/which-key.nvim',
+        event = 'VeryLazy',
+        keys = { { '<leader>w', '<cmd>WhichKey<cr>', desc = 'WhichKey' } },
+        opts = {
+            plugins = { spelling = true },
+            window = { winblend = 10 },
+            defaults = {
+                mode = { 'n', 'v' },
+                ['g'] = { name = '+goto' },
+                ['s'] = { name = '+surround' },
+                [']'] = { name = '+next' },
+                ['['] = { name = '+prev' },
+                ['<leader>d'] = { name = '+diagnostics' },
+                ['<leader>g'] = { name = '+diffview' },
+                ['<leader>h'] = { name = '+hunks' },
+                ['<leader>u'] = { name = '+ui/toggle' },
+                ['<leader><space>'] = { name = '+misc' },
+            },
+            hidden = { '<silent>', '<Plug>', '<cmd>', '<Cmd>', '<CR>', '^:', '^ ', '^call ', '^lua ' }, -- hide mapping boilerplate
+        },
+        config = function(_, opts)
+            local wk = require('which-key')
+            wk.setup(opts)
+            wk.register(opts.defaults)
+        end,
+    },
+
     -- better vim.ui
     {
         'stevearc/dressing.nvim',

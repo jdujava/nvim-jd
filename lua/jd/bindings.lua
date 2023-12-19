@@ -42,7 +42,7 @@ map('i', ';', ';<c-g>u')
 -- terminal
 map('t', '<A-x>', '<CMD>bd!<CR>')
 map('t', '<A-Esc>', '<C-\\><C-n>')
-map('n', '<leader>t', '<CMD>split | call nvim_win_set_height(0, 12) | terminal<CR>')
+map('n', '<leader>t', '<CMD>split | terminal<CR>', { desc = 'Open Terminal (split)' })
 
 -- resizing with arrow keys
 map('n', '<C-Up>', '<CMD>resize +2<CR>')
@@ -108,8 +108,8 @@ map('x', '<Space>', 'I<Space><ESC>gv', { remap = true })
 map({ 'i', 'c' }, '<C-h>', '<C-w>', { silent = false })
 
 -- Replace all is aliased to S
-map('n', '<leader>S', ':%s/', { silent = false })
-map('x', '<leader>S', ':s/', { silent = false })
+map('n', '<leader>S', ':%s/', { silent = false, desc = 'Replace all' })
+map('x', '<leader>S', ':s/', { silent = false, desc = 'Replace in selection' })
 
 -- Change perms -> Compile document -> Open document
 map('n', '+x', '<CMD>!chmod +x "%:p"<CR>')
@@ -117,7 +117,7 @@ map('n', '<A-W>', function()
     vim.cmd('write')
     cmds.term_execute({ 'compiler', vim.api.nvim_buf_get_name(0) })
 end, { desc = 'Save and Compile document' })
-map('n', '<leader>W', '<CMD>w! | split | terminal compiler "%:p"<CR>')
+map('n', '<leader>W', '<CMD>w! | split | terminal compiler "%:p"<CR>', { desc = 'Save and Compile document (split)' })
 -- map('n', '<leader>W', '<CMD>w! | !compiler "%:p"<CR>')
 map('n', '<leader><leader>v', '<CMD>!opout "%:p"<CR><CR>', { desc = 'Open document output' })
 
@@ -140,8 +140,8 @@ local diagnostic_goto = function(next, severity)
         go({ severity = severity })
     end
 end
-map('n', '<leader>vd', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })
-map('n', '<leader>vD', vim.diagnostic.setloclist, { desc = 'Diagnostics to LocList' })
+map('n', '<leader>dd', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })
+map('n', '<leader>dD', vim.diagnostic.setloclist, { desc = 'Diagnostics to LocList' })
 map('n', ']d', diagnostic_goto(true), { desc = 'Next Diagnostic' })
 map('n', '[d', diagnostic_goto(false), { desc = 'Prev Diagnostic' })
 map('n', ']e', diagnostic_goto(true, 'ERROR'), { desc = 'Next Error' })

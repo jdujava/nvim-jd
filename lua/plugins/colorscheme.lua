@@ -67,6 +67,8 @@ return {
                 hl.FloatBorder = { fg = c.border_highlight, bg = c.bg_float, blend = 0 }
                 hl.FloatermBorder = { link = 'FloatBorder' }
 
+                hl.WhichKeyFloat = { bg = c.bg_darker }
+
                 hl.MsgArea = { bg = c.bg_highlight }
 
                 hl.LspInlayHint = { fg = c.dark4 }

@@ -49,12 +49,13 @@ au('BufReadPost', {
 
 au('TermOpen', {
     group = gr('term_filetype'),
-    pattern = 'term://*',
+    pattern = 'term://*' .. vim.o.shell,
     callback = function()
         vim.bo.filetype = 'term'
         vim.o.number = false
         vim.o.relativenumber = false
         vim.o.signcolumn = 'no'
+        vim.api.nvim_win_set_height(0, 12)
     end,
 })
 au('TermOpen', {
