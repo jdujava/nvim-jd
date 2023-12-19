@@ -41,6 +41,7 @@ vim.o.splitkeep = 'screen'
 vim.o.clipboard = 'unnamedplus'
 vim.o.completeopt = 'menu,menuone,noselect'
 vim.o.spelllang = 'sk,en_us'
+vim.o.spellfile = vim.fn.stdpath('data') .. '/site/spell/spell.utf-8.add'
 vim.o.signcolumn = 'yes'
 vim.o.mouse = 'a'
 vim.o.pumheight = 15
