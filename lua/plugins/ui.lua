@@ -91,7 +91,10 @@ return {
     {
         'folke/which-key.nvim',
         event = 'VeryLazy',
-        keys = { { '<leader>w', '<cmd>WhichKey<cr>', desc = 'WhichKey' } },
+        keys = {
+            { '<leader>w', '<cmd>WhichKey<cr>', desc = 'WhichKey' },
+            { '<leader>w', '<cmd>WhichKey "" v<cr>', mode = 'v', desc = 'WhichKey' },
+        },
         opts = {
             plugins = { spelling = true },
             window = { winblend = 10 },

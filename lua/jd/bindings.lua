@@ -17,22 +17,29 @@ map('n', '<A-r>', ':Lazy reload ', { silent = false, desc = 'Lazy reload' })
 
 -- Alt maps
 for _, i in ipairs({ 'h', 'j', 'k', 'l', 'H', 'J', 'K', 'L' }) do
-    map('n', '<A-' .. i .. '>', '<C-w>' .. i)
-    map('t', '<A-' .. i .. '>', '<C-\\><C-n><C-w>' .. i)
+    map({ 'n', 't' }, '<A-' .. i .. '>', '<cmd>wincmd ' .. i .. '<cr>')
 end
-map('n', '<A-q>', '<C-w>c')
-map('n', '<A-Q>', '<CMD>wa | %bdelete<CR>')
-map('n', '<A-x>', '<CMD>bd<CR>')
-map('n', '<A-X>', '<CMD>edit #<CR>')
-map('n', '<A-s>', '<CMD>vsp | edit #<CR>')
-map('n', 'Z', '<CMD>wqa<CR>')
-map({ 'i', 'v', 'n', 's' }, '<A-w>', '<CMD>w<CR><ESC>')
+map({ 'n', 't' }, '<A-q>', '<cmd>close<cr>', { desc = 'Hide window' })
+map('n', '<A-Q>', '<CMD>wa | %bdelete<CR>', { desc = 'Close all buffers' })
+map('n', '<A-x>', '<CMD>bd<CR>', { desc = 'Close buffer' })
+map('n', '<A-X>', '<CMD>edit #<CR>', { desc = 'Switch to Other Buffer' })
+map('n', '<A-s>', '<CMD>vsp | edit #<CR>', { desc = 'Split and Switch to Other Buffer' })
+map('n', 'Z', '<CMD>wqa<CR>', { desc = 'Save and Quit' })
+map({ 'i', 'v', 'n', 's' }, '<A-w>', '<CMD>w<CR><ESC>', { desc = 'Save' })
 
 -- highlights under cursor
 map('n', '<leader>ui', vim.show_pos, { desc = 'Inspect Pos' })
 
 -- Clear search with <esc>
-map('n', '<esc>', '<cmd>noh<cr><esc>')
+map('n', '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })
+
+-- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+map('n', 'n', "'Nn'[v:searchforward].'zv'", { expr = true, desc = 'Next search result' })
+map('x', 'n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next search result' })
+map('o', 'n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next search result' })
+map('n', 'N', "'nN'[v:searchforward].'zv'", { expr = true, desc = 'Prev search result' })
+map('x', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev search result' })
+map('o', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev search result' })
 
 -- Add undo break-points
 map('i', ',', ',<c-g>u')
@@ -40,35 +47,36 @@ map('i', '.', '.<c-g>u')
 map('i', ';', ';<c-g>u')
 
 -- terminal
-map('t', '<A-x>', '<CMD>bd!<CR>')
-map('t', '<A-Esc>', '<C-\\><C-n>')
+map('t', '<A-x>', '<CMD>bd!<CR>', { desc = 'Close terminal buffer' })
+map('t', '<A-Esc>', '<C-\\><C-n>', { desc = 'Exit to normal mode (terminal)' })
 map('n', '<leader>t', '<CMD>split | terminal<CR>', { desc = 'Open Terminal (split)' })
 
 -- resizing with arrow keys
-map('n', '<C-Up>', '<CMD>resize +2<CR>')
-map('n', '<C-Down>', '<CMD>resize -2<CR>')
-map('n', '<C-Left>', '<CMD>vert resize +2<CR>')
-map('n', '<C-Right>', '<CMD>vert resize -2<CR>')
+map('n', '<C-Up>', '<CMD>resize +2<CR>', { desc = 'Resize window (vertically)' })
+map('n', '<C-Down>', '<CMD>resize -2<CR>', { desc = 'Resize window (vertically)' })
+map('n', '<C-Left>', '<CMD>vert resize +2<CR>', { desc = 'Resize window (horizontally)' })
+map('n', '<C-Right>', '<CMD>vert resize -2<CR>', { desc = 'Resize window (horizontally)' })
 
 -- completion with ctrl-j/k
-vim.keymap.set({ 'i', 'c' }, '<C-j>', '<C-n>', { remap = true })
-vim.keymap.set({ 'i', 'c' }, '<C-k>', '<C-p>', { remap = true })
+vim.keymap.set({ 'i', 'c' }, '<C-j>', '<C-n>', { remap = true, desc = 'Next completion' })
+vim.keymap.set({ 'i', 'c' }, '<C-k>', '<C-p>', { remap = true, desc = 'Prev completion' })
 vim.keymap.set('c', '<c-d>', '<Nop>')
 
-map({ 'n', 'x', 'o' }, 'H', 'g^')
-map({ 'n', 'x', 'o' }, 'L', 'g$')
+map({ 'n', 'x', 'o' }, 'H', 'g^', { desc = 'Move to the first non-blank character of line' })
+map({ 'n', 'x', 'o' }, 'L', 'g$', { desc = 'Move to the last character of line' })
 
-map({ 'n', 'x' }, 'j', [[v:count == 0 ? "gj" : "j"]], { expr = true })
-map({ 'n', 'x' }, 'k', [[v:count == 0 ? "gk" : "k"]], { expr = true })
+map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
+map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 
-map('n', '<C-j>', '<CMD>m .+1<CR>==')
-map('n', '<C-k>', '<CMD>m .-2<CR>==')
-map('x', '<C-j>', [[:move '>+1<cr>gv=gv]])
-map('x', '<C-k>', [[:move '<-2<cr>gv=gv]])
-map('n', '<C-h>', '<<')
-map('n', '<C-l>', '>>')
-map('x', '<C-h>', '<gv')
-map('x', '<C-l>', '>gv')
+map('n', '<C-j>', '<CMD>m .+1<CR>==', { desc = 'Move down' })
+map('n', '<C-k>', '<CMD>m .-2<CR>==', { desc = 'Move up' })
+map('x', '<C-j>', ":move '>+1<cr>gv=gv", { desc = 'Move down' })
+map('x', '<C-k>', ":move '<-2<cr>gv=gv", { desc = 'Move up' })
+map('n', '<C-h>', '<<', { desc = 'Move indent left' })
+map('n', '<C-l>', '>>', { desc = 'Move indent right' })
+map('x', '<C-h>', '<gv', { desc = 'Move indent left' })
+map('x', '<C-l>', '>gv', { desc = 'Move indent right' })
+
 
 -- Swap implementations of ` and ' jump to markers
 map('n', "'", '`')
@@ -104,7 +112,7 @@ map('x', 'A', function()
 end, { expr = true, desc = 'Append at end of line/selection' })
 map('x', '<Space>', 'I<Space><ESC>gv', { remap = true })
 
--- Delete word in insert/command mode with ctrl-backspace
+-- Delete word in insert/command mode with <Ctrl-BackSpace>
 map({ 'i', 'c' }, '<C-h>', '<C-w>', { silent = false })
 
 -- Replace all is aliased to S
@@ -112,7 +120,7 @@ map('n', '<leader>S', ':%s/', { silent = false, desc = 'Replace all' })
 map('x', '<leader>S', ':s/', { silent = false, desc = 'Replace in selection' })
 
 -- Change perms -> Compile document -> Open document
-map('n', '+x', '<CMD>!chmod +x "%:p"<CR>')
+map('n', '+x', '<CMD>!chmod +x "%:p"<CR>', { desc = 'Make file executable' })
 map('n', '<A-W>', function()
     vim.cmd('write')
     cmds.term_execute({ 'compiler', vim.api.nvim_buf_get_name(0) })
@@ -201,4 +209,4 @@ for _, abbr in ipairs(abbrevs) do
 end
 
 -- Disable mappings
-map({ 'n', 'v' }, '<C-z>', '<Nop>') -- disable suspend
+map({ 'n', 'v' }, '<C-z>', '<Nop>', { desc = '[Disabled] Suspend NeoVim' })
