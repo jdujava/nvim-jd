@@ -42,6 +42,20 @@ return {
         end,
     },
 
+    {
+        'micangl/cmp-vimtex',
+        keys = {
+            {
+                '<C-s>',
+                function()
+                    pcall(require('cmp_vimtex.search').search_menu)
+                end,
+                mode = 'i',
+            },
+        },
+        opts = {},
+    },
+
     -- Add BibTeX/LaTeX to treesitter
     {
         'nvim-treesitter/nvim-treesitter',
