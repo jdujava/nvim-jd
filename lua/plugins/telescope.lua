@@ -157,9 +157,10 @@ return {
                         -- stylua: ignore
                         find_command = {
                             'fd',
-                            '--type', 'f',
-                            '--hidden',
+                            '--type', 'file',
+                            '--type', 'symlink',
                             '--follow',
+                            '--hidden',
                             '--no-require-git',
                             '--strip-cwd-prefix',
                             '--ignore-file', vim.env.HOME .. '/.config/fd/ignore',
@@ -174,6 +175,7 @@ return {
                 },
                 extensions = {
                     frecency = {
+                        db_safe_mode = false,
                         show_scores = true,
                         disable_devicons = false,
                         ignore_patterns = { '*.git/*', '*.github/*', '*/tmp/*' },

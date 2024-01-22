@@ -4,7 +4,6 @@ vim.g.maplocalleader = ' '
 
 vim.o.autochdir = true
 vim.o.cmdheight = 0
-vim.o.showmode = false
 vim.o.showmatch = true
 vim.o.number = true
 vim.o.relativenumber = true
@@ -43,7 +42,7 @@ vim.o.completeopt = 'menu,menuone,noselect'
 vim.o.spelllang = 'sk,en_us'
 vim.o.spellfile = vim.fn.stdpath('data') .. '/site/spell/spell.utf-8.add'
 vim.o.signcolumn = 'yes'
-vim.o.mouse = 'a'
+vim.o.mouse = ''
 vim.o.pumheight = 15
 vim.o.pumblend = 5
 vim.o.timeoutlen = 500

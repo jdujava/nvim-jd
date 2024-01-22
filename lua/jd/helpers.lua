@@ -8,13 +8,12 @@ function M.R(module)
 end
 
 function M.toggle_diagnostics()
-    vim.b.diagnostics_disabled = not vim.b.diagnostics_disabled
-    if vim.b.diagnostics_disabled then
-        vim.diagnostic.disable(0)
-        Util.warn('Disabled diagnostics', { title = 'Diagnostics' })
-    else
+    if vim.diagnostic.is_disabled(0) then
         vim.diagnostic.enable(0)
         Util.info('Enabled diagnostics', { title = 'Diagnostics' })
+    else
+        vim.diagnostic.disable(0)
+        Util.warn('Disabled diagnostics', { title = 'Diagnostics' })
     end
 end
 
