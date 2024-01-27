@@ -54,6 +54,7 @@ return {
                 'git_config',
                 'gitignore',
                 'go',
+                'gnuplot',
                 'html',
                 'javascript',
                 'json',

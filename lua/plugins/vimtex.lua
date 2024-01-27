@@ -6,30 +6,32 @@ return {
             vim.g.tex_flavor = 'latex'
             vim.g.vimtex_view_method = 'zathura'
 
+            vim.g.vimtex_matchparen_enabled = 0 -- prefer treesitter's matchparen
+            vim.g.vimtex_syntax_enabled = 0 -- prefer treesitter for faster syntax highlighting and math detection
+            vim.g.vimtex_syntax_conceal_disable = 1 -- also disable conceal completely
+            vim.g.vimtex_imaps_enabled = 0 -- disable vimtex mappings (they don't work with treesitter anyway)
             vim.g.vimtex_imaps_leader = ';'
             vim.g.vimtex_mappings_disable = { ['n'] = { 'K' } } -- disable `K` as it conflicts with LSP hover
 
+            vim.g.vimtex_env_toggle_math_map = { ['\\('] = '\\[', ['\\['] = 'equation', ['equation'] = '\\(' }
+            vim.g.vimtex_echo_verbose_input = 0
+            vim.g.vimtex_env_change_autofill = 1
+            -- vim.g.vimtex_ui_method = {
+            --     confirm = 'legacy',
+            --     input = 'legacy',
+            --     select = 'nvim',
+            -- }
+
             vim.g.vimtex_quickfix_mode = 0
             -- vim.g.vimtex_quickfix_method = vim.fn.executable('pplatex') == 1 and 'pplatex' or 'latexlog'
+            vim.g.vimtex_quickfix_ignore_filters = { [[but the package provides `simpler-wick']] }
+
             vim.g.vimtex_fold_enabled = 1
-            vim.g.vimtex_matchparen_enabled = 0
-
-            vim.g.vimtex_syntax_conceal_disable = 1 -- disable conceal completely
-            -- vim.api.nvim_create_autocmd({ 'FileType' }, {
-            --     group = vim.api.nvim_create_augroup('lazyvim_vimtex_conceal', { clear = true }),
-            --     pattern = { 'bib', 'tex' },
-            --     callback = function()
-            --         vim.opt_local.conceallevel = 2
-            --     end,
-            -- })
-
             vim.g.vimtex_toc_config = {
                 layer_status = { ['content'] = 1, ['label'] = 0, ['todo'] = 1, ['include'] = 0 },
                 show_help = 0,
                 todo_sorted = 0,
             }
-
-            vim.g.vimtex_quickfix_ignore_filters = { [[but the package provides `simpler-wick']] }
 
             require('lazyvim.util').on_load('which-key.nvim', function()
                 require('which-key').register({
@@ -62,11 +64,6 @@ return {
         optional = true,
         opts = function(_, opts)
             vim.list_extend(opts.ensure_installed, { 'bibtex', 'latex' })
-            if type(opts.highlight.disable) == 'table' then
-                vim.list_extend(opts.highlight.disable, { 'latex' })
-            else
-                opts.highlight.disable = { 'latex' }
-            end
         end,
     },
 

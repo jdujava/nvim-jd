@@ -238,9 +238,11 @@ endsnippet
 
 global !p
 def math():
-	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+	return vim.eval('v:lua.require("jd.latex").in_mathzone()')
+	# return vim.eval('vimtex#syntax#in_mathzone()') == '1'
 def comment():
-	return vim.eval('vimtex#syntax#in_comment()') == '1'
+	return vim.eval('v:lua.require("jd.latex").in_comment()')
+	# return vim.eval('vimtex#syntax#in_comment()') == '1'
 def env(name):
 	[x,y] = vim.eval("vimtex#env#is_inside('" + name + "')")
 	return x != '0' and y != '0'
@@ -329,7 +331,7 @@ snippet iff "iff" Ai
 \iff
 endsnippet
 
-context "math()!=True"
+context "not math() and not comment()"
 snippet mk "Math" wA
 \(${1:${VISUAL}}\)`!p
 if t[2] and t[2][0] not in [',', '.', '?', '-', ' ', ')', '/', ':']:
@@ -339,7 +341,7 @@ else:
 `$2
 endsnippet
 
-context "math()!=True"
+context "not math() and not comment()"
 snippet dm "Math" wA
 \[ ${1:${VISUAL}} \]
 endsnippet
@@ -372,8 +374,8 @@ snippet " /" "Fraction" iA
  \\frac{${VISUAL}${1}}{$2}$0
 endsnippet
 context "math()"
-snippet "/" "Fraction"
- \\frac{${VISUAL}${1}}{$2}$0
+snippet "/" "Fraction" r
+\\frac{${VISUAL}${1}}{$2}$0
 endsnippet
 context "math()"
 snippet ?? "Fraction" iA
@@ -630,7 +632,7 @@ endsnippet
 
 context "math()"
 snippet sr "^2" iA
-^2
+^{2}
 endsnippet
 
 context "math()"
