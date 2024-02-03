@@ -33,6 +33,9 @@ map('n', '<leader>ui', vim.show_pos, { desc = 'Inspect Pos' })
 -- Clear search with <esc>
 map('n', '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })
 
+-- When supplied a line number, jump to it
+map('n', '<cr>', "v:count == 0 ? '<CR>' : 'G'", { expr = true })
+
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map('n', 'n', "'Nn'[v:searchforward].'zv'", { expr = true, desc = 'Next search result' })
 map('x', 'n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next search result' })
@@ -163,7 +166,7 @@ map('n', '[w', diagnostic_goto(false, 'WARN'), { desc = 'Prev Warning' })
 map('n', '<leader>uf', function() Util.format.toggle() end,          { desc = 'Toggle auto format (global)' })
 map('n', '<leader>uF', function() Util.format.toggle(true) end,      { desc = 'Toggle auto format (buffer)' })
 map('n', '<leader>uw', function() Util.toggle('wrap') end,           { desc = 'Toggle Word Wrap' })
-map('n', '<leader>uL', function() Util.toggle('relativenumber') end, { desc = 'Toggle Line Numbers' })
+map('n', '<leader>uL', function() Util.toggle('relativenumber') end, { desc = 'Toggle Relative Numbers' })
 map('n', '<leader>ul', function() Util.toggle.number() end,          { desc = 'Toggle Line Numbers' })
 map('n', '<leader><leader>s', function() Util.toggle('spell') end,   { desc = 'Toggle Spelling' })
 map('n', '<leader>ud', function() helpers.toggle_diagnostics() end,  { desc = 'Toggle Diagnostics' })
