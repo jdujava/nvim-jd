@@ -121,6 +121,11 @@ return {
                 ltex = {
                     enabled = true,
                     autostart = false, -- manually by ltex_extra keybinding
+                    settings = {
+                        ltex = {
+                            checkFrequency = 'save',
+                        },
+                    },
                 },
                 texlab = {
                     keys = {
@@ -159,18 +164,22 @@ return {
                 '<Leader><Leader>L',
                 function()
                     vim.cmd('LspStart ltex')
-                    -- wait for the server to start
-                    vim.defer_fn(function()
-                        require('ltex_extra').reload()
-                    end, 10000)
                 end,
                 desc = 'Start LTeX server',
             },
         },
-        opts = {
-            load_langs = { 'en-US' },
-            init_check = false,
-            path = '.ltex',
-        },
+        opts = function()
+            -- Reload dictionary when LTeX server is attached
+            require('lazyvim.util').lsp.on_attach(function(client, _)
+                if client.name == 'ltex' then
+                    require('ltex_extra').reload()
+                end
+            end)
+            return {
+                load_langs = { 'en-US' },
+                init_check = false, -- doesn't work, since the server is not started yet
+                path = '.ltex',
+            }
+        end,
     },
 }
