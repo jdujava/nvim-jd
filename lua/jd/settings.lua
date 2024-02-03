@@ -24,6 +24,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.smartindent = true
 
+vim.o.commentstring = '# %s'
 vim.o.foldtext = ''
 vim.o.foldmethod = 'marker'
 vim.o.foldmarker = '{{{,}}}'

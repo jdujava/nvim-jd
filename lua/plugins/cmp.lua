@@ -26,7 +26,8 @@ return {
             return {
                 enabled = function()
                     local disabled = false
-                    disabled = disabled or (vim.api.nvim_get_option_value('buftype', { buf = 0 }) == 'prompt')
+                    -- disabled = disabled or (vim.api.nvim_get_option_value('buftype', { buf = 0 }) == 'prompt')
+                    disabled = disabled or (vim.bo.buftype == 'prompt')
                     disabled = disabled or (vim.fn.reg_recording() ~= '')
                     disabled = disabled or (vim.fn.reg_executing() ~= '')
                     return vim.g.cmp_enabled and not disabled

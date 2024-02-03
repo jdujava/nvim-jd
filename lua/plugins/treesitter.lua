@@ -46,6 +46,7 @@ return {
             ensure_installed = {
                 'bash',
                 'c',
+                'printf',
                 'cmake',
                 -- "comment", -- comments are slowing down TS bigtime, so disable for now
                 'cpp',
@@ -64,6 +65,7 @@ return {
                 'markdown_inline',
                 'python',
                 'query',
+                'scheme',
                 'sxhkdrc',
                 'vim',
                 'vimdoc',
