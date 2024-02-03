@@ -207,11 +207,13 @@ map('v', '<A-~>', function() open(get_visual_selection()) end, { desc = open_des
 -- stylua: ignore end
 
 -- Abbreviations
-map('ia', '#!!', [['#!/usr/bin/env ' . (empty(&filetype) ? 'sh' : &filetype)]], { expr = true })
 local abbrevs = { 'E', 'Bd', 'Sp', 'Vs', 'Q', 'Q!', 'Qa', 'QA', 'QA!', 'W', 'W!', 'Wq', 'WQ', 'Wqa', 'WQa', 'WQA' }
 for _, abbr in ipairs(abbrevs) do
     map('ca', abbr, abbr:lower())
 end
+--  NOTE: sometimes `!` is in `iskeyword`, making the following abbreviation invalid,
+--        thus throwing an error, see https://github.com/neovim/neovim/issues/27324
+pcall(map, 'ia', '#!!', [['#!/usr/bin/env ' . (empty(&filetype) ? 'sh' : &filetype)]], { expr = true })
 
 -- Disable mappings
 map({ 'n', 'v' }, '<C-z>', '<Nop>', { desc = '[Disabled] Suspend NeoVim' })
