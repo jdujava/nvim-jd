@@ -135,6 +135,8 @@ map('n', '<leader><leader>v', '<CMD>!opout "%:p"<CR><CR>', { desc = 'Open docume
 -- Commands
 map('n', '<leader>sw', cmds.sudo_write, { desc = 'SudoWrite' })
 map('n', '<leader>x', cmds.executor, { desc = 'Execute current line' })
+map('x', '<leader>x', ':lua<cr>', { desc = 'Execute selected lines as lua' })
+map('x', '<leader>so', cmds.visual_executor, { expr = true, desc = 'Execute selected lines' })
 map('n', '<leader><leader>x', cmds.saveandexec, { desc = 'Save and Execute document' })
 map('n', '<leader>X', cmds.saveandexec, { desc = 'Save and Execute document' })
 
