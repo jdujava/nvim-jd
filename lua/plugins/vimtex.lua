@@ -87,12 +87,15 @@ return {
                     tex = { 'latexindent' },
                     bib = { 'bibtex-tidy' },
                 },
+                -- stylua: ignore
                 formatters = {
                     latexindent = {
                         cwd = Util.root_file({ '.latexmkrc', '.git' }),
-                        prepend_args = { '-c', './.aux' },
+                        prepend_args = {
+                            '-c', './.aux', -- location of `intent.log`
+                            '-l', vim.env.XDG_CONFIG_HOME .. '/latexindent/latexindent.yaml',
+                        },
                     },
-                    -- stylua: ignore
                     ['bibtex-tidy'] = {
                         prepend_args = {
                             '--space=4', '--trailing-commas',
