@@ -15,7 +15,7 @@ def modeline(snip):
 	# Create anonymous snippet body
 	# ft = vim.current.buffer.options['ft'] or "filetype"
 	ft = vim.eval('&ft') or "filetype"
-	anon_snippet_body = vim.eval('printf(&cms," vim:ft=${1:' + ft + '}: ")')
+	anon_snippet_body = vim.eval('printf(&cms,"vim:ft=${1:' + ft + '}: ")')
 
 	# Expand anonymous snippet
 	snip.expand_anon(anon_snippet_body)

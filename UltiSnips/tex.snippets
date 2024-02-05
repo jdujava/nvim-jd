@@ -89,11 +89,27 @@ ${1:#left} & \mbox{pre } ${2:x} ${3:\leq} ${4:x_0} $0
 endsnippet
 
 snippet cg "center includegraphics"
-\\begin{figure}[${1:!ht}]
+\\begin{figure}[!ht]
 	\\centering
-	\\includegraphics[width=${2:1.0}\linewidth]{${3:plot.png}}
-	\\caption{$4}
-	\\label{fig:${5:${3/\.\w+$//}}}
+`!p
+try:
+	if t[1] and float(t[1]) > 1.0:
+		snip.rv = '\t\\begin{adjustbox}{center}\n\t'
+	else:
+		snip.rv = ''
+except ValueError:
+	pass
+`	\\includegraphics[width=${1:1.0}\linewidth]{${2:plot.png}}
+`!p
+try:
+	if t[1] and float(t[1]) > 1.0:
+		snip.rv = '\t\\end{adjustbox}\n'
+	else:
+		snip.rv = ''
+except ValueError:
+	pass
+`	\\caption{${3:Caption}}
+	\\label{fig:${4:${2/\.\w+$//}}}
 \\end{figure}
 ${0}
 endsnippet
@@ -174,24 +190,6 @@ snippet emp "\emph{}" i
 endsnippet
 snippet emph "\emph{}" i
 \\emph{${1:${VISUAL}}}${0}
-endsnippet
-
-# Math
-snippet dv "\dv{}{}" w
-\\dv{${1:${VISUAL}}}{${2}}
-endsnippet
-snippet pdv "\pdv{}{}" w
-\\pdv{${1:${VISUAL}}}{${2}}
-endsnippet
-snippet \int "Integral" w
-\\int\\limits_{${1}}^{${2}}
-endsnippet
-snippet dd "\dd{}" w
-\\dd{${1:${VISUAL}}}
-endsnippet
-
-snippet text "\mbox{}"
-\\mbox{${1:${VISUAL}}}
 endsnippet
 
 #Symbols
@@ -383,13 +381,13 @@ snippet ?? "Fraction" iA
 endsnippet
 
 context "math()"
-snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\\|\^|_)(\{[^=]+\}|\w+))*)/' "symbol frac" wrA
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\\|\^|_)(\{[^=]+\}|\w+))*)/' "symbol frac" rA
 \\frac{`!p snip.rv = match.group(1)`}{$1}$0
 endsnippet
 
 priority 1000
 context "math()"
-snippet '^.*\)/' "() frac" wrA
+snippet '^.*\)/' "() frac" rA
 `!p
 stripped = match.string[:-1]
 depth = 0
@@ -404,13 +402,8 @@ snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
 endsnippet
 
 context "math()"
-snippet '([A-Za-z'])(\d)' "auto subscript" wrA
-`!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
-endsnippet
-
-context "math()"
-snippet '([A-Za-z'])_(\d\d)' "auto subscript2" wrA
-`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
+snippet '([A-Za-z'])(\d)' "auto subscript" rA
+`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`$1}
 endsnippet
 
 # snippet sympy "sympyblock " w
@@ -418,7 +411,7 @@ endsnippet
 # endsnippet
 #
 # priority 10000
-# snippet 'sympy(.*)sympy' "sympy" wr
+# snippet 'sympy(.*)sympy' "sympy" r
 # `!p
 # from sympy import *
 # x, y, z, t = symbols('x y z t')
@@ -435,7 +428,7 @@ math $1 math$0
 endsnippet
 
 priority 10000
-snippet 'math(.*)math' "evaluate mathematica" wr
+snippet 'math(.*)math' "evaluate mathematica" r
 `!p
 import subprocess
 code = 'ToString[' + match.group(1) + ', TeXForm]'
@@ -535,18 +528,6 @@ snippet oset "\overset{}{}" iA
 \\overset{${2:#2}}{${1:${VISUAL}}} ${0}
 endsnippet
 
-priority 100
-context "math()"
-snippet wtilde "\tilde{}" iA
-\\widetilde{${1:${VISUAL}}}${0}
-endsnippet
-
-priority 10
-context "math()"
-snippet tilde "\tilde{}" iA
-\\tilde{${1:${VISUAL}}}${0}
-endsnippet
-
 context "math()"
 snippet pmat "pmat" i
 \begin{pmatrix} $1 \end{pmatrix} $0
@@ -637,17 +618,17 @@ endsnippet
 
 context "math()"
 snippet td "to the ... power" iA
-^{$1}$0
-endsnippet
-
-context "math()"
-snippet rd "to the ... power" iA
-^{($1)}$0
+^{${1:${VISUAL}}}$0
 endsnippet
 
 context "math()"
 snippet ^ "superscript" iA
-^{$1}$0
+^{${1:${VISUAL}}}$0
+endsnippet
+
+context "math()"
+snippet rd "to the ... power" iA
+^{(${1:${VISUAL}})}$0
 endsnippet
 
 context "math()"
@@ -757,6 +738,12 @@ snippet mbb "mathbb" iA
 \mathbb{${1:${VISUAL}}}
 endsnippet
 
+priority 100
+context "math()"
+snippet tt "text" iA
+\text{${1:${VISUAL}}}$0
+endsnippet
+
 priority 200
 context "math()"
 snippet mtt "mathtt" iA
@@ -775,11 +762,6 @@ endsnippet
 
 snippet lll "l" iA
 \ell
-endsnippet
-
-context "math()"
-snippet nabl "nabla" iA
-\nabla
 endsnippet
 
 context "math()"
@@ -817,19 +799,53 @@ snippet \cdotv "vdots" iA
 endsnippet
 
 context "math()"
-snippet abs "abs" iA
-\abs{${1:${VISUAL}}}$0
-endsnippet
-
-context "math()"
 snippet norm "norm" iA
 \|$1\|$0
 endsnippet
 
+context "math()"
+snippet dv "\dv{}{}" w
+\\dv{${1:${VISUAL}}}{${2}}
+endsnippet
+
+context "math()"
+snippet pdv "\pdv{}{}" w
+\\pdv{${1:${VISUAL}}}{${2}}
+endsnippet
+
+context "math()"
+snippet \int "Integral" i
+\\int\\limits_{${1}}^{${2}}
+endsnippet
+
 priority 100
 context "math()"
-snippet '(?<!\\)(sq|sin|cos|arccot|cot|csc|ln|log|exp|star|perp|quad|dim|odot|det)' "ln" rwA
+snippet '(?<!\\)(star|perp|quad|int|nabla)' "\foo" wrA
 \\`!p snip.rv = match.group(1)`
+endsnippet
+
+priority 200
+context "math()"
+snippet '(?<!\\)(qquad)' "\ffoo" rA
+\\`!p snip.rv = match.group(1)`
+endsnippet
+
+priority 100
+context "math()"
+snippet '(\\?)(sq|sin|cos|arccot|cot|csc|ln|log|exp|dim|odot|det|abs|tilde|dd)' "\foo{}" rA
+\\`!p snip.rv = match.group(2)`{${1:${VISUAL}}}
+endsnippet
+
+priority 200
+context "math()"
+snippet '(\\?)(arcsin|arccos|arctan|arccot|arccsc|arcsec)' "\ffoo{}" rA
+\\`!p snip.rv = match.group(2)`{${1:${VISUAL}}}
+endsnippet
+
+priority 200
+context "math()"
+snippet wtilde "\tilde{}" iA
+\\widetilde{${1:${VISUAL}}}${0}
 endsnippet
 
 context "math()"
@@ -842,13 +858,6 @@ context "math()"
 snippet dint "integral" w
 \int_{${1:-\infty}}^{${2:\infty}} ${3:${VISUAL}} $0
 endsnippet
-
-priority 200
-context "math()"
-snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|int|qquad)' "ln" rwA
-\\`!p snip.rv = match.group(1)`
-endsnippet
-
 
 priority 100
 context "math()"
@@ -995,12 +1004,6 @@ endsnippet
 
 snippet <> "hokje" i
 \diamond
-endsnippet
-
-priority 100
-context "math()"
-snippet tt "text" iA
-\text{${1:${VISUAL}}}$0
 endsnippet
 
 context "math()"

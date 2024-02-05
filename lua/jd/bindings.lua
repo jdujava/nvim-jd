@@ -29,6 +29,7 @@ map({ 'i', 'v', 'n', 's' }, '<A-w>', '<CMD>w<CR><ESC>', { desc = 'Save' })
 
 -- highlights under cursor
 map('n', '<leader>ui', vim.show_pos, { desc = 'Inspect Pos' })
+map('n', ';i', ':Inspect<cr>', { desc = 'Inspect Pos', silent = false })
 
 -- Clear search with <esc>
 map('n', '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })
@@ -161,6 +162,10 @@ map('n', ']e', diagnostic_goto(true, 'ERROR'), { desc = 'Next Error' })
 map('n', '[e', diagnostic_goto(false, 'ERROR'), { desc = 'Prev Error' })
 map('n', ']w', diagnostic_goto(true, 'WARN'), { desc = 'Next Warning' })
 map('n', '[w', diagnostic_goto(false, 'WARN'), { desc = 'Prev Warning' })
+map('n', ']h', diagnostic_goto(true, 'HINT'), { desc = 'Next Hint' })
+map('n', '[h', diagnostic_goto(false, 'HINT'), { desc = 'Prev Hint' })
+map('n', ']i', diagnostic_goto(true, 'INFO'), { desc = 'Next Info' })
+map('n', '[i', diagnostic_goto(false, 'INFO'), { desc = 'Prev Info' })
 
 -- stylua: ignore start
 
