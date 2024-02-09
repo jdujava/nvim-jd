@@ -24,7 +24,9 @@ return {
 
             vim.g.vimtex_quickfix_mode = 0
             -- vim.g.vimtex_quickfix_method = vim.fn.executable('pplatex') == 1 and 'pplatex' or 'latexlog'
-            vim.g.vimtex_quickfix_ignore_filters = { [[but the package provides `simpler-wick']] }
+            vim.g.vimtex_quickfix_ignore_filters = {
+                [[You have requested package `./preamble/packages/simpler-wick/simpler-wick']],
+            }
 
             vim.g.vimtex_fold_enabled = 1
             vim.g.vimtex_toc_config = {

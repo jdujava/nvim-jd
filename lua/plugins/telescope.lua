@@ -90,10 +90,11 @@ return {
                 desc = 'Colorscheme with preview',
             },
             {
-                '<leader>U',
+                '<A-u>',
                 function()
                     require('telescope').extensions.ultisnips.ultisnips({ layout_strategy = 'vertical' })
                 end,
+                mode = { 'n', 'i' },
                 desc = 'Ultisnips',
             },
         },
