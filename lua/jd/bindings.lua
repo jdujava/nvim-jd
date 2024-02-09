@@ -222,3 +222,8 @@ pcall(map, 'ia', '#!!', [['#!/usr/bin/env ' . (empty(&filetype) ? 'sh' : &filety
 
 -- Disable mappings
 map({ 'n', 'v' }, '<C-z>', '<Nop>', { desc = '[Disabled] Suspend NeoVim' })
+
+map({ 'n', 'i' }, '<A-i>', function()
+    lazy_util.warn(helpers.R('jd.latex').get_zone())
+    -- lazy_util.warn(helpers.R('jd.latex').get_zone(-1))
+end, { desc = 'get captures' })
