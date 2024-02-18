@@ -17,20 +17,6 @@ local noignore_filetype = {
     ['checkhealth'] = true,
 }
 
-local function getBufLabel(n)
-    local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(n), ':t')
-    if filename == '' then
-        filename = '[No name]'
-    end
-    if has_icons then
-        local icon = icons.get_icon(filename, nil, { default = true })
-        filename = icon .. ' ' .. filename
-    end
-    filename = filename .. (vim.bo[n].readonly and '[]' or '')
-    filename = filename .. (vim.bo[n].modified and '[+]' or '')
-    return filename
-end
-
 local function update_buffers()
     local buffers = vim.api.nvim_list_bufs()
     buffers = vim.tbl_filter(function(b)
@@ -61,19 +47,53 @@ local function update_buffers()
     -- vim.print(vim.inspect(require('simple-line.buffers').buffers) .. ' ' .. os.time())
 end
 
+local function getBufLabel(n)
+    local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(n), ':t')
+    if filename == '' then
+        filename = '[No name]'
+    end
+    if has_icons then
+        local icon = icons.get_icon(filename, nil, { default = true })
+        filename = icon .. ' ' .. filename
+    end
+    filename = filename .. (vim.bo[n].readonly and '[]' or '')
+    filename = filename .. (vim.bo[n].modified and '[+]' or '')
+    return filename
+end
+
+local click_callback = "@v:lua.require'simple-line.buffers'.jumpBuf@"
+local function buf_entry(index, bufHi, bufLabel)
+    return '%' .. index .. click_callback .. builder(bufHi, bufLabel) .. '%X'
+end
+local function truncate_entry(index)
+    return '%' .. index .. click_callback .. '%#SlBufferLineSeparator#' .. vim.g.lsep .. '%#SlBufferLine# ...>%X'
+end
+
+local last_current_buf_index = 1
+
 function B.bufferLine()
     update_buffers()
 
+    local width = 0
+    local max_width = vim.o.columns - 8
+
     local bufferline = {}
     local current_buf = vim.api.nvim_get_current_buf()
+    local current_index = B.index_of_buf[current_buf] or last_current_buf_index
+    last_current_buf_index = current_index
+
     for i, b in ipairs(B.buffers) do
         local bufHi = 'SlBufferLine' .. (b == current_buf and 'Sel' or '')
-        table.insert(bufferline, '%' .. i .. "@v:lua.require'simple-line.buffers'.jumpBuf@")
-        table.insert(bufferline, builder(bufHi, getBufLabel(b)))
-        table.insert(bufferline, '%X')
+        local bufLabel = getBufLabel(b)
+        width = width + vim.api.nvim_strwidth(bufLabel) + 5
+        if width > max_width and i > current_index + 1 then
+            table.insert(bufferline, truncate_entry(i))
+            break
+        end
+        table.insert(bufferline, buf_entry(i, bufHi, bufLabel))
     end
 
-    table.insert(bufferline, '%=%#SlDirectorySeparator#')
+    table.insert(bufferline, '%=%#SlDirectorySeparator# ')
     table.insert(bufferline, string.format('[%s/%d]', B.index_of_buf[current_buf] or '~', #B.buffers))
 
     -- vim.notify(table.concat(bufferline, '\n'))
@@ -81,7 +101,7 @@ function B.bufferLine()
 end
 
 -- reordering buffers in bufferline
--- really update B.buffers table
+-- TODO: bp/bn doesn't respect the order
 function B.moveBuf(index, dir)
     local current_buf = vim.api.nvim_get_current_buf()
     local current_index = B.index_of_buf[current_buf]
