@@ -1,4 +1,4 @@
--- Description: special settings for *quicktex* script
+-- Description: special settings for `quicktex` script
 -- Run with: nvim -c "lua require('jd.quicktex')"
 
 -- set up quick keybindings
@@ -8,6 +8,5 @@ for _, key in ipairs(quit_keys) do
 end
 
 -- autostart editing as "$|$", where | is position of cursor
-vim.api.nvim_buf_set_lines(0, 0, 1, false, { '$$' })
-vim.api.nvim_win_set_cursor(0, { 1, 1 })
+vim.api.nvim_win_set_cursor(0, { 1, 2 })
 vim.cmd.startinsert()
