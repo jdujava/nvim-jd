@@ -227,3 +227,6 @@ map({ 'n', 'i' }, '<A-i>', function()
     lazy_util.warn(helpers.R('jd.latex').get_zone())
     -- lazy_util.warn(helpers.R('jd.latex').get_zone(-1))
 end, { desc = 'get captures' })
+
+-- undo autotrigger snippet (twice undo)
+map('i', '<A-U>', '<CMD>undo<bar>undo<CR>', { desc = 'Undo' })

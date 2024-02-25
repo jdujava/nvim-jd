@@ -37,13 +37,10 @@
 ] @zone.comment @nospell
 
 
-; \SI command from `siunitx` package
+; `\SI{}{}` command from `siunitx` package (and others)
 ; highlight as math and disable spellchecking, but treat as text zone
 (generic_command
   command: (command_name) @_name
   arg: (curly_group
         (_) @markup.math @nospell)
-  (#eq? @_name "\\SI")
-  ; (#any-of? @_name "\\SI" "\\si")
-) @zone.text
-
+  (#any-of? @_name "\\SI" "\\si")) @zone.text

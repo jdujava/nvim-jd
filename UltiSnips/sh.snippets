@@ -6,3 +6,26 @@ snippet if "ifinstalled" b
 ifinstalled $1 || exit 1
 endsnippet
 
+snippet getopts "getopts" b
+usage() {
+    cat <<EOF
+Description:
+  ${1:`!p snip.rv = snip.fn`} - ${2:a description of the script}
+
+Usage:
+  $1 [-h] [-q <query>] [--]
+
+Flags:
+  -q  description of the flag
+  -h  print this help message
+EOF
+}
+
+while getopts "q:h" o; do case ${o} in
+    q) query="$OPTARG" ;;
+    h) usage; exit 0 ;;
+    ?) printf "See '%s -h' for possible options and help\n" "$(basename "\$0")"
+        exit 2 ;;
+esac done
+shift $((OPTIND - 1))
+endsnippet

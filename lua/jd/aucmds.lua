@@ -8,7 +8,11 @@ end
 -- Check if we need to reload the file when it changed
 au({ 'FocusGained', 'TermClose', 'TermLeave' }, {
     group = gr('checktime'),
-    command = 'checktime',
+    callback = function()
+        if vim.o.buftype ~= 'nofile' then
+            vim.cmd('checktime')
+        end
+    end,
 })
 
 -- Resize panes when host window is resized

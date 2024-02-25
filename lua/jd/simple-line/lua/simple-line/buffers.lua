@@ -16,6 +16,13 @@ local noignore_filetype = {
     ['startuptime'] = true,
     ['checkhealth'] = true,
 }
+local name_by_filetype = setmetatable({
+    ['checkhealth'] = 'checkhealth',
+}, {
+    __index = function(_, _)
+        return '[No name]'
+    end,
+})
 
 local function update_buffers()
     local buffers = vim.api.nvim_list_bufs()
@@ -50,7 +57,7 @@ end
 local function getBufLabel(n)
     local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(n), ':t')
     if filename == '' then
-        filename = '[No name]'
+        filename = name_by_filetype[vim.bo[n].filetype]
     end
     if has_icons then
         local icon = icons.get_icon(filename, nil, { default = true })

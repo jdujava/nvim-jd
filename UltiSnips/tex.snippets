@@ -384,6 +384,9 @@ snippet ?? "Fraction" iA
 /$0
 endsnippet
 
+## alternative
+# snippet '(([\^_\\]?(\w+|\{[^=]*\}))+)/' "symbol frac" rA
+
 context "math()"
 snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\\|\^|_)(\{[^=]+\}|\w+))*)/' "symbol frac" rA
 \\frac{`!p snip.rv = match.group(1)`}{$1}$0
@@ -1026,9 +1029,8 @@ snippet SI "SI" i
 \SI{${1:${VISUAL}}}{$2}
 endsnippet
 
-context "math()"
 snippet si "\si{}" w
-\si{${1:${VISUAL}}}${0}
+\si{${1:${VISUAL}}}
 endsnippet
 
 
