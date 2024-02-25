@@ -50,6 +50,9 @@ return {
                         '--clang-tidy',
                         '--header-insertion=iwyu',
                     },
+                    on_init = function(client, _)
+                        client.server_capabilities.semanticTokensProvider = nil
+                    end,
                 },
                 lua_ls = {
                     -- mason = false, -- set to false if you don't want this server to be installed with mason
