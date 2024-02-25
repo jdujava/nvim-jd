@@ -31,6 +31,8 @@ return {
                 }
             end,
             on_highlights = function(hl, c)
+                local util = require('tokyonight.util')
+
                 hl.String = { fg = c.orange }
                 hl.Character = { fg = c.orange2 }
                 hl.Function = { fg = c.yellow }
@@ -41,12 +43,15 @@ return {
                 hl['@markup.raw.delimiter.markdown'] = { link = 'NonText' }
                 hl.DiagnosticUnnecessary = { link = 'DiagnosticUnderlineHint' }
 
+                hl.MailQuoted1 = { fg = c.comment }
+                hl.MailQuoted2 = { fg = util.darken(c.teal, 0.8) }
+
                 hl.TreesitterContext = { bg = c.bg_context }
+                hl.MatchParen = { bg = c.bg_highlight, bold = true }
                 hl.Search = { bg = c.dark3, underline = false }
                 hl.IncSearch = { bg = c.dark4, underline = true }
-                hl.MatchParen = { bg = c.dark3, bold = true }
 
-                hl.Folded = { fg = c.blue, bg = '#073642' }
+                hl.Folded = { fg = c.blue, bg = c.bg_blue }
                 hl.LineNr = { fg = c.dark5 }
                 hl.CursorLineNr = { fg = c.fg_dark }
                 hl.LspInlayHint = { fg = c.dark4 }
@@ -91,6 +96,7 @@ return {
                 bg_context   = '#262626',
                 bg_highlight = '#2a2a2a',
                 fg_gutter    = '#2a2a2a',
+                bg_blue      = '#073642',
                 dark3        = '#3e4452',
                 dark4        = '#454e53',
                 dark5        = '#5c6370',
