@@ -147,6 +147,7 @@ return {
                             desc = 'Beamer: show only current slide/frame',
                         },
                     },
+                    inlay_hints_default = false,
                     settings = {
                         texlab = {
                             forwardSearch = {
@@ -155,8 +156,8 @@ return {
                                 args = { '--synctex-forward', '%l:1:%f', '%p' },
                             },
                             inlayHints = {
-                                labelDefinitions = false,
-                                labelReferences = false,
+                                labelDefinitions = true,
+                                labelReferences = true,
                             }
                         },
                     },

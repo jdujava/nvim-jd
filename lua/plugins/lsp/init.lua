@@ -117,14 +117,6 @@ return {
                 return ret
             end
 
-            if opts.inlay_hints.enabled then
-                Util.lsp.on_attach(function(client, buffer)
-                    if client.supports_method('textDocument/inlayHint') then
-                        Util.toggle.inlay_hints(buffer, true)
-                    end
-                end)
-            end
-
             vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
             require('lspconfig.ui.windows').default_options.border = 'rounded'
 
@@ -137,6 +129,17 @@ return {
                 has_cmp and cmp_nvim_lsp.default_capabilities() or {},
                 opts.capabilities or {}
             )
+
+            if opts.inlay_hints.enabled then
+                Util.lsp.on_attach(function(client, buffer)
+                    if client.supports_method('textDocument/inlayHint') then
+                        if servers[client.name] and servers[client.name].inlay_hints_default == false then
+                            return
+                        end
+                        Util.toggle.inlay_hints(buffer, true)
+                    end
+                end)
+            end
 
             local function setup(server)
                 local server_opts = vim.tbl_deep_extend('force', {
