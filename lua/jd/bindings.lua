@@ -188,28 +188,28 @@ map('n', '<leader>uh', function() Util.toggle.inlay_hints() end, { desc = 'Toggl
 -- Spell-check
 -- map('i', '<C-h>', '<c-g>u<Esc>[s1z=`]a<c-g>u')
 
--- TODO: use vim.region() when it lands... #13896 #16843
-local function get_visual_selection()
-    local save_a = vim.fn.getreginfo('a')
-    vim.cmd([[norm! "ay]])
-    local selection = vim.fn.getreg('a', 1) --[[@as string]]
-    vim.fn.setreg('a', save_a)
-    return selection
-end
 local open_desc = 'Open URI with the system default handler'
----@param uri string
+---@param uri string|string[]|nil
 local function open(uri)
+    if not uri then
+        return
+    end
+    if type(uri) == 'table' then
+        return vim.tbl_map(open, uri)
+    end
     lazy_util.info(uri, { title = 'Open URI' })
     local _, err = vim.ui.open(uri)
     if err then
         lazy_util.error(err, { title = 'Open URI' })
     end
 end
--- stylua: ignore start
-map('n', '<A-~>', function() open(vim.fn.expand('<cfile>') --[[@as string]] ) end, { desc = open_desc })
-map('v', '<A-~>', function() open(get_visual_selection()) end, { desc = open_desc })
+map('n', '<A-~>', function()
+    open(vim.fn.expand('<cfile>'))
+end, { desc = open_desc })
+map('v', '<A-~>', function()
+    open(vim.fn.getregion(vim.fn.getpos('.'), vim.fn.getpos('v'), { type = vim.fn.mode() }))
+end, { desc = open_desc })
 -- map('v', '<A-~>', 'gx', { remap = true, desc = 'Open Link' })
--- stylua: ignore end
 
 -- Abbreviations
 local abbrevs = { 'E', 'Bd', 'Sp', 'Vs', 'Q', 'Q!', 'Qa', 'QA', 'QA!', 'W', 'W!', 'Wq', 'WQ', 'Wqa', 'WQa', 'WQA' }
