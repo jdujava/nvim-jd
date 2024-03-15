@@ -36,4 +36,12 @@ function M.toggle_ts_highligts()
     end
 end
 
+function M.toggle_ultisnips_autotrigger()
+    if vim.fn['UltiSnips#ToggleAutoTrigger']() == 1 then
+        Util.info('Enabled UltiSnips autotrigger', { title = 'UltiSnips' })
+    else
+        Util.warn('Disabled UltiSnips autotrigger', { title = 'UltiSnips' })
+    end
+end
+
 return M

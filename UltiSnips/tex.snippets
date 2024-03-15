@@ -825,9 +825,19 @@ snippet \int "Integral" i
 \\int\\limits_{${1}}^{${2}}
 endsnippet
 
+context "math()"
+snippet ii "Imaginary unit" i
+\\iunit
+endsnippet
+
+context "math()"
+snippet ee "Exponential" i
+\\eunit
+endsnippet
+
 priority 100
 context "math()"
-snippet '(?<!\\)(star|perp|quad|int|nabla)' "\foo" wrA
+snippet '(?<!\\)(star|perp|quad|int|nabla|exp)' "\foo" wrA
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
@@ -839,7 +849,7 @@ endsnippet
 
 priority 100
 context "math()"
-snippet '(\\?)(sq|sin|cos|arccot|cot|csc|ln|log|exp|dim|odot|det|abs|tilde|dd)' "\foo{}" rA
+snippet '(\\?)(sq|sin|cos|arccot|cot|csc|ln|log|dim|odot|det|abs|tilde|dd)' "\foo{}" rA
 \\`!p snip.rv = match.group(2)`{${1:${VISUAL}}}
 endsnippet
 
