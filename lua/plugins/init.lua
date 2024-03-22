@@ -1,4 +1,5 @@
 -- load settings, helpers, autocommands, and keybindings
+_G.LazyVim = require("lazyvim.util")
 require('jd.settings')
 
 -- autocmds can be loaded lazily when not opening a file
@@ -11,13 +12,12 @@ vim.api.nvim_create_autocmd('User', {
     group = vim.api.nvim_create_augroup('jd_core', { clear = true }),
     pattern = 'VeryLazy',
     callback = function()
-        local Util = require("lazyvim.util")
         if lazy_autocmds then
             require('jd.aucmds')
         end
         require('jd.bindings')
 
-        Util.format.setup()
+        LazyVim.format.setup()
     end,
 })
 

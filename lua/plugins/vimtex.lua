@@ -35,7 +35,7 @@ return {
                 todo_sorted = 0,
             }
 
-            require('lazyvim.util').on_load('which-key.nvim', function()
+            LazyVim.on_load('which-key.nvim', function()
                 require('which-key').register({
                     ['<leader>l'] = {
                         name = '+VimTex',
@@ -180,7 +180,7 @@ return {
         },
         opts = function()
             -- Reload dictionary when LTeX server is attached
-            require('lazyvim.util').lsp.on_attach(function(client, _)
+            LazyVim.lsp.on_attach(function(client, _)
                 if client.name == 'ltex' then
                     require('ltex_extra').reload()
                 end

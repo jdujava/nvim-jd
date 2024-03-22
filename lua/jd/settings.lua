@@ -84,4 +84,4 @@ vim.g.loaded_node_provider = 0
 vim.g.markdown_folding = true
 
 vim.g.autoformat = false
-vim.o.formatexpr = "v:lua.require'lazyvim.util'.format.formatexpr()"
+vim.o.formatexpr = "v:lua.LazyVim.format.formatexpr()"

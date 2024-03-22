@@ -1,8 +1,7 @@
 -- This file is automatically loaded by plugins.core
 local cmds = require('jd.cmds')
 local helpers = require('jd.helpers')
-local lazy_util = require('lazy.core.util')
-local Util = require('lazyvim.util')
+local Util = require('lazy.core.util')
 
 local function map(mode, lhs, rhs, opts)
     opts = opts or {}
@@ -143,7 +142,7 @@ map('n', '<leader>X', cmds.saveandexec, { desc = 'Save and Execute document' })
 
 -- Formatting
 map({ 'n', 'v' }, 'gF', function()
-    Util.format({ force = true })
+    LazyVim.format({ force = true })
 end, { desc = 'Format' })
 
 -- Diagnostics
@@ -170,19 +169,19 @@ map('n', '[i', diagnostic_goto(false, 'INFO'), { desc = 'Prev Info' })
 -- stylua: ignore start
 
 -- Toggle options
-map('n', '<leader>uf', function() Util.format.toggle() end,          { desc = 'Toggle auto format (global)' })
-map('n', '<leader>uF', function() Util.format.toggle(true) end,      { desc = 'Toggle auto format (buffer)' })
-map('n', '<leader>uw', function() Util.toggle('wrap') end,           { desc = 'Toggle Word Wrap' })
-map('n', '<leader>uL', function() Util.toggle('relativenumber') end, { desc = 'Toggle Relative Numbers' })
-map('n', '<leader>ul', function() Util.toggle.number() end,          { desc = 'Toggle Line Numbers' })
-map('n', '<leader><leader>s', function() Util.toggle('spell') end,   { desc = 'Toggle Spelling' })
+map('n', '<leader>uf', function() LazyVim.format.toggle() end,          { desc = 'Toggle auto format (global)' })
+map('n', '<leader>uF', function() LazyVim.format.toggle(true) end,      { desc = 'Toggle auto format (buffer)' })
+map('n', '<leader>uw', function() LazyVim.toggle('wrap') end,           { desc = 'Toggle Word Wrap' })
+map('n', '<leader>uL', function() LazyVim.toggle('relativenumber') end, { desc = 'Toggle Relative Numbers' })
+map('n', '<leader>ul', function() LazyVim.toggle.number() end,          { desc = 'Toggle Line Numbers' })
+map('n', '<leader><leader>s', function() LazyVim.toggle('spell') end,   { desc = 'Toggle Spelling' })
 map('n', '<leader>ud', function() helpers.toggle_diagnostics() end,  { desc = 'Toggle Diagnostics' })
 map('n', '<leader>uC', function() helpers.toggle_completion() end,   { desc = 'Toggle Completion' })
 map('n', '<leader>ut', function() helpers.toggle_ts_highligts() end, { desc = 'Toggle Treesitter Highlight' })
 map({ 'n', 'i' }, '<A-a>', function() helpers.toggle_ultisnips_autotrigger() end, { desc = 'Toggle UltiSnips Autotrigger' })
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 2
-map('n', '<leader>uc', function() Util.toggle('conceallevel', false, { 0, conceallevel }) end, { desc = 'Toggle Conceal' })
-map('n', '<leader>uh', function() Util.toggle.inlay_hints() end, { desc = 'Toggle Inlay Hints' })
+map('n', '<leader>uc', function() LazyVim.toggle('conceallevel', false, { 0, conceallevel }) end, { desc = 'Toggle Conceal' })
+map('n', '<leader>uh', function() LazyVim.toggle.inlay_hints() end, { desc = 'Toggle Inlay Hints' })
 
 -- stylua: ignore end
 
@@ -198,10 +197,10 @@ local function open(uri)
     if type(uri) == 'table' then
         return vim.tbl_map(open, uri)
     end
-    lazy_util.info(uri, { title = 'Open URI' })
+    Util.info(uri, { title = 'Open URI' })
     local _, err = vim.ui.open(uri)
     if err then
-        lazy_util.error(err, { title = 'Open URI' })
+        Util.error(err, { title = 'Open URI' })
     end
 end
 map('n', '<A-~>', function()
@@ -225,8 +224,8 @@ pcall(map, 'ia', '#!!', [['#!/usr/bin/env ' . (empty(&filetype) ? 'sh' : &filety
 map({ 'n', 'v' }, '<C-z>', '<Nop>', { desc = '[Disabled] Suspend NeoVim' })
 
 map({ 'n', 'i' }, '<A-i>', function()
-    lazy_util.warn(helpers.R('jd.latex').get_zone())
-    -- lazy_util.warn(helpers.R('jd.latex').get_zone(-1))
+    Util.warn(helpers.R('jd.latex').get_zone())
+    -- Util.warn(helpers.R('jd.latex').get_zone(-1))
 end, { desc = 'get captures' })
 
 -- undo autotrigger snippet (twice undo)

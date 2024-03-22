@@ -19,7 +19,7 @@ return {
                     spacing = 4,
                     source = 'if_many',
                     prefix = function(diagnostic)
-                        return require('lazyvim.util').opts('nvim-lspconfig').diagnostics.signs.text[diagnostic.severity]
+                        return LazyVim.opts('nvim-lspconfig').diagnostics.signs.text[diagnostic.severity]
                     end,
                 },
                 severity_sort = true,
@@ -97,11 +97,10 @@ return {
         },
         ---@param opts PluginLspOpts
         config = function(_, opts)
-            local Util = require('lazyvim.util')
             -- setup autoformat
-            Util.format.register(Util.lsp.formatter())
+            LazyVim.format.register(LazyVim.lsp.formatter())
             -- setup formatting and keymaps
-            Util.lsp.on_attach(function(client, buffer)
+            LazyVim.lsp.on_attach(function(client, buffer)
                 require('plugins.lsp.keymaps').on_attach(client, buffer)
             end)
 
@@ -131,12 +130,12 @@ return {
             )
 
             if opts.inlay_hints.enabled then
-                Util.lsp.on_attach(function(client, buffer)
+                LazyVim.lsp.on_attach(function(client, buffer)
                     if client.supports_method('textDocument/inlayHint') then
                         if servers[client.name] and servers[client.name].inlay_hints_default == false then
                             return
                         end
-                        Util.toggle.inlay_hints(buffer, true)
+                        LazyVim.toggle.inlay_hints(buffer, true)
                     end
                 end)
             end
@@ -191,6 +190,7 @@ return {
                 timeout_ms = 3000,
                 async = false, -- not recommended to change
                 quiet = false, -- not recommended to change
+                lsp_fallback = true, -- not recommended to change
             },
             ---@type table<string, conform.FormatterUnit[]>
             formatters_by_ft = {
