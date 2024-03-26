@@ -17,6 +17,7 @@ require('lazy').setup({
     install = { colorscheme = { 'tokyonight', 'habamax' } },
     ui = {
         border = 'rounded',
+        backdrop = 100,
     },
     performance = {
         rtp = {

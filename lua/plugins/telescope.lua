@@ -68,7 +68,7 @@ return {
                 function()
                     require('telescope').extensions.frecency.frecency({
                         cwd = '~',
-                        sorter = require('telescope.sorters').fuzzy_with_index_bias(),
+                        -- sorter = require('telescope.sorters').fuzzy_with_index_bias(),
                     })
                 end,
                 desc = 'Find Files (Frecency)',

@@ -11,10 +11,7 @@ return {
             max_width = function() return math.floor(vim.o.columns * 0.75) end,
             timeout = 4000,
             top_down = false,
-            -- render = 'minimal',
-            -- stages = 'fade_in_slide_out',
-            stages = 'static', -- custom static, maybe make a PR
-            -- stages = 'fade', -- also has problem with `top_down = false`
+            stages = 'no_animation',
         },
     },
     {
@@ -102,6 +99,7 @@ return {
                 mode = { 'n', 'v' },
                 ['g'] = { name = '+goto' },
                 ['s'] = { name = '+surround' },
+                ['z'] = { name = '+fold' },
                 [']'] = { name = '+next' },
                 ['['] = { name = '+prev' },
                 ['<leader>d'] = { name = '+diagnostics' },

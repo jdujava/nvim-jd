@@ -94,7 +94,7 @@ return {
                     latexindent = {
                         cwd = Util.root_file({ '.latexmkrc', '.git' }),
                         prepend_args = {
-                            '-c', './.aux', -- location of `intent.log`
+                            '-c', './.aux', -- location of `indent.log`
                             '-l', vim.env.XDG_CONFIG_HOME .. '/latexindent/latexindent.yaml',
                         },
                     },
@@ -129,6 +129,13 @@ return {
                     settings = {
                         ltex = {
                             checkFrequency = 'save',
+                            latex = {
+                                commands = {
+                                    ['\\si{}'] = 'dummy',
+                                    ['\\SI{}'] = 'dummy',
+                                    ['\\SI{}{}'] = 'dummy',
+                                },
+                            },
                         },
                     },
                 },
@@ -158,7 +165,7 @@ return {
                             inlayHints = {
                                 labelDefinitions = true,
                                 labelReferences = true,
-                            }
+                            },
                         },
                     },
                 },
