@@ -11,6 +11,7 @@ return {
         ---@class PluginLspOpts
         opts = {
             -- options for vim.diagnostic.config()
+            ---@type vim.diagnostic.Opts
             diagnostics = {
                 underline = true,
                 update_in_insert = false,
@@ -99,7 +100,8 @@ return {
         config = function(_, opts)
             -- setup autoformat
             LazyVim.format.register(LazyVim.lsp.formatter())
-            -- setup formatting and keymaps
+
+            -- setup keymaps
             LazyVim.lsp.on_attach(function(client, buffer)
                 require('plugins.lsp.keymaps').on_attach(client, buffer)
             end)
@@ -108,9 +110,7 @@ return {
 
             vim.lsp.handlers['client/registerCapability'] = function(err, res, ctx)
                 local ret = register_capability(err, res, ctx)
-                local client_id = ctx.client_id
-                ---@type lsp.Client
-                local client = vim.lsp.get_client_by_id(client_id)
+                local client = vim.lsp.get_client_by_id(ctx.client_id)
                 local buffer = vim.api.nvim_get_current_buf()
                 require('plugins.lsp.keymaps').on_attach(client, buffer)
                 return ret
@@ -129,6 +129,7 @@ return {
                 opts.capabilities or {}
             )
 
+            -- inlay hints
             if opts.inlay_hints.enabled then
                 LazyVim.lsp.on_attach(function(client, buffer)
                     if client.supports_method('textDocument/inlayHint') then
@@ -196,6 +197,7 @@ return {
             formatters_by_ft = {
                 lua = { 'stylua' },
                 sh = { 'shfmt' },
+                json = { 'prettier' },
                 ['_'] = { 'core_fmt' }, -- split long lines and trim trailing whitespace
             },
             ---@type table<string, conform.FormatterConfigOverride|fun(bufnr: integer): nil|conform.FormatterConfigOverride>

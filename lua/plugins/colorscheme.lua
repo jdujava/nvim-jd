@@ -58,7 +58,8 @@ return {
                 hl.MatchupVirtualText = { fg = c.dark5 }
                 hl.WhichKeyFloat = { bg = c.bg_darker }
                 hl.VimtexPopupContent = { bg = c.bg_darker }
-                hl.MsgArea = { bg = c.bg_highlight }
+                -- hl.MsgArea = { bg = c.none }
+                hl.NoiceMini = { bg = c.bg_highlight }
 
                 -- hl.DiffAdd = { bg = c.green3 }
                 -- hl.DiffChange = { bg = c.diff.change }

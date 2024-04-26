@@ -153,27 +153,28 @@ return {
             remap_keys = { '/', '?', '*', '#', 'n', 'N' },
         },
     },
-    {
-        'anuvyklack/windows.nvim',
-        event = 'WinNew',
-        dependencies = {
-            { 'anuvyklack/middleclass' },
-            { 'anuvyklack/animation.nvim', enabled = false },
-        },
-        keys = { { '<leader>Z', '<cmd>WindowsMaximize<cr>', desc = 'Maximize current window' } },
-        config = function()
-            vim.o.winwidth = 5
-            vim.o.equalalways = false
-            require('windows').setup({
-                animation = { enable = false, duration = 150 },
-                ignore = {
-                    buftype = { 'quickfix' },
-                    filetype = { 'undotree', 'query' },
-                },
-            })
-        end,
-    },
 
+    -- {
+    --     'anuvyklack/windows.nvim',
+    --     event = 'WinNew',
+    --     dependencies = {
+    --         { 'anuvyklack/middleclass' },
+    --         { 'anuvyklack/animation.nvim', enabled = false },
+    --     },
+    --     keys = { { '<leader>Z', '<cmd>WindowsMaximize<cr>', desc = 'Maximize current window' } },
+    --     config = function()
+    --         vim.o.winwidth = 5
+    --         vim.o.equalalways = false
+    --         require('windows').setup({
+    --             animation = { enable = false, duration = 150 },
+    --             ignore = {
+    --                 buftype = { 'quickfix' },
+    --                 filetype = { 'undotree', 'query' },
+    --             },
+    --         })
+    --     end,
+    -- },
+    --
     -- indent guides for Neovim
     {
         'lukas-reineke/indent-blankline.nvim',
