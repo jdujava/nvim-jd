@@ -51,6 +51,14 @@ return {
                 delete = 'ds',
                 change = 'cs',
             },
+            surrounds = {
+                ['m'] = {
+                    add = { '\\(', '\\)' },
+                    find = function()
+                        return require('nvim-surround.config').get_selection({ node = 'inline_formula' })
+                    end,
+                },
+            },
         },
     },
 

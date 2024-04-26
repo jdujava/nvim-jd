@@ -26,6 +26,7 @@ return {
             -- vim.g.vimtex_quickfix_method = vim.fn.executable('pplatex') == 1 and 'pplatex' or 'latexlog'
             vim.g.vimtex_quickfix_ignore_filters = {
                 [[You have requested package `./preamble/packages/simpler-wick/simpler-wick']],
+                [[Package siunitx Warning: Detected the "physics" package]],
             }
 
             vim.g.vimtex_fold_enabled = 1
@@ -108,7 +109,7 @@ return {
                                 'volume', 'issue', 'number', 'pages', 'year', 'month', 'day',
                                 'doi', 'url', 'archiveprefix', 'primaryclass', 'eprint',
                             }, ','),
-                            '--curly', '--remove-braces', '--enclosing-braces',
+                            '--curly', '--enclosing-braces',
                         },
                     },
                 },
