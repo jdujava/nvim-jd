@@ -38,10 +38,10 @@ snippet notation "Notation" bi
 \end{notation}
 endsnippet
 
-snippet todo "TODO" b
-\begin{TODO}${1/.+/[/}$1${1/.+/]/}
+snippet T "Todo" b
+\begin{Todo}${1/.+/[/}$1${1/.+/]/}
 	${2:${VISUAL}}
-\end{TODO}
+\end{Todo}
 endsnippet
 
 snippet Q "Question" b
@@ -50,7 +50,7 @@ snippet Q "Question" b
 \end{Question}
 endsnippet
 
-snippet sugg "Suggestion" b
+snippet S "Suggestion" b
 \begin{Suggestion}${1/.+/[/}$1${1/.+/]/}
 	${2:${VISUAL}}
 \end{Suggestion}
@@ -62,17 +62,17 @@ snippet exam "Example" b
 \end{example}
 endsnippet
 
-# snippet todo "TODO" b
-# \begin{TODO}`!p if t[1]: snip.rv = '['`$1`!p if t[1]: snip.rv = ']'`
+# snippet todo "Todo" b
+# \begin{Todo}`!p if t[1]: snip.rv = '['`$1`!p if t[1]: snip.rv = ']'`
 # 	${2:${VISUAL}}
-# \end{TODO}
+# \end{Todo}
 # endsnippet
 
 priority 100
 snippet proof "Proof" bi
-\begin{myproof}${1/.+/[/}$1${1/.+/]/}
+\begin{proof}${1/.+/[/}$1${1/.+/]/}
 	${2:${VISUAL}}
-\end{myproof}
+\end{proof}
 endsnippet
 
 snippet eq{ "Rozlisenie fce podla rozsahov"
@@ -193,23 +193,16 @@ snippet emph "\emph{}" i
 endsnippet
 
 #Symbols
-snippet qr "\eqref{}" w
-\\eqref{${1}}$0
+priority 200
+snippet href "\href{}{}" w
+\href{${1:URL}}{${2:text}}
 endsnippet
-snippet ref "\ref{}" w
-\\ref{${1}}
-endsnippet
-snippet cref "\Cref{}" w
+priority 100
+snippet "[cC]?ref" "\Cref{}" wr
 \\Cref{${1}}
 endsnippet
-snippet reft "\ref{fig:}" w
-\\ref{tab:${1}}${0}
-endsnippet
-snippet reff "\ref{tab:}" w
-\\ref{fig:${1}}${0}
-endsnippet
-snippet cite "\cite{}" w
-\\cite{${1}}${0}
+snippet cite "\autocite{}" w
+\\autocite{${1}}${0}
 endsnippet
 snippet tri "Triangle" w
 \triangle ${0}
@@ -272,6 +265,7 @@ $0
 endsnippet
 
 priority 100
+context "math()"
 snippet ... "ldots" iA
 \ldots
 endsnippet
@@ -367,7 +361,7 @@ snippet align "align environment" b
 endsnippet
 
 priority 100
-snippet label "Label" i
+snippet "lab(el)?" "Label" ir
 \\label{${1}}$0
 endsnippet
 
@@ -643,18 +637,21 @@ snippet _ "subscript" iA
 _{${1:${VISUAL}}}$0
 endsnippet
 
+context "math()"
 snippet ooo "\infty" iA
-\infty $0
+\infty
 endsnippet
 
 snippet rij "mrij" i
 (${1:x}_${2:n})_{${3:$2}\\in${4:\\N}}$0
 endsnippet
 
+context "math()"
 snippet <= "leq" iA
 \le
 endsnippet
 
+context "math()"
 snippet >= "geq" iA
 \ge
 endsnippet
@@ -704,6 +701,7 @@ snippet xp1 "x" iA
 x_{n+1}
 endsnippet
 
+context "math()"
 snippet R0+ "R0+" iA
 \\R_0^+
 endsnippet
@@ -767,6 +765,7 @@ snippet msf "mathsf" iA
 \mathsf{${1:${VISUAL}}}
 endsnippet
 
+context "math()"
 snippet lll "l" iA
 \ell
 endsnippet
@@ -777,30 +776,36 @@ snippet xx "cross" iA
 endsnippet
 
 priority 100
+context "math()"
 snippet ** "cdot" iA
 \cdot
 endsnippet
 
 priority 100
+context "math()"
 snippet \cdot* "cdots" iA
 \cdots
 endsnippet
 
 priority 100
+context "math()"
 snippet \cdots* "bullet" iA
 \bullet
 endsnippet
 priority 100
+context "math()"
 snippet \bullets "bullet" iA
 \sbullet
 endsnippet
 
 priority 100
+context "math()"
 snippet \cdotd "ddots" iA
 \ddots
 endsnippet
 
 priority 100
+context "math()"
 snippet \cdotv "vdots" iA
 \vdots
 endsnippet
@@ -833,6 +838,16 @@ endsnippet
 context "math()"
 snippet ee "Exponential" i
 \\eunit
+endsnippet
+
+context "math()"
+snippet et "Exponential" i
+\\eunit^{${1:${VISUAL}}}
+endsnippet
+
+context "math()"
+snippet eunit "Exponential" i
+eunit^{${1:${VISUAL}}}
 endsnippet
 
 priority 100
@@ -941,6 +956,7 @@ snippet || "mid" iA
 \mid
 endsnippet
 
+context "math()"
 snippet \mid| "middle|" iA
 \middle|
 endsnippet
@@ -961,10 +977,12 @@ snippet inn "in " iA
 \in
 endsnippet
 
+context "math()"
 snippet NN "n" iA
 \N
 endsnippet
 
+context "math()"
 snippet CC "n" iA
 \C
 endsnippet
@@ -993,24 +1011,22 @@ snippet PROD "Tensor product" i
 \bigotimes_{${1:i \in ${2: I}}} $0
 endsnippet
 
-priority 10
+context "math()"
 snippet OO "emptyset" iA
-\O
+\emptyset
 endsnippet
 
-priority 100
-snippet \OO "emptyset" iA
-\OO
-endsnippet
-
+context "math()"
 snippet RR "real" iA
 \R
 endsnippet
 
+context "math()"
 snippet QQ "Q" iA
 \Q
 endsnippet
 
+context "math()"
 snippet ZZ "Z" iA
 \Z
 endsnippet
