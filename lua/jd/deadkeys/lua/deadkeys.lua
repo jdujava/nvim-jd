@@ -3,7 +3,8 @@ local Util = require('lazy.core.util')
 local M = {}
 
 M.defaults = {
-    enabled = true,
+    global_enabled = true,
+    filetypes = { 'mail', 'markdown' },
 }
 
 -- stylua: ignore
@@ -30,26 +31,26 @@ M.keys = {
     ["[z"] = "ž", ["[Z"] = "Ž",
 }
 
-function M.map()
-    vim.b.deadkeys_on = true
+function M.map(buf)
+    vim.b[buf].deadkeys_on = true
     for k, v in pairs(M.keys) do
-        vim.keymap.set('i', k, v, { buffer = true, desc = 'Deadkey' })
+        vim.keymap.set('i', k, v, { buffer = buf, desc = 'Deadkey' })
     end
 end
 
-function M.unmap()
-    vim.b.deadkeys_on = false
+function M.unmap(buf)
+    vim.b[buf].deadkeys_on = false
     for k, _ in pairs(M.keys) do
-        vim.keymap.del('i', k, { buffer = true })
+        vim.keymap.del('i', k, { buffer = buf })
     end
 end
 
 function M.toggle()
     if vim.b.deadkeys_on then
-        M.unmap()
+        M.unmap(0)
         Util.warn('Disabled deadkey mappings', { title = 'Deadkeys' })
     else
-        M.map()
+        M.map(0)
         Util.info('Enabled deadkey mappings', { title = 'Deadkeys' })
     end
 end
@@ -59,13 +60,24 @@ function M.setup(user_config)
         M.defaults = vim.tbl_deep_extend('force', M.defaults, user_config)
     end
 
-    if M.defaults.enabled then
+    if M.defaults.global_enabled then
         M.map()
         vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
-            group = vim.api.nvim_create_augroup('deadkeys', {}),
-            callback = M.map,
+            group = vim.api.nvim_create_augroup('DeadKeys_Global', {}),
+            callback = function(event)
+                M.map(event.buf)
+            end,
         })
     end
+
+    -- Enable automatically for certain filetypes
+    vim.api.nvim_create_autocmd('Filetype', {
+        pattern = M.defaults.filetypes,
+        group = vim.api.nvim_create_augroup('DeadKeys_FileType', {}),
+        callback = function(event)
+            M.map(event.buf)
+        end,
+    })
 end
 
 return M

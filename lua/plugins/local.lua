@@ -1,7 +1,7 @@
 return {
     {
         dir = vim.fn.stdpath('config') .. '/lua/jd/deadkeys/',
-        event = 'VeryLazy',
+        event = { 'BufReadPost', 'BufNewFile' },
         keys = {
             {
                 '<A-d>',
@@ -12,7 +12,9 @@ return {
                 desc = 'Deadkeys toggle',
             },
         },
-        opts = { enabled = true },
+        opts = {
+            global_enabled = false,
+        },
     },
 
     -- statusline + bufferline
