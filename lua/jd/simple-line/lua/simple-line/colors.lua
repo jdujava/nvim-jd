@@ -12,7 +12,8 @@ C.col = {
     purple = '#B48EAD',
     blue   = '#61AFEF',
     yellow = '#EBCB8B',
-    green  = '#4afced',
+    green  = '#4ec9b0',
+    cyan   = '#4afced',
     red    = '#BF616A',
     none   = 'None',
 }
@@ -29,9 +30,10 @@ function C.setup()
     C.MakeHi('SlRecording',     C.col.yellow, C.col.black, true,  13, 15)
     C.MakeHi('SlLine',          C.col.none,   C.col.white, true,  15, 15)
     C.MakeHi('SlInActive',      C.col.black,  C.col.white, false, 15, 15)
-    C.MakeHi('SlBufferLineSel', C.col.green,  C.col.black, true,  10, 15)
+    C.MakeHi('SlCopilot',       C.col.green,  C.col.black, true,  15, 15)
+    C.MakeHi('SlBufferLineSel', C.col.cyan,   C.col.black, true,  10, 15)
     C.MakeHi('SlBufferLine',    C.col.bg,     C.col.white, false, 15, 15)
-    C.MakeHi(modes['n'][2],     C.col.green,  C.col.black, true,  10, 15)
+    C.MakeHi(modes['n'][2],     C.col.cyan,   C.col.black, true,  10, 15)
     C.MakeHi(modes['v'][2],     C.col.purple, C.col.black, true,  13, 15)
     C.MakeHi(modes['V'][2],     C.col.purple, C.col.black, true,  13, 15)
     C.MakeHi(modes[''][2],    C.col.purple, C.col.black, true,  13, 15)

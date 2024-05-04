@@ -1,5 +1,6 @@
 local modes = require('simple-line.modes')
 local builder = require('simple-line.builder')
+local helpers = require('jd.helpers')
 
 local S = {}
 
@@ -43,55 +44,61 @@ local function search_count()
 end
 
 function S.statusLine()
+    local statusline = {}
     local recording = vim.fn.reg_recording()
+    local copilot = helpers.copilot_on
     local width = vim.o.columns
         - (vim.o.spell and 10 or 0)
         - (vim.v.hlsearch and 8 or 0)
         - (recording ~= '' and 15 or 0)
-    local statusline = ''
+        - (copilot and 12 or 0)
 
     -- Component: Mode
     local mode = vim.api.nvim_get_mode().mode
-    statusline = statusline .. builder(modes[mode][2], modes[mode][1])
+    table.insert(statusline, builder(modes[mode][2], modes[mode][1]))
 
     -- Component: Spell
     if vim.o.spell then
-        statusline = statusline .. builder('SlFiletype', 'Spell')
+        table.insert(statusline, builder('SlFiletype', 'Spell'))
     end
 
     -- Component: Working Directory
     local dir = get_directory(width)
-    statusline = statusline .. builder('SlDirectory', dir)
+    table.insert(statusline, builder('SlDirectory', dir))
 
     -- Component: Git status
     local git_status = get_git_status()
     if #dir + #git_status < width - 38 then
-        statusline = statusline .. git_status
+        table.insert(statusline, git_status)
     end
 
     -- Alignment to right
-    statusline = statusline .. '%='
+    table.insert(statusline, '%=')
 
     -- Component: Show (partial) command
-    statusline = statusline .. '%S '
+    table.insert(statusline, '%S ')
 
     -- Component: Search count
-    statusline = statusline .. search_count()
+    table.insert(statusline, search_count())
+
+    if copilot then
+        table.insert(statusline, builder('SlCopilot', 'Copilot '))
+    end
 
     -- Component: Show macro recording
     if recording ~= '' then
-        statusline = statusline .. builder('SlRecording', 'recording @' .. recording)
+        table.insert(statusline, builder('SlRecording', 'recording @' .. recording))
     end
 
     -- Component: FileType
     local filetype = vim.bo.filetype ~= '' and vim.bo.filetype or 'none'
-    statusline = statusline .. builder('SlFiletype', filetype)
+    table.insert(statusline, builder('SlFiletype', filetype))
 
     -- Component: row and col
     local allsize = string.len(vim.api.nvim_buf_line_count(0)) -- digits of all rows
-    statusline = statusline .. '%#SlLine# ℓ %' .. allsize .. 'l/%L 𝚌 %-3c'
+    table.insert(statusline, '%#SlLine# ℓ %' .. allsize .. 'l/%L 𝚌 %-3c')
 
-    return statusline
+    return table.concat(statusline)
 end
 
 function S.setup()
