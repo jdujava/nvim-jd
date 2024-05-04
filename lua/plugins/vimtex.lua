@@ -100,6 +100,7 @@ return {
                         },
                     },
                     ['bibtex-tidy'] = {
+                        command = Util.find_executable({ vim.env.CUSTOM_SOURCE .. "/bibtex-tidy/bin/bibtex-tidy" }, "bibtex-tidy"),
                         prepend_args = {
                             '--space=4', '--trailing-commas',
                             -- '--sort',
@@ -141,6 +142,7 @@ return {
                     },
                 },
                 texlab = {
+                    -- cmd = { vim.env.CUSTOM_SOURCE .. '/texlab/target/release/texlab' },
                     keys = {
                         { 'gK', '<plug>(vimtex-doc-package)' },
                         { '<A-Tab>', '<plug>(vimtex-toc-open)' },

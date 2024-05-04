@@ -43,4 +43,10 @@
   command: (command_name) @_name
   arg: (curly_group
         (_) @markup.math @nospell)
-  (#any-of? @_name "\\SI" "\\si" "\\tag")) @zone.text
+  (#any-of? @_name "\\SI" "\\si")) @zone.text
+
+(generic_command
+  command: (command_name) @_name
+  arg: (curly_group
+        (_) @none @nospell)
+  (#any-of? @_name "\\tag")) @zone.text

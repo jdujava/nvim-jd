@@ -204,7 +204,7 @@ return {
             formatters = {
                 injected = { options = { ignore_errors = true } },
                 shfmt = { prepend_args = { '-i', '4', '-ci' } },
-                core_fmt = { command = 'fmt', args = { '-s', '--width=75' } },
+                core_fmt = { command = 'fmt', args = { '-s', '--width=90' } },
             },
         },
     },

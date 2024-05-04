@@ -14,6 +14,8 @@ else
     vim.api.nvim_set_hl(0, '@zone.comment', {})
 end
 
+-- NOTE: OLD APPROACH
+
 local MATH_NODES = {
     displayed_equation = true,
     inline_formula = true,
@@ -114,10 +116,11 @@ function M.in_mathzone()
     return false
 end
 
--- DIFFERENT APPROACH
+-- NOTE: NEW APPROACH
+-- called in UltiSnips `tex.snippets`
 
 ---@param col_offset? number
----@return table[] List of captures `{ capture = "name", metadata = { ... } }`
+---@return table[] captures List of captures `{ capture = "name", metadata = { ... } }`
 local function get_captures(col_offset)
     local row, col = unpack(vim.api.nvim_win_get_cursor(0))
     row = row - 1 -- treesitter is 0-indexed
