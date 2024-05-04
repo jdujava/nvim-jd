@@ -2,7 +2,8 @@ return {
     --  TODO: sort out the plugins
     {
         'github/copilot.vim',
-        event = 'CursorHold',
+        lazy = true,
+        cmd = { 'Copilot' },
         keys = {
             {
                 '<A-l>',
@@ -14,6 +15,8 @@ return {
                 desc = 'Copilot Accept',
             },
             { '<A-p>', '<cmd>Copilot panel<CR>', mode = 'i', desc = 'Copilot Panel' },
+            { '<A-Bslash>', require('jd.helpers').toggle_copilot, desc = 'Copilot enable' },
+            { '<A-bar>', require('jd.helpers').toggle_copilot, mode = { 'n', 'i' }, desc = 'Copilot enable' },
         },
         init = function()
             vim.g.copilot_no_tab_map = true

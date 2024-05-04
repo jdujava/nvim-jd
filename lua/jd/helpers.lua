@@ -44,4 +44,17 @@ function M.toggle_ultisnips_autotrigger()
     end
 end
 
+M.copilot_on = false
+function M.toggle_copilot()
+    if M.copilot_on then
+        M.copilot_on = false
+        vim.cmd('Copilot disable')
+        Util.warn('Disabled Copilot', { title = 'Copilot' })
+    else
+        M.copilot_on = true
+        vim.cmd('Copilot enable')
+        Util.info('Enabled Copilot', { title = 'Copilot' })
+    end
+end
+
 return M
