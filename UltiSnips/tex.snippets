@@ -1,25 +1,32 @@
 extends snippets
 extends praktikum
+extends greek
 
-# Time
-snippet datum "Insert current time" w
-`date +'%d.\,%m.\,%Y'`
-endsnippet
-
-snippet noindent "Description" w
+snippet noindent "Ignore LatexIndent" w
 %\begin{noindent}
 ${1:${VISUAL}}
 %\end{noindent}
 endsnippet
 
-# priority 100
-# snippet '(corollary|remark|notation|TODO|question|suggestion|example|definition|theorem)' "Environments" rbi
-# \begin{`!p snip.rv = match.group(1)`}${1/.+/[/}$1${1/.+/]/}
-# 	${2:${VISUAL}}
-# \end{`!p snip.rv = match.group(1)`}
-# endsnippet
+## Alternative string in PDF outline
+snippet tex "\texorpdfstring{}" w
+\\texorpdfstring{${1:${VISUAL}}}{${2:PDFstring}}
+endsnippet
 
 # Enviroments
+snippet thm "Theorem" bi
+\begin{theorem}${1/.+/[/}$1${1/.+/]/}
+	${2:${VISUAL}}
+\end{theorem}
+endsnippet
+
+priority 100
+snippet prop "Proposition" bi
+\begin{proposition}${1/.+/[/}$1${1/.+/]/}
+	${2:${VISUAL}}
+\end{proposition}
+endsnippet
+
 snippet cor "Corollary" bi
 \begin{corollary}${1/.+/[/}$1${1/.+/]/}
 	${2:${VISUAL}}
@@ -56,6 +63,12 @@ snippet S "Suggestion" b
 \end{Suggestion}
 endsnippet
 
+snippet N "Suggestion" b
+\begin{Note}${1/.+/[/}$1${1/.+/]/}
+	${2:${VISUAL}}
+\end{Note}
+endsnippet
+
 snippet exam "Example" b
 \begin{example}${1/.+/[/}$1${1/.+/]/}
 	${2:${VISUAL}}
@@ -73,19 +86,6 @@ snippet proof "Proof" bi
 \begin{proof}${1/.+/[/}$1${1/.+/]/}
 	${2:${VISUAL}}
 \end{proof}
-endsnippet
-
-snippet eq{ "Rozlisenie fce podla rozsahov"
-\\left\\{
-	\\begin{array}{ll}
-		${1:#left} & \mbox{pre } ${2:x} ${3:\leq} ${4:x_0} $5
-	\\end{array}
-\\right.
-$0
-endsnippet
-snippet eqr "Rozsah fce"
-\\\\
-${1:#left} & \mbox{pre } ${2:x} ${3:\leq} ${4:x_0} $0
 endsnippet
 
 snippet cg "center includegraphics"
@@ -178,98 +178,6 @@ snippet floatbarrier "Float Barrier" i
 \\FloatBarrier
 endsnippet
 
-snippet tit "\textit{}" i
-\\textit{${1:${VISUAL}}}${0}
-endsnippet
-priority 100
-snippet bf "\textbf{}" i
-\\textbf{${1:${VISUAL}}}${0}
-endsnippet
-snippet emp "\emph{}" i
-\\emph{${1:${VISUAL}}}${0}
-endsnippet
-snippet emph "\emph{}" i
-\\emph{${1:${VISUAL}}}${0}
-endsnippet
-
-#Symbols
-priority 200
-snippet href "\href{}{}" w
-\href{${1:URL}}{${2:text}}
-endsnippet
-priority 100
-snippet "[cC]?ref" "\Cref{}" wr
-\\Cref{${1}}
-endsnippet
-snippet cite "\autocite{}" w
-\\autocite{${1}}${0}
-endsnippet
-snippet tri "Triangle" w
-\triangle ${0}
-endsnippet
-snippet pr "\prime" w
-\prime ${0}
-endsnippet
-snippet op "\oplus" w
-\oplus ${0}
-endsnippet
-snippet ot "\otimes" w
-\otimes ${0}
-endsnippet
-snippet an "\angle" w
-\angle ${0}
-endsnippet
-snippet gr "\grad" w
-\grad ${0}
-endsnippet
-
-snippet color "\textcolor{}" i
-\\textcolor{${1:gray}}{${2:${VISUAL}}}${0}
-endsnippet
-
-global !p
-def zone(offset = 0):
-	return vim.eval('v:lua.require("jd.latex").get_zone({})'.format(offset))
-def math():
-	return zone() == 'math'
-	# return vim.eval('v:lua.require("jd.latex").in_mathzone()')
-	# return vim.eval('vimtex#syntax#in_mathzone()') == '1'
-def comment():
-	return zone(-1) == 'comment'
-	# return vim.eval('v:lua.require("jd.latex").in_comment()')
-	# return vim.eval('vimtex#syntax#in_comment()') == '1'
-def env(name):
-	[x,y] = vim.eval("vimtex#env#is_inside('" + name + "')")
-	return x != '0' and y != '0'
-endglobal
-
-snippet template "Basic template" b
-\documentclass[a4paper]{article}
-
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{textcomp}
-\usepackage[slovak]{babel}
-\usepackage{amsmath, amssymb}
-
-\begin{document}
-	$0
-\end{document}
-endsnippet
-
-snippet beg "begin{} / end{}" b
-\begin{$1}
-	$2
-\end{$1}
-$0
-endsnippet
-
-priority 100
-context "math()"
-snippet ... "ldots" iA
-\ldots
-endsnippet
-
 snippet enum "Enumerate" b
 \begin{enumerate}${1/.+/[/}$1${1/.+/]/}
 	\item ${2:${VISUAL}}
@@ -297,6 +205,82 @@ snippet up "Package" b
 \usepackage${1/.+/[/}$1${1/.+/]/}{${2:package}}$0
 endsnippet
 
+
+snippet tit "\textit{}" i
+\\textit{${1:${VISUAL}}}${0}
+endsnippet
+priority 100
+snippet bf "\textbf{}" i
+\\textbf{${1:${VISUAL}}}${0}
+endsnippet
+snippet emp "\emph{}" i
+\\emph{${1:${VISUAL}}}${0}
+endsnippet
+snippet emph "\emph{}" i
+\\emph{${1:${VISUAL}}}${0}
+endsnippet
+snippet "[`'][`']?" "\enquote{}" wr
+\\enquote{${1:${VISUAL}}}
+endsnippet
+
+#Symbols
+priority 200
+snippet href "\href{}{}" w
+\href{${1:${VISUAL}}}{${2:text}}
+endsnippet
+priority 100
+snippet "[cC]?ref" "\Cref{}" wr
+\\Cref{${1}}
+endsnippet
+snippet cite "\autocite{}" w
+\\autocite{${1}}${0}
+endsnippet
+
+snippet color "\textcolor{}" i
+\\textcolor{${1:gray}}{${2:${VISUAL}}}${0}
+endsnippet
+
+global !p
+def zone(offset = 0):
+	return vim.eval('v:lua.require("jd.latex").get_zone({})'.format(offset))
+def math():
+	return zone() == 'math'
+	# return vim.eval('v:lua.require("jd.latex").in_mathzone()')
+	# return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+def comment():
+	return zone(-1) == 'comment'
+	# return vim.eval('v:lua.require("jd.latex").in_comment()')
+	# return vim.eval('vimtex#syntax#in_comment()') == '1'
+def env(name):
+	[x,y] = vim.eval("vimtex#env#is_inside('" + name + "')")
+	return x != '0' and y != '0'
+endglobal
+
+snippet template "Basic template" b
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb}
+
+\begin{document}
+	$0
+\end{document}
+endsnippet
+
+snippet beg "begin{} / end{}" b
+\begin{$1}
+	$2
+\end{$1}
+$0
+endsnippet
+
+priority 100
+context "math()"
+snippet ... "ldots" iA
+\ldots
+endsnippet
+
 snippet => "implies" Ai
 \Longrightarrow
 endsnippet
@@ -320,11 +304,6 @@ endsnippet
 priority 100
 snippet hspace "hspace" i
 \hspace{${1:1}em}
-endsnippet
-
-context "math()"
-snippet iff "iff" Ai
-\iff
 endsnippet
 
 context "not math() and not comment()"
@@ -407,22 +386,6 @@ snippet '([A-Za-z'])(\d)' "auto subscript" rA
 `!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`$1}
 endsnippet
 
-# snippet sympy "sympyblock " w
-# sympy $1 sympy$0
-# endsnippet
-#
-# priority 10000
-# snippet 'sympy(.*)sympy' "sympy" r
-# `!p
-# from sympy import *
-# x, y, z, t = symbols('x y z t')
-# k, m, n = symbols('k m n', integer=True)
-# f, g, h = symbols('f g h', cls=Function)
-# init_printing()
-# snip.rv = eval('latex(' + match.group(1).replace('\\', '').replace('^', '**').replace('{', '(').replace('}', ')') + ')')
-# `
-# endsnippet
-
 priority 1000
 snippet math "mathematicablock" w
 math $1 math$0
@@ -485,6 +448,21 @@ endsnippet
 context "math()"
 snippet -+ "minus plus" iA
 \mp $0
+endsnippet
+
+context "math()"
+snippet pr "\prime" i
+\prime
+endsnippet
+
+context "math()"
+snippet op "\oplus" i
+\oplus
+endsnippet
+
+context "math()"
+snippet ot "\otimes" i
+\otimes
 endsnippet
 
 context "math()"
@@ -583,27 +561,27 @@ snippet taylor "taylor" w
 endsnippet
 
 context "math()"
-snippet lim "limit" w
+snippet lim "limit" i
 \lim_{${1:n} \to ${2:\infty}}
 endsnippet
 
 context "math()"
-snippet sup "supremum" w
+snippet sup "supremum" i
 \sup_{${1:x} \in ${2:[a,b]}}
 endsnippet
 
 context "math()"
-snippet limsup "limsup" w
+snippet limsup "limsup" i
 \limsup_{${1:n} \to ${2:\infty}}
 endsnippet
 
 context "math()"
-snippet prod "product" w
+snippet prod "product" i
 \prod_{${1:n=${2:1}}}^{${3:\infty}} ${4:${VISUAL}} $0
 endsnippet
 
 context "math()"
-snippet part "d/dx" w
+snippet part "d/dx" i
 \frac{\partial ${1:V}}{\partial ${2:x}} $0
 endsnippet
 
@@ -766,6 +744,16 @@ snippet msf "mathsf" iA
 endsnippet
 
 context "math()"
+snippet msi "mathsfit" iA
+\mathsfit{${1:${VISUAL}}}
+endsnippet
+
+context "math()"
+snippet bm "bold math" i
+\bm{${1:${VISUAL}}}
+endsnippet
+
+context "math()"
 snippet lll "l" iA
 \ell
 endsnippet
@@ -816,12 +804,12 @@ snippet norm "norm" iA
 endsnippet
 
 context "math()"
-snippet dv "\dv{}{}" w
+snippet dv "\dv{}{}" i
 \\dv{${1:${VISUAL}}}{${2}}
 endsnippet
 
 context "math()"
-snippet pdv "\pdv{}{}" w
+snippet pdv "\pdv{}{}" i
 \\pdv{${1:${VISUAL}}}{${2}}
 endsnippet
 
@@ -841,7 +829,7 @@ snippet ee "Exponential" i
 endsnippet
 
 context "math()"
-snippet et "Exponential" i
+snippet eto "Exponential" i
 \\eunit^{${1:${VISUAL}}}
 endsnippet
 
@@ -864,7 +852,7 @@ endsnippet
 
 priority 100
 context "math()"
-snippet '(\\?)(sq|sin|cos|arccot|cot|csc|ln|log|dim|odot|det|abs|tilde|dd)' "\foo{}" rA
+snippet '(\\?)(sq|sin|cos|arccot|cot|csc|ln|log|dim|odot|det|abs|tilde|dd|grad)' "\foo{}" rA
 \\`!p snip.rv = match.group(2)`{${1:${VISUAL}}}
 endsnippet
 
@@ -887,7 +875,7 @@ endsnippet
 
 priority 300
 context "math()"
-snippet dint "integral" w
+snippet dint "integral" i
 \int_{${1:-\infty}}^{${2:\infty}} ${3:${VISUAL}} $0
 endsnippet
 
@@ -1129,5 +1117,3 @@ context "math()"
 snippet "((\\)?([\w'])+(\{\w+\})?)(,\.|\.,)" "Vector postfix" riA
 \bm{`!p snip.rv=match.group(1)`}
 endsnippet
-
-# \texorpdfstring{What's}{What’s}
