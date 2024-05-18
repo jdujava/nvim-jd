@@ -85,3 +85,6 @@ vim.g.markdown_folding = true
 
 vim.g.autoformat = false
 vim.o.formatexpr = "v:lua.LazyVim.format.formatexpr()"
+
+-- Disable deprecation messages
+vim.deprecate = function() end
