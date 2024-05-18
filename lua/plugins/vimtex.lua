@@ -27,6 +27,7 @@ return {
             vim.g.vimtex_quickfix_ignore_filters = {
                 [[You have requested package `./preamble/packages/simpler-wick/simpler-wick']],
                 [[Package siunitx Warning: Detected the "physics" package]],
+                [[Please consider using the `twoside' option]],
             }
 
             vim.g.vimtex_fold_enabled = 1
@@ -105,7 +106,7 @@ return {
                             '--space=4', '--trailing-commas',
                             -- '--sort',
                             '--sort-fields=' .. table.concat({
-                                'author', 'title', 'shorttitle', 'subtitle',
+                                'author', 'title', 'shorttitle', 'subtitle', 'booktitle',
                                 'journal', 'on', 'publisher', 'school', 'series',
                                 'volume', 'issue', 'number', 'pages', 'year', 'month', 'day',
                                 'doi', 'url', 'archiveprefix', 'primaryclass', 'eprint',

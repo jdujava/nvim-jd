@@ -19,8 +19,8 @@ return {
                 end
 
                 -- stylua: ignore start
-                map('n', ']c',         gs.next_hunk,                                 'Git next hunk')
-                map('n', '[c',         gs.prev_hunk,                                 'Git previous hunk')
+                map('n', ']c',         function() gs.nav_hunk('next') end,           'Git next hunk')
+                map('n', '[c',         function() gs.nav_hunk('prev') end,           'Git previous hunk')
                 map('n', '<leader>hs', gs.stage_hunk,                                'Git stage hunk')
                 map('n', '<leader>hu', gs.undo_stage_hunk,                           'Git undo stage hunk')
                 map('n', '<leader>hS', gs.stage_buffer,                              'Git stage buffer')

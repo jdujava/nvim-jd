@@ -52,7 +52,9 @@ return {
                 hl.IncSearch = { bg = c.dark4, underline = true }
 
                 hl.Folded = { fg = c.blue, bg = c.bg_blue }
-                hl.LineNr = { fg = c.dark5 }
+                hl.LineNr = { fg = c.dark5, bold = true }
+                hl.LineNrAbove = { fg = c.dark5 }
+                hl.LineNrBelow = { fg = c.dark5 }
                 hl.CursorLineNr = { fg = c.fg_dark }
                 hl.LspInlayHint = { fg = c.dark4 }
                 hl.MatchupVirtualText = { fg = c.dark5 }

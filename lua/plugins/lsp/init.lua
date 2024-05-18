@@ -172,14 +172,21 @@ return {
                     -- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
                     if server_opts.mason == false or not vim.tbl_contains(all_mslp_servers, server) then
                         setup(server)
-                    else
+                    elseif server_opts.enabled ~= false then
                         ensure_installed[#ensure_installed + 1] = server
                     end
                 end
             end
 
             if have_mason then
-                mlsp.setup({ ensure_installed = ensure_installed, handlers = { setup } })
+                mlsp.setup({
+                    ensure_installed = vim.tbl_deep_extend(
+                        'force',
+                        ensure_installed,
+                        LazyVim.opts('mason-lspconfig.nvim').ensure_installed or {}
+                    ),
+                    handlers = { setup },
+                })
             end
         end,
     },

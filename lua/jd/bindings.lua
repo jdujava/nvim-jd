@@ -28,6 +28,7 @@ map({ 'i', 'v', 'n', 's' }, '<A-w>', '<CMD>w<CR><ESC>', { desc = 'Save' })
 
 -- highlights under cursor
 map('n', '<leader>ui', vim.show_pos, { desc = 'Inspect Pos' })
+map('n', '<leader>uI', '<cmd>InspectTree<cr>', { desc = 'Inspect Tree' })
 map('n', ';i', ':Inspect<cr>', { desc = 'Inspect Pos', silent = false })
 
 -- Clear search with <esc>
@@ -68,8 +69,8 @@ vim.keymap.set('c', '<c-d>', '<Nop>')
 map({ 'n', 'x', 'o' }, 'H', 'g^', { desc = 'Move to the first non-blank character of line' })
 map({ 'n', 'x', 'o' }, 'L', 'g$', { desc = 'Move to the last character of line' })
 
-map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
-map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
+map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true })
+map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true })
 
 map('n', '<C-j>', '<CMD>m .+1<CR>==', { desc = 'Move down' })
 map('n', '<C-k>', '<CMD>m .-2<CR>==', { desc = 'Move up' })
