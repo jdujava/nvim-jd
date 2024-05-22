@@ -2,6 +2,8 @@ extends snippets
 extends praktikum
 extends greek
 
+clearsnippets __
+
 snippet noindent "Ignore LatexIndent" w
 %\begin{noindent}
 ${1:${VISUAL}}
@@ -586,8 +588,13 @@ snippet part "d/dx" i
 endsnippet
 
 context "math()"
-snippet del "partial" iA
+snippet del "partial" i
 \partial
+endsnippet
+
+context "math()"
+snippet cd "covariant derivative" i
+\cder
 endsnippet
 
 context "math()"
