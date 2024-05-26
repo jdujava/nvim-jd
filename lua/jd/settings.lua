@@ -17,7 +17,7 @@ vim.o.softtabstop = 4
 vim.o.expandtab = true
 vim.o.cindent = true
 vim.o.breakindent = true
-vim.o.showbreak = '> '
+vim.o.showbreak = '> ' -- don't forget to also change `st-jd/st-urlhandler`
 vim.o.linebreak = true
 
 vim.o.ignorecase = true
@@ -84,4 +84,4 @@ vim.g.loaded_node_provider = 0
 vim.g.markdown_folding = true
 
 vim.g.autoformat = false
-vim.o.formatexpr = "v:lua.LazyVim.format.formatexpr()"
+vim.o.formatexpr = 'v:lua.LazyVim.format.formatexpr()'

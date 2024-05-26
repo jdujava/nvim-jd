@@ -27,7 +27,8 @@ return {
             vim.g.vimtex_quickfix_ignore_filters = {
                 [[You have requested package `./preamble/packages/simpler-wick/simpler-wick']],
                 [[Package siunitx Warning: Detected the "physics" package]],
-                [[Please consider using the `twoside' option]],
+                [[Writing or overwriting file `robExt-remove-old-figures.py'.]],
+                [[Writing or overwriting file `robExt-prepare-for-arxiv.py'.]],
             }
 
             vim.g.vimtex_fold_enabled = 1
@@ -137,6 +138,7 @@ return {
                                     ['\\si{}'] = 'dummy',
                                     ['\\SI{}'] = 'dummy',
                                     ['\\SI{}{}'] = 'dummy',
+                                    ['\\AdSCFT{}'] = 'dummy',
                                 },
                             },
                         },

@@ -483,6 +483,16 @@ snippet ave "average" i
 endsnippet
 
 context "math()"
+snippet corr "correlator" i
+\correlator*{${1:${VISUAL}}}
+endsnippet
+
+context "math()"
+snippet comm "commutator" i
+\comm*{${1:${VISUAL}}}{$2}
+endsnippet
+
+context "math()"
 snippet ubrace "Underbrace" iA
 \\underbrace{${1:${VISUAL}}}_{${2}} ${0}
 endsnippet
@@ -708,7 +718,7 @@ snippet plot "Plot" w
 \end{figure}
 endsnippet
 
-snippet nn "Tikz node" w
+snippet node "Tikz node" w
 \node[$5] (${1/[^0-9a-zA-Z]//g}${2}) ${3:at (${4:0,0}) }{$${1}$};
 $0
 endsnippet
@@ -820,9 +830,20 @@ snippet pdv "\pdv{}{}" i
 \\pdv{${1:${VISUAL}}}{${2}}
 endsnippet
 
+priority 100
+context "math()"
+snippet fdv "\fdv{}{}" i
+\\fdv{${1:${VISUAL}}}{${2}}
+endsnippet
+
 context "math()"
 snippet \int "Integral" i
 \\int\\limits_{${1}}^{${2}}
+endsnippet
+
+context "math()"
+snippet dd "\dd" i
+\\dd{${1:${VISUAL}}}
 endsnippet
 
 context "math()"
@@ -859,7 +880,7 @@ endsnippet
 
 priority 100
 context "math()"
-snippet '(\\?)(sq|sin|cos|arccot|cot|csc|ln|log|dim|odot|det|abs|tilde|dd|grad)' "\foo{}" rA
+snippet '(\\?)(sq|sin|cos|arccot|cot|csc|ln|log|dim|odot|det|abs|tilde|grad)' "\foo{}" rA
 \\`!p snip.rv = match.group(2)`{${1:${VISUAL}}}
 endsnippet
 
@@ -982,16 +1003,24 @@ snippet CC "n" iA
 \C
 endsnippet
 
-snippet Nn "cap" i
+snippet nn "cap" i
 \cap
 endsnippet
 
-snippet UU "cup" i
+snippet uu "cup" i
 \cup
 endsnippet
 
-snippet uuu "bigcup" i
+snippet su "square cup" i
+\sqcup
+endsnippet
+
+snippet uuu "big cup" i
 \bigcup_{${1:i \in ${2: I}}} $0
+endsnippet
+
+snippet suu "big square cup" i
+\bigsqcup_{${1:i \in ${2: I}}} $0
 endsnippet
 
 snippet nnn "bigcap" i
