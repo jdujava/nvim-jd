@@ -31,6 +31,7 @@ return {
             -- provide the inlay hints.
             inlay_hints = {
                 enabled = true,
+                exclude = { 'tex' }, -- filetypes for which you don't want to enable inlay hints (by default)
             },
             -- add any global capabilities here
             capabilities = {},
@@ -133,10 +134,13 @@ return {
             if opts.inlay_hints.enabled then
                 LazyVim.lsp.on_attach(function(client, buffer)
                     if client.supports_method('textDocument/inlayHint') then
-                        if servers[client.name] and servers[client.name].inlay_hints_default == false then
-                            return
+                        if
+                            vim.api.nvim_buf_is_valid(buffer)
+                            and vim.bo[buffer].buftype == ''
+                            and not vim.tbl_contains(opts.inlay_hints.exclude, vim.bo[buffer].filetype)
+                        then
+                            LazyVim.toggle.inlay_hints(buffer, true)
                         end
-                        LazyVim.toggle.inlay_hints(buffer, true)
                     end
                 end)
             end

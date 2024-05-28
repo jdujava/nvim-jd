@@ -160,7 +160,6 @@ return {
                             desc = 'Beamer: show only current slide/frame',
                         },
                     },
-                    inlay_hints_default = false,
                     settings = {
                         texlab = {
                             forwardSearch = {
