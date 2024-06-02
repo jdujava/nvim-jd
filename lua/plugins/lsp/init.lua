@@ -4,7 +4,6 @@ return {
         event = { 'BufReadPre', 'BufNewFile' },
         dependencies = {
             'j-hui/fidget.nvim',
-            { 'folke/neodev.nvim', opts = true },
             'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim',
         },
@@ -268,6 +267,29 @@ return {
             else
                 ensure_installed()
             end
+        end,
+    },
+
+    -- Properly configure LuaLS for editing NeoVim config
+    {
+        'folke/lazydev.nvim',
+        ft = 'lua',
+        opts = function()
+            return {
+                library = {
+                    uv = 'luvit-meta',
+                    lazyvim = 'LazyVim',
+                },
+            }
+        end,
+    },
+    -- Manage libuv types with lazy. Plugin will never be loaded
+    { 'Bilal2453/luvit-meta', lazy = true },
+    -- Add lazydev source to cmp
+    {
+        'hrsh7th/nvim-cmp',
+        opts = function(_, opts)
+            table.insert(opts.sources, { name = 'lazydev', group_index = 0 })
         end,
     },
 }
