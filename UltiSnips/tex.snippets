@@ -79,7 +79,7 @@ endsnippet
 
 # snippet todo "Todo" b
 # \begin{Todo}`!p if t[1]: snip.rv = '['`$1`!p if t[1]: snip.rv = ']'`
-# 	${2:${VISUAL}}
+#	${2:${VISUAL}}
 # \end{Todo}
 # endsnippet
 
@@ -140,7 +140,7 @@ snippet wg "wrap includegraphics"
 \\begin{wrapfigure}{${1:r}}{${2:0.4}\linewidth}
 	\\centering
 	\\includegraphics[width=${3:0.35}\linewidth]{${4:plot.png}}
-	\\caption{${5:#Caption}}
+	\\caption{${5:Caption}}
 	\\label{fig:${6:${4/\.\w+$//}}}
 \\end{wrapfigure}
 ${0}
@@ -324,7 +324,7 @@ snippet dm "Math" wA
 endsnippet
 
 snippet eq "equation environment" bA
-\\begin{equation} \\label{eq:${1:#label}}
+\\begin{equation} \\label{eq:${1:label}}
 	${2:${VISUAL}}
 \\end{equation}
 endsnippet
@@ -516,7 +516,7 @@ endsnippet
 
 context "math()"
 snippet oset "\overset{}{}" iA
-\\overset{${2:#2}}{${1:${VISUAL}}} ${0}
+\\overset{${2:over}}{${1:${VISUAL}}} ${0}
 endsnippet
 
 context "math()"
@@ -801,6 +801,23 @@ priority 100
 context "math()"
 snippet \bullets "bullet" iA
 \sbullet
+endsnippet
+
+context "math()"
+snippet bul "bullet" i
+\bullet
+endsnippet
+
+priority 10
+context "math()"
+snippet ind "index placeholder" i
+\ind
+endsnippet
+
+priority 20
+context "math()"
+snippet aind "abstract index placeholder" i
+\aind
 endsnippet
 
 priority 100
@@ -1108,6 +1125,17 @@ snippet "([a-zA-Z])bar" "bar" ri
 \overline{`!p snip.rv=match.group(1)`}
 endsnippet
 
+context "math()"
+snippet "hb" "\hbar" i
+\hbar
+endsnippet
+
+priority 1000
+context "math()"
+snippet "hbar" "\hbar" i
+\hbar
+endsnippet
+
 priority 20
 context "math()"
 snippet "(?<!\\)ddot" "ddot" riA
@@ -1152,4 +1180,9 @@ endsnippet
 context "math()"
 snippet "((\\)?([\w'])+(\{\w+\})?)(,\.|\.,)" "Vector postfix" riA
 \bm{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context "math()"
+snippet tens "Tensor" i
+\tens{${1:${VISUAL}}}{${2}}
 endsnippet
