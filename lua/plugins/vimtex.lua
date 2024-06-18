@@ -67,18 +67,14 @@ return {
     {
         'nvim-treesitter/nvim-treesitter',
         optional = true,
-        opts = function(_, opts)
-            vim.list_extend(opts.ensure_installed, { 'bibtex', 'latex' })
-        end,
+        opts = { ensure_installed = { 'bibtex', 'latex' } },
     },
 
     -- Install texlab, bibtex-tidy, and ltex-ls
     {
         'williamboman/mason.nvim',
         optional = true,
-        opts = function(_, opts)
-            vim.list_extend(opts.ensure_installed, { 'texlab', 'bibtex-tidy', 'ltex-ls' })
-        end,
+        opts = { ensure_installed = { 'texlab', 'bibtex-tidy', 'ltex-ls' } },
     },
 
     -- Add latexindent and bibtex-tidy to conform.nvim
