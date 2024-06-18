@@ -106,15 +106,8 @@ return {
                 require('plugins.lsp.keymaps').on_attach(client, buffer)
             end)
 
-            local register_capability = vim.lsp.handlers['client/registerCapability']
-
-            vim.lsp.handlers['client/registerCapability'] = function(err, res, ctx)
-                local ret = register_capability(err, res, ctx)
-                local client = vim.lsp.get_client_by_id(ctx.client_id)
-                local buffer = vim.api.nvim_get_current_buf()
-                require('plugins.lsp.keymaps').on_attach(client, buffer)
-                return ret
-            end
+            LazyVim.lsp.setup()
+            LazyVim.lsp.on_dynamic_capability(require("plugins.lsp.keymaps").on_attach)
 
             vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
             require('lspconfig.ui.windows').default_options.border = 'rounded'
@@ -172,11 +165,13 @@ return {
             for server, server_opts in pairs(servers) do
                 if server_opts then
                     server_opts = server_opts == true and {} or server_opts
-                    -- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
-                    if server_opts.mason == false or not vim.tbl_contains(all_mslp_servers, server) then
-                        setup(server)
-                    elseif server_opts.enabled ~= false then
-                        ensure_installed[#ensure_installed + 1] = server
+                    if server_opts.enabled ~= false then
+                        -- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
+                        if server_opts.mason == false or not vim.tbl_contains(all_mslp_servers, server) then
+                            setup(server)
+                        else
+                            ensure_installed[#ensure_installed + 1] = server
+                        end
                     end
                 end
             end
