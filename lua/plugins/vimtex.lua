@@ -181,6 +181,8 @@ return {
 
     {
         'barreiroleo/ltex_extra.nvim',
+        branch = 'dev',
+        ft = { 'markdown', 'tex' },
         dependencies = { 'neovim/nvim-lspconfig' },
         keys = {
             {
@@ -191,18 +193,9 @@ return {
                 desc = 'Start LTeX server',
             },
         },
-        opts = function()
-            -- Reload dictionary when LTeX server is attached
-            LazyVim.lsp.on_attach(function(client, _)
-                if client.name == 'ltex' then
-                    require('ltex_extra').reload()
-                end
-            end)
-            return {
-                load_langs = { 'en-US' },
-                init_check = false, -- doesn't work, since the server is not started yet
-                path = '.ltex',
-            }
-        end,
+        opts = {
+            load_langs = { 'en-US' },
+            path = '.ltex',
+        },
     },
 }
