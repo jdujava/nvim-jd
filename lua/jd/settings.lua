@@ -16,6 +16,7 @@ vim.o.shiftwidth = 4
 vim.o.softtabstop = 4
 vim.o.expandtab = true
 vim.o.cindent = true
+vim.o.linebreak = true
 vim.o.breakindent = true
 vim.o.showbreak = '> ' -- don't forget to also change `st-jd/st-urlhandler`
 vim.o.linebreak = true

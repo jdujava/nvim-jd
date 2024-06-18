@@ -121,6 +121,7 @@ return {
                         '--column',
                         '--smart-case',
                         '--no-require-git',
+                        '--hidden',
                     },
                     prompt_prefix = '🔭 ',
                     selection_caret = '> ',

@@ -99,6 +99,7 @@ return {
                         prepend_args = {
                             '-c', './.aux', -- location of `indent.log`
                             '-l', vim.env.XDG_CONFIG_HOME .. '/latexindent/latexindent.yaml',
+                            -- '-l', vim.env.XDG_CONFIG_HOME .. '/latexindent/latexindent_MWE.yaml',
                             '-m', -- modifylinebreaks
                         },
                     },
