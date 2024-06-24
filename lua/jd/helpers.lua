@@ -53,6 +53,7 @@ function M.toggle_copilot()
     else
         M.copilot_on = true
         vim.cmd('Copilot enable')
+        vim.cmd('Copilot status')
         Util.info('Enabled Copilot', { title = 'Copilot' })
     end
 end

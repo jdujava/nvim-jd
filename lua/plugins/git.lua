@@ -30,7 +30,7 @@ return {
                 map('n', '<leader>hP', gs.preview_hunk,                              'Git preview hunk')
                 map('n', '<leader>hd', gs.diffthis,                                  'Git diff buffer')
                 map('n', '<leader>hD', gs.toggle_deleted,                            'Git toggle deleted')
-                map('n', '<leader>hB', gs.toggle_current_line_blame,                 'Git toggle current line blame')
+                map('n', '<leader>hB', gs.blame,                                     'Git blame')
                 map('n', '<leader>hb', function() gs.blame_line { full = true } end, 'Git blame line')
                 map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>',            'Git select hunk')
             end,
