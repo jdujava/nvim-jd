@@ -46,6 +46,17 @@ return {
                     },
                 })
             end)
+
+            -- load local latex treesitter parser
+            local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+            parser_config.latex = {
+                install_info = {
+                    url = vim.env.CUSTOM_SOURCE .. '/tree-sitter-latex',
+                    files = { 'src/parser.c', 'src/scanner.c' },
+                    requires_generate_from_grammar = true,
+                },
+                filetype = 'tex',
+            }
         end,
     },
 
