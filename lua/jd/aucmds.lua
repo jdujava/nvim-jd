@@ -118,3 +118,26 @@ autoupdate('sxhkdrc',                          [[pkill -USR1 sxhkd]])
 autoupdate('dunstrc',                          [[killall dunst; setsid dunst >/dev/null 2>&1 &]])
 autoupdate('*praktikum/*plot.gnu',             [[gnuplot plot.gnu > loggg.txt]])
 autoupdate('fonts.conf',                       [[fc-cache]])
+
+
+-- `bigfile` support
+vim.filetype.add({
+  pattern = {
+    [".*"] = {
+      function(path, buf)
+        return vim.bo[buf].filetype ~= "bigfile" and path and vim.fn.getfsize(path) > vim.g.bigfile_size and "bigfile"
+          or nil
+      end,
+    },
+  },
+})
+
+au({ "FileType" }, {
+  group = gr("bigfile"),
+  pattern = "bigfile",
+  callback = function(ev)
+    vim.schedule(function()
+      vim.bo[ev.buf].syntax = vim.filetype.match({ buf = ev.buf }) or ""
+    end)
+  end,
+})
