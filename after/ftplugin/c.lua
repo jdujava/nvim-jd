@@ -6,7 +6,6 @@ local buf_opts = { silent = true, buffer = true }
 -- vim.keymap.set('n', '<A-G>', ':w <bar> exec "!g++ -Wall -Og -g ".shellescape("%")." -o ".shellescape("%:r")<CR>', buf_opts)
 
 vim.g.termdebug_wide = 163
-vim.cmd([[packadd termdebug]])
 
 vim.keymap.set('n', '<Leader><Leader>td', '<CMD>Termdebug %:p:r<CR>', buf_opts)
 vim.keymap.set('n', [[\r]], '<CMD>Run<CR>', buf_opts)
