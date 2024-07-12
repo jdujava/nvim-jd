@@ -39,11 +39,8 @@ return {
             }
 
             LazyVim.on_load('which-key.nvim', function()
-                require('which-key').register({
-                    ['<leader>l'] = {
-                        name = '+VimTex',
-                        ['1'] = 'which_key_ignore', -- special label to hide it in the popup
-                    },
+                require('which-key').add({
+                    { '<leader>l', group = 'VimTex' },
                 })
             end)
 

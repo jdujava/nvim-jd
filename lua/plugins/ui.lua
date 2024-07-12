@@ -89,31 +89,38 @@ return {
         'folke/which-key.nvim',
         event = 'VeryLazy',
         keys = {
-            { '<leader>w', '<cmd>WhichKey<cr>', desc = 'WhichKey' },
-            { '<leader>w', '<cmd>WhichKey "" v<cr>', mode = 'v', desc = 'WhichKey' },
+            {
+                '<leader><leader>w',
+                function()
+                    require('which-key').show({ global = false })
+                end,
+                desc = 'Buffer Local Keymaps (which-key)',
+            },
         },
+        opts_extend = { 'spec' },
         opts = {
             plugins = { spelling = true },
             window = { winblend = 10 },
-            defaults = {
-                mode = { 'n', 'v' },
-                ['g'] = { name = '+goto' },
-                ['s'] = { name = '+surround' },
-                ['z'] = { name = '+fold' },
-                [']'] = { name = '+next' },
-                ['['] = { name = '+prev' },
-                ['<leader>d'] = { name = '+diagnostics' },
-                ['<leader>g'] = { name = '+diffview' },
-                ['<leader>h'] = { name = '+hunks' },
-                ['<leader>u'] = { name = '+ui/toggle' },
-                ['<leader><space>'] = { name = '+misc' },
+            spec = {
+                {
+                    mode = { 'n', 'v' },
+                    { '<leader>d', group = 'diagnostics' },
+                    { '<leader>g', group = 'diffview' },
+                    { '<leader>h', group = 'hunks' },
+                    { '<leader>s', group = 'noice' },
+                    { '<leader>u', group = 'ui/toggle' },
+                    { '<leader><space>', group = 'misc' },
+                    { '[', group = 'prev' },
+                    { ']', group = 'next' },
+                    { 'g', group = 'goto' },
+                    { 's', group = 'surround' },
+                    { 'z', group = 'fold' },
+                },
             },
-            hidden = { '<silent>', '<Plug>', '<cmd>', '<Cmd>', '<CR>', '^:', '^ ', '^call ', '^lua ' }, -- hide mapping boilerplate
         },
         config = function(_, opts)
             local wk = require('which-key')
             wk.setup(opts)
-            wk.register(opts.defaults)
         end,
     },
 
