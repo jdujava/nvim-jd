@@ -168,6 +168,20 @@ return {
                             [[mc<CMD>%s/,\s*label=current//e<CR>`c$?in{frame<CR>f]i, label=current<ESC>`c]],
                             desc = 'Beamer: show only current slide/frame',
                         },
+                        {
+                            '<A-P>',
+                            function()
+                                local link = vim.fn.getreg('+')
+                                if link:match('^%[.*%]$') then
+                                    link = link:gsub('^%[(.*)%]$', '%1') -- delete [...] around
+                                    link = string.format('\\href{%s}{}', link) -- wrap in \href{}{}
+                                    vim.fn.setreg('+', link)
+                                end
+                                vim.cmd('normal! p')
+                            end,
+                            mode = { 'n', 'i' },
+                            desc = 'Paste Zathura link from clipboard',
+                        },
                     },
                     settings = {
                         texlab = {
