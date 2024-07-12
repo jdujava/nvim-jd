@@ -136,16 +136,17 @@ return {
     },
 
     {
-        'kyazdani42/nvim-web-devicons',
-        opts = {
-            override = {
-                default_icon = {
-                    icon = '',
-                    color = '#8b929f',
-                },
-            },
-        },
+        'echasnovski/mini.icons',
+        lazy = true,
+        opts = {},
+        init = function()
+            package.preload['nvim-web-devicons'] = function()
+                require('mini.icons').mock_nvim_web_devicons()
+                return package.loaded['nvim-web-devicons']
+            end
+        end,
     },
+
     {
         'asiryk/auto-hlsearch.nvim',
         event = 'VeryLazy',

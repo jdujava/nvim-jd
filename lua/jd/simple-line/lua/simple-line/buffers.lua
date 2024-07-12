@@ -1,6 +1,6 @@
 local B = {}
 
-local has_icons, icons = pcall(require, 'nvim-web-devicons')
+local has_icons, mini_icons = pcall(require, 'mini.icons')
 local builder = require('simple-line.builder')
 
 B.buffers = {}
@@ -60,7 +60,7 @@ local function getBufLabel(n)
         filename = name_by_filetype[vim.bo[n].filetype]
     end
     if has_icons then
-        local icon = icons.get_icon(filename, nil, { default = true })
+        local icon = mini_icons.get('file', filename)
         filename = icon .. ' ' .. filename
     end
     filename = filename .. (vim.bo[n].readonly and '[]' or '')
