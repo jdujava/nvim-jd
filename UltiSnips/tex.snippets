@@ -148,10 +148,11 @@ endsnippet
 
 snippet ig "Inkscape Figure"
 \\begin{figure}[ht]
-	\\centering
-	\\includesvg[${2:0.8}\linewidth]{${1:figure-name}}
-	\\caption{${3:${1/-/ /}}}
-	\\label{fig:$1}
+    \\centering
+    \\everymath{\displaystyle}
+    \\includesvg[${2:0.8}\linewidth]{${1:figure-name}}
+    \\caption{${3:${1/-/ /}}}
+    \\label{fig:$1}
 \\end{figure}
 ${0}
 endsnippet
