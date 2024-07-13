@@ -152,7 +152,7 @@ return {
                 },
                 texlab = {
                     -- cmd = { vim.env.CUSTOM_SOURCE .. '/texlab/target/release/texlab' },
-                    keys = {
+                    keys = { -- buffer local mappings for LaTeX files
                         { 'gK', '<plug>(vimtex-doc-package)' },
                         { '<A-Tab>', '<plug>(vimtex-toc-open)' },
                         { 'im', '<plug>(vimtex-i$)', mode = { 'x', 'o' } },
@@ -178,6 +178,28 @@ return {
                             end,
                             mode = { 'n', 'i' },
                             desc = 'Paste Zathura link from clipboard',
+                        },
+                        {
+                            '<A-f>',
+                            function()
+                                -- require('jd.cmds').term_execute({ 'inkscape-figure', vim.b.vimtex.root })
+                                local obj = vim.system({ 'inkscape-figure', vim.b.vimtex.root }, { text = true }):wait()
+                                if obj.stdout == '' then
+                                    return
+                                end
+                                -- Expand `ig` snippet (Inkscape Figure/Graphics), insert name of the figure, and jump to next placeholder
+                                -- HACK: append space in normal mode to obtain `ig|␣` and correctly expand snippet
+                                --       it however works withou this hack in `treesitter-ultisnips` plugin
+                                local snippet = 'ig' .. (vim.api.nvim_get_mode().mode == 'n' and ' ' or '')
+                                -- local after = vim.api.nvim_get_mode().mode == 'n'
+                                -- vim.api.nvim_put({ snippet }, '', after, true)
+                                vim.api.nvim_put({ snippet }, '', false, true)
+                                vim.fn['UltiSnips#ExpandSnippet']()
+                                vim.api.nvim_feedkeys(obj.stdout, 'n', false)
+                                vim.schedule(vim.fn['UltiSnips#JumpForwards'])
+                            end,
+                            mode = { 'n', 'i' },
+                            desc = 'Inkscape Figure',
                         },
                     },
                     settings = {
