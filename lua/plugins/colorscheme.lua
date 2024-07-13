@@ -83,15 +83,12 @@ return {
             end,
         },
         config = function(_, opts)
-            local colors = require('tokyonight.colors')
-
-            -- create a new palette based on the default colors
-            colors.custom = vim.deepcopy(colors.default)
+            local styles = require('tokyonight.colors').styles
 
             -- change the colors for your new palette here
             -- stylua: ignore
-            colors.custom = {
-                none = "NONE",
+            ---@type Palette
+            local modified_colors = {
                 bg_darker    = '#1a1a1a',
                 bg_dark      = '#1e1e1e',
                 bg           = '#1e1e1e',
@@ -128,13 +125,16 @@ return {
                 teal         = '#4ec9b0',
                 comment      = '#608b4e',
             }
+            -- save as `custom` style (by extending the `storm` style)
+            styles.custom = vim.tbl_extend('force', styles.storm --[[@as Palette]], modified_colors)
 
-            require('tokyonight').load(opts) -- load custom style
+            require('tokyonight').load(opts) -- load custom style (be sure to have opts.style = 'custom')
             -- require("tokyonight").load() -- default style
 
             -- require('simple-line.colors').setup() -- reload simple-line colors
 
             -- -- uncomment to generate extra file for Delta
+            -- -- NOTE: bew careful, this worked before tokyonight-v4
             -- local extras = {
             --     delta = { ext = 'gitconfig', url = 'https://github.com/dandavison/delta', label = 'Delta' },
             -- }
