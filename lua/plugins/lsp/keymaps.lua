@@ -16,7 +16,7 @@ function M.get()
         { 'gL', '<cmd>LspInfo<cr>', desc = 'Lsp Info' },
         { 'gw', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>',       desc = 'Workspace Symbols' },
         { 'gd', '<cmd>Telescope lsp_definitions reuse_win=true<cr>',      desc = 'Goto Definition', has = 'definition' },
-        { 'gr', '<cmd>Telescope lsp_references<cr>',                      desc = 'References' },
+        { 'gr', '<cmd>Telescope lsp_references<cr>',                      desc = 'References', nowait = true },
         { 'gI', '<cmd>Telescope lsp_implementations reuse_win=true<cr>',  desc = 'Goto Implementation' },
         { 'gT', '<cmd>Telescope lsp_type_definitions reuse_win=true<cr>', desc = 'Goto Type Definition' },
         { 'gD', vim.lsp.buf.declaration,                       desc = 'Goto Declaration' },
