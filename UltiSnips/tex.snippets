@@ -18,142 +18,142 @@ endsnippet
 # Enviroments
 snippet thm "Theorem" bi
 \begin{theorem}${1/.+/[/}$1${1/.+/]/}
-	${2:${VISUAL}}
+    ${2:${VISUAL}}
 \end{theorem}
 endsnippet
 
 priority 100
 snippet prop "Proposition" bi
 \begin{proposition}${1/.+/[/}$1${1/.+/]/}
-	${2:${VISUAL}}
+    ${2:${VISUAL}}
 \end{proposition}
 endsnippet
 
 snippet cor "Corollary" bi
 \begin{corollary}${1/.+/[/}$1${1/.+/]/}
-	${2:${VISUAL}}
+    ${2:${VISUAL}}
 \end{corollary}
 endsnippet
 
 snippet remark "Remark" bi
 \begin{remark}${1/.+/[/}$1${1/.+/]/}
-	${2:${VISUAL}}
+    ${2:${VISUAL}}
 \end{remark}
 endsnippet
 
 snippet notation "Notation" bi
 \begin{notation}${1/.+/[/}$1${1/.+/]/}
-	${2:${VISUAL}}
+    ${2:${VISUAL}}
 \end{notation}
 endsnippet
 
 snippet T "Todo" b
 \begin{Todo}${1/.+/[/}$1${1/.+/]/}
-	${2:${VISUAL}}
+    ${2:${VISUAL}}
 \end{Todo}
 endsnippet
 
 snippet Q "Question" b
 \begin{Question}${1/.+/[/}$1${1/.+/]/}
-	${2:${VISUAL}}
+    ${2:${VISUAL}}
 \end{Question}
 endsnippet
 
 snippet S "Suggestion" b
 \begin{Suggestion}${1/.+/[/}$1${1/.+/]/}
-	${2:${VISUAL}}
+    ${2:${VISUAL}}
 \end{Suggestion}
 endsnippet
 
 snippet N "Suggestion" b
 \begin{Note}${1/.+/[/}$1${1/.+/]/}
-	${2:${VISUAL}}
+    ${2:${VISUAL}}
 \end{Note}
 endsnippet
 
 snippet exam "Example" b
 \begin{example}${1/.+/[/}$1${1/.+/]/}
-	${2:${VISUAL}}
+    ${2:${VISUAL}}
 \end{example}
 endsnippet
 
 # snippet todo "Todo" b
 # \begin{Todo}`!p if t[1]: snip.rv = '['`$1`!p if t[1]: snip.rv = ']'`
-#	${2:${VISUAL}}
+#    ${2:${VISUAL}}
 # \end{Todo}
 # endsnippet
 
 priority 100
 snippet proof "Proof" bi
 \begin{proof}${1/.+/[/}$1${1/.+/]/}
-	${2:${VISUAL}}
+    ${2:${VISUAL}}
 \end{proof}
 endsnippet
 
 snippet cg "center includegraphics"
 \\begin{figure}[!ht]
-	\\centering
+    \\centering
 `!p
 try:
 	if t[1] and float(t[1]) > 1.0:
-		snip.rv = '\t\\begin{adjustbox}{center}\n\t'
+		snip.rv = '    \\begin{adjustbox}{center}\n    '
 	else:
 		snip.rv = ''
 except ValueError:
 	pass
-`	\\includegraphics[width=${1:1.0}\linewidth]{${2:plot.png}}
+`    \\includegraphics[width=${1:1.0}\linewidth]{${2:plot.png}}
 `!p
 try:
 	if t[1] and float(t[1]) > 1.0:
-		snip.rv = '\t\\end{adjustbox}\n'
+		snip.rv = '    \\end{adjustbox}\n'
 	else:
 		snip.rv = ''
 except ValueError:
 	pass
-`	\\caption{${3:Caption}}
-	\\label{fig:${4:${2/\.\w+$//}}}
+`    \\caption{${3:Caption}}
+    \\label{fig:${4:${2/\.\w+$//}}}
 \\end{figure}
 ${0}
 endsnippet
 
 snippet mcg "center multiple includegraphics"
 \\begin{figure}[${1:!ht}]
-	\\centering
-	\\begin{subfigure}[c]{0.45\linewidth}
-		\\centering
-		\\includegraphics[width=0.95\linewidth]{${2:plot.png}}
-		\\caption{${3:Caption}}
-		\\label{fig:${4:${2/\.\w+$//}}}
-	\\end{subfigure}
-	\\begin{subfigure}[c]{0.45\linewidth}
-		\\centering
-		\\includegraphics[width=0.95\linewidth]{${5:plot.png}}
-		\\caption{${6:Caption}}
-		\\label{fig:${7:${5/\.\w+$//}}}
-	\\end{subfigure}
-	\\caption{${8:Caption}}
+    \\centering
+    \\begin{subfigure}[c]{0.45\linewidth}
+        \\centering
+        \\includegraphics[width=0.95\linewidth]{${2:plot.png}}
+        \\caption{${3:Caption}}
+        \\label{fig:${4:${2/\.\w+$//}}}
+    \\end{subfigure}
+    \\begin{subfigure}[c]{0.45\linewidth}
+        \\centering
+        \\includegraphics[width=0.95\linewidth]{${5:plot.png}}
+        \\caption{${6:Caption}}
+        \\label{fig:${7:${5/\.\w+$//}}}
+    \\end{subfigure}
+    \\caption{${8:Caption}}
 \\end{figure}
 ${0}
 endsnippet
 
 snippet wg "wrap includegraphics"
 \\begin{wrapfigure}{${1:r}}{${2:0.4}\linewidth}
-	\\centering
-	\\includegraphics[width=${3:0.35}\linewidth]{${4:plot.png}}
-	\\caption{${5:Caption}}
-	\\label{fig:${6:${4/\.\w+$//}}}
+    \\centering
+    \\includegraphics[width=${3:0.35}\linewidth]{${4:plot.png}}
+    \\caption{${5:Caption}}
+    \\label{fig:${6:${4/\.\w+$//}}}
 \\end{wrapfigure}
 ${0}
 endsnippet
 
 snippet table "Table environment" b
 \begin{table}[${1:htpb}]
-	\centering
-	\begin{${4:t}${4/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}{${5:c}}
-	$0${5/(?<=.)(c|l|r)|./(?1: & )/g}
-	\end{$4${4/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}
-	\caption{${2:caption}}
-	\label{tab:${3:label}}
+    \centering
+    \begin{${4:t}${4/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}{${5:c}}
+    $0${5/(?<=.)(c|l|r)|./(?1: & )/g}
+    \end{$4${4/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}
+    \caption{${2:caption}}
+    \label{tab:${3:label}}
 \end{table}
 endsnippet
 
@@ -169,10 +169,10 @@ endsnippet
 
 snippet fig "Figure environment" b
 \begin{figure}[${2:htpb}]
-	\centering
-	\includegraphics[width=${3:0.8}\linewidth]{${4:name.ext}}
-	\caption{${4/(\w+)\.\w+/\u$1/}$0}%
-	\label{fig:${4/(\w+)\.\w+/$1/}}
+    \centering
+    \includegraphics[width=${3:0.8}\linewidth]{${4:name.ext}}
+    \caption{${4/(\w+)\.\w+/\u$1/}$0}%
+    \label{fig:${4/(\w+)\.\w+/$1/}}
 \end{figure}
 endsnippet
 
@@ -182,19 +182,19 @@ endsnippet
 
 snippet enum "Enumerate" b
 \begin{enumerate}${1/.+/[/}$1${1/.+/]/}
-	\item ${2:${VISUAL}}
+    \item ${2:${VISUAL}}
 \end{enumerate}
 endsnippet
 
 snippet eitem "Itemize" b
 \begin{itemize}
-	\item $0
+    \item $0
 \end{itemize}
 endsnippet
 
 snippet desc "Description" b
 \begin{description}
-	\item[$1] $0
+    \item[$1] $0
 \end{description}
 endsnippet
 
@@ -266,13 +266,13 @@ snippet template "Basic template" b
 \usepackage{amsmath, amssymb}
 
 \begin{document}
-	$0
+    $0
 \end{document}
 endsnippet
 
 snippet beg "begin{} / end{}" b
 \begin{$1}
-	$2
+    $2
 \end{$1}
 $0
 endsnippet
@@ -330,19 +330,19 @@ endsnippet
 
 snippet eq "equation environment" bA
 \\begin{equation} \\label{eq:${1:label}}
-	${2:${VISUAL}}
+    ${2:${VISUAL}}
 \\end{equation}
 endsnippet
 
 snippet split "split environment" b
 \\begin{split}
-	${1:${VISUAL}}
+    ${1:${VISUAL}}
 \\end{split}
 endsnippet
 
 snippet align "align environment" b
 \\begin{align}
-	${1:${VISUAL}}
+    ${1:${VISUAL}}
 \\end{align}
 endsnippet
 
@@ -510,7 +510,7 @@ endsnippet
 context "math()"
 snippet subarray "subarray" i
 \begin{subarray}{${1:c}}
-	${2:${VISUAL}}
+    ${2:${VISUAL}}
 \end{subarray}
 endsnippet
 
@@ -708,18 +708,18 @@ endsnippet
 
 snippet plot "Plot" w
 \begin{figure}[$1]
-	\centering
-	\begin{tikzpicture}
-		\begin{axis}[
-			xmin= ${2:-10}, xmax= ${3:10},
-			ymin= ${4:-10}, ymax = ${5:10},
-			axis lines = middle,
-		]
-			\addplot[domain=$2:$3, samples=${6:100}]{$7};
-		\end{axis}
-	\end{tikzpicture}
-	\caption{$8}
-	\label{${9:$8}}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            xmin= ${2:-10}, xmax= ${3:10},
+            ymin= ${4:-10}, ymax = ${5:10},
+            axis lines = middle,
+        ]
+            \addplot[domain=$2:$3, samples=${6:100}]{$7};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{$8}
+    \label{${9:$8}}
 \end{figure}
 endsnippet
 
@@ -890,7 +890,7 @@ endsnippet
 
 priority 100
 context "math()"
-snippet '(?<!\\)(star|perp|quad|int|nabla|exp)' "\foo" wrA
+snippet '(?<!\\)(star|perp|quad|int|nabla|exp|circ)' "\foo" wrA
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
@@ -1037,6 +1037,10 @@ snippet su "square cup" i
 \sqcup
 endsnippet
 
+snippet comp "composition" i
+\circ
+endsnippet
+
 snippet uuu "big cup" i
 \bigcup_{${1:i \in ${2: I}}} $0
 endsnippet
@@ -1093,7 +1097,7 @@ endsnippet
 context "math()"
 snippet case "cases" w
 \begin{cases}
-	$1
+    $1
 \end{cases}
 endsnippet
 
@@ -1108,8 +1112,8 @@ endsnippet
 
 snippet bigfun "Big function" i
 \begin{align*}
-	$1: $2 &\longrightarrow $3 \\\\
-	$4 &\longmapsto $1($4) = $0
+    $1: $2 &\longrightarrow $3 \\\\
+    $4 &\longmapsto $1($4) = $0
 .\end{align*}
 endsnippet
 
