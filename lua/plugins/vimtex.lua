@@ -190,10 +190,11 @@ return {
                                 -- Expand `ig` snippet (Inkscape Figure/Graphics), insert name of the figure, and jump to next placeholder
                                 -- HACK: append space in normal mode to obtain `ig|␣` and correctly expand snippet
                                 --       it however works withou this hack in `treesitter-ultisnips` plugin
+                                --          https://github.com/fhill2/telescope-ultisnips.nvim/issues/9
                                 local snippet = 'ig' .. (vim.api.nvim_get_mode().mode == 'n' and ' ' or '')
-                                -- local after = vim.api.nvim_get_mode().mode == 'n'
-                                -- vim.api.nvim_put({ snippet }, '', after, true)
-                                vim.api.nvim_put({ snippet }, '', false, true)
+                                local after = vim.api.nvim_get_mode().mode == 'n'
+                                vim.api.nvim_put({ snippet }, '', after, true)
+                                -- vim.api.nvim_put({ snippet }, '', false, true)
                                 vim.fn['UltiSnips#ExpandSnippet']()
                                 vim.api.nvim_feedkeys(obj.stdout, 'n', false)
                                 vim.schedule(vim.fn['UltiSnips#JumpForwards'])

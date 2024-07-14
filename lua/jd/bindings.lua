@@ -14,6 +14,15 @@ map('n', '<A-p>', '<cmd>Lazy<cr>', { desc = 'Lazy' })
 map('n', '<A-P>', '<cmd>Lazy<cr>', { desc = 'Lazy' })
 map('n', '<A-r>', ':Lazy reload ', { silent = false, desc = 'Lazy reload' })
 
+-- https://github.com/fhill2/telescope-ultisnips.nvim/issues/9
+vim.keymap.set({ 'n', 'i' }, '<A-f>', function()
+    local snippet = 'foo' -- should expand to 'foo bar'
+    local after = vim.api.nvim_get_mode().mode == 'n'
+    vim.api.nvim_put({ snippet }, '', after, true)
+    vim.fn['UltiSnips#ExpandSnippet']()
+    vim.cmd([[call UltiSnips#ExpandSnippet()]])
+end)
+
 -- Alt maps
 for _, i in ipairs({ 'h', 'j', 'k', 'l', 'H', 'J', 'K', 'L' }) do
     map({ 'n', 't' }, '<A-' .. i .. '>', '<cmd>wincmd ' .. i .. '<cr>')
