@@ -5,6 +5,7 @@ return {
         config = function()
             vim.g.tex_flavor = 'latex'
             vim.g.vimtex_view_method = 'zathura'
+            -- vim.g.vimtex_view_method = 'sioyek'
 
             vim.g.vimtex_matchparen_enabled = 0 -- prefer treesitter's matchparen
             vim.g.vimtex_syntax_enabled = 0 -- prefer treesitter for faster syntax highlighting and math detection

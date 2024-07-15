@@ -107,7 +107,7 @@ return {
             end)
 
             LazyVim.lsp.setup()
-            LazyVim.lsp.on_dynamic_capability(require("plugins.lsp.keymaps").on_attach)
+            LazyVim.lsp.on_dynamic_capability(require('plugins.lsp.keymaps').on_attach)
 
             vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
             require('lspconfig.ui.windows').default_options.border = 'rounded'
@@ -191,6 +191,7 @@ return {
 
     {
         'stevearc/conform.nvim',
+        ---@type ConformOpts
         opts = {
             format = {
                 timeout_ms = 3000,
@@ -198,14 +199,12 @@ return {
                 quiet = false, -- not recommended to change
                 lsp_fallback = true, -- not recommended to change
             },
-            ---@type table<string, conform.FormatterUnit[]>
             formatters_by_ft = {
                 lua = { 'stylua' },
                 sh = { 'shfmt' },
                 json = { 'prettier' },
                 ['_'] = { 'core_fmt' }, -- split long lines and trim trailing whitespace
             },
-            ---@type table<string, conform.FormatterConfigOverride|fun(bufnr: integer): nil|conform.FormatterConfigOverride>
             formatters = {
                 injected = { options = { ignore_errors = true } },
                 shfmt = { prepend_args = { '-i', '4', '-ci' } },
