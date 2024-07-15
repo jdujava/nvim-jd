@@ -3,7 +3,7 @@ return {
         'SirVer/ultisnips',
         event = 'VeryLazy',
         dependencies = { 'honza/vim-snippets' },
-        keys = { { '<Leader>us', '<Cmd>UltiSnipsEdit<CR>', desc = 'Edit UltiSnipts' } },
+        keys = { { '<Leader>se', '<Cmd>UltiSnipsEdit<CR>', desc = 'Edit UltiSnipts' } },
         init = function()
             vim.g.UltiSnipsEditSplit = 'vertical'
             vim.g.UltiSnipsExpandOrJumpTrigger = '<tab>'

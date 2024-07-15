@@ -7,54 +7,53 @@ function M.R(module)
     return require(module)
 end
 
-function M.toggle_diagnostics()
-    if vim.diagnostic.is_enabled({ bufnr = 0 }) then
-        vim.diagnostic.enable(false, { bufnr = 0 })
-        Util.warn('Disabled diagnostics', { title = 'Diagnostics' })
-    else
-        vim.diagnostic.enable(true, { bufnr = 0 })
-        Util.info('Enabled diagnostics', { title = 'Diagnostics' })
-    end
-end
+---@type table<string, lazyvim.Toggle>
+M.toggle = {}
 
-function M.toggle_completion()
-    vim.g.cmp_enabled = not vim.g.cmp_enabled
-    if vim.g.cmp_enabled then
-        Util.info('Enabled completion', { title = 'Completion' })
-    else
-        Util.warn('Disabled completion', { title = 'Completion' })
-    end
-end
+---@type lazyvim.Toggle
+M.toggle.diagnostics = {
+    name = 'Diagnostics',
+    get = function()
+        return vim.diagnostic.is_enabled and vim.diagnostic.is_enabled({ bufnr = 0 })
+    end,
+    set = function(state)
+        vim.diagnostic.enable(state, { bufnr = 0 })
+    end,
+}
 
-function M.toggle_ts_highligts()
-    if vim.b.ts_highlight then
-        vim.treesitter.stop()
-        Util.warn('Disabled TreeSitter highlights', { title = 'TreeSitter' })
-    else
-        vim.treesitter.start()
-        Util.info('Enabled TreeSitter highlights', { title = 'TreeSitter' })
-    end
-end
+---@type lazyvim.Toggle
+M.toggle.completion = {
+    name = 'Completion',
+    get = function()
+        return vim.g.cmp_enabled
+    end,
+    set = function(state)
+        vim.g.cmp_enabled = state
+    end,
+}
+
+M.copilot_on = false
+---@type lazyvim.Toggle
+M.toggle.copilot = {
+    name = 'Copilot',
+    get = function()
+        return M.copilot_on
+    end,
+    set = function(state)
+        if state then
+            vim.cmd('Copilot enable')
+            vim.cmd('Copilot status')
+        else
+            vim.cmd('Copilot disable')
+        end
+    end,
+}
 
 function M.toggle_ultisnips_autotrigger()
     if vim.fn['UltiSnips#ToggleAutoTrigger']() == 1 then
         Util.info('Enabled UltiSnips autotrigger', { title = 'UltiSnips' })
     else
         Util.warn('Disabled UltiSnips autotrigger', { title = 'UltiSnips' })
-    end
-end
-
-M.copilot_on = false
-function M.toggle_copilot()
-    if M.copilot_on then
-        M.copilot_on = false
-        vim.cmd('Copilot disable')
-        Util.warn('Disabled Copilot', { title = 'Copilot' })
-    else
-        M.copilot_on = true
-        vim.cmd('Copilot enable')
-        vim.cmd('Copilot status')
-        Util.info('Enabled Copilot', { title = 'Copilot' })
     end
 end
 

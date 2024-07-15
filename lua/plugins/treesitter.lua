@@ -97,6 +97,16 @@ return {
     },
 
     {
+        'folke/which-key.nvim',
+        opts = {
+            spec = {
+                { '<BS>', desc = 'Decrement Selection', mode = 'x' },
+                { '<C-Space>', desc = 'Increment Selection', mode = { 'x', 'n' } },
+            },
+        },
+    },
+
+    {
         'nvim-treesitter/nvim-treesitter-textobjects',
         event = 'VeryLazy',
         enabled = true,

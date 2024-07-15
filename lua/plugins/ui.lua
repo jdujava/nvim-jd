@@ -100,7 +100,6 @@ return {
         opts_extend = { 'spec' },
         opts = {
             plugins = { spelling = true },
-            window = { winblend = 10 },
             spec = {
                 {
                     mode = { 'n', 'v' },
