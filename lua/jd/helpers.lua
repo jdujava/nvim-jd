@@ -41,9 +41,11 @@ M.toggle.copilot = {
     end,
     set = function(state)
         if state then
+            M.copilot_on = true
             vim.cmd('Copilot enable')
             vim.cmd('Copilot status')
         else
+            M.copilot_on = false
             vim.cmd('Copilot disable')
         end
     end,

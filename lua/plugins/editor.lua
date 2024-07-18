@@ -15,8 +15,6 @@ return {
                 desc = 'Copilot Accept',
             },
             { '<A-p>', '<cmd>Copilot panel<CR>', mode = 'i', desc = 'Copilot Panel' },
-            { '<A-Bslash>', require('jd.helpers').toggle_copilot, desc = 'Copilot enable' },
-            { '<A-bar>', require('jd.helpers').toggle_copilot, mode = { 'n', 'i' }, desc = 'Copilot enable' },
         },
         init = function()
             vim.g.copilot_no_tab_map = true
@@ -25,6 +23,11 @@ return {
                 frecency = false,
                 mail = false,
             }
+            local helpers = require('jd.helpers')
+            LazyVim.toggle.map('<A-Bslash>', helpers.toggle.copilot)
+            -- TODO: make 'i' mode work
+            -- LazyVim.toggle.map('<A-bar>', helpers.toggle.copilot, mode = { 'n', 'i' })
+            LazyVim.toggle.map('<A-bar>', helpers.toggle.copilot)
         end,
     },
 
