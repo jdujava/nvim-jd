@@ -37,6 +37,7 @@ return {
                 hl.Character = { fg = c.orange2 }
                 hl.Function = { fg = c.yellow }
                 hl['@variable.parameter'] = { fg = c.fg_bright }
+                hl['@variable.latex'] = { fg = c.fg_bright }
                 hl.Operator = { fg = c.magenta }
                 hl['@operator'] = { fg = c.magenta }
                 hl['@label.markdown'] = { link = 'NonText' }
