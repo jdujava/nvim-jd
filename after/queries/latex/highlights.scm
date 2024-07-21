@@ -1,10 +1,5 @@
 ;; extends
 
-; MODIFIED ORIGINAL
-; ((word) @punctuation.delimiter
-;   (#eq? @punctuation.delimiter "&"))
-((word) @punctuation.delimiter
-  (#lua-match? @punctuation.delimiter "^&+$"))
 
 ; default math zones
 [

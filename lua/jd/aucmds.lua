@@ -67,6 +67,8 @@ au('TermOpen', {
     callback = function()
         vim.cmd('startinsert')
         vim.keymap.set('n', '<A-x>', '<cmd>bd!<cr>', { buffer = true })
+        -- TODO: this doesnt work
+        vim.cmd.nohlsearch()
     end,
 })
 
