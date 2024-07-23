@@ -1,5 +1,12 @@
 ;; extends
 
+; NOTE: default nvim-treesitter file doesn't support packages
+((generic_command
+  command: (command_name) @_name
+  arg: (curly_group
+    (_) @markup.strong))
+  (#any-of? @_name "\\bm"))
+
 
 ; default math zones
 [
@@ -9,15 +16,7 @@
 
 (math_environment
   (begin) @zone.text
-  (end) @zone.text) @zone.math @nospell
-
-; extra math environments
-(generic_environment
-  (begin
-    name: (curly_group_text
-      (text) @_name)) @zone.text
-  (end) @zone.text
-  (#any-of? @_name "aligned")) @zone.math @nospell
+  (end) @zone.text) @zone.math
 
 ; default text zones
 [

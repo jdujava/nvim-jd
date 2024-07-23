@@ -249,10 +249,6 @@ snippet cite "\autocite{}" w
 \\autocite{${1}}${0}
 endsnippet
 
-snippet color "\textcolor{}" i
-\\textcolor{${1:gray}}{${2:${VISUAL}}}${0}
-endsnippet
-
 global !p
 def zone(offset = 0):
 	return vim.eval('v:lua.require("jd.latex").get_zone({})'.format(offset))
@@ -286,6 +282,16 @@ snippet beg "begin{} / end{}" b
     $2
 \end{$1}
 $0
+endsnippet
+
+context "not math()"
+snippet color "\textcolor{}" i
+\\textcolor{${1:gray}}{${2:${VISUAL}}}${0}
+endsnippet
+
+context "math()"
+snippet color "\mathcolor{}" i
+\\mathcolor{${1:gray}}{${2:${VISUAL}}}${0}
 endsnippet
 
 priority 100
@@ -1205,4 +1211,14 @@ endsnippet
 context "math()"
 snippet tens "Tensor" i
 \tens{${1:${VISUAL}}}{${2}}
+endsnippet
+
+snippet c "Correction" i
+\correction{${1:${VISUAL}}}{${2}}
+endsnippet
+
+snippet quote "Display Quote" w
+\begin{displayquote}${1/.+/[/}$1${1/.+/]/}
+    ${2:${VISUAL}}
+\end{displayquote}
 endsnippet
