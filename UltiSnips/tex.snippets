@@ -151,7 +151,7 @@ snippet ig "Inkscape Figure"
     \\centering
     \\everymath{\displaystyle}
     \\includesvg[${2:0.8}\linewidth]{${1:figure-name}}
-    \\caption{${3:${1/-/ /}}}
+    \\caption{${3:${1/-/ /g}}}
     \\label{fig:$1}
 \\end{figure}
 ${0}
@@ -215,7 +215,7 @@ endsnippet
 
 priority 100
 snippet up "Package" b
-\usepackage${1/.+/[/}$1${1/.+/]/}{${2:package}}$0
+\usepackage${1/.+/[/}$1${1/.+/]/}{${2:package}}
 endsnippet
 
 
@@ -281,7 +281,6 @@ snippet beg "begin{} / end{}" b
 \begin{$1}
     $2
 \end{$1}
-$0
 endsnippet
 
 context "not math()"
@@ -345,6 +344,11 @@ snippet dm "Math" wA
 \[ ${1:${VISUAL}} \]
 endsnippet
 
+context "math()"
+snippet qed "\qedhere" wA
+\qedhere
+endsnippet
+
 snippet eq "equation environment" bA
 \\begin{equation} \\label{eq:${1:label}}
     ${2:${VISUAL}}
@@ -365,20 +369,20 @@ endsnippet
 
 priority 100
 snippet "lab(el)?" "Label" ir
-\\label{${1}}$0
+\\label{${1}}
 endsnippet
 
 context "math()"
 snippet " /" "Fraction" iA
- \\frac{${VISUAL}${1}}{$2}$0
+ \\frac{${VISUAL}${1}}{$2}
 endsnippet
 context "math()"
 snippet "/" "Fraction" r
-\\frac{${VISUAL}${1}}{$2}$0
+\\frac{${VISUAL}${1}}{$2}
 endsnippet
 context "math()"
 snippet ?? "Fraction" iA
-/$0
+/
 endsnippet
 
 ## alternative
@@ -386,7 +390,7 @@ endsnippet
 
 context "math()"
 snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\\|\^|_)(\{[^=]+\}|\w+))*)/' "symbol frac" rA
-\\frac{`!p snip.rv = match.group(1)`}{$1}$0
+\\frac{`!p snip.rv = match.group(1)`}{$1}
 endsnippet
 
 priority 1000
@@ -402,7 +406,7 @@ while True:
 	if depth == 0: break;
 	i-=1
 snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
-`{$1}$0
+`{$1}
 endsnippet
 
 context "math()"
@@ -412,7 +416,7 @@ endsnippet
 
 priority 1000
 snippet math "mathematicablock" w
-math $1 math$0
+math $1 math
 endsnippet
 
 priority 10000
@@ -481,12 +485,12 @@ endsnippet
 
 context "math()"
 snippet op "\oplus" i
-\oplus
+\oplus $0
 endsnippet
 
 context "math()"
 snippet ot "\otimes" i
-\otimes
+\otimes $0
 endsnippet
 
 context "math()"
@@ -496,12 +500,12 @@ endsnippet
 
 context "math()"
 snippet floor "floor" i
-\left\lfloor $1 \right\rfloor$0
+\left\lfloor $1 \right\rfloor $0
 endsnippet
 
 context "math()"
 snippet ave "average" i
-\left< ${1:${VISUAL}} \right>$0
+\left< ${1:${VISUAL}} \right> $0
 endsnippet
 
 context "math()"
@@ -543,12 +547,12 @@ endsnippet
 
 context "math()"
 snippet pmat "pmat" i
-\begin{pmatrix} $1 \end{pmatrix} $0
+\begin{pmatrix} $1 \end{pmatrix}$0
 endsnippet
 
 context "math()"
 snippet bmat "bmat" i
-\begin{bmatrix} $1 \end{bmatrix} $0
+\begin{bmatrix} $1 \end{bmatrix}$0
 endsnippet
 
 context "math()"
@@ -636,22 +640,22 @@ endsnippet
 
 context "math()"
 snippet td "to the ... power" iA
-^{${1:${VISUAL}}}$0
+^{${1:${VISUAL}}}
 endsnippet
 
 context "math()"
 snippet ^ "superscript" iA
-^{${1:${VISUAL}}}$0
+^{${1:${VISUAL}}}
 endsnippet
 
 context "math()"
 snippet rd "to the ... power" iA
-^{(${1:${VISUAL}})}$0
+^{(${1:${VISUAL}})}
 endsnippet
 
 context "math()"
 snippet _ "subscript" iA
-_{${1:${VISUAL}}}$0
+_{${1:${VISUAL}}}
 endsnippet
 
 context "math()"
@@ -660,7 +664,7 @@ snippet ooo "\infty" iA
 endsnippet
 
 snippet rij "mrij" i
-(${1:x}_${2:n})_{${3:$2}\\in${4:\\N}}$0
+(${1:x}_${2:n})_{${3:$2}\\in${4:\\N}}
 endsnippet
 
 context "math()"
@@ -763,7 +767,7 @@ endsnippet
 priority 100
 context "math()"
 snippet tt "text" iA
-\text{${1:${VISUAL}}}$0
+\text{${1:${VISUAL}}}
 endsnippet
 
 priority 200
@@ -794,12 +798,12 @@ endsnippet
 
 context "math()"
 snippet lll "l" iA
-\ell
+\ell $0
 endsnippet
 
 context "math()"
 snippet xx "cross" iA
-\times
+\times $0
 endsnippet
 
 priority 100
@@ -856,7 +860,7 @@ endsnippet
 
 context "math()"
 snippet norm "norm" iA
-\|$1\|$0
+\|$1\|
 endsnippet
 
 context "math()"
@@ -988,17 +992,17 @@ endsnippet
 
 context "math()"
 snippet \\\ "setminus" iA
-\setminus
+\setminus $0
 endsnippet
 
 context "math()"
 snippet >> ">>" iA
-\gg
+\gg $0
 endsnippet
 
 context "math()"
 snippet << "<<" iA
-\ll
+\ll $0
 endsnippet
 
 context "math()"
@@ -1013,7 +1017,7 @@ endsnippet
 
 context "math()"
 snippet \mid| "middle|" iA
-\middle|
+\middle| $0
 endsnippet
 
 
@@ -1142,7 +1146,7 @@ endsnippet
 priority 10
 context "math()"
 snippet bar "bar" i
-\overline{${1:${VISUAL}}}$0
+\overline{${1:${VISUAL}}}
 endsnippet
 
 priority 100
@@ -1165,13 +1169,13 @@ endsnippet
 priority 20
 context "math()"
 snippet "(?<!\\)ddot" "ddot" riA
-\ddot{${1:${VISUAL}}}$0
+\ddot{${1:${VISUAL}}}
 endsnippet
 
 priority 10
 context "math()"
 snippet "(?<!\\o)dot" "dot" riA
-\dot{${1:${VISUAL}}}$0
+\dot{${1:${VISUAL}}}
 endsnippet
 
 # priority 200
@@ -1189,7 +1193,7 @@ endsnippet
 priority 10
 context "math()"
 snippet hat "hat" i
-\hat{${1:${VISUAL}}}$0
+\hat{${1:${VISUAL}}}
 endsnippet
 
 priority 100
@@ -1200,7 +1204,7 @@ endsnippet
 
 context "math()"
 snippet "vec" "Vector" riA
-\bm{${1:${VISUAL}}}$0
+\bm{${1:${VISUAL}}}
 endsnippet
 
 context "math()"
