@@ -114,7 +114,7 @@ return {
                             '--space=4', '--trailing-commas',
                             -- '--sort',
                             '--sort-fields=' .. table.concat({
-                                'author', 'title', 'shorttitle', 'subtitle', 'booktitle',
+                                'author', 'editor', 'title', 'shorttitle', 'subtitle', 'booktitle',
                                 'journal', 'on', 'publisher', 'school', 'series',
                                 'volume', 'issue', 'number', 'pages', 'year', 'month', 'day',
                                 'doi', 'url', 'archiveprefix', 'primaryclass', 'eprint',
