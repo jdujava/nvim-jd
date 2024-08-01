@@ -213,7 +213,12 @@ local function open(uri)
     end
 end
 map('n', '<A-~>', function()
+    local isfname_orig = vim.o.isfname
+    -- handle URI of the type `zathura:page:file_name.pdf`
+    -- where `file_name` can include `:`, `?`, `&`, `@`, `(`, `)`
+    vim.opt.isfname:append({ ':', '?', '&', '@-@', '(', ')' })
     open(vim.fn.expand('<cfile>'))
+    vim.o.isfname = isfname_orig
 end, { desc = open_desc })
 map('v', '<A-~>', function()
     open(vim.fn.getregion(vim.fn.getpos('.'), vim.fn.getpos('v'), { type = vim.fn.mode() }))

@@ -80,10 +80,6 @@ vim.opt.fillchars = {
 vim.opt.shortmess:append({ A = true, I = true, c = true, C = true })
 vim.opt.diffopt:append({ 'linematch:60' })
 
--- handle URI of the type `zathura:page:file_name.pdf`
--- where `file_name` can include `?`, `&`, `@`
-vim.opt.isfname:append({ ':', '?', '&', '@-@' })
-
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
