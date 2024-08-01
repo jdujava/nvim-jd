@@ -150,7 +150,7 @@ snippet ig "Inkscape Figure"
 \\begin{figure}[ht]
     \\centering
     \\everymath{\displaystyle}
-    \\includesvg[${2:0.8}\linewidth]{${1:figure-name}}
+    \\includesvg[${2:0.9}\linewidth]{${1:figure-name}}
     \\caption{${3:${1/-/ /g}}}
     \\label{fig:$1}
 \\end{figure}
@@ -244,6 +244,10 @@ endsnippet
 priority 100
 snippet "[cC]?ref" "\Cref{}" wr
 \\Cref{${1}}
+endsnippet
+priority 200
+snippet nref "\nameref{}" w
+\nameref{${1}}
 endsnippet
 snippet cite "\autocite{}" w
 \\autocite{${1}}${0}
@@ -649,7 +653,7 @@ snippet ^ "superscript" iA
 endsnippet
 
 context "math()"
-snippet rd "to the ... power" iA
+snippet rd "to the ... power" i
 ^{(${1:${VISUAL}})}
 endsnippet
 
@@ -921,6 +925,12 @@ snippet '(?<!\\)(qquad)' "\ffoo" rA
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
+priority 200
+context "math()"
+snippet 'sdim' "\spacedim" rA
+\spacedim $0
+endsnippet
+
 priority 100
 context "math()"
 snippet '(\\?)(sq|sin|cos|arccot|cot|csc|ln|log|dim|odot|det|abs|tilde|grad)' "\foo{}" rA
@@ -942,6 +952,11 @@ endsnippet
 context "math()"
 snippet qq "text with quad around" i
 \qq{${1:${VISUAL}}}
+endsnippet
+
+context "math()"
+snippet : "\colon" i
+\colon $0
 endsnippet
 
 priority 300
@@ -966,6 +981,12 @@ priority 101
 context "math()"
 snippet --> "to" iA
 \longrightarrow $0
+endsnippet
+
+priority 101
+context "math()"
+snippet i-> "to" iA
+\inclusion $0
 endsnippet
 
 priority 200
