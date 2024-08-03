@@ -115,7 +115,7 @@ return {
                             -- '--sort',
                             '--sort-fields=' .. table.concat({
                                 'author', 'editor', 'title', 'shorttitle', 'subtitle', 'booktitle',
-                                'journal', 'on', 'publisher', 'school', 'series',
+                                'journal', 'on', 'publisher', 'school', 'institution', 'series',
                                 'volume', 'issue', 'number', 'pages', 'year', 'month', 'day',
                                 'doi', 'url', 'archiveprefix', 'primaryclass', 'eprint',
                             }, ','),
@@ -141,12 +141,15 @@ return {
                         ltex = {
                             checkFrequency = 'save',
                             latex = {
-                                commands = {
+                                commands = { -- https://valentjn.github.io/ltex/settings.html#ltexlatexcommands
                                     ['\\si{}'] = 'dummy',
                                     ['\\SI{}'] = 'dummy',
                                     ['\\SI{}{}'] = 'dummy',
                                     ['\\AdSCFT{}'] = 'dummy',
+                                    ['\\ldots{}'] = 'dummy',
+                                    ['\\includesvg[]{}'] = 'ignore',
                                 },
+                                -- rules = {}, -- https://community.languagetool.org/rule/list?lang=en
                             },
                         },
                     },
