@@ -126,7 +126,10 @@ function B.jumpBuf(buf, _, button)
     if #B.buffers == 0 then
         return vim.notify('No buffers.', vim.log.levels.WARN, { title = 'BufferLine' })
     end
-    buf = math.min(#B.buffers, buf) -- make sure it's in range
+    if buf < 0 then -- negative index means from the end
+        buf = #B.buffers + buf + 1
+    end
+    buf = math.max(1, math.min(#B.buffers, buf)) -- make sure it's in range
 
     button = button or 'l'
     if button == 'l' then
@@ -137,6 +140,16 @@ function B.jumpBuf(buf, _, button)
         vim.cmd.bdelete(B.buffers[buf])
         vim.cmd.redrawtabline()
     end
+end
+
+function B.jumpBufNext(dir)
+    local current_buf = vim.api.nvim_get_current_buf()
+    local current_index = B.index_of_buf[current_buf]
+    if current_index == nil then
+        return
+    end
+    local new_index = math.max(1, math.min(#B.buffers, current_index + dir))
+    vim.api.nvim_set_current_buf(B.buffers[new_index])
 end
 
 function B.setup()
@@ -153,11 +166,24 @@ function B.setup()
         end, { desc = 'Move buffer to index ' .. i })
     end
 
+    vim.keymap.set('n', ']b', function()
+        require('simple-line.buffers').jumpBufNext(1)
+    end, { desc = 'Jump to next buffer' })
+    vim.keymap.set('n', '[b', function()
+        require('simple-line.buffers').jumpBufNext(-1)
+    end, { desc = 'Jump to prev buffer' })
+    vim.keymap.set('n', '[B', function()
+        require('simple-line.buffers').jumpBuf(1)
+    end, { desc = 'Jump to first buffer' })
+    vim.keymap.set('n', ']B', function()
+        require('simple-line.buffers').jumpBuf(-1)
+    end, { desc = 'Jump to last buffer' })
+
     vim.keymap.set({ 'n', 'v' }, '<A-Left>', function()
-        require('simple-line.buffers').moveBuf(_, -1)
+        require('simple-line.buffers').moveBuf(false, -1)
     end, { desc = 'Move buffer left' })
     vim.keymap.set({ 'n', 'v' }, '<A-Right>', function()
-        require('simple-line.buffers').moveBuf(_, 1)
+        require('simple-line.buffers').moveBuf(false, 1)
     end, { desc = 'Move buffer right' })
 end
 
