@@ -90,6 +90,17 @@ map('n', '<C-l>', '>>', { desc = 'Move indent right' })
 map('x', '<C-h>', '<gv', { desc = 'Move indent left' })
 map('x', '<C-l>', '>gv', { desc = 'Move indent right' })
 
+-- Location and Quickfix lists
+map('n', 'gl', '<cmd>lopen<cr>', { desc = 'Location List' })
+map('n', 'gQ', '<cmd>copen<cr>', { desc = 'Quickfix List' })
+map('n', '[l', '<cmd>lprev<cr>', { desc = 'Prev location' })
+map('n', ']l', '<cmd>lnext<cr>', { desc = 'Next location' })
+map('n', '[L', '<cmd>lfirst<cr>', { desc = 'First location' })
+map('n', ']L', '<cmd>llast<cr>', { desc = 'Last location' })
+map('n', '[q', '<cmd>cprev<cr>', { desc = 'Prev quickfix' })
+map('n', ']q', '<cmd>cnext<cr>', { desc = 'Next quickfix' })
+map('n', '[Q', '<cmd>cfirst<cr>', { desc = 'First quickfix' })
+map('n', ']Q', '<cmd>clast<cr>', { desc = 'Last quickfix' })
 
 -- Swap implementations of ` and ' jump to markers
 map('n', "'", '`')
