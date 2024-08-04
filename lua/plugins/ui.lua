@@ -103,7 +103,7 @@ return {
             spec = {
                 {
                     mode = { 'n', 'v' },
-                    { '<leader>d', group = 'diagnostics' },
+                    { '<leader>d', group = 'diagnostics/diff' },
                     { '<leader>g', group = 'diffview' },
                     { '<leader>h', group = 'hunks' },
                     { '<leader>s', group = 'noice' },

@@ -18,21 +18,37 @@ return {
                     vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
                 end
 
+                map('n', ']c', function()
+                    if vim.wo.diff then
+                        vim.cmd.normal({ ']c', bang = true })
+                    else
+                        gs.nav_hunk('next')
+                    end
+                end, 'Next Hunk')
+                map('n', '[c', function()
+                    if vim.wo.diff then
+                        vim.cmd.normal({ '[c', bang = true })
+                    else
+                        gs.nav_hunk('prev')
+                    end
+                end, 'Prev Hunk')
+
                 -- stylua: ignore start
-                map('n', ']c',         function() gs.nav_hunk('next') end,           'Git next hunk')
-                map('n', '[c',         function() gs.nav_hunk('prev') end,           'Git previous hunk')
-                map('n', '<leader>hs', gs.stage_hunk,                                'Git stage hunk')
-                map('n', '<leader>hu', gs.undo_stage_hunk,                           'Git undo stage hunk')
-                map('n', '<leader>hS', gs.stage_buffer,                              'Git stage buffer')
-                map('n', '<leader>hr', gs.reset_hunk,                                'Git reset hunk')
-                map('n', '<leader>hR', gs.reset_buffer,                              'Git reset buffer')
-                map('n', '<leader>hp', gs.preview_hunk_inline,                       'Git preview hunk (inline)')
-                map('n', '<leader>hP', gs.preview_hunk,                              'Git preview hunk')
-                map('n', '<leader>hd', gs.diffthis,                                  'Git diff buffer')
-                map('n', '<leader>hD', gs.toggle_deleted,                            'Git toggle deleted')
-                map('n', '<leader>hB', gs.blame,                                     'Git blame')
-                map('n', '<leader>hb', function() gs.blame_line { full = true } end, 'Git blame line')
-                map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>',            'Git select hunk')
+                map('n', ']C',         function() gs.nav_hunk('last') end,           'Git Last Hunk')
+                map('n', '[C',         function() gs.nav_hunk('first') end,          'Git First Hunk')
+                map('n', '<leader>hs', gs.stage_hunk,                                'Git Stage Hunk')
+                map({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>",          'Git Stage Hunk')
+                map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>",          'Git Reset Hunk')
+                map('n', '<leader>hu', gs.undo_stage_hunk,                           'Git Undo Stage Hunk')
+                map('n', '<leader>hS', gs.stage_buffer,                              'Git Stage Buffer')
+                map('n', '<leader>hR', gs.reset_buffer,                              'Git Reset Buffer')
+                map('n', '<leader>hp', gs.preview_hunk_inline,                       'Git Preview Hunk Inline')
+                map('n', '<leader>hP', gs.preview_hunk,                              'Git Preview Hunk')
+                map('n', '<leader>hd', gs.diffthis,                                  'Git Diff Buffer')
+                map('n', '<leader>hD', gs.toggle_deleted,                            'Git Toggle Deleted')
+                map('n', '<leader>hB', gs.blame,                                     'Git Blame')
+                map('n', '<leader>hb', function() gs.blame_line { full = true } end, 'Git Blame Line')
+                map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>',            'Git Select Hunk')
             end,
         },
     },

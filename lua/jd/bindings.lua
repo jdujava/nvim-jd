@@ -166,6 +166,11 @@ map({ 'n', 'v' }, 'gF', function()
     LazyVim.format({ force = true })
 end, { desc = 'Format' })
 
+-- Diff Mode
+map('n', '<leader>dt', '<CMD>diffthis<CR>', { desc = 'Diff This' })
+map('n', '<leader>do', '<CMD>diffoff<CR>', { desc = 'Diff Off' })
+map('n', '<leader>dO', '<CMD>diffoff!<CR>', { desc = 'Diff Off All' })
+
 -- Diagnostics
 local diagnostic_goto = function(next, severity)
     local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
