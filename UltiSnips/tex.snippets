@@ -1,6 +1,10 @@
 extends snippets
-extends praktikum
-extends greek
+extends tex_greek
+extends tex_praktikum
+
+global !p
+from latex_zones import *
+endglobal
 
 clearsnippets __
 
@@ -45,6 +49,10 @@ snippet notation "Notation" bi
 \begin{notation}${1/.+/[/}$1${1/.+/]/}
     ${2:${VISUAL}}
 \end{notation}
+endsnippet
+
+snippet todo "\todo{}" i
+\todo{${1:${VISUAL}}}
 endsnippet
 
 snippet T "Todo" b
@@ -252,22 +260,6 @@ endsnippet
 snippet cite "\autocite{}" w
 \\autocite{${1}}${0}
 endsnippet
-
-global !p
-def zone(offset = 0):
-	return vim.eval('v:lua.require("jd.latex").get_zone({})'.format(offset))
-def math():
-	return zone() == 'math' and zone(-1) == 'math'
-	# return vim.eval('v:lua.require("jd.latex").in_mathzone()')
-	# return vim.eval('vimtex#syntax#in_mathzone()') == '1'
-def comment():
-	return zone(-1) == 'comment'
-	# return vim.eval('v:lua.require("jd.latex").in_comment()')
-	# return vim.eval('vimtex#syntax#in_comment()') == '1'
-def env(name):
-	[x,y] = vim.eval("vimtex#env#is_inside('" + name + "')")
-	return x != '0' and y != '0'
-endglobal
 
 snippet template "Basic template" b
 \documentclass[a4paper]{article}
@@ -872,7 +864,7 @@ snippet pdv "\pdv{}{}" i
 \\pdv{${1:${VISUAL}}}{${2}}
 endsnippet
 
-priority 100
+priority 200
 context "math()"
 snippet fdv "\fdv{}{}" i
 \\fdv{${1:${VISUAL}}}{${2}}
@@ -1007,7 +999,7 @@ snippet invs "inverse" iA
 endsnippet
 
 context "math()"
-snippet \\\ "setminus" iA
+snippet \\\ "setminus" i
 \setminus $0
 endsnippet
 
@@ -1099,8 +1091,14 @@ snippet PROD "Tensor product" i
 endsnippet
 
 context "math()"
-snippet OO "emptyset" iA
+snippet OO "emptyset" i
 \emptyset
+endsnippet
+
+priority 200
+context "math()"
+snippet O/ "varnothing" i
+\varnothing
 endsnippet
 
 context "math()"
@@ -1161,13 +1159,13 @@ endsnippet
 
 priority 10
 context "math()"
-snippet bar "bar" i
+snippet bar "bar" w
 \overline{${1:${VISUAL}}}
 endsnippet
 
 priority 100
 context "math()"
-snippet "([a-zA-Z])bar" "bar" ri
+snippet "([a-zA-Z])(?<!\\h)bar" "bar" ri
 \overline{`!p snip.rv=match.group(1)`}
 endsnippet
 
@@ -1178,7 +1176,7 @@ endsnippet
 
 priority 1000
 context "math()"
-snippet hbar "\hbar" i
+snippet "(?<!\\)hbar" "\hbar" ri
 \hbar
 endsnippet
 
@@ -1233,8 +1231,12 @@ snippet tens "Tensor" i
 \tens{${1:${VISUAL}}}{${2}}
 endsnippet
 
-snippet c "Correction" i
+snippet C "Correction" i
 \correction{${1:${VISUAL}}}{${2}}
+endsnippet
+
+snippet enclose "\grayenclose{}" i
+\grayenclose{${1:${VISUAL}}}
 endsnippet
 
 snippet quote "Display Quote" w
