@@ -5,6 +5,7 @@ return {
         config = function()
             vim.g.tex_flavor = 'latex'
             vim.g.vimtex_view_method = 'zathura'
+            vim.g.vimtex_view_forward_search_on_start = false
             -- vim.g.vimtex_view_method = 'sioyek'
 
             vim.g.vimtex_matchparen_enabled = 0 -- prefer treesitter's matchparen
@@ -145,6 +146,8 @@ return {
                                     ['\\si{}'] = 'dummy',
                                     ['\\SI{}'] = 'dummy',
                                     ['\\SI{}{}'] = 'dummy',
+                                    ['\\AdS{}'] = 'dummy',
+                                    ['\\CFT{}'] = 'dummy',
                                     ['\\AdSCFT{}'] = 'dummy',
                                     ['\\ldots{}'] = 'dummy',
                                     ['\\includesvg[]{}'] = 'ignore',
@@ -175,33 +178,20 @@ return {
                                 local link = vim.fn.getreg('+')
                                 if link:match('^%[.*%]$') then
                                     link = link:gsub('^%[(.*)%]$', '%1') -- delete [...] around
-                                    link = string.format('\\href{%s}{}', link) -- wrap in \href{}{}
-                                    vim.fn.setreg('+', link)
                                 end
-                                vim.cmd('normal! p')
+                                require('jd.helpers').ultisnips_expand('href', link)
                             end,
                             mode = { 'n', 'i' },
-                            desc = 'Paste Zathura link from clipboard',
+                            desc = 'Paste (Zathura) Link from Clipboard',
                         },
                         {
                             '<A-f>',
                             function()
-                                -- require('jd.cmds').term_execute({ 'inkscape-figure', vim.b.vimtex.root })
                                 local obj = vim.system({ 'inkscape-figure', vim.b.vimtex.root }, { text = true }):wait()
-                                if obj.stdout == '' then
-                                    return
+                                if obj.stdout ~= '' then
+                                    -- Expand `ig` snippet (Inkscape Figure/Graphics) and insert name of the figure
+                                    require('jd.helpers').ultisnips_expand('ig', obj.stdout)
                                 end
-                                -- Expand `ig` snippet (Inkscape Figure/Graphics), insert name of the figure, and jump to next placeholder
-                                -- HACK: append space in normal mode to obtain `ig|␣` and correctly expand snippet
-                                --       it however works withou this hack in `treesitter-ultisnips` plugin
-                                --          https://github.com/fhill2/telescope-ultisnips.nvim/issues/9
-                                local snippet = 'ig' .. (vim.api.nvim_get_mode().mode == 'n' and ' ' or '')
-                                local after = vim.api.nvim_get_mode().mode == 'n'
-                                vim.api.nvim_put({ snippet }, '', after, true)
-                                -- vim.api.nvim_put({ snippet }, '', false, true)
-                                vim.fn['UltiSnips#ExpandSnippet']()
-                                vim.api.nvim_feedkeys(obj.stdout, 'n', false)
-                                vim.schedule(vim.fn['UltiSnips#JumpForwards'])
                             end,
                             mode = { 'n', 'i' },
                             desc = 'Inkscape Figure',

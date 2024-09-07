@@ -315,7 +315,7 @@ endsnippet
 
 priority 10
 snippet space "vspace" i
-\vspace{${1:1}em}
+\vspace{${1:1}ex}
 endsnippet
 
 priority 100
@@ -825,13 +825,13 @@ endsnippet
 
 priority 10
 context "math()"
-snippet ind "index placeholder" i
+snippet "(?<!\\|a)ind" "index placeholder" ri
 \ind
 endsnippet
 
 priority 20
 context "math()"
-snippet aind "abstract index placeholder" i
+snippet "(?<!\\)aind" "abstract index placeholder" ri
 \aind
 endsnippet
 

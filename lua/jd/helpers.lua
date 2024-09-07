@@ -59,4 +59,20 @@ function M.toggle_ultisnips_autotrigger()
     end
 end
 
+-- Expand `snippet`; optionally insert `feedkeys` and jump to next placeholder
+function M.ultisnips_expand(snippet, feedkeys)
+    -- HACK: append space in normal mode to obtain `snippet|␣` and correctly expand snippet
+    --       it however works without this hack in `treesitter-ultisnips` plugin
+    --          https://github.com/fhill2/telescope-ultisnips.nvim/issues/9
+    local after = vim.api.nvim_get_mode().mode == 'n'
+    local snip = snippet .. (after and ' ' or '')
+    vim.api.nvim_put({ snip }, '', after, true)
+    vim.fn['UltiSnips#ExpandSnippet']()
+    -- TODO: handle table of placeholders
+    if feedkeys then
+        vim.api.nvim_feedkeys(feedkeys, 'n', false)
+        vim.schedule(vim.fn['UltiSnips#JumpForwards'])
+    end
+end
+
 return M

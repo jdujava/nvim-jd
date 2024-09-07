@@ -213,6 +213,8 @@ map({ 'n', 'i' }, '<A-a>', function() helpers.toggle_ultisnips_autotrigger() end
 -- Spell-check
 -- map('i', '<C-h>', '<c-g>u<Esc>[s1z=`]a<c-g>u')
 
+-- NOTE: after https://github.com/neovim/neovim/commit/9762c5e3406cab8152d8dd161c0178965d841676,
+--       `gx` binding is pretty good
 local open_desc = 'Open URI with the system default handler'
 ---@param uri string|string[]|nil
 local function open(uri)
