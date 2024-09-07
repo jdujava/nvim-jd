@@ -92,6 +92,10 @@ return {
                 clangd = function(_, opts)
                     opts.capabilities.offsetEncoding = { 'utf-16' }
                 end,
+                tsserver = function()
+                    -- https://github.com/neovim/nvim-lspconfig/pull/3232#issuecomment-2331025714
+                    return true
+                end,
                 -- Specify * to use this function as a fallback for any server
                 -- ["*"] = function(server, opts) end,
             },
