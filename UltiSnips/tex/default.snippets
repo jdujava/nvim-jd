@@ -333,8 +333,7 @@ snippet dm "Math" wA
 \[ ${1:${VISUAL}} \]
 endsnippet
 
-context "math()"
-snippet qed "\qedhere" wA
+snippet qed "\qedhere" w
 \qedhere
 endsnippet
 
@@ -530,7 +529,7 @@ snippet obrace "Overbrace" iA
 endsnippet
 
 context "math()"
-snippet oset "\overset{}{}" iA
+snippet oset "\overset{}{}" i
 \\overset{${2:over}}{${1:${VISUAL}}} ${0}
 endsnippet
 
@@ -786,8 +785,8 @@ snippet bm "bold math" i
 endsnippet
 
 context "math()"
-snippet lll "l" iA
-\ell $0
+snippet lll "l" i
+\ell
 endsnippet
 
 context "math()"
@@ -1114,6 +1113,11 @@ snippet ZZ "Z" iA
 \Z
 endsnippet
 
+context "math()"
+snippet SS "Sphere" iA
+\Sphere
+endsnippet
+
 snippet <! "normal" i
 \triangleleft
 endsnippet
@@ -1128,7 +1132,14 @@ snippet box "\boxed{}" i
 endsnippet
 
 context "math()"
-snippet case "cases" w
+snippet cases "cases" w
+\begin{cases}
+    $1
+\end{cases}
+endsnippet
+
+context "math()"
+snippet dcases "dcases" w
 \begin{cases}
     $1
 \end{cases}
@@ -1144,10 +1155,10 @@ endsnippet
 
 
 snippet bigfun "Big function" i
-\begin{align*}
-    $1: $2 &\longrightarrow $3 \\\\
-    $4 &\longmapsto $1($4) = $0
-.\end{align*}
+\begin{alignat*}{3}
+    $1\colon &$2 && \longrightarrow $3 \\\\
+			 &$4 && \longmapsto $5 \equiv $1($4)
+\end{alignat*}
 endsnippet
 
 context "math()"

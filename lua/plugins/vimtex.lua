@@ -110,7 +110,7 @@ return {
                         },
                     },
                     ['bibtex-tidy'] = {
-                        command = Util.find_executable({ vim.env.CUSTOM_SOURCE .. "/bibtex-tidy/bin/bibtex-tidy" }, "bibtex-tidy"),
+                        -- command = Util.find_executable({ vim.env.CUSTOM_SOURCE .. "/bibtex-tidy/bin/bibtex-tidy" }, "bibtex-tidy"),
                         prepend_args = {
                             '--space=4', '--trailing-commas',
                             -- '--sort',
