@@ -1,6 +1,8 @@
 return {
     {
-        'hrsh7th/nvim-cmp',
+        -- 'hrsh7th/nvim-cmp',
+        'iguanacucumber/magazine.nvim', -- use magazine.nvim as upgrade of nvim-cmp
+        name = 'nvim-cmp',              -- call it as nvim-cmp
         event = 'VeryLazy',
         dependencies = {
             'hrsh7th/cmp-nvim-lsp',

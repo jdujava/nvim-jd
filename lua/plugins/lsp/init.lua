@@ -282,7 +282,9 @@ return {
     { 'Bilal2453/luvit-meta', lazy = true },
     -- Add lazydev source to cmp
     {
-        'hrsh7th/nvim-cmp',
+        -- 'hrsh7th/nvim-cmp',
+        'iguanacucumber/magazine.nvim', -- use magazine.nvim as upgrade of nvim-cmp
+        name = 'nvim-cmp',              -- call it as nvim-cmp
         opts = function(_, opts)
             table.insert(opts.sources, { name = 'lazydev', group_index = 0 })
         end,
