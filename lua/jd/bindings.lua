@@ -143,7 +143,7 @@ map('n', '<A-W>', function()
 end, { desc = 'Save and Compile document' })
 map('n', '<leader>W', '<CMD>w! | split | terminal compiler "%:p"<CR>', { desc = 'Save and Compile document (split)' })
 -- map('n', '<leader>W', '<CMD>w! | !compiler "%:p"<CR>')
-map('n', '<leader><leader>v', '<CMD>!opout "%:p"<CR><CR>', { desc = 'Open document output' })
+map('n', '<leader><leader>v', '<CMD>!opout "%:p"<CR>', { desc = 'Open document output' })
 
 -- Commands
 map('n', '<leader>sw', cmds.sudo_write, { desc = 'SudoWrite' })

@@ -207,6 +207,8 @@ return {
                 lua = { 'stylua' },
                 sh = { 'shfmt' },
                 json = { 'prettier' },
+                markdown = { 'prettier' },
+                python = { 'black' },
                 ['_'] = { 'core_fmt' }, -- split long lines and trim trailing whitespace
             },
             formatters = {
