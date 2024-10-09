@@ -1,5 +1,30 @@
 ;; extends
 
+; change priorities of highlights
+(
+  (command_name) @function @nospell
+  (#set! "priority" 110)
+)
+(
+  [
+    "["
+    "]"
+    "{"
+    "}"
+  ] @punctuation.bracket ; "(" ")" has no syntactical meaning in LaTeX
+  (#set! "priority" 110)
+)
+
+(generic_command
+  (command_name) @keyword.conditional
+  (#lua-match? @keyword.conditional "^\\if[a-zA-Z@]+$")
+  (#set! "priority" 120))
+
+(generic_command
+  (command_name) @keyword.conditional
+  (#any-of? @keyword.conditional "\\fi" "\\else")
+  (#set! "priority" 120))
+
 ; NOTE: default nvim-treesitter file doesn't support packages
 ((generic_command
   command: (command_name) @_name
@@ -43,10 +68,10 @@
   command: (command_name) @_name
   arg: (curly_group
         (_) @markup.math @nospell)
-  (#any-of? @_name "\\SI" "\\si")) @zone.text
+  (#any-of? @_name "\\SI" "\\si" "\\qq")) @zone.text
 
 (generic_command
   command: (command_name) @_name
   arg: (curly_group
         (_) @none @nospell)
-  (#any-of? @_name "\\tag")) @zone.text
+  (#any-of? @_name "\\tag" "\\parbox")) @zone.text
