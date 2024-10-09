@@ -116,7 +116,7 @@ return {
                             -- '--sort',
                             '--sort-fields=' .. table.concat({
                                 'author', 'editor', 'title', 'shorttitle', 'subtitle', 'booktitle',
-                                'journal', 'on', 'publisher', 'school', 'institution', 'series',
+                                'type', 'journal', 'on', 'publisher', 'school', 'institution', 'series',
                                 'volume', 'issue', 'number', 'pages', 'year', 'month', 'day',
                                 'doi', 'url', 'archiveprefix', 'primaryclass', 'eprint',
                             }, ','),
@@ -143,6 +143,7 @@ return {
                             checkFrequency = 'save',
                             latex = {
                                 commands = { -- https://valentjn.github.io/ltex/settings.html#ltexlatexcommands
+                                    ['\\texorpdfstring{}{}'] = 'dummy',
                                     ['\\si{}'] = 'dummy',
                                     ['\\SI{}'] = 'dummy',
                                     ['\\SI{}{}'] = 'dummy',

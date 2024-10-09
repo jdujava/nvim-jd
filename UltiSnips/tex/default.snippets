@@ -193,6 +193,7 @@ snippet fig "Figure environment" b
 \end{figure}
 endsnippet
 
+## needs package `placeins`
 snippet floatbarrier "Float Barrier" i
 \\FloatBarrier
 endsnippet
@@ -238,9 +239,6 @@ endsnippet
 snippet emph "\emph{}" i
 \\emph{${1:${VISUAL}}}${0}
 endsnippet
-snippet "[`'][`']?" "\enquote{}" wr
-\\enquote{${1:${VISUAL}}}
-endsnippet
 
 #Symbols
 priority 200
@@ -253,7 +251,7 @@ snippet "[cC]?ref" "\Cref{}" wr
 endsnippet
 priority 200
 snippet nref "\nameref{}" w
-\nameref{${1}}
+\Nref{${1}}
 endsnippet
 snippet cite "\autocite{}" w
 \\autocite{${1}}${0}
@@ -1094,7 +1092,7 @@ endsnippet
 
 priority 200
 context "math()"
-snippet O/ "varnothing" i
+snippet O/ "varnothing" iA
 \varnothing
 endsnippet
 
@@ -1159,6 +1157,12 @@ snippet bigfun "Big function" i
     $1\colon &$2 && \longrightarrow $3 \\\\
 			 &$4 && \longmapsto $5 \equiv $1($4)
 \end{alignat*}
+endsnippet
+
+priority 200
+context "math()"
+snippet center "Math centering" i
+\centerhphantom{${1:${VISUAL}}}{$2}
 endsnippet
 
 context "math()"
@@ -1246,6 +1250,10 @@ endsnippet
 
 snippet enclose "\grayenclose{}" i
 \grayenclose{${1:${VISUAL}}}
+endsnippet
+
+snippet "``?" "\enquote{}" wr
+\\enquote{${1:${VISUAL}}}
 endsnippet
 
 snippet quote "Display Quote" w
