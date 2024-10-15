@@ -155,6 +155,7 @@ end
 function B.setup()
     vim.o.showtabline = 2
     vim.o.tabline = [[%!v:lua.require'simple-line.buffers'.bufferLine()]]
+    vim.api.nvim_set_hl(0, 'TabLineFill', { bg = 'None' })
 
     local shift_number_keys = { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')' }
     for i = 1, 9 do
