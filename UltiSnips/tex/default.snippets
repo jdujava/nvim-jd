@@ -107,7 +107,7 @@ try:
 		snip.rv = ''
 except ValueError:
 	pass
-`    \\includegraphics[width=${1:1.0}\linewidth]{${2:plot.png}}
+`    \\includegraphics[width=${1:1.0}\textwidth]{${2:plot.png}}
 `!p
 try:
 	if t[1] and float(t[1]) > 1.0:
@@ -125,13 +125,13 @@ endsnippet
 snippet mcg "center multiple includegraphics"
 \\begin{figure}[${1:!ht}]
     \\centering
-    \\begin{subfigure}[c]{0.45\linewidth}
+    \\begin{subfigure}[c]{0.45\textwidth}
         \\centering
         \\includegraphics[width=0.95\linewidth]{${2:plot.png}}
         \\caption{${3:Caption}}
         \\label{fig:${4:${2/\.\w+$//}}}
     \\end{subfigure}
-    \\begin{subfigure}[c]{0.45\linewidth}
+    \\begin{subfigure}[c]{0.45\textwidth}
         \\centering
         \\includegraphics[width=0.95\linewidth]{${5:plot.png}}
         \\caption{${6:Caption}}
@@ -143,9 +143,9 @@ ${0}
 endsnippet
 
 snippet wg "wrap includegraphics"
-\\begin{wrapfigure}{${1:r}}{${2:0.4}\linewidth}
+\\begin{wrapfigure}{${1:r}}{${2:0.4}\textwidth}
     \\centering
-    \\includegraphics[width=${3:0.35}\linewidth]{${4:plot.png}}
+    \\includegraphics[width=${3:0.35}\textwidth]{${4:plot.png}}
     \\caption{${5:Caption}}
     \\label{fig:${6:${4/\.\w+$//}}}
 \\end{wrapfigure}
@@ -153,10 +153,10 @@ ${0}
 endsnippet
 
 snippet ig "Inkscape Figure"
-\\begin{figure}[ht]
+\\begin{figure}[!ht]
     \\centering
     \\everymath{\displaystyle}
-    \\includesvg[${2:0.9}\linewidth]{${1:figure-name}}
+    \\includesvg[${2:0.9}\textwidth]{${1:figure-name}}
     \\caption{${3:${1/-/ /g}}}
     \\label{fig:$1}
 \\end{figure}
@@ -187,7 +187,7 @@ endsnippet
 snippet fig "Figure environment" b
 \begin{figure}[${2:htpb}]
     \centering
-    \includegraphics[width=${3:0.8}\linewidth]{${4:name.ext}}
+    \includegraphics[width=${3:0.8}\textwidth]{${4:name.ext}}
     \caption{${4/(\w+)\.\w+/\u$1/}$0}%
     \label{fig:${4/(\w+)\.\w+/$1/}}
 \end{figure}
@@ -283,6 +283,16 @@ endsnippet
 context "math()"
 snippet color "\mathcolor{}" i
 \\mathcolor{${1:gray}}{${2:${VISUAL}}}${0}
+endsnippet
+
+context "math()"
+snippet . "\eqend" i
+\eqend
+endsnippet
+
+context "math()"
+snippet , "\eqcomma" i
+\eqcomma
 endsnippet
 
 priority 100
@@ -1260,4 +1270,8 @@ snippet quote "Display Quote" w
 \begin{displayquote}${1/.+/[/}$1${1/.+/]/}
     ${2:${VISUAL}}
 \end{displayquote}
+endsnippet
+
+snippet verb "\verb||" w
+\verb|$1|
 endsnippet
