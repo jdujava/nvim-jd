@@ -250,6 +250,10 @@ snippet "[cC]?ref" "\Cref{}" wr
 \\Cref{${1}}
 endsnippet
 priority 200
+snippet "eref" "\eqref{}" wr
+\\eqref{eq:${1}}
+endsnippet
+priority 200
 snippet nref "\nameref{}" w
 \Nref{${1}}
 endsnippet
@@ -887,27 +891,27 @@ endsnippet
 
 context "math()"
 snippet ii "Imaginary unit" i
-\\iunit
+\\I
 endsnippet
 
 context "math()"
 snippet ee "Exponential" i
-\\eunit
+\\E
 endsnippet
 
 context "math()"
 snippet eto "Exponential" i
-\\eunit^{${1:${VISUAL}}}
+\\E^{${1:${VISUAL}}}
 endsnippet
 
 context "math()"
-snippet eunit "Exponential" i
-eunit^{${1:${VISUAL}}}
+snippet E "Exponential" i
+E^{${1:${VISUAL}}}
 endsnippet
 
 priority 100
 context "math()"
-snippet '(?<!\\)(star|perp|quad|int|nabla|exp|circ)' "\foo" wrA
+snippet '(?<!\\)(star|perp|quad|int|nabla|exp|circ)' "\foo" wr
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
@@ -925,19 +929,18 @@ endsnippet
 
 priority 100
 context "math()"
-snippet '(\\?)(sq|sin|cos|arccot|cot|csc|ln|log|dim|odot|det|abs|tilde|grad)' "\foo{}" rA
+snippet '(\\?)(sq|sin|cos|arccot|cot|csc|ln|log|dim|odot|det|abs|tilde|grad)' "\foo{}" r
 \\`!p snip.rv = match.group(2)`{${1:${VISUAL}}}
 endsnippet
 
 priority 200
 context "math()"
-snippet '(\\?)(arcsin|arccos|arctan|arccot|arccsc|arcsec)' "\ffoo{}" rA
+snippet '(\\?)(arcsin|arccos|arctan|arccot|arccsc|arcsec)' "\ffoo{}" r
 \\`!p snip.rv = match.group(2)`{${1:${VISUAL}}}
 endsnippet
 
-priority 200
 context "math()"
-snippet wtilde "\tilde{}" iA
+snippet wt "\tilde{}" i
 \\widetilde{${1:${VISUAL}}}${0}
 endsnippet
 

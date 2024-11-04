@@ -80,4 +80,5 @@
   command: (command_name) @_name
   arg: (curly_group
         (_) @markup.math @nospell)
-  (#any-of? @_name "\\ensuremath")) @zone.math
+  (#any-of? @_name "\\ensuremath")
+  (#set! "priority" 90)) @zone.math
