@@ -20,11 +20,11 @@ function M.get()
         { 'gI', '<cmd>Telescope lsp_implementations reuse_win=true<cr>',  desc = 'Goto Implementation' },
         { 'gT', '<cmd>Telescope lsp_type_definitions reuse_win=true<cr>', desc = 'Goto Type Definition' },
         { 'gD', vim.lsp.buf.declaration,                       desc = 'Goto Declaration' },
-        { 'K',  vim.lsp.buf.hover,                             desc = 'Hover', has = 'hover' },
-        { 'gK', vim.lsp.buf.hover,                             desc = 'Hover', has = 'hover' },
+        { 'K',  function() vim.lsp.buf.hover() end,            desc = 'Hover', has = 'hover' },
+        { 'gK', function() vim.lsp.buf.hover() end,            desc = 'Hover', has = 'hover' },
         { 'gR', vim.lsp.buf.rename,                            desc = 'Rename', has = 'rename' },
         { 'gA', vim.lsp.buf.code_action, mode = { 'n', 'v' },  desc = 'Code Action', has = 'codeAction' },
-        { 'gS', vim.lsp.buf.signature_help,                    desc = 'Signature Help', has = 'signatureHelp' },
+        { 'gS', function() vim.lsp.buf.signature_help() end,   desc = 'Signature Help', has = 'signatureHelp' },
         { '<c-s>', vim.lsp.buf.signature_help, mode = 'i',     desc = 'Signature Help', has = 'signatureHelp' },
     }
 

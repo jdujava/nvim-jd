@@ -39,7 +39,7 @@ return {
             { '<leader>?',          '<cmd>Telescope search_history<cr>',            desc = 'Search history' },
             { '<leader><leader>/',  '<cmd>Telescope live_grep<cr>',                 desc = 'Find (Grep) in Files (current dir)' },
             { '<leader>:',          '<cmd>Telescope command_history<cr>',           desc = 'Command History' },
-            { '<leader>b',          '<cmd>Telescope buffers<cr>',                   desc = 'Buffers' },
+            { '<leader>b',          '<cmd>Telescope buffers sort_mru=true sort_lastused=true ignore_current_buffer=true<cr>', desc = 'Buffers' },
             {
                 '<leader>p',
                 function()

@@ -15,6 +15,10 @@ require('lazy').setup({
         lazy = true,
     },
     install = { colorscheme = { 'tokyonight', 'habamax' } },
+    checker = {
+        enabled = true, -- check for plugin updates periodically
+        notify = false, -- notify on update
+    }, -- automatically check for plugin updates
     ui = {
         border = 'rounded',
         backdrop = 100,
