@@ -14,15 +14,6 @@ map('n', '<A-p>', '<cmd>Lazy<cr>', { desc = 'Lazy' })
 map('n', '<A-P>', '<cmd>Lazy<cr>', { desc = 'Lazy' })
 map('n', '<A-r>', ':Lazy reload ', { silent = false, desc = 'Lazy reload' })
 
--- https://github.com/fhill2/telescope-ultisnips.nvim/issues/9
-vim.keymap.set({ 'n', 'i' }, '<A-f>', function()
-    local snippet = 'foo' -- should expand to 'foo bar'
-    local after = vim.api.nvim_get_mode().mode == 'n'
-    vim.api.nvim_put({ snippet }, '', after, true)
-    vim.fn['UltiSnips#ExpandSnippet']()
-    vim.cmd([[call UltiSnips#ExpandSnippet()]])
-end)
-
 -- Alt maps
 for _, i in ipairs({ 'h', 'j', 'k', 'l', 'H', 'J', 'K', 'L' }) do
     map({ 'n', 't' }, '<A-' .. i .. '>', '<cmd>wincmd ' .. i .. '<cr>')
@@ -157,6 +148,8 @@ map('n', '<leader>X', cmds.saveandexec, { desc = 'Save and Execute document' })
 map({ 'n', 'v' }, 'gF', function()
     LazyVim.format({ force = true })
 end, { desc = 'Format' })
+LazyVim.format.snacks_toggle():map('<leader>uf')
+LazyVim.format.snacks_toggle(true):map('<leader>uF')
 
 -- Diff Mode
 map('n', '<leader>dt', '<CMD>diffthis<CR>', { desc = 'Diff This' })
@@ -183,24 +176,6 @@ map('n', ']h', diagnostic_goto(true, 'HINT'), { desc = 'Next Hint' })
 map('n', '[h', diagnostic_goto(false, 'HINT'), { desc = 'Prev Hint' })
 map('n', ']i', diagnostic_goto(true, 'INFO'), { desc = 'Next Info' })
 map('n', '[i', diagnostic_goto(false, 'INFO'), { desc = 'Prev Info' })
-
--- stylua: ignore start
-
--- Toggle options
-LazyVim.toggle.map('<leader>uf', LazyVim.toggle.format())
-LazyVim.toggle.map('<leader>uF', LazyVim.toggle.format(true))
-LazyVim.toggle.map('<leader>us', LazyVim.toggle('spell', { name = 'Spelling' }))
-LazyVim.toggle.map('<leader>uw', LazyVim.toggle('wrap', { name = 'Wrap' }))
-LazyVim.toggle.map('<leader>uL', LazyVim.toggle('relativenumber', { name = 'Relative Number' }))
-LazyVim.toggle.map('<leader>ud', helpers.toggle.diagnostics)
-LazyVim.toggle.map('<leader>ul', LazyVim.toggle.number)
-LazyVim.toggle.map('<leader>uc', LazyVim.toggle('conceallevel', { values = { 0, vim.o.conceallevel > 0 and vim.o.conceallevel or 2 } }))
-LazyVim.toggle.map('<leader>uC', helpers.toggle.completion)
-LazyVim.toggle.map('<leader>ut', LazyVim.toggle.treesitter)
-LazyVim.toggle.map('<leader>uh', LazyVim.toggle.inlay_hints)
-map({ 'n', 'i' }, '<A-a>', function() helpers.toggle_ultisnips_autotrigger() end, { desc = 'Toggle UltiSnips Autotrigger' })
-
--- stylua: ignore end
 
 -- Spell-check
 -- map('i', '<C-h>', '<c-g>u<Esc>[s1z=`]a<c-g>u')

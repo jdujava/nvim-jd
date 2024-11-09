@@ -1,20 +1,5 @@
 return {
     {
-        'rcarriga/nvim-notify',
-        pin = true, -- pin to a specific (custom) commit
-        event = 'VeryLazy',
-        opts = {
-            background_colour = '#000000',
-            -- stylua: ignore
-            max_height = function() return math.floor(vim.o.lines * 0.75) end,
-            -- stylua: ignore
-            max_width = function() return math.floor(vim.o.columns * 0.75) end,
-            timeout = 4000,
-            top_down = false,
-            stages = 'no_animation',
-        },
-    },
-    {
         'j-hui/fidget.nvim',
         opts = {
             progress = {
@@ -186,22 +171,38 @@ return {
     {
         'lukas-reineke/indent-blankline.nvim',
         event = { 'BufReadPost', 'BufNewFile' },
-        opts = {
-            indent = {
-                -- char = "▏",
-                char = '│',
-                tab_char = '│',
-            },
-            exclude = {
-                filetypes = {
-                    'help',
-                    'lazy',
-                    'mason',
-                    'notify',
+        opts = function()
+            Snacks.toggle({
+                name = 'Indention Guides',
+                get = function()
+                    return require('ibl.config').get_config(0).enabled
+                end,
+                set = function(state)
+                    require('ibl').setup_buffer(0, { enabled = state })
+                end,
+            }):map('<leader>ug')
+
+            return {
+                indent = {
+                    -- char = "▏",
+                    char = '│',
+                    tab_char = '│',
                 },
-            },
-            scope = { enabled = false },
-        },
+                scope = { enabled = false },
+                exclude = {
+                    filetypes = {
+                        'help',
+                        'lazy',
+                        'mason',
+                        'notify',
+                        'snacks_notif',
+                        'snacks_terminal',
+                        'snacks_win',
+                        'toggleterm',
+                    },
+                },
+            }
+        end,
         main = 'ibl',
     },
 

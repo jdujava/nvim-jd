@@ -18,7 +18,6 @@ return {
                 end,
                 desc = 'File Manager - LF',
             },
-            { '<leader>L', '<CMD>FloatermNew lazygit<CR>', desc = 'LazyGit' },
         },
         config = function()
             vim.g.floaterm_title = ''

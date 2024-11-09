@@ -59,7 +59,7 @@ return {
         cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
         keys = {
             { '<leader>gd', '<cmd>DiffviewOpen<cr>', desc = 'DiffView' },
-            { '<leader>gf', '<cmd>DiffviewFileHistory<cr>', desc = 'DiffView File History (whole repository)' },
+            { '<leader>gF', '<cmd>DiffviewFileHistory<cr>', desc = 'DiffView File History (whole repository)' },
             { '<leader>gh', '<cmd>DiffviewFileHistory %<cr>', desc = 'DiffView File History (current file)' },
         },
         opts = function()

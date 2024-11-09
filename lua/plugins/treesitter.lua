@@ -128,7 +128,7 @@ return {
         opts = function()
             local tsc = require('treesitter-context')
 
-            LazyVim.toggle.map('<leader>uT', {
+            Snacks.toggle({
                 name = 'Treesitter Context',
                 get = tsc.enabled,
                 set = function(state)
@@ -138,7 +138,7 @@ return {
                         tsc.disable()
                     end
                 end,
-            })
+            }):map('<leader>uT')
 
             return { mode = 'cursor', max_lines = 3 }
         end,

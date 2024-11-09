@@ -8,7 +8,6 @@ return {
             { 'nvim-lua/plenary.nvim' },
             { 'nvim-telescope/telescope-frecency.nvim' },
             { 'fhill2/telescope-ultisnips.nvim' },
-            { 'rcarriga/nvim-notify' },
             {
                 'nvim-telescope/telescope-fzf-native.nvim',
                 build = 'make',
@@ -34,7 +33,6 @@ return {
             { '<leader>J',          '<cmd>Telescope jumplist<cr>',                  desc = 'Jumplist' },
             { '<leader>K',          '<cmd>Telescope keymaps<cr>',                   desc = 'Keymaps' },
             { '<leader><leader>M',  '<cmd>Telescope man_pages<cr>',                 desc = 'Man Pages' },
-            { '<leader>N',          '<cmd>Telescope notify<cr>',                    desc = 'Notifications' },
             { '<leader>O',          '<cmd>Telescope vim_options<cr>',               desc = 'Options' },
             { '<leader>R',          '<cmd>Telescope resume<cr>',                    desc = 'Resume' },
             { '<leader><leader>R',  '<cmd>Telescope reloader<cr>',                  desc = 'Reload' },

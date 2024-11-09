@@ -23,11 +23,15 @@ return {
                 frecency = false,
                 mail = false,
             }
-            local helpers = require('jd.helpers')
-            LazyVim.toggle.map('<A-Bslash>', helpers.toggle.copilot)
-            -- TODO: make 'i' mode work
-            -- LazyVim.toggle.map('<A-bar>', helpers.toggle.copilot, mode = { 'n', 'i' })
-            LazyVim.toggle.map('<A-bar>', helpers.toggle.copilot)
+            vim.api.nvim_create_autocmd('User', {
+                pattern = 'VeryLazy',
+                callback = function()
+                    local helpers = require('jd.helpers')
+                    Snacks.toggle(helpers.toggle.copilot):map('<A-Bslash>')
+                    -- TODO: make 'i' mode work
+                    Snacks.toggle(helpers.toggle.copilot):map('<A-bar>')
+                end,
+            })
         end,
     },
 
