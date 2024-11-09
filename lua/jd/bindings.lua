@@ -223,9 +223,9 @@ pcall(map, 'ia', '#!!', [['#!/usr/bin/env ' . (empty(&filetype) ? 'sh' : &filety
 map({ 'n', 'v' }, '<C-z>', '<Nop>', { desc = '[Disabled] Suspend NeoVim' })
 
 map({ 'n', 'i' }, '<A-i>', function()
-    Util.warn(helpers.R('jd.latex').get_zone())
-    -- Util.warn(helpers.R('jd.latex').get_zone(-1))
-end, { desc = 'get captures' })
+    Util.warn(helpers.R('jd.latex_zones').get_zone())
+    -- Util.warn(helpers.R('jd.latex_zones').get_zone(-1))
+end, { desc = 'Get Latex Zone Captures' })
 
 -- undo autotrigger snippet (twice undo)
 map('i', '<A-U>', '<CMD>undo<bar>undo<CR>', { desc = 'Undo' })

@@ -287,7 +287,7 @@ return {
     {
         -- 'hrsh7th/nvim-cmp',
         'iguanacucumber/magazine.nvim', -- use magazine.nvim as upgrade of nvim-cmp
-        name = 'nvim-cmp',              -- call it as nvim-cmp
+        name = 'nvim-cmp', -- call it as nvim-cmp
         opts = function(_, opts)
             table.insert(opts.sources, { name = 'lazydev', group_index = 0 })
         end,
