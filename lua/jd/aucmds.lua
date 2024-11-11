@@ -60,7 +60,12 @@ au('BufReadPost', {
 au('TermOpen', {
     group = gr('term_filetype'),
     pattern = 'term://*' .. vim.o.shell,
-    callback = function()
+    callback = function(event)
+        local exclude = { 'snacks_terminal' }
+        local buf = event.buf
+        if vim.tbl_contains(exclude, vim.bo[buf].filetype) then
+            return
+        end
         vim.bo.filetype = 'term'
         vim.o.number = false
         vim.o.relativenumber = false

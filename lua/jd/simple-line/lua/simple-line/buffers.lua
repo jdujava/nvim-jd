@@ -159,10 +159,10 @@ function B.setup()
 
     local shift_number_keys = { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')' }
     for i = 1, 9 do
-        vim.keymap.set({ 'n', 'v' }, '<A-' .. i .. '>', function()
+        vim.keymap.set({ 'n', 'v', 't' }, '<A-' .. i .. '>', function()
             require('simple-line.buffers').jumpBuf(i)
         end, { desc = 'Jump to buffer ' .. i })
-        vim.keymap.set({ 'n', 'v' }, '<A-' .. shift_number_keys[i] .. '>', function()
+        vim.keymap.set({ 'n', 'v', 't' }, '<A-' .. shift_number_keys[i] .. '>', function()
             require('simple-line.buffers').moveBuf(i)
         end, { desc = 'Move buffer to index ' .. i })
     end
@@ -180,10 +180,10 @@ function B.setup()
         require('simple-line.buffers').jumpBuf(-1)
     end, { desc = 'Jump to last buffer' })
 
-    vim.keymap.set({ 'n', 'v' }, '<A-Left>', function()
+    vim.keymap.set({ 'n', 'v', 't' }, '<A-Left>', function()
         require('simple-line.buffers').moveBuf(false, -1)
     end, { desc = 'Move buffer left' })
-    vim.keymap.set({ 'n', 'v' }, '<A-Right>', function()
+    vim.keymap.set({ 'n', 'v', 't' }, '<A-Right>', function()
         require('simple-line.buffers').moveBuf(false, 1)
     end, { desc = 'Move buffer right' })
 end
