@@ -45,8 +45,8 @@ return {
                     border = 'rounded',
                 },
                 lazygit = {
-                    height = 0.92,
-                    width = 0.95,
+                    height = 0.93,
+                    width = 0.99,
                 },
                 notification = {
                     wo = { wrap = true }, -- Wrap notifications
@@ -63,7 +63,7 @@ return {
             { '<leader>bd', function() Snacks.bufdelete() end,             desc = 'Delete Buffer' },
             { '<leader>L',  function() Snacks.lazygit() end,               desc = 'Lazygit' },
             { '<leader>gb', function() Snacks.git.blame_line() end,        desc = 'Git Blame Line' },
-            { '<leader>gB', function() Snacks.gitbrowse() end,             desc = 'Git Browse' },
+            { '<leader>gB', function() Snacks.gitbrowse() end,             desc = 'Git Browse', mode = {'n', 'x'} },
             { '<leader>gf', function() Snacks.lazygit.log_file() end,      desc = 'Lazygit Current File History' },
             { '<leader>gl', function() Snacks.lazygit.log() end,           desc = 'Lazygit Log (cwd)' },
             { '<leader>cR', function() Snacks.rename.rename_file() end,    desc = 'Rename File' },

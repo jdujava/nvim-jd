@@ -14,18 +14,18 @@ function M.get()
     -- stylua: ignore
     M._keys = {
         { 'gL', '<cmd>LspInfo<cr>', desc = 'Lsp Info' },
-        { 'gw', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>',       desc = 'Workspace Symbols' },
-        { 'gd', '<cmd>Telescope lsp_definitions reuse_win=true<cr>',      desc = 'Goto Definition', has = 'definition' },
-        { 'gr', '<cmd>Telescope lsp_references<cr>',                      desc = 'References', nowait = true },
-        { 'gI', '<cmd>Telescope lsp_implementations reuse_win=true<cr>',  desc = 'Goto Implementation' },
-        { 'gT', '<cmd>Telescope lsp_type_definitions reuse_win=true<cr>', desc = 'Goto Type Definition' },
-        { 'gD', vim.lsp.buf.declaration,                       desc = 'Goto Declaration' },
-        { 'K',  function() vim.lsp.buf.hover() end,            desc = 'Hover', has = 'hover' },
-        { 'gK', function() vim.lsp.buf.hover() end,            desc = 'Hover', has = 'hover' },
-        { 'gR', vim.lsp.buf.rename,                            desc = 'Rename', has = 'rename' },
-        { 'gA', vim.lsp.buf.code_action, mode = { 'n', 'v' },  desc = 'Code Action', has = 'codeAction' },
-        { 'gS', function() vim.lsp.buf.signature_help() end,   desc = 'Signature Help', has = 'signatureHelp' },
-        { '<c-s>', vim.lsp.buf.signature_help, mode = 'i',     desc = 'Signature Help', has = 'signatureHelp' },
+        { 'gw', '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>',         desc = 'Workspace Symbols' },
+        { 'gd', '<cmd>Telescope lsp_definitions reuse_win=true<cr>',        desc = 'Goto Definition', has = 'definition' },
+        { 'gr', '<cmd>Telescope lsp_references<cr>',                        desc = 'References', nowait = true },
+        { 'gI', '<cmd>Telescope lsp_implementations reuse_win=true<cr>',    desc = 'Goto Implementation' },
+        { 'gT', '<cmd>Telescope lsp_type_definitions reuse_win=true<cr>',   desc = 'Goto Type Definition' },
+        { 'gD', vim.lsp.buf.declaration,                                    desc = 'Goto Declaration' },
+        { 'K',  function() vim.lsp.buf.hover() end,                         desc = 'Hover', has = 'hover' },
+        { 'gK', function() vim.lsp.buf.hover() end,                         desc = 'Hover', has = 'hover' },
+        { 'gR', vim.lsp.buf.rename,                                         desc = 'Rename', has = 'rename' },
+        { 'gA', vim.lsp.buf.code_action, mode = { 'n', 'v' },               desc = 'Code Action', has = 'codeAction' },
+        { 'gS', function() vim.lsp.buf.signature_help() end,                desc = 'Signature Help', has = 'signatureHelp' },
+        { '<c-s>', function() vim.lsp.buf.signature_help() end, mode = 'i', desc = 'Signature Help', has = 'signatureHelp' },
     }
 
     return M._keys
@@ -57,7 +57,7 @@ function M.resolve(buffer)
     if not Keys.resolve then
         return {}
     end
-    local spec = M.get()
+    local spec = vim.tbl_extend('force', {}, M.get())
     local opts = LazyVim.opts('nvim-lspconfig')
     local clients = LazyVim.lsp.get_clients({ bufnr = buffer })
     for _, client in ipairs(clients) do
