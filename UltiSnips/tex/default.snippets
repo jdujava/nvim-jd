@@ -250,7 +250,7 @@ snippet "[cC]?ref" "\Cref{}" wr
 \\Cref{${1}}
 endsnippet
 priority 200
-snippet "eref" "\eqref{}" wr
+snippet "[eq]ref" "\eqref{}" wr
 \\eqref{eq:${1}}
 endsnippet
 priority 200
@@ -342,13 +342,16 @@ endsnippet
 
 context "not math() and not comment()"
 snippet dm "Math" wA
-\[ ${1:${VISUAL}} \]
+\[
+    ${1:${VISUAL}}
+\]
 endsnippet
 
 snippet qed "\qedhere" w
 \qedhere
 endsnippet
 
+context "not math() and not comment()"
 snippet eq "equation environment" bA
 \\begin{equation} \\label{eq:${1:label}}
     ${2:${VISUAL}}
@@ -859,7 +862,7 @@ snippet \cdotv "vdots" iA
 endsnippet
 
 context "math()"
-snippet norm "norm" iA
+snippet norm "norm" i
 \|$1\|
 endsnippet
 
@@ -1255,6 +1258,16 @@ endsnippet
 context "math()"
 snippet tens "Tensor" i
 \tens{${1:${VISUAL}}}{${2}}
+endsnippet
+
+context "math()"
+snippet ket "Ket" i
+\ket{${1:${VISUAL}}}
+endsnippet
+
+context "math()"
+snippet bra "Bra" i
+\bra{${1:${VISUAL}}}
 endsnippet
 
 snippet C "Correction" i
