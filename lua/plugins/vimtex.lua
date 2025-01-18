@@ -209,6 +209,9 @@ return {
                                 labelDefinitions = true,
                                 labelReferences = true,
                             },
+                            experimental = {
+                                labelReferenceCommands = { 'Nref' },
+                            },
                         },
                     },
                 },
