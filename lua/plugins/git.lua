@@ -36,19 +36,23 @@ return {
                 -- stylua: ignore start
                 map('n', ']C',         function() gs.nav_hunk('last') end,           'Git Last Hunk')
                 map('n', '[C',         function() gs.nav_hunk('first') end,          'Git First Hunk')
-                map('n', '<leader>hs', gs.stage_hunk,                                'Git Stage Hunk')
-                map({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>",          'Git Stage Hunk')
-                map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>",          'Git Reset Hunk')
-                map('n', '<leader>hu', gs.undo_stage_hunk,                           'Git Undo Stage Hunk')
+                map('n', "<leader>hs", gs.stage_hunk,                                'Git Stage Hunk')
+                map('n', "<leader>hr", gs.reset_hunk,                                'Git Reset Hunk')
                 map('n', '<leader>hS', gs.stage_buffer,                              'Git Stage Buffer')
                 map('n', '<leader>hR', gs.reset_buffer,                              'Git Reset Buffer')
                 map('n', '<leader>hp', gs.preview_hunk_inline,                       'Git Preview Hunk Inline')
                 map('n', '<leader>hP', gs.preview_hunk,                              'Git Preview Hunk')
                 map('n', '<leader>hd', gs.diffthis,                                  'Git Diff Buffer')
-                map('n', '<leader>hD', gs.toggle_deleted,                            'Git Toggle Deleted')
                 map('n', '<leader>hB', gs.blame,                                     'Git Blame')
                 map('n', '<leader>hb', function() gs.blame_line { full = true } end, 'Git Blame Line')
                 map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>',            'Git Select Hunk')
+                map('v', '<leader>hs', function()
+                    gs.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+                end)
+
+                map('v', '<leader>hr', function()
+                    gs.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+                end)
             end,
         },
     },
