@@ -310,12 +310,15 @@ snippet ... "ldots" i
 \ldots{}
 endsnippet
 
-snippet => "implies" Ai
+snippet => "implies" iA
 \Longrightarrow
 endsnippet
-# \implies
 
-snippet =< "implied by" Ai
+snippet \Longrightarrow "implies with space" iA
+\ \Longrightarrow\ 
+endsnippet
+
+snippet =< "implied by" iA
 \impliedby
 endsnippet
 
@@ -365,9 +368,15 @@ snippet split "split environment" b
 endsnippet
 
 snippet align "align environment" b
-\\begin{align}
+\\begin{align*}
     ${1:${VISUAL}}
-\\end{align}
+\\end{align*}
+endsnippet
+
+snippet alignat "alignat environment" b
+\\begin{alignat*}{${2:2}}
+    ${1:${VISUAL}}
+\\end{alignat*}
 endsnippet
 
 priority 100
@@ -396,26 +405,26 @@ snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\\|\^|_)(\{[^=]+\}|\w+))*)/' "symbol frac
 \\frac{`!p snip.rv = match.group(1)`}{$1}
 endsnippet
 
-priority 1000
-context "math()"
-snippet '^.*\)/' "() frac" rA
-`!p
-stripped = match.string[:-1]
-depth = 0
-i = len(stripped) - 1
-while True:
-	if stripped[i] == ')': depth += 1
-	if stripped[i] == '(': depth -= 1
-	if depth == 0: break;
-	i-=1
-snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
-`{$1}
-endsnippet
+# priority 1000
+# context "math()"
+# snippet '^.*\)/' "() frac" rA
+# `!p
+# stripped = match.string[:-1]
+# depth = 0
+# i = len(stripped) - 1
+# while True:
+# 	if stripped[i] == ')': depth += 1
+# 	if stripped[i] == '(': depth -= 1
+# 	if depth == 0: break;
+# 	i-=1
+# snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
+# `{$1}
+# endsnippet
 
-context "math()"
-snippet '([A-Za-z'])(\d)' "auto subscript" rA
-`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`$1}
-endsnippet
+# context "math()"
+# snippet '([A-Za-z'])(\d)' "auto subscript" rA
+# `!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`$1}
+# endsnippet
 
 priority 1000
 snippet math "mathematicablock" w
@@ -487,12 +496,13 @@ snippet pr "\prime" i
 endsnippet
 
 context "math()"
-snippet op "\oplus" i
+snippet oplus "\oplus" i
 \oplus $0
 endsnippet
 
+priority 10
 context "math()"
-snippet ot "\otimes" i
+snippet otimes "\otimes" i
 \otimes $0
 endsnippet
 
@@ -522,7 +532,7 @@ snippet comm "commutator" i
 endsnippet
 
 context "math()"
-snippet ubrace "Underbrace" iA
+snippet ubrace "Underbrace" i
 \\underbrace{${1:${VISUAL}}}_{${2}} ${0}
 endsnippet
 
@@ -539,7 +549,7 @@ snippet subarray "subarray" i
 endsnippet
 
 context "math()"
-snippet obrace "Overbrace" iA
+snippet obrace "Overbrace" i
 \\overbrace{${1:${VISUAL}}}^{${2}} ${0}
 endsnippet
 
@@ -690,46 +700,6 @@ snippet AA "forall" iA
 \forall $0
 endsnippet
 
-context "math()"
-snippet xnn "xn" iA
-x_{n}
-endsnippet
-
-context "math()"
-snippet ynn "yn" iA
-y_{n}
-endsnippet
-
-context "math()"
-snippet xii "xi" iA
-x_{i}
-endsnippet
-
-context "math()"
-snippet yii "yi" iA
-y_{i}
-endsnippet
-
-context "math()"
-snippet xjj "xj" iA
-x_{j}
-endsnippet
-
-context "math()"
-snippet yjj "yj" iA
-y_{j}
-endsnippet
-
-context "math()"
-snippet xp1 "x" iA
-x_{n+1}
-endsnippet
-
-context "math()"
-snippet R0+ "R0+" iA
-\\R_0^+
-endsnippet
-
 snippet plot "Plot" w
 \begin{figure}[$1]
     \centering
@@ -851,13 +821,13 @@ endsnippet
 
 priority 100
 context "math()"
-snippet \cdotd "ddots" iA
+snippet \cdotd "ddots" i
 \ddots
 endsnippet
 
 priority 100
 context "math()"
-snippet \cdotv "vdots" iA
+snippet \cdotv "vdots" i
 \vdots
 endsnippet
 
@@ -969,6 +939,12 @@ snippet -> "to" iA
 \to $0
 endsnippet
 
+priority 101
+context "math()"
+snippet "\to >" "surjection" iA
+\surjection $0
+endsnippet
+
 priority 100
 context "math()"
 snippet <- "from" iA
@@ -983,7 +959,7 @@ endsnippet
 
 priority 101
 context "math()"
-snippet i-> "to" iA
+snippet "[ic]->" "to" riA
 \inclusion $0
 endsnippet
 
@@ -1211,14 +1187,20 @@ endsnippet
 
 priority 20
 context "math()"
-snippet "(?<!\\)ddot" "ddot" riA
+snippet "(\\)?ddot" "ddot" ri
 \ddot{${1:${VISUAL}}}
 endsnippet
 
 priority 10
 context "math()"
-snippet "(?<!\\o)dot" "dot" riA
+snippet "(\\)?(?<![ai])dot" "dot" ri
 \dot{${1:${VISUAL}}}
+endsnippet
+
+priority 100
+context "math()"
+snippet "(?<!\\)([ai])dot" "adot/idot" ri
+\\`!p snip.rv = match.group(1)`dot
 endsnippet
 
 # priority 200
