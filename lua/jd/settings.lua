@@ -78,7 +78,7 @@ vim.opt.fillchars = {
     eob = ' ',
 }
 vim.opt.shortmess:append({ A = true, I = true, c = true, C = true })
-vim.opt.diffopt:append({ 'linematch:60' })
+vim.opt.diffopt:append({ 'linematch:60', 'inline:word' })
 
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
