@@ -80,11 +80,11 @@ return {
         opts = { ensure_installed = { 'bibtex', 'latex' } },
     },
 
-    -- Install texlab, bibtex-tidy, and ltex-ls
+    -- Install texlab, bibtex-tidy, and ltex-ls-plus
     {
-        'williamboman/mason.nvim',
+        'mason-org/mason.nvim',
         optional = true,
-        opts = { ensure_installed = { 'texlab', 'bibtex-tidy', 'ltex-ls' } },
+        opts = { ensure_installed = { 'texlab', 'bibtex-tidy', 'ltex-ls-plus' } },
     },
 
     -- Add latexindent and bibtex-tidy to conform.nvim
@@ -135,7 +135,7 @@ return {
         optional = true,
         opts = {
             servers = {
-                ltex = {
+                ltex_plus = {
                     enabled = true,
                     autostart = false, -- manually by ltex_extra keybinding
                     settings = {
@@ -228,7 +228,7 @@ return {
             {
                 '<Leader><Leader>L',
                 function()
-                    vim.cmd('LspStart ltex')
+                    vim.cmd('LspStart ltex_plus')
                 end,
                 desc = 'Start LTeX server',
             },

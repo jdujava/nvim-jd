@@ -4,8 +4,8 @@ return {
         event = { 'BufReadPre', 'BufNewFile' },
         dependencies = {
             'j-hui/fidget.nvim',
-            'williamboman/mason.nvim',
-            'williamboman/mason-lspconfig.nvim',
+            'mason-org/mason.nvim',
+            'mason-org/mason-lspconfig.nvim',
         },
         ---@class PluginLspOpts
         opts = {
@@ -129,7 +129,7 @@ return {
             -- inlay hints
             if opts.inlay_hints.enabled then
                 LazyVim.lsp.on_attach(function(client, buffer)
-                    if client.supports_method('textDocument/inlayHint') then
+                    if client:supports_method('textDocument/inlayHint') then
                         if
                             vim.api.nvim_buf_is_valid(buffer)
                             and vim.bo[buffer].buftype == ''
@@ -162,7 +162,7 @@ return {
             local have_mason, mlsp = pcall(require, 'mason-lspconfig')
             local all_mslp_servers = {}
             if have_mason then
-                all_mslp_servers = vim.tbl_keys(require('mason-lspconfig.mappings.server').lspconfig_to_package)
+                all_mslp_servers = vim.tbl_keys(require('mason-lspconfig').get_mappings().lspconfig_to_package)
             end
 
             local ensure_installed = {} ---@type string[]
@@ -220,7 +220,7 @@ return {
     },
 
     {
-        'williamboman/mason.nvim',
+        'mason-org/mason.nvim',
         cmd = 'Mason',
         keys = { { '<leader>m', '<cmd>Mason<cr>', desc = 'Mason' } },
         build = ':MasonUpdate',
