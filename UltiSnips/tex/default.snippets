@@ -230,6 +230,7 @@ snippet tit "\textit{}" i
 \\textit{${1:${VISUAL}}}${0}
 endsnippet
 priority 100
+context "not math()"
 snippet bf "\textbf{}" i
 \\textbf{${1:${VISUAL}}}${0}
 endsnippet
@@ -240,17 +241,26 @@ snippet emph "\emph{}" i
 \\emph{${1:${VISUAL}}}${0}
 endsnippet
 
+priority 100
+context "math()"
+snippet bf "\mathbf{}" i
+\\mathbf{${1:${VISUAL}}}${0}
+endsnippet
+
 #Symbols
 priority 200
 snippet href "\href{}{}" w
 \href{${1:${VISUAL}}}{${2:text}}
+endsnippet
+snippet mlocal "\marginlocal{}" w
+\marginlocal{${1:${VISUAL}}}%
 endsnippet
 priority 100
 snippet "[cC]?ref" "\Cref{}" wr
 \\Cref{${1}}
 endsnippet
 priority 200
-snippet "[eq]ref" "\eqref{}" wr
+snippet "[eq]+ref" "\eqref{}" wr
 \\eqref{eq:${1}}
 endsnippet
 priority 200
@@ -371,6 +381,12 @@ snippet align "align environment" b
 \\begin{align*}
     ${1:${VISUAL}}
 \\end{align*}
+endsnippet
+
+snippet aligned "aligned environment" b
+\\begin{aligned}
+    ${1:${VISUAL}}
+\\end{aligned}
 endsnippet
 
 snippet alignat "alignat environment" b
@@ -553,6 +569,7 @@ snippet obrace "Overbrace" i
 \\overbrace{${1:${VISUAL}}}^{${2}} ${0}
 endsnippet
 
+priority 200
 context "math()"
 snippet oset "\overset{}{}" i
 \\overset{${2:over}}{${1:${VISUAL}}} ${0}
@@ -637,8 +654,8 @@ snippet part "d/dx" i
 endsnippet
 
 context "math()"
-snippet del "partial" i
-\partial
+snippet del "\del" i
+\del
 endsnippet
 
 context "math()"
@@ -682,12 +699,17 @@ endsnippet
 
 context "math()"
 snippet <= "leq" iA
-\le
+\leq
+endsnippet
+
+context "math()"
+snippet \leq> "<=>" iA
+\Longleftrightarrow
 endsnippet
 
 context "math()"
 snippet >= "geq" iA
-\ge
+\geq
 endsnippet
 
 context "math()"
@@ -750,7 +772,7 @@ snippet mtt "mathtt" iA
 endsnippet
 
 context "math()"
-snippet mrm "mathrm" iA
+snippet mrm "mathrm" i
 \mathrm{${1:${VISUAL}}}
 endsnippet
 
@@ -832,8 +854,8 @@ snippet \cdotv "vdots" i
 endsnippet
 
 context "math()"
-snippet norm "norm" i
-\|$1\|
+snippet norm "\norm" i
+\\norm{${1:${VISUAL}}}
 endsnippet
 
 context "math()"
@@ -841,6 +863,7 @@ snippet dv "\dv{}{}" i
 \\dv{${1:${VISUAL}}}{${2}}
 endsnippet
 
+priority 110
 context "math()"
 snippet pdv "\pdv{}{}" i
 \\pdv{${1:${VISUAL}}}{${2}}
@@ -890,19 +913,25 @@ endsnippet
 
 priority 200
 context "math()"
-snippet '(?<!\\)(qquad)' "\ffoo" rA
+snippet '(?<!\\)(qquad)' "\ffoo" r
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
 priority 200
 context "math()"
-snippet 'sdim' "\spacedim" rA
-\spacedim $0
+snippet 'sdim' "\spacedim" r
+\spacedim
 endsnippet
 
 priority 100
 context "math()"
-snippet '(\\?)(sq|sin|cos|arccot|cot|csc|ln|log|dim|odot|det|abs|tilde|grad)' "\foo{}" r
+snippet '(?<![e\\])dim' "\dim" r
+\dim
+endsnippet
+
+priority 100
+context "math()"
+snippet '(\\?)(sqrt|sin|cos|arccot|cot|csc|ln|log|odot|det|abs|tilde|grad)' "\foo{}" r
 \\`!p snip.rv = match.group(2)`{${1:${VISUAL}}}
 endsnippet
 
@@ -1000,8 +1029,9 @@ snippet << "<<" iA
 \ll $0
 endsnippet
 
+priority 100
 context "math()"
-snippet set "set" wA
+snippet set "set" i
 \\{${1:${VISUAL}}\\}$0
 endsnippet
 
@@ -1252,7 +1282,7 @@ snippet bra "Bra" i
 \bra{${1:${VISUAL}}}
 endsnippet
 
-snippet C "Correction" i
+snippet "(?<!\\)C" "Correction" ri
 \correction{${1:${VISUAL}}}{${2}}
 endsnippet
 
@@ -1272,4 +1302,8 @@ endsnippet
 
 snippet verb "\verb||" w
 \verb|$1|
+endsnippet
+
+snippet uncover "\uncover<>" i
+\uncover<$1-$2>{${3:${VISUAL}}}
 endsnippet
