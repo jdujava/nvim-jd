@@ -135,29 +135,6 @@ return {
         optional = true,
         opts = {
             servers = {
-                ltex_plus = {
-                    enabled = true,
-                    autostart = false, -- manually by ltex_extra keybinding
-                    settings = {
-                        ltex = {
-                            checkFrequency = 'save',
-                            latex = {
-                                commands = { -- https://valentjn.github.io/ltex/settings.html#ltexlatexcommands
-                                    ['\\texorpdfstring{}{}'] = 'dummy',
-                                    ['\\si{}'] = 'dummy',
-                                    ['\\SI{}'] = 'dummy',
-                                    ['\\SI{}{}'] = 'dummy',
-                                    ['\\AdS{}'] = 'dummy',
-                                    ['\\CFT{}'] = 'dummy',
-                                    ['\\AdSCFT{}'] = 'dummy',
-                                    ['\\ldots{}'] = 'dummy',
-                                    ['\\includesvg[]{}'] = 'ignore',
-                                },
-                                -- rules = {}, -- https://community.languagetool.org/rule/list?lang=en
-                            },
-                        },
-                    },
-                },
                 texlab = {
                     -- cmd = { vim.env.CUSTOM_SOURCE .. '/texlab/target/release/texlab' },
                     keys = { -- buffer local mappings for LaTeX files
@@ -210,7 +187,7 @@ return {
                                 labelReferences = true,
                             },
                             experimental = {
-                                labelReferenceCommands = { 'Nref' },
+                                labelReferenceCommands = { 'Nref', 'Nref*' },
                             },
                         },
                     },
