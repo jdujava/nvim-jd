@@ -6,6 +6,10 @@
   (#set! "priority" 110)
 )
 (
+  (todo_command_name) @function @nospell
+  (#set! "priority" 110)
+)
+(
   [
     "["
     "]"

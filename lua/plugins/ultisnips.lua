@@ -11,18 +11,18 @@ return {
                 desc = 'Toggle UltiSnips Autotrigger',
                 mode = { 'i', 'n' },
             },
-            {
-                '<A-f>',
-                function() -- https://github.com/fhill2/telescope-ultisnips.nvim/issues/9
-                    local snippet = 'foo' -- should expand to 'foo bar'
-                    local after = vim.api.nvim_get_mode().mode == 'n'
-                    vim.api.nvim_put({ snippet }, '', after, true)
-                    vim.fn['UltiSnips#ExpandSnippet']()
-                    vim.cmd([[call UltiSnips#ExpandSnippet()]])
-                end,
-                mode = { 'i', 'n' },
-                desc = 'Expand foo snippet',
-            },
+            -- {
+            --     '<A-f>',
+            --     function() -- https://github.com/fhill2/telescope-ultisnips.nvim/issues/9
+            --         local snippet = 'foo' -- should expand to 'foo bar'
+            --         local after = vim.api.nvim_get_mode().mode == 'n'
+            --         vim.api.nvim_put({ snippet }, '', after, true)
+            --         vim.fn['UltiSnips#ExpandSnippet']()
+            --         vim.cmd([[call UltiSnips#ExpandSnippet()]])
+            --     end,
+            --     mode = { 'i', 'n' },
+            --     desc = 'Expand foo snippet',
+            -- },
         },
 
         init = function()
