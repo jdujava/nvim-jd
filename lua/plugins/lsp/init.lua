@@ -4,8 +4,8 @@ return {
         event = { 'BufReadPre', 'BufNewFile' },
         dependencies = {
             'j-hui/fidget.nvim',
-            'mason-org/mason.nvim',
-            'mason-org/mason-lspconfig.nvim',
+            { 'mason-org/mason.nvim', version = '1.11.0' },
+            { 'mason-org/mason-lspconfig.nvim', version = '1.32.0' },
         },
         ---@class PluginLspOpts
         opts = {
@@ -162,7 +162,7 @@ return {
             local have_mason, mlsp = pcall(require, 'mason-lspconfig')
             local all_mslp_servers = {}
             if have_mason then
-                all_mslp_servers = vim.tbl_keys(require('mason-lspconfig').get_mappings().lspconfig_to_package)
+                all_mslp_servers = vim.tbl_keys(require('mason-lspconfig.mappings.server').lspconfig_to_package)
             end
 
             local ensure_installed = {} ---@type string[]
