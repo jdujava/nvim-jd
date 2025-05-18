@@ -110,6 +110,7 @@ return {
                         '--follow',
                         '--hidden',
                         '--no-require-git',
+                        '--glob=!.git',
                     },
                     prompt_prefix = '🔭 ',
                     selection_caret = '> ',
@@ -165,9 +166,10 @@ return {
                 },
                 extensions = {
                     frecency = {
+                        matcher = 'fuzzy',
                         db_safe_mode = false,
-                        show_scores = true,
-                        disable_devicons = false,
+                        db_version = 'v2',
+                        show_scores = false,
                         ignore_patterns = { '*.git/*', '*.github/*', '*/tmp/*' },
                         workspaces = {
                             ['conf'] = vim.env.HOME .. '/.config',
