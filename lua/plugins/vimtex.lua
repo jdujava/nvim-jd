@@ -14,6 +14,7 @@ return {
             vim.g.vimtex_imaps_enabled = 0 -- disable vimtex mappings (they don't work with treesitter anyway)
             vim.g.vimtex_imaps_leader = ';'
             vim.g.vimtex_mappings_disable = { ['n'] = { 'K' } } -- disable `K` as it conflicts with LSP hover
+            vim.g.vimtex_doc_handlers = { 'vimtex#doc#handlers#texdoc' }
 
             vim.g.vimtex_env_toggle_math_map = { ['\\('] = '\\[', ['\\['] = 'equation', ['equation'] = '\\(' }
             vim.g.vimtex_echo_verbose_input = 0
@@ -24,11 +25,11 @@ return {
             --     select = 'nvim',
             -- }
 
-            vim.g.vimtex_quickfix_mode = 0
+            vim.g.vimtex_quickfix_mode = 2
+            vim.g.vimtex_quickfix_open_on_warning = 0
             -- vim.g.vimtex_quickfix_method = vim.fn.executable('pplatex') == 1 and 'pplatex' or 'latexlog'
             vim.g.vimtex_quickfix_ignore_filters = {
                 [[You have requested package `./preamble/packages/simpler-wick/simpler-wick']],
-                [[Package siunitx Warning: Detected the "physics" package]],
                 [[Writing or overwriting file `robExt-remove-old-figures.py'.]],
                 [[Writing or overwriting file `robExt-prepare-for-arxiv.py'.]],
             }
@@ -173,6 +174,14 @@ return {
                             end,
                             mode = { 'n', 'i' },
                             desc = 'Inkscape Figure',
+                        },
+                        {
+                            '<leader>lL',
+                            function()
+                                local v = vim.b.vimtex
+                                vim.cmd.edit(string.format('%s/%s/%s.log', v.root, v.compiler.aux_dir, v.name))
+                            end,
+                            desc = 'Open LaTeX .log file',
                         },
                     },
                     settings = {

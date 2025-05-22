@@ -360,6 +360,12 @@ snippet dm "Math" wA
 \]
 endsnippet
 
+snippet mm "Math - qqnlines equations" w
+\<
+    ${1:${VISUAL}}
+\>
+endsnippet
+
 snippet qed "\qedhere" w
 \qedhere
 endsnippet
@@ -583,6 +589,11 @@ endsnippet
 context "math()"
 snippet bmat "bmat" i
 \begin{bmatrix} $1 \end{bmatrix}$0
+endsnippet
+
+context "math()"
+snippet brk "\brk" i
+\brk{${1:${VISUAL}}}
 endsnippet
 
 context "math()"
