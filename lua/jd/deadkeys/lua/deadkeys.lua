@@ -70,14 +70,16 @@ function M.setup(user_config)
         })
     end
 
-    -- Enable automatically for certain filetypes
-    vim.api.nvim_create_autocmd('Filetype', {
-        pattern = M.defaults.filetypes,
-        group = vim.api.nvim_create_augroup('DeadKeys_FileType', {}),
-        callback = function(event)
-            M.map(event.buf)
-        end,
-    })
+    -- Enable automatically for certain filetypes (if non-empty filetype list)
+    if #M.defaults.filetypes > 0 then
+        vim.api.nvim_create_autocmd('Filetype', {
+            pattern = M.defaults.filetypes,
+            group = vim.api.nvim_create_augroup('DeadKeys_FileType', {}),
+            callback = function(event)
+                M.map(event.buf)
+            end,
+        })
+    end
 end
 
 return M

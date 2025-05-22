@@ -14,6 +14,7 @@ return {
         },
         opts = {
             global_enabled = false,
+            filetypes = {}, -- do not enable by default
         },
     },
 
