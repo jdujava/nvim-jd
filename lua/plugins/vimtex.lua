@@ -34,7 +34,7 @@ return {
                 [[Writing or overwriting file `robExt-prepare-for-arxiv.py'.]],
             }
 
-            vim.g.vimtex_fold_enabled = 1
+            vim.g.vimtex_fold_enabled = 0 -- can be VERY SLOW!
             vim.g.vimtex_toc_config = {
                 layer_status = { ['content'] = 1, ['label'] = 0, ['todo'] = 1, ['include'] = 0 },
                 show_help = 0,
