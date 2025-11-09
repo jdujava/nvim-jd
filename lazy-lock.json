@@ -42,7 +42,7 @@
   "undotree": { "branch": "master", "commit": "0f1c9816975b5d7f87d5003a19c53c6fd2ff6f7f" },
   "vim-easy-align": { "branch": "master", "commit": "9815a55dbcd817784458df7a18acacc6f82b1241" },
   "vim-floaterm": { "branch": "master", "commit": "c8f092f1af4105b0dd21c745822f75b15c916192" },
-  "vim-matchup": { "branch": "master", "commit": "81313f17443df6974cafa094de52df32b860e1b7" },
+  "vim-matchup": { "branch": "master", "commit": "1c276e12b49a83c1bdca74351187b8adea5da4b9" },
   "vim-snippets": { "branch": "master", "commit": "ededcf7581962ee616cadab360d5966f3307f11a" },
   "vimtex": { "branch": "master", "commit": "be9deac3a23eeb145ccf11dd09080795838496ce" },
   "whatthejump.nvim": { "branch": "main", "commit": "f03bb8385e12a5764c7d125fcf35b877ef8cf2b0" },
