@@ -2,7 +2,7 @@ return {
     {
         -- 'hrsh7th/nvim-cmp',
         'iguanacucumber/magazine.nvim', -- use magazine.nvim as upgrade of nvim-cmp
-        name = 'nvim-cmp',              -- call it as nvim-cmp
+        name = 'nvim-cmp', -- call it as nvim-cmp
         event = 'VeryLazy',
         dependencies = {
             'hrsh7th/cmp-nvim-lsp',
@@ -44,7 +44,44 @@ return {
                 ---@diagnostic disable-next-line: missing-fields
                 formatting = {
                     format = function(_, item)
-                        local icons = require('plugins.lsp.lspkind_icons').icons
+                        local icons = {
+                            Array = ' ',
+                            Boolean = ' ',
+                            Class = ' ',
+                            Color = ' ',
+                            Constant = ' ',
+                            Constructor = ' ',
+                            Copilot = ' ',
+                            Enum = ' ',
+                            EnumMember = ' ',
+                            Event = ' ',
+                            Field = ' ',
+                            File = ' ',
+                            Folder = ' ',
+                            Function = ' ',
+                            Interface = ' ',
+                            Key = ' ',
+                            Keyword = ' ',
+                            Method = ' ',
+                            Module = ' ',
+                            Namespace = ' ',
+                            Null = ' ',
+                            Number = ' ',
+                            Object = ' ',
+                            Operator = ' ',
+                            Package = ' ',
+                            Property = ' ',
+                            Reference = ' ',
+                            Snippet = ' ',
+                            String = ' ',
+                            Struct = 'פּ ',
+                            Text = ' ',
+                            TypeParameter = ' ',
+                            Unit = ' ',
+                            Value = ' ',
+                            Variable = ' ',
+                            -- Variable   = " ",
+                        }
                         if icons[item.kind] then
                             item.kind = icons[item.kind] .. item.kind
                         end

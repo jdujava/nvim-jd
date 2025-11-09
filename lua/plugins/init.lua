@@ -1,5 +1,5 @@
 -- load settings, helpers, autocommands, and keybindings
-_G.LazyVim = require('lazyvim.util')
+require('lazyvim.config') -- loads `_G.LazyVim = require("lazyvim.util")` and more
 require('jd.settings')
 
 -- autocmds can be loaded lazily when not opening a file

@@ -1,18 +1,4 @@
 return {
-    {
-        'j-hui/fidget.nvim',
-        opts = {
-            progress = {
-                display = {
-                    progress_icon = { pattern = 'moon', period = 1 },
-                },
-            },
-            notification = {
-                window = { winblend = 0 },
-            },
-        },
-    },
-
     -- noicer ui
     {
         'folke/noice.nvim',
