@@ -86,6 +86,9 @@ return {
                             { '<c-s>', function() vim.lsp.buf.signature_help() end, mode = 'i', desc = 'Signature Help', has = 'signatureHelp' },
                         }
                     },
+                    ltex_plus = {
+                        enabled = false,  -- start only manually by ltex_extra keybinding
+                    },
                     clangd = {
                         cmd = {
                             'clangd',

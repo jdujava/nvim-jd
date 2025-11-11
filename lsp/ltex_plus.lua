@@ -1,6 +1,4 @@
 return {
-    enabled = true,
-    autostart = false, -- manually by ltex_extra keybinding
     settings = {
         ltex = {
             checkFrequency = 'save',
